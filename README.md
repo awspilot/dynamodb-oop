@@ -120,6 +120,34 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		.where('date', 1375538399 )
 		.delete()
 
+**Get Item**
+
+	// getting an item with HASH key only
+	DynamoDB
+		.table('users')
+		.where('email','test@test.com')
+		.get(function( err, data ) {
+			console.log( err, data )
+		})
+
+	// getting an item from a HASH-RANGE table
+	DynamoDB
+		.table('messages')
+		.where('to', 'user1@test.com')
+		.where('date', 1375538399 )
+		.get(function( err, data ) {
+			console.log( err, data )
+		})
+
+	// specifying what attributes to return
+	DynamoDB
+		.table('users')
+		.select('email','registered_at')
+		.where('email', 'test@test.com')
+		.get(function( err, data ) {
+			console.log( err, data )
+		})
+		
 **Query** ( not possible on HASH only tables )
 
 	// base query, return 10 records
