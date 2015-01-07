@@ -6,7 +6,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 #Installation
 
-npm install aws-dynamodb
+	npm install aws-dynamodb
 
 #Initialization
 
