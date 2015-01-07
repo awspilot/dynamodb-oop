@@ -130,11 +130,12 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
-	// getting an item from a HASH-RANGE table
+	// getting an item from a HASH-RANGE table, with consistent read
 	DynamoDB
 		.table('messages')
 		.where('to', 'user1@test.com')
 		.where('date', 1375538399 )
+		.consistentRead()
 		.get(function( err, data ) {
 			console.log( err, data )
 		})
@@ -150,11 +151,12 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		
 **Query** ( not possible on HASH only tables )
 
-	// base query, return 10 records
+	// base query, return 10 records with consistent read
 	DynamoDB
 		.table('statistics')
 		.where('domain','mydomain.com')
 		.limit(10)
+		.consistentRead()
 		.query(function(err, data ) {
 			console.log(err,data)
 		})
