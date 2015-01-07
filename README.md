@@ -3,20 +3,19 @@
 
 Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
-
 #Installation
 
 	npm install aws-dynamodb
 
 #Initialization
 
-var $credentials = {
-	"accessKeyId": "XXXXXXXXXXXXXXXX", 
-	"secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
-	"region": "eu-west-1"
-}
+	var $credentials = {
+		"accessKeyId": "XXXXXXXXXXXXXXXX", 
+		"secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
+		"region": "eu-west-1"
+	}
 
-var DynamoDB = require('aws-dynamodb')($credentials)
+	var DynamoDB = require('aws-dynamodb')($credentials)
 
 #Usage
 
