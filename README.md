@@ -68,6 +68,31 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
+**Increment Item's Attribute(s)** ( does not create the item if item does not exist )
+
+	// increment 1 attribute in a HASH table 
+	DynamoDB
+		.table('users')
+		.where('email','test@test.com')
+		.increment({
+			login_count: 1
+		}, function( err, data ) {
+			console.log( err, data )
+		})
+		
+	// increment multiple attributes in a HASH-RANGE table
+	DynamoDB
+		.table('statistics')
+		.where('domain','mydomain.com')
+		.where('day','2013-11-01')
+		.increment({
+			visitors: 1,
+			page_views 5,
+			unique_page_views: 1
+		}, function( err, data ) {
+			console.log( err, data )
+		})
+
 **Query** ( not possible on HASH only tables )
 
 	// base query, return 10 records
@@ -93,9 +118,9 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 Table **users** with HASH key only 
 
-	email `hash` | password | created_at
-	--- | --- | ---
-	**test@test.com** | test123 | *1375538399*
+email `hash` | password | created_at
+--- | --- | ---
+**test@test.com** | test123 | *1375538399*
 
 
 Table **messages** with HASH and RANGE (int) key
