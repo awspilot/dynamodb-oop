@@ -103,6 +103,23 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
+**Delete Item**
+
+	// delete an item from a HASH table
+	DynamoDB
+		.table('users')
+		.where('email', 'test@test.com')
+		.delete(function( err, data ) {
+			console.log( err, data )
+		})
+	
+	// delete an item from a HASH-RANGE table
+	DynamoDB
+		.table('messages')
+		.where('to', 'user1@test.com')
+		.where('date', 1375538399 )
+		.delete()
+
 **Query** ( not possible on HASH only tables )
 
 	// base query, return 10 records
