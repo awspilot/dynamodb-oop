@@ -11,8 +11,8 @@ npm install aws-dynamodb
 #Initialization
 
 var $credentials = {
-	"accessKeyId": "XXXXXXXXXXXXXXXXXXXX", 
-	"secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
+	"accessKeyId": "XXXXXXXXXXXXXXXX", 
+	"secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
 	"region": "eu-west-1"
 }
 
