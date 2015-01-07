@@ -2,11 +2,11 @@
 =================
 Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
-#Installation
+**Installation**
 
 	npm install aws-dynamodb
 
-#Initialization
+**Initialization**
 
 	var $credentials = {
 		"accessKeyId": "XXXXXXXXXXXXXXXX", 
@@ -16,15 +16,15 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 	var DynamoDB = require('aws-dynamodb')($credentials)
 
-#Doing raw calls to aws-sdk
+**Doing raw calls to aws-sdk**
 
 	DynamoDB.client.listTables(function(err, data) {
 		console.log(data.TableNames);
 	});
 	console.log( DynamoDB.client )
 
-#Insert Item 
-**( does not replace existing items, it will fail if HASH key or HASH/RANGE key pair already exists )**
+**Insert Item** 
+( does not replace existing items, it will fail if HASH key or HASH/RANGE key pair already exists )
 
 	DynamoDB
 		.table('users')
@@ -45,8 +45,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			message: 'Bar'
 		})
 
-#Update Item
-** Update Item does not create the item if it does not exist **
+**Update Item**
+( Update Item does not create the item if it does not exist )
 
 	// update multiple attributes in a HASH table
 	DynamoDB
@@ -70,8 +70,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
-#Query
-**(only possible on HASH and RANGE tables)** 
+**Query**
+( only possible on HASH and RANGE tables) 
 
 	// base query, return 10 records
 	DynamoDB
