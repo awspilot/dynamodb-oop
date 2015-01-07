@@ -93,6 +93,16 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
+**Delete Item's Attribute(s)**
+
+	DynamoDB
+		.table('messages')
+		.where('to','user1@test.com')
+		.where('date', 1375538399)
+		.delete(['seen','subject'], function( err, data ) {
+			console.log( err, data )
+		})
+
 **Query** ( not possible on HASH only tables )
 
 	// base query, return 10 records
