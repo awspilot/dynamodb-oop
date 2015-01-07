@@ -16,6 +16,13 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 	var DynamoDB = require('aws-dynamodb')($credentials)
 
+#Doing raw queries
+
+	DynamoDB.client.listTables(function(err, data) {
+		console.log(data.TableNames);
+	});
+	console.log( DynamoDB.client )
+
 #Query
 **(only possible on HASH and RANGE tables)** 
 
