@@ -68,8 +68,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
-**Query**
-( only possible on HASH and RANGE tables) 
+**Query** ( not possible on HASH only tables )
 
 	// base query, return 10 records
 	DynamoDB
