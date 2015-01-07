@@ -21,9 +21,9 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 Table **users** with HASH key only 
 
-email `hash` | password | registed_at
---- | --- | ---
-**test@test.com** | test123 | *1375538399*
+	email `hash` | password | created_at
+	--- | --- | ---
+	**test@test.com** | test123 | *1375538399*
 
 
 Table **messages** with HASH and RANGE (int) key
