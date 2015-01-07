@@ -17,6 +17,26 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 	var DynamoDB = require('aws-dynamodb')($credentials)
 
+**Query** (only possible on HASH and RANGE tables)
+
+	// base query, return 10 records
+	DynamoDB
+		.table('statistics')
+		.where('domain','mydomain.com')
+		.limit(10)
+		.query(function(err, data ) {
+			console.log(err,data)
+		})
+
+	// only return specified fields and limit to 10 results
+	DynamoDB
+		.table('statistics')
+		.select('unique_visitors','unique_pageviews')
+		.where('domain','mydomain.com')
+		->where('day','GE','2013-11-01')
+		->limit(10)
+		->query()
+	
 #Usage
 
 Table **users** with HASH key only 
@@ -41,22 +61,3 @@ site `hash` | day `range` | visitors | unique_visitors | pageviews | unique_page
 **mydomain.com** | **2013-11-01 21:00:00** | 100 | 50 | 200 | 150
 **mydomain.com** | **2013-11-01 23:00:00** | 90 | 40 | 100 | 95
 
-**Query** (only possible on HASH and RANGE tables)
-
-	// base query, return 10 records
-	DynamoDB
-		.table('statistics')
-		.where('domain','mydomain.com')
-		.limit(10)
-		.query(function(err, data ) {
-			console.log(err,data)
-		})
-
-	// only return specified fields and limit to 10 results
-	DynamoDB
-		.table('statistics')
-		.select('unique_visitors','unique_pageviews')
-		.where('domain','mydomain.com')
-		->where('day','GE','2013-11-01')
-		->limit(10)
-		->query()
