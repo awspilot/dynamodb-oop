@@ -23,8 +23,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	});
 	console.log( DynamoDB.client )
 
-**Insert Item** 
-( does not replace existing items, it will fail if HASH key or HASH/RANGE key pair already exists )
+**Insert Item** ( does not replace existing items )
 
 	DynamoDB
 		.table('users')
@@ -45,8 +44,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			message: 'Bar'
 		})
 
-**Update Item**
-( Update Item does not create the item if it does not exist )
+**Update Item** ( does not create the item if item does not exist )
 
 	// update multiple attributes in a HASH table
 	DynamoDB
