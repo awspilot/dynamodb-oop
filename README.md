@@ -16,7 +16,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 	var DynamoDB = require('aws-dynamodb')($credentials)
 
-#Doing raw queries
+#Doing raw calls to aws-sdk
 
 	DynamoDB.client.listTables(function(err, data) {
 		console.log(data.TableNames);
@@ -45,6 +45,31 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			message: 'Bar'
 		})
 
+#Update Item
+** Update Item does not create the item if it does not exist **
+
+	// update multiple attributes in a HASH table
+	DynamoDB
+		.table('users')
+		.where('email','test@test.com')
+		.update({
+			password: 'qwert', 
+			firstname: 'Smith'
+		}, function( err, data ) {
+			console.log( err, data )
+		})
+	
+	// update 1 attribute in a HASH-RANGE table
+	DynamoDB
+		.table('messages')
+		.where('to','user1@test.com')
+		.where('date',1375538399)
+		.update({
+			seen: "yes"
+		}, function( err, data ) {
+			console.log( err, data )
+		})
+
 #Query
 **(only possible on HASH and RANGE tables)** 
 
@@ -67,7 +92,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 	
-#Tables used in the samples
+#Tables referenced in the samples
 
 Table **users** with HASH key only 
 
