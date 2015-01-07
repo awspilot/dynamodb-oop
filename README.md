@@ -1,6 +1,5 @@
 #aws-dynamodb
 =================
-
 Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 #Installation
@@ -39,7 +38,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 	
-#Usage
+#Tables used in the samples
 
 Table **users** with HASH key only 
 
