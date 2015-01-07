@@ -23,6 +23,28 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	});
 	console.log( DynamoDB.client )
 
+#Insert Item 
+**( does not replace existing items, it will fail if HASH key or HASH/RANGE key pair already exists )**
+
+	DynamoDB
+		.table('users')
+		.insert({
+			email: 'test@test.com',
+			password: 'qwert',
+			created_at: new Date().getTime()
+		}, function(err,data) {
+			console.log( err, data )
+		})
+	
+	DynamoDB
+		.table('messages')
+		.insert({
+			to: 'test@test.com',
+			date: new Date().getTime(),
+			subject: 'Foo',
+			message: 'Bar'
+		})
+
 #Query
 **(only possible on HASH and RANGE tables)** 
 
