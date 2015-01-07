@@ -1,0 +1,28 @@
+{
+	"author": { 
+		"name": "Adrian Praja",
+		"email": "adrian@databank.ro",
+		"url": "https://geekinbox.com" 
+	},	
+	"name": "aws-dynamodb",
+	"description": "Wrapper around aws-sdk for nodejs to simplify working with DynamoDB",
+	"keywords": [
+		"dynamo",
+		"dynamodb",
+		"aws"
+	],
+	"version": "0.0.1",
+	"homepage": "https://github.com/databank/aws-dynamodb",
+	"bugs": "https://github.com/databank/aws-dynamodb/issues",
+	"repository": {
+		"type" :  "git",
+		"url": "https://github.com/databank/aws-dynamodb"
+	},
+	"main": "./lib/dynamodb",
+	"dependencies": {
+		"aws-sdk": "2.1.4"
+	},
+	"engines": {
+		"node": "*"
+	}
+}
