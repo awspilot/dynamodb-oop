@@ -34,9 +34,10 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		.table('statistics')
 		.select('unique_visitors','unique_pageviews')
 		.where('domain','mydomain.com')
-		->where('day','GE','2013-11-01')
-		->limit(10)
-		->query()
+		.where('day','GE','2013-11-01')
+		.query(function( err, data ) {
+			console.log( err, data )
+		})
 	
 #Usage
 
