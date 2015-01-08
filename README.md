@@ -174,6 +174,24 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 	
+**Query an Index with order_by()**
+
+	// suppose you have an index on messages called starredIndex
+	// and you want to retrieve only the messages that are starred
+
+	DynamoDB
+		.table('messages')
+		.where('to', 'user1@test.com')
+		.order_by('starredIndex')
+		.descending()
+		.query(function( err, data ) {
+			console.log( err, data )
+		})
+
+	// NOTE: specifying non-projected fields in select() will:
+	// * cost you extra reads on a LSI index
+	// * not be returned on a GSI index
+	
 #Tables referenced in the samples
 
 Table **users** with HASH key only 
@@ -185,10 +203,10 @@ email `hash` | password | created_at
 
 Table **messages** with HASH and RANGE (int) key
 
-to `hash` | date `range` | from | subject | message_body 
+to `hash` | date `range` | from | subject | message_body | starred
 --- | --- | --- | --- | ---
-**user1@test.com** | **1375538399** | user2@test.com | Hello User1 | Goodbye User1
-**user2@test.com** | **1384167887** | somebody@otherdomain.com | Foo | Bar
+**user1@test.com** | **1375538399** | user2@test.com | Hello User1 | Goodbye User1 | 1
+**user2@test.com** | **1384167887** | somebody@otherdomain.com | Foo | Bar |
 
 
 Table **statistics** with HASH and RANGE (string) key
