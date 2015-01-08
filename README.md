@@ -118,7 +118,9 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		.table('messages')
 		.where('to', 'user1@test.com')
 		.where('date', 1375538399 )
-		.delete()
+		.delete(function( err, data ) {
+			console.log( err, data )
+		})
 
 **Get Item**
 
@@ -161,12 +163,13 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log(err,data)
 		})
 
-	// only return specified fields and limit to 10 results
+	// only return specified fields, in descending order
 	DynamoDB
 		.table('statistics')
 		.select('unique_visitors','unique_pageviews')
 		.where('domain','mydomain.com')
 		.where('day','GE','2013-11-01')
+		.descending()
 		.query(function( err, data ) {
 			console.log( err, data )
 		})
