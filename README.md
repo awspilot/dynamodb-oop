@@ -1,7 +1,6 @@
-#aws-dynamodb
-=================
 [![npm page](https://nodei.co/npm/aws-dynamodb.png?downloads=true)](https://www.npmjs.com/package/aws-dynamodb)
 
+#aws-dynamodb
 Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 **Installation**
