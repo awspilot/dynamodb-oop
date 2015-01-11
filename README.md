@@ -69,7 +69,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
-**Insert, Duplicate Key Update** ( in 1 request to DynamoDB )
+**Insert on Duplicate Key Update** ( in 1 request to DynamoDB )
 
 	DynamoDB
 		.table('users')
