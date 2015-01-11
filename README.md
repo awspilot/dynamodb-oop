@@ -69,6 +69,18 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
+**Insert | on Duplicate Key Update** ( done with 1 request to DynamoDB )
+
+	DynamoDB
+		.table('users')
+		.where('email','test@test.com')
+		.insert_or_update({
+			password: 'qwert', 
+			firstname: 'Smith'
+		}, function( err, data ) {
+			console.log( err, data )
+		})
+
 **Increment Item's Attribute(s)** ( does not create the item if item does not exist )
 
 	// increment 1 attribute in a HASH table 
