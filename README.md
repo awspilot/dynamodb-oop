@@ -64,8 +64,21 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		.where('to','user1@test.com')
 		.where('date',1375538399)
 		.update({
-			seen: "yes"
+			seen: true
 		}, function( err, data ) {
+			console.log( err, data )
+		})
+
+**Replace Item** ( does not create the item if item does not exist )
+	
+	// completely replaces the item, new item will only contain specified attributes 
+	DynamoDB
+		.table('users')
+		.replace({
+			email: 'test@test.com',
+			password: 'qwert',
+			created_at: new Date().getTime()
+		}, function(err,data) {
 			console.log( err, data )
 		})
 
