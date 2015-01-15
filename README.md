@@ -217,6 +217,23 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// NOTE: specifying non-projected fields in select() will:
 	// * cost you extra reads on a LSI index
 	// * not be returned on a GSI index
+
+**Full table scan** 
+
+	// optionally you can limit the returned attributes with .select()
+	// and the number of results with .limit()
+
+	DynamoDB
+		.table('messages')
+		.select('from','subject')
+		.limit(10)
+		.scan(function( err, data ) {
+			console.log( err, data )
+		})
+
+	// NOTE: specifying non-projected fields in select() will:
+	// * cost you extra reads on a LSI index
+	// * not be returned on a GSI index
 	
 #Tables referenced in the samples
 
