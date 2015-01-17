@@ -31,7 +31,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		.insert({
 			email: 'test@test.com',
 			password: 'qwert',
-			created_at: new Date().getTime()
+			created_at: new Date().getTime(),
+			updated_at: null
 		}, function(err,data) {
 			console.log( err, data )
 		})
