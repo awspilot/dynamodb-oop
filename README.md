@@ -6,6 +6,13 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 **Installation**
 
 	npm install aws-dynamodb
+	
+	// check for new versions
+	npm outdated 
+	
+	// upgrade if necessary
+	npm update aws-dynamodb
+	
 
 **Initialization**
 
@@ -51,7 +58,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// update multiple attributes in a HASH table
 	DynamoDB
 		.table('users')
-		.where('email','test@test.com')
+		.where('email').eq('test@test.com')
 		.update({
 			password: 'qwert', 
 			firstname: 'Smith'
@@ -62,8 +69,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// update 1 attribute in a HASH-RANGE table
 	DynamoDB
 		.table('messages')
-		.where('to','user1@test.com')
-		.where('date',1375538399)
+		.where('to').eq('user1@test.com')
+		.where('date').eq( 1375538399 )
 		.update({
 			seen: true
 		}, function( err, data ) {
@@ -87,7 +94,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 	DynamoDB
 		.table('users')
-		.where('email','test@test.com')
+		.where('email').eq('test@test.com')
 		.insert_or_update({
 			password: 'qwert', 
 			firstname: 'Smith'
@@ -100,7 +107,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// increment 1 attribute in a HASH table 
 	DynamoDB
 		.table('users')
-		.where('email','test@test.com')
+		.where('email').eq('test@test.com')
 		.increment({
 			login_count: 1
 		}, function( err, data ) {
@@ -110,8 +117,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// increment multiple attributes in a HASH-RANGE table
 	DynamoDB
 		.table('statistics')
-		.where('domain','mydomain.com')
-		.where('day','2013-11-01')
+		.where('domain').eq('mydomain.com')
+		.where('day').eq('2013-11-01')
 		.increment({
 			visitors: 1,
 			page_views 5,
@@ -124,8 +131,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 	DynamoDB
 		.table('messages')
-		.where('to','user1@test.com')
-		.where('date', 1375538399)
+		.where('to').eq('user1@test.com')
+		.where('date').eq( 1375538399 )
 		.delete(['seen','subject'], function( err, data ) {
 			console.log( err, data )
 		})
@@ -135,7 +142,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// delete an item from a HASH table
 	DynamoDB
 		.table('users')
-		.where('email', 'test@test.com')
+		.where('email').eq( 'test@test.com' )
 		.delete(function( err, data ) {
 			console.log( err, data )
 		})
@@ -143,8 +150,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// delete an item from a HASH-RANGE table
 	DynamoDB
 		.table('messages')
-		.where('to', 'user1@test.com')
-		.where('date', 1375538399 )
+		.where('to').eq( 'user1@test.com' )
+		.where('date').eq( 1375538399 )
 		.delete(function( err, data ) {
 			console.log( err, data )
 		})
@@ -154,7 +161,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// getting an item with HASH key only
 	DynamoDB
 		.table('users')
-		.where('email','test@test.com')
+		.where('email').eq('test@test.com')
 		.get(function( err, data ) {
 			console.log( err, data )
 		})
@@ -162,9 +169,9 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// getting an item from a HASH-RANGE table, with consistent read
 	DynamoDB
 		.table('messages')
-		.where('to', 'user1@test.com')
-		.where('date', 1375538399 )
-		.consistentRead()
+		.where('to').eq('user1@test.com')
+		.where('date').eq( 1375538399 )
+		.consistent_read()
 		.get(function( err, data ) {
 			console.log( err, data )
 		})
@@ -173,19 +180,22 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	DynamoDB
 		.table('users')
 		.select('email','registered_at')
-		.where('email', 'test@test.com')
+		.where('email').eq( 'test@test.com' )
 		.get(function( err, data ) {
 			console.log( err, data )
 		})
 		
 **Query** ( not possible on HASH only tables )
 
+	// for hash key comparson operator is always eq()
+	// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
+
 	// base query, return 10 records with consistent read
 	DynamoDB
 		.table('statistics')
-		.where('domain','mydomain.com')
+		.where('domain').eq('mydomain.com')
 		.limit(10)
-		.consistentRead()
+		.consistent_read()
 		.query(function(err, data ) {
 			console.log(err,data)
 		})
@@ -194,8 +204,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	DynamoDB
 		.table('statistics')
 		.select('unique_visitors','unique_pageviews')
-		.where('domain','mydomain.com')
-		.where('day','GE','2013-11-01')
+		.where('domain').eq('mydomain.com')
+		.where('day').ge('2013-11-01')
 		.descending()
 		.query(function( err, data ) {
 			console.log( err, data )
@@ -208,7 +218,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 
 	DynamoDB
 		.table('messages')
-		.where('to', 'user1@test.com')
+		.where('to').eq('user1@test.com')
 		.order_by('starredIndex')
 		.descending()
 		.query(function( err, data ) {
