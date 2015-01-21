@@ -229,6 +229,21 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// * cost you extra reads on a LSI index
 	// * not be returned on a GSI index
 
+**Query filtering**
+
+	// A filter lets you apply conditions to the data after query
+	// Only the items that meet your conditions are returned
+	// All the conditions must evaluate to true ( conditions are ANDed together )
+	// comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
+	DynamoDB
+		.table('messages')
+		.where('to').eq('user1@test.com')
+		.having('one_attribute').between(100,200)
+		.having('other_attribute').eq(true)
+		.query(function( err, data ) {
+			console.log( err, data )
+		})
+
 **Full table scan** 
 
 	// optionally you can limit the returned attributes with .select()
@@ -245,7 +260,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// NOTE: specifying non-projected fields in select() will:
 	// * cost you extra reads on a LSI index
 	// * not be returned on a GSI index
-	
+
+
 #Tables referenced in the samples
 
 Table **users** with HASH key only 
