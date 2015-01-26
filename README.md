@@ -53,6 +53,25 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			message: 'Bar'
 		})
 
+	// insert item with nested attributes
+	// carefull though as foo.bar domain actually exist :)
+	DynamoDB
+		.table('messages')
+		.insert({
+			to: 'test@test.com',
+			date: new Date().getTime(),
+			from: {
+				name: "Foo",
+				email: "baz@foo.bar",
+				nested_attribute: {
+					boolean_value: true,
+					null_key: null,
+					some_string: "tadaa",
+					lucky_number: 12
+				}
+			}
+		})
+	
 **Update Item** ( does not create the item if item does not exist )
 
 	// update multiple attributes in a HASH table
@@ -234,7 +253,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// A filter lets you apply conditions to the data after query
 	// Only the items that meet your conditions are returned
 	// All the conditions must evaluate to true ( conditions are ANDed together )
-	// comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
+	// Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
 	DynamoDB
 		.table('messages')
 		.where('to').eq('user1@test.com')
