@@ -60,7 +60,16 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		.insert({
 			to: 'test@test.com',
 			date: new Date().getTime(),
-			from: {
+			boolean_true: true,
+			boolean_false: false,
+			key_null: null,
+			string: "string",
+			number: 1,
+			array_empty: [],
+			array_strings: ['alfa','beta','gama'],
+			array_numbers: [7,9,15],
+			array_mixed: [null, "string", 5, true, false, { key: "value"}, ["nested","array"] ],
+			nested_object: {
 				name: "Foo",
 				email: "baz@foo.bar",
 				nested_attribute: {
@@ -71,7 +80,8 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 				}
 			}
 		})
-	
+
+
 **Update Item** ( does not create the item if item does not exist )
 
 	// update multiple attributes in a HASH table
