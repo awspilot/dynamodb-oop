@@ -254,6 +254,17 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
+	// return all attributes including non-projected ( LSI only )
+	DynamoDB
+		.table('messages')
+		.select( DynamoDB.ALL )
+		.where('to').eq('user1@test.com')
+		.order_by('starredIndex')
+		.descending()
+		.query(function( err, data ) {
+			console.log( err, data )
+		})
+	
 	// NOTE: specifying non-projected fields in select() will:
 	// * cost you extra reads on a LSI index
 	// * not be returned on a GSI index
