@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Aws-dynamodb by databank</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Aws-dynamodb</h1>
+        <h2>Wrapper around aws-sdk for nodejs to simplify working with DynamoDB</h2>
+        <a href="https://github.com/databank/aws-dynamodb" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p><a href="https://www.npmjs.com/package/aws-dynamodb"><img src="https://nodei.co/npm/aws-dynamodb.png?downloads=true" alt="npm page"></a></p>
+
+<h1>
+<a id="aws-dynamodb" class="anchor" href="#aws-dynamodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>aws-dynamodb</h1>
+
+<p>Wrapper around aws-sdk for nodejs to simplify working with DynamoDB</p>
+
+<p><strong>Installation</strong></p>
+
+<pre><code>npm install aws-dynamodb
+
+// check for new versions
+npm outdated 
+
+// upgrade if necessary
+npm update aws-dynamodb
+</code></pre>
+
+<p><strong>Initialization</strong></p>
+
+<pre><code>var $credentials = {
+    "accessKeyId": "XXXXXXXXXXXXXXXX", 
+    "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
+    "region": "eu-west-1"
+}
+
+var DynamoDB = require('aws-dynamodb')($credentials)
+</code></pre>
+
+<p><strong>Doing raw calls to aws-sdk</strong></p>
+
+<pre><code>DynamoDB.client.listTables(function(err, data) {
+    console.log(data.TableNames);
+});
+console.log( DynamoDB.client )
+</code></pre>
+
+<p><strong>Insert Item</strong> ( does not replace existing items )</p>
+
+<pre><code>DynamoDB
+    .table('users')
+    .insert({
+        email: 'test@test.com',
+        password: 'qwert',
+        created_at: new Date().getTime(),
+        updated_at: null
+    }, function(err,data) {
+        console.log( err, data )
+    })
+
+DynamoDB
+    .table('messages')
+    .insert({
+        to: 'test@test.com',
+        date: new Date().getTime(),
+        subject: 'Foo',
+        message: 'Bar'
+    })
+
+// insert item with nested attributes
+// carefull though as foo.bar domain actually exist :)
+DynamoDB
+    .table('messages')
+    .insert({
+        to: 'test@test.com',
+        date: new Date().getTime(),
+        boolean_true: true,
+        boolean_false: false,
+        key_null: null,
+        string: "string",
+        number: 1,
+        array_empty: [],
+        array_strings: ['alfa','beta','gama'],
+        array_numbers: [7,9,15],
+        array_mixed: [null, "string", 5, true, false, { key: "value"}, ["nested","array"] ],
+        nested_object: {
+            name: "Foo",
+            email: "baz@foo.bar",
+            nested_attribute: {
+                boolean_value: true,
+                null_key: null,
+                some_string: "tadaa",
+                lucky_number: 12
+            }
+        }
+    })
+</code></pre>
+
+<p><strong>Update Item</strong> ( does not create the item if item does not exist )</p>
+
+<pre><code>// update multiple attributes in a HASH table
+DynamoDB
+    .table('users')
+    .where('email').eq('test@test.com')
+    .update({
+        password: 'qwert', 
+        firstname: 'Smith'
+    }, function( err, data ) {
+        console.log( err, data )
+    })
+
+// update 1 attribute in a HASH-RANGE table
+DynamoDB
+    .table('messages')
+    .where('to').eq('user1@test.com')
+    .where('date').eq( 1375538399 )
+    .update({
+        seen: true
+    }, function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Replace Item</strong> ( does not create the item if item does not exist )</p>
+
+<pre><code>// completely replaces the item, new item will only contain specified attributes 
+DynamoDB
+    .table('users')
+    .replace({
+        email: 'test@test.com',
+        password: 'qwert',
+        created_at: new Date().getTime()
+    }, function(err,data) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Insert on Duplicate Key Update</strong> ( in 1 request to DynamoDB )</p>
+
+<pre><code>DynamoDB
+    .table('users')
+    .where('email').eq('test@test.com')
+    .insert_or_update({
+        password: 'qwert', 
+        firstname: 'Smith'
+    }, function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Increment Item's Attribute(s)</strong> ( does not create the item if item does not exist )</p>
+
+<pre><code>// increment 1 attribute in a HASH table 
+DynamoDB
+    .table('users')
+    .where('email').eq('test@test.com')
+    .increment({
+        login_count: 1
+    }, function( err, data ) {
+        console.log( err, data )
+    })
+
+// increment multiple attributes in a HASH-RANGE table
+DynamoDB
+    .table('statistics')
+    .where('domain').eq('mydomain.com')
+    .where('day').eq('2013-11-01')
+    .increment({
+        visitors: 1,
+        page_views 5,
+        unique_page_views: 1
+    }, function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Delete Item's Attribute(s)</strong></p>
+
+<pre><code>DynamoDB
+    .table('messages')
+    .where('to').eq('user1@test.com')
+    .where('date').eq( 1375538399 )
+    .delete(['seen','subject'], function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Delete Item</strong></p>
+
+<pre><code>// delete an item from a HASH table
+DynamoDB
+    .table('users')
+    .where('email').eq( 'test@test.com' )
+    .delete(function( err, data ) {
+        console.log( err, data )
+    })
+
+// delete an item from a HASH-RANGE table
+DynamoDB
+    .table('messages')
+    .where('to').eq( 'user1@test.com' )
+    .where('date').eq( 1375538399 )
+    .delete(function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Get Item</strong></p>
+
+<pre><code>// getting an item with HASH key only
+DynamoDB
+    .table('users')
+    .where('email').eq('test@test.com')
+    .get(function( err, data ) {
+        console.log( err, data )
+    })
+
+// getting an item from a HASH-RANGE table, with consistent read
+DynamoDB
+    .table('messages')
+    .where('to').eq('user1@test.com')
+    .where('date').eq( 1375538399 )
+    .consistent_read()
+    .get(function( err, data ) {
+        console.log( err, data )
+    })
+
+// specifying what attributes to return
+DynamoDB
+    .table('users')
+    .select('email','registered_at')
+    .where('email').eq( 'test@test.com' )
+    .get(function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Query</strong> ( not possible on HASH only tables )</p>
+
+<pre><code>// for hash key comparson operator is always eq()
+// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
+
+// base query, return 10 records with consistent read
+DynamoDB
+    .table('statistics')
+    .where('domain').eq('mydomain.com')
+    .limit(10)
+    .consistent_read()
+    .query(function(err, data ) {
+        console.log(err,data)
+    })
+
+// only return specified fields, in descending order
+DynamoDB
+    .table('statistics')
+    .select('unique_visitors','unique_pageviews')
+    .where('domain').eq('mydomain.com')
+    .where('day').ge('2013-11-01')
+    .descending()
+    .query(function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Query an Index with order_by()</strong></p>
+
+<pre><code>// suppose you have an index on messages called starredIndex
+// and you want to retrieve only the messages that are starred
+
+DynamoDB
+    .table('messages')
+    .where('to').eq('user1@test.com')
+    .order_by('starredIndex')
+    .descending()
+    .query(function( err, data ) {
+        console.log( err, data )
+    })
+
+// return all attributes including non-projected ( LSI only )
+DynamoDB
+    .table('messages')
+    .select( DynamoDB.ALL )
+    .where('to').eq('user1@test.com')
+    .order_by('starredIndex')
+    .descending()
+    .query(function( err, data ) {
+        console.log( err, data )
+    })
+
+// NOTE: specifying non-projected fields in select() will:
+// * cost you extra reads on a LSI index
+// * not be returned on a GSI index
+</code></pre>
+
+<p><strong>Query filtering</strong></p>
+
+<pre><code>// A filter lets you apply conditions to the data after query
+// Only the items that meet your conditions are returned
+// All the conditions must evaluate to true ( conditions are ANDed together )
+// Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
+DynamoDB
+    .table('messages')
+    .where('to').eq('user1@test.com')
+    .having('one_attribute').between(100,200)
+    .having('other_attribute').eq(true)
+    .query(function( err, data ) {
+        console.log( err, data )
+    })
+</code></pre>
+
+<p><strong>Full table scan</strong> </p>
+
+<pre><code>// optionally you can limit the returned attributes with .select()
+// and the number of results with .limit()
+
+DynamoDB
+    .table('messages')
+    .select('from','subject')
+    .limit(10)
+    .scan(function( err, data ) {
+        console.log( err, data )
+    })
+
+// NOTE: specifying non-projected fields in select() will:
+// * cost you extra reads on a LSI index
+// * not be returned on a GSI index
+</code></pre>
+
+<h1>
+<a id="tables-referenced-in-the-samples" class="anchor" href="#tables-referenced-in-the-samples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tables referenced in the samples</h1>
+
+<p>Table <strong>users</strong> with HASH key only </p>
+
+<table>
+<thead>
+<tr>
+<th>email <code>hash</code>
+</th>
+<th>password</th>
+<th>created_at</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="mailto:test@test.com">test@test.com</a></strong></td>
+<td>test123</td>
+<td><em>1375538399</em></td>
+</tr>
+</tbody>
+</table>
+
+<p>Table <strong>messages</strong> with HASH and RANGE (int) key</p>
+
+<p>to <code>hash</code> | date <code>range</code> | from | subject | message_body | starred
+--- | --- | --- | --- | ---
+<strong><a href="mailto:user1@test.com">user1@test.com</a></strong> | <strong>1375538399</strong> | <a href="mailto:user2@test.com">user2@test.com</a> | Hello User1 | Goodbye User1 | 1
+<strong><a href="mailto:user2@test.com">user2@test.com</a></strong> | <strong>1384167887</strong> | <a href="mailto:somebody@otherdomain.com">somebody@otherdomain.com</a> | Foo | Bar |</p>
+
+<p>Table <strong>statistics</strong> with HASH and RANGE (string) key</p>
+
+<table>
+<thead>
+<tr>
+<th>site <code>hash</code>
+</th>
+<th>day <code>range</code>
+</th>
+<th>visitors</th>
+<th>unique_visitors</th>
+<th>pageviews</th>
+<th>unique_pageviews</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>mydomain.com</strong></td>
+<td><strong>2013-11-01 21:00:00</strong></td>
+<td>100</td>
+<td>50</td>
+<td>200</td>
+<td>150</td>
+</tr>
+<tr>
+<td><strong>mydomain.com</strong></td>
+<td><strong>2013-11-01 23:00:00</strong></td>
+<td>90</td>
+<td>40</td>
+<td>100</td>
+<td>95</td>
+</tr>
+</tbody>
+</table>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/databank/aws-dynamodb/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/databank/aws-dynamodb/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/databank/aws-dynamodb"></a> is maintained by <a href="https://github.com/databank">databank</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
