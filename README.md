@@ -292,6 +292,7 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	DynamoDB
 		.table('messages')
 		.select('from','subject')
+		.having('somkey').eq('somevalue')
 		.limit(10)
 		.scan(function( err, data ) {
 			console.log( err, data )
