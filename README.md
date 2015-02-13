@@ -284,6 +284,25 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
+**Query continue from last item**
+
+	// query a table until the end of results :)
+	var $lastKey = null
+	var $queryInterval = setInterval(function() {
+		DynamoDB
+			.table('messages')
+			.where('to').eq('user1@test.com')
+			.resume($lastKey)
+			.query(function( err, data ) {
+				$lastKey = this.LastEvaluatedKey
+				
+				// process data ...
+				
+				if (this.LastEvaluatedKey === null)
+					clearInterval($queryInterval)
+			})
+	},1000)
+		
 **Full table scan** 
 
 	// optionally you can limit the returned attributes with .select()
@@ -298,6 +317,22 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
+	// continous scan until end of table
+	var $lastKey = null
+	var $scanInterval = setInterval(function() {
+		DynamoDB
+			.table('messages')
+			.resume($lastKey)
+			.scan(function( err, data ) {
+				$lastKey = this.LastEvaluatedKey
+				
+				// process data ...
+				
+				if (this.LastEvaluatedKey === null)
+					clearInterval($scanInterval)
+			})
+	},1000)
+	
 
 #Tables referenced in the samples
 
