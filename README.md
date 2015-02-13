@@ -298,10 +298,6 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			console.log( err, data )
 		})
 
-	// NOTE: specifying non-projected fields in select() will:
-	// * cost you extra reads on a LSI index
-	// * not be returned on a GSI index
-
 
 #Tables referenced in the samples
 
