@@ -1,4 +1,4 @@
-[![npm page](https://nodei.co/npm/aws-dynamodb.png?downloads=true)](https://www.npmjs.com/package/aws-dynamodb)
+[![npm page](https://nodei.co/npm/aws-dynamodb.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/aws-dynamodb)
 
 #aws-dynamodb
 Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
@@ -30,6 +30,15 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		console.log(data.TableNames);
 	});
 	console.log( DynamoDB.client )
+
+**Global error feed**
+
+	// every call to Amazon DynamoDB that fail will
+	// call this function before the operation's callback
+	DynamoDB.on('error', function( operation, error, payload ) {
+		// you could use this to log fails into LogWatch for 
+		// later analysis or SQS queue lazy processing
+	})
 
 **Insert Item** ( does not replace existing items )
 
