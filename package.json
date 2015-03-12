@@ -11,7 +11,7 @@
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.15",
+	"version": "0.1.17",
 	"homepage": "https://github.com/databank/aws-dynamodb",
 	"bugs": "https://github.com/databank/aws-dynamodb/issues",
 	"repository": {
@@ -21,6 +21,9 @@
 	"main": "./lib/dynamodb",
 	"dependencies": {
 		"aws-sdk": ">=2.1.16"
+	},
+	"scripts": {
+		"test": "node test/*.js"
 	},
 	"engines": {
 		"node": "*"
