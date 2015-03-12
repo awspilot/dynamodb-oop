@@ -11,7 +11,7 @@
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.18",
+	"version": "0.1.20",
 	"homepage": "https://github.com/databank/aws-dynamodb",
 	"bugs": "https://github.com/databank/aws-dynamodb/issues",
 	"repository": {
