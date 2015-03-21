@@ -342,6 +342,15 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 			})
 	},1000)
 	
+**GSI scan** 
+
+	DynamoDB
+		.table('messages')
+		.index('GSI_Index_Name')
+		.scan(function( err, data ) {
+			console.log( err, data )
+		})
+
 
 #Tables referenced in the samples
 
