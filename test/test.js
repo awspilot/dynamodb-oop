@@ -155,7 +155,50 @@ describe('insert', function () {
 	})
 
 })
-
+describe('query', function () {
+    it('should fail when table name is wrong', function(done) { 	
+		DynamoDB
+			.table('inexistent-table')
+			.query( function(err, data) {
+				if (err)
+					done()
+				else
+					throw err
+			})
+	})
+    it('should fail when no .where() is specified', function(done) { 	
+		DynamoDB
+			.table('hash_range')
+			.query( function(err, data) {
+				if (err)
+					done()
+				else
+					throw err
+			})
+	})
+    it('should fail when HASH has wrong type', function(done) { 	
+		DynamoDB
+			.table('hash_range')
+			.where('hash').eq(5)
+			.query( function(err, data) {
+				if (err)
+					done()
+				else
+					throw err
+			})
+	})
+    it('should fail when querying without HASH .eq()', function(done) { 	
+		DynamoDB
+			.table('hash_range')
+			.where('hash').gt('aaa')
+			.query( function(err, data) {
+				if (err)
+					done()
+				else
+					throw err
+			})
+	})
+})
 
 
 describe('scan', function () {
@@ -220,4 +263,4 @@ describe('GSI scan', function () {
 })
 
 
-// @todo: update, scan, replace, query, query lsi, query gsi, delete item, delete item attributes, create table
+// @todo: update, replace, query, query lsi, query gsi, delete item, delete item attributes, create table
