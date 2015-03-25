@@ -13,6 +13,13 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 	// upgrade if necessary
 	npm update aws-dynamodb
 	
+**Testing**
+
+	// add AWS credentials to your environment first
+	source test/credentials
+		
+	// run the tests
+	npm test
 
 **Initialization**
 
@@ -296,21 +303,27 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 **Query continue from last item**
 
 	// query a table until the end of results :)
-	var $lastKey = null
-	var $queryInterval = setInterval(function() {
+	(function recursive_call( $lastKey ) {
 		DynamoDB
 			.table('messages')
 			.where('to').eq('user1@test.com')
 			.resume($lastKey)
 			.query(function( err, data ) {
-				$lastKey = this.LastEvaluatedKey
+				// handle error, process data ...
+							
+				if (this.LastEvaluatedKey === null) {
+					// reached end, do a callback() or 
+					return
+				} 
 				
-				// process data ...
+				var $this = this
+				setTimeout(function() {
+					recursive_call($this.LastEvaluatedKey)
+				},1000)
 				
-				if (this.LastEvaluatedKey === null)
-					clearInterval($queryInterval)
 			})
-	},1000)
+	})(null)	
+	
 		
 **Full table scan** 
 
@@ -327,20 +340,27 @@ Wrapper around aws-sdk for nodejs to simplify working with DynamoDB
 		})
 
 	// continous scan until end of table
-	var $lastKey = null
-	var $scanInterval = setInterval(function() {
+	
+	(function recursive_call( $lastKey ) {
 		DynamoDB
 			.table('messages')
 			.resume($lastKey)
 			.scan(function( err, data ) {
-				$lastKey = this.LastEvaluatedKey
+				// handle error, process data ...
+							
+				if (this.LastEvaluatedKey === null) {
+					// reached end, do a callback() or 
+					return
+				} 
 				
-				// process data ...
+				var $this = this
+				setTimeout(function() {
+					recursive_call($this.LastEvaluatedKey)
+				},1000)
 				
-				if (this.LastEvaluatedKey === null)
-					clearInterval($scanInterval)
 			})
-	},1000)
+	})(null)	
+
 	
 **GSI scan** 
 
