@@ -1,9 +1,181 @@
 
 var expect = require('chai').expect
 var DynamoDB = require('aws-dynamodb')()
+var $tableName = 'test_hash_range'
+
+describe('client.deleteTable (test_hash_range)', function () {
+    it('should not exist after deletion', function(done) {
+		DynamoDB
+			.client
+			.describeTable({
+				TableName: $tableName
+			}, function(err, data) {
+				if (err) {
+					if (err.code === 'ResourceNotFoundException')
+						done()
+					else
+						throw 'could not describe table'
+				} else {
+					DynamoDB
+						.client
+						.deleteTable({
+							TableName: $tableName
+						}, function(err, data) {
+							if (err)
+								throw 'delete failed'
+							else
+								done()
+						})
+				}
+			})
+    });
+})
+describe('waiting for table to delete', function () {
+	it('should delete within 25 seconds', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: $tableName
+				}, function(err, data) {
+					
+					if (err && err.code === 'ResourceNotFoundException') {
+						clearInterval($existInterval)
+						return done()
+					} 
+					if (err)
+						throw err
+					
+					if (data.TableStatus === 'DELETING')
+						process.stdout.write('.')
+				})
+		}, 1000)
+	})
+})
+
+
+describe('client.createTable', function () {
+	it('should create the table', function(done) {
+		DynamoDB
+			.client
+			.createTable({
+				TableName: $tableName,
+				ProvisionedThroughput: {
+					ReadCapacityUnits: 1,
+					WriteCapacityUnits: 1
+				},
+				KeySchema: [
+					{
+						AttributeName: "hash",
+						KeyType: "HASH"
+					},
+					{
+						AttributeName: "range",
+						KeyType: "RANGE"
+					}
+				],
+				AttributeDefinitions: [
+					{
+						AttributeName: "hash",
+						AttributeType: "S"
+					},
+					{
+						AttributeName: "range",
+						AttributeType: "N"
+					},
+					{
+						AttributeName: "gsi_range",
+						AttributeType: "S"
+					},
+				],
+				"GlobalSecondaryIndexes": [
+					{
+						IndexName: "gsi_index",
+						KeySchema: [
+							{
+								AttributeName: "hash",
+								KeyType: "HASH"
+							},
+							{
+								AttributeName: "gsi_range",
+								KeyType: "RANGE"
+							}
+						],
+
+						Projection: {
+						//	"NonKeyAttributes": [
+						//		"string"
+						//	],
+							ProjectionType: "ALL"
+						},
+						ProvisionedThroughput: {
+							ReadCapacityUnits: 1,
+							WriteCapacityUnits: 1
+						}
+					}
+				],
+				
+				/*
+				"LocalSecondaryIndexes": [
+					{
+						"IndexName": "string",
+						"KeySchema": [
+							{
+								"AttributeName": "string",
+								"KeyType": "string"
+							}
+						],
+						"Projection": {
+							"NonKeyAttributes": [
+								"string"
+							],
+							"ProjectionType": "string"
+						}
+					}
+				],
+				*/
+				
+				
+			}, function(err, data) {
+				if (err) {
+					throw err
+				} else {
+					if (data.TableDescription.TableStatus === 'CREATING' || data.TableDescription.TableStatus === 'ACTIVE' )
+						done()
+					else
+						throw 'unknown table status after create: ' + data.TableDescription.TableStatus
+				}
+			})
+	})
+
+})
+
+
+describe('waiting for table to become ACTIVE', function () {
+	it('should be active within seconds', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: $tableName
+				}, function(err, data) {
+					if (err) {
+						throw err
+					} else {
+						//process.stdout.write(".");
+						//console.log(data.Table)
+						if (data.Table.TableStatus === 'ACTIVE') {
+							clearInterval($existInterval)
+							done()
+						} 
+					}
+				})
+		}, 1000)
+	})
+})
 
 describe('describeTable', function () {
-    it('should throw error on inexistent table', function(done) { // added "done" as parameter
+    it('should throw error on inexistent table', function(done) { 
 		DynamoDB
 			.client
 			.describeTable({
@@ -20,7 +192,7 @@ describe('describeTable', function () {
 		DynamoDB
 			.client
 			.describeTable({
-				TableName: 'hash_range'
+				TableName: $tableName
 			}, function(err, data) {
 				if (err)
 					throw err
@@ -36,7 +208,7 @@ describe('describeTable', function () {
 describe('insert', function () {
     it('should fail if missing RANGE', function(done) { 
 		DynamoDB
-			table('hash_range')
+			table($tableName)
 			.insert({
 				hash: 'hash1'
 			}, function(err, data) {
@@ -48,7 +220,7 @@ describe('insert', function () {
     })
     it('should fail if missing HASH', function(done) { 
 		DynamoDB
-			table('hash_range')
+			table($tableName)
 			.insert({
 				range: 1
 			}, function(err, data) {
@@ -60,7 +232,7 @@ describe('insert', function () {
     })
     it('should fail if HASH is wrong type', function(done) { 
 		DynamoDB
-			table('hash_range')
+			table($tableName)
 			.insert({
 				hash: 1,
 				range: 1
@@ -73,7 +245,7 @@ describe('insert', function () {
     })
     it('should fail if RANGE is wrong type', function(done) { 
 		DynamoDB
-			table('hash_range')
+			table($tableName)
 			.insert({
 				hash: 'hash1',
 				range: 'xxx'
@@ -87,12 +259,12 @@ describe('insert', function () {
 	
     it('should fail if GSI RANGE is wrong type', function(done) { 
 		DynamoDB
-			.table('hash_range')
+			.table($tableName)
 			.where('hash').eq('hash1')
 			.where('range').eq(1)
 			.delete(function( err, data ) {
 				DynamoDB
-					table('hash_range')
+					table($tableName)
 					.insert({
 						hash: 'hash1',
 						range: 1,
@@ -108,13 +280,13 @@ describe('insert', function () {
 	
     it('should insert when item does not exist', function(done) { 
 		DynamoDB
-			.table('hash_range')
+			.table($tableName)
 			.where('hash').eq('hash1')
 			.where('range').eq(1)
 			.delete(function( err, data ) {
 				
 				DynamoDB
-					table('hash_range')
+					table($tableName)
 					.insert({
 						hash: 'hash1',
 						range: 1,
@@ -124,7 +296,7 @@ describe('insert', function () {
 							throw err
 						else
 							DynamoDB
-								table('hash_range')
+								table($tableName)
 								.insert({
 									hash: 'hash1',
 									range: 2
@@ -142,7 +314,7 @@ describe('insert', function () {
 	
     it('should fail when item already exists', function(done) { 	
 		DynamoDB
-			table('hash_range')
+			table($tableName)
 			.insert({
 				hash: 'hash1',
 				range: 1
@@ -168,7 +340,7 @@ describe('query', function () {
 	})
     it('should fail when no .where() is specified', function(done) { 	
 		DynamoDB
-			.table('hash_range')
+			.table($tableName)
 			.query( function(err, data) {
 				if (err)
 					done()
@@ -178,7 +350,7 @@ describe('query', function () {
 	})
     it('should fail when HASH has wrong type', function(done) { 	
 		DynamoDB
-			.table('hash_range')
+			.table($tableName)
 			.where('hash').eq(5)
 			.query( function(err, data) {
 				if (err)
@@ -189,7 +361,7 @@ describe('query', function () {
 	})
     it('should fail when querying without HASH .eq()', function(done) { 	
 		DynamoDB
-			.table('hash_range')
+			.table($tableName)
 			.where('hash').gt('aaa')
 			.query( function(err, data) {
 				if (err)
@@ -215,7 +387,7 @@ describe('scan', function () {
 	
     it('should return 2 items', function(done) { 	
 		DynamoDB
-			.table('hash_range')
+			.table($tableName)
 			.scan( function(err, data) {
 				if (err)
 					throw err
@@ -246,7 +418,7 @@ describe('GSI scan', function () {
 	
     it('should return 1 item', function(done) { 	
 		DynamoDB
-			.table('hash_range')
+			.table($tableName)
 			.index('gsi_index')
 			.scan( function(err, data) {
 				if (err)
@@ -260,6 +432,57 @@ describe('GSI scan', function () {
 					
 			})
 	})	
+})
+
+
+describe('client.deleteTable (test_hash_range)', function () {
+    it('should not exist after deletion', function(done) {
+		DynamoDB
+			.client
+			.describeTable({
+				TableName: $tableName
+			}, function(err, data) {
+				if (err) {
+					if (err.code === 'ResourceNotFoundException')
+						done()
+					else
+						throw 'could not describe table'
+				} else {
+					DynamoDB
+						.client
+						.deleteTable({
+							TableName: $tableName
+						}, function(err, data) {
+							if (err)
+								throw 'delete failed'
+							else
+								done()
+						})
+				}
+			})
+    });
+})
+describe('waiting for table to delete', function () {
+	it('should delete within 25 seconds', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: $tableName
+				}, function(err, data) {
+					
+					if (err && err.code === 'ResourceNotFoundException') {
+						clearInterval($existInterval)
+						return done()
+					} 
+					if (err)
+						throw err
+					
+					if (data.TableStatus === 'DELETING')
+						process.stdout.write('.')
+				})
+		}, 1000)
+	})
 })
 
 
