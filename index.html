@@ -106,7 +106,7 @@ var DynamoDB = require('aws-dynamodb')($credentials)
 
 
 <p><strong>Doing raw calls to aws-sdk</strong></p>
-<pre class="command-line">
+<pre class="command-line code">
 DynamoDB.client.listTables(function(err, data) {
     console.log(data.TableNames);
 });
@@ -117,19 +117,19 @@ console.log( DynamoDB.client )
 
 
 <p><strong>Global error feed</strong></p>
-<pre class="command-line">
-// every call to Amazon DynamoDB that fail will
-// call this function before the operation's callback
+<pre class="command-line code">
+<span class="comment">// every call to Amazon DynamoDB that fail will
+<span class="comment">// call this function before the operation's callback
 DynamoDB.on('error', function( operation, error, payload ) {
-    // you could use this to log fails into LogWatch for 
-    // later analysis or SQS queue lazy processing
+    <span class="comment">// you could use this to log fails into LogWatch for </span>
+    <span class="comment">// later analysis or SQS queue lazy processing</span>
 })
 </pre>
 
 
 
 <p><strong>Insert Item</strong> ( does not replace existing items )</p>
-<pre class="command-line">
+<pre class="command-line code">
 DynamoDB
     .table('users')
     .insert({
@@ -150,8 +150,8 @@ DynamoDB
         message: 'Bar'
     })
 
-// insert item with nested attributes
-// carefull though as foo.bar domain actually exist :)
+<span class="comment">// insert item with nested attributes</span>
+<span class="comment">// carefull though as foo.bar domain actually exist :)</span>
 DynamoDB
     .table('messages')
     .insert({
@@ -182,8 +182,8 @@ DynamoDB
 
 
 <p><strong>Update Item</strong> ( does not create the item if item does not exist )</p>
-<pre class="command-line">
-// update multiple attributes in a HASH table
+<pre class="command-line code">
+<span class="comment">// update multiple attributes in a HASH table</span>
 DynamoDB
 	.table('users')
 	.where('email').eq('test@test.com')
@@ -194,7 +194,7 @@ DynamoDB
 		console.log( err, data )
 	})
 
-// update 1 attribute in a HASH-RANGE table
+<span class="comment">// update 1 attribute in a HASH-RANGE table</span>
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
@@ -207,8 +207,8 @@ DynamoDB
 </pre>
 
 <p><strong>Replace Item</strong> ( does not create the item if item does not exist )</p>
-<pre class="command-line">
-// completely replaces the item, new item will only contain specified attributes 
+<pre class="command-line code">
+<span class="comment">// completely replaces the item, new item will only contain specified attributes </span>
 DynamoDB
     .table('users')
     .replace({
@@ -221,7 +221,7 @@ DynamoDB
 </pre>
 
 <p><strong>Insert on Duplicate Key Update</strong> ( in 1 request to DynamoDB )</p>
-<pre class="command-line">
+<pre class="command-line code">
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -234,8 +234,8 @@ DynamoDB
 </pre>
 
 <p><strong>Increment Item's Attribute(s)</strong> ( does not create the item if item does not exist )</p>
-<pre class="command-line">
-// increment 1 attribute in a HASH table 
+<pre class="command-line code">
+<span class="comment">// increment 1 attribute in a HASH table </span>
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -245,7 +245,7 @@ DynamoDB
         console.log( err, data )
     })
 
-// increment multiple attributes in a HASH-RANGE table
+<span class="comment">// increment multiple attributes in a HASH-RANGE table</span>
 DynamoDB
     .table('statistics')
     .where('domain').eq('mydomain.com')
@@ -260,7 +260,7 @@ DynamoDB
 </pre>
 
 <p><strong>Delete Item's Attribute(s)</strong></p>
-<pre class="command-line">
+<pre class="command-line code">
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
@@ -271,8 +271,8 @@ DynamoDB
 </pre>
 
 <p><strong>Delete Item</strong></p>
-<pre class="command-line">
-// delete an item from a HASH table
+<pre class="command-line code">
+<span class="comment">// delete an item from a HASH table</span>
 DynamoDB
     .table('users')
     .where('email').eq( 'test@test.com' )
@@ -280,7 +280,7 @@ DynamoDB
         console.log( err, data )
     })
 
-// delete an item from a HASH-RANGE table
+<span class="comment">// delete an item from a HASH-RANGE table</span>
 DynamoDB
     .table('messages')
     .where('to').eq( 'user1@test.com' )
@@ -291,8 +291,8 @@ DynamoDB
 </pre>
 
 <p><strong>Get Item</strong></p>
-<pre class="command-line">
-// getting an item with HASH key only
+<pre class="command-line code">
+<span class="comment">// getting an item with HASH key only</span>
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -300,7 +300,7 @@ DynamoDB
         console.log( err, data )
     })
 
-// getting an item from a HASH-RANGE table, with consistent read
+<span class="comment">// getting an item from a HASH-RANGE table, with consistent read</span>
 DynamoDB
     .table('messages')
     .where('to').eq('user1@test.com')
@@ -310,7 +310,7 @@ DynamoDB
         console.log( err, data )
     })
 
-// specifying what attributes to return
+<span class="comment">// specifying what attributes to return</span>
 DynamoDB
     .table('users')
     .select('email','registered_at')
@@ -321,11 +321,11 @@ DynamoDB
 </pre>
 
 <p><strong>Query</strong> ( not possible on HASH only tables )</p>
-<pre class="command-line">
-// for hash key comparson operator is always eq()
-// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
+<pre class="command-line code">
+<span class="comment">// for hash key comparson operator is always eq()</span>
+<span class="comment">// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)</span>
 
-// base query, return 10 records with consistent read
+<span class="comment">// base query, return 10 records with consistent read</span>
 DynamoDB
     .table('statistics')
     .where('domain').eq('mydomain.com')
@@ -335,7 +335,7 @@ DynamoDB
         console.log(err,data)
     })
 
-// only return specified fields, in descending order
+<span class="comment">// only return specified fields, in descending order</span>
 DynamoDB
     .table('statistics')
     .select('unique_visitors','unique_pageviews')
@@ -348,9 +348,9 @@ DynamoDB
 </pre>
 
 <p><strong>Query an Index with order_by()</strong></p>
-<pre class="command-line">
-// suppose you have an index on messages called starredIndex
-// and you want to retrieve only the messages that are starred
+<pre class="command-line code">
+<span class="comment">// suppose you have an index on messages called starredIndex</span>
+<span class="comment">// and you want to retrieve only the messages that are starred</span>
 
 DynamoDB
     .table('messages')
@@ -361,7 +361,7 @@ DynamoDB
         console.log( err, data )
     })
 
-// return all attributes including non-projected ( LSI only )
+<span class="comment">// return all attributes including non-projected ( LSI only )</span>
 DynamoDB
     .table('messages')
     .select( DynamoDB.ALL )
@@ -372,17 +372,17 @@ DynamoDB
         console.log( err, data )
     })
 
-// NOTE: specifying non-projected fields in select() will:
-// * cost you extra reads on a LSI index
-// * not be returned on a GSI index
+<span class="comment">// NOTE: specifying non-projected fields in select() will:</span>
+<span class="comment">// * cost you extra reads on a LSI index</span>
+<span class="comment">// * not be returned on a GSI index</span>
 </pre>
 
 <p><strong>Query filtering</strong></p>
-<pre class="command-line">
-// A filter lets you apply conditions to the data after query
-// Only the items that meet your conditions are returned
-// All the conditions must evaluate to true ( conditions are ANDed together )
-// Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
+<pre class="command-line code">
+<span class="comment">// A filter lets you apply conditions to the data after query</span>
+<span class="comment">// Only the items that meet your conditions are returned</span>
+<span class="comment">// All the conditions must evaluate to true ( conditions are ANDed together )</span>
+<span class="comment">// Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)</span>
 DynamoDB
     .table('messages')
     .where('to').eq('user1@test.com')
@@ -397,18 +397,18 @@ DynamoDB
 
 
 <p><strong>Query continue from last item</strong></p>
-<pre class="command-line">
-// query a table until the end of results :)
+<pre class="command-line code">
+<span class="comment">// query a table until the end of results :)</span>
 (function recursive_call( $lastKey ) {
     DynamoDB
         .table('messages')
         .where('to').eq('user1@test.com')
         .resume($lastKey)
         .query(function( err, data ) {
-            // handle error, process data ...
+            <span class="comment">// handle error, process data ...</span>
 
             if (this.LastEvaluatedKey === null) {
-                // reached end, do a callback() or 
+                <span class="comment">// reached end, do a callback() maybe</span>
                 return
             } 
 
@@ -425,9 +425,9 @@ DynamoDB
 
 
 <p><strong>Full table scan</strong> </p>
-<pre class="command-line">
-// optionally you can limit the returned attributes with .select()
-// and the number of results with .limit()
+<pre class="command-line code">
+<span class="comment">// optionally you can limit the returned attributes with .select()</span>
+<span class="comment">// and the number of results with .limit()</span>
 
 DynamoDB
     .table('messages')
@@ -438,17 +438,17 @@ DynamoDB
         console.log( err, data )
     })
 
-// continous scan until end of table
+<span class="comment">// continous scan until end of table</span>
 
 (function recursive_call( $lastKey ) {
     DynamoDB
         .table('messages')
         .resume($lastKey)
         .scan(function( err, data ) {
-            // handle error, process data ...
+            <span class="comment">// handle error, process data ...</span>
 
             if (this.LastEvaluatedKey === null) {
-                // reached end, do a callback() or 
+                <span class="comment">// reached end, do a callback() maybe</span>
                 return
             } 
 
@@ -467,7 +467,7 @@ DynamoDB
 
 
 <p><strong>GSI scan</strong> </p>
-<pre class="command-line">
+<pre class="command-line code">
 DynamoDB
     .table('messages')
     .index('GSI_Index_Name')
