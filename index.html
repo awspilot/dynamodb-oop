@@ -37,23 +37,26 @@
 
 <p><strong>Installation</strong></p>
 
-<pre><code>npm install aws-dynamodb
+<pre>
+	<code>
+npm install aws-dynamodb
 
 // check for new versions
 npm outdated 
 
 // upgrade if necessary
 npm update aws-dynamodb
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Testing</strong></p>
 	<pre>
 		<code>
-		// add AWS credentials to your environment first
-		source test/credentials
+// add AWS credentials to your environment first
+source test/credentials
 
-		// run the tests
-		npm test
+// run the tests
+npm test
 	</code>
 </pre>
 
@@ -69,27 +72,50 @@ npm update aws-dynamodb
 
 
 <p><strong>Initialization</strong></p>
-
-<pre><code>var $credentials = {
+<pre>
+	<code>
+var $credentials = {
     "accessKeyId": "XXXXXXXXXXXXXXXX", 
     "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
     "region": "eu-west-1"
 }
-
 var DynamoDB = require('aws-dynamodb')($credentials)
-</code></pre>
+	</code>
+</pre>
+
+
 
 <p><strong>Doing raw calls to aws-sdk</strong></p>
-
-<pre><code>DynamoDB.client.listTables(function(err, data) {
+<pre>
+	<code>
+DynamoDB.client.listTables(function(err, data) {
     console.log(data.TableNames);
 });
 console.log( DynamoDB.client )
-</code></pre>
+	</code>
+</pre>
+
+
+
+
+<p><strong>Global error feed</strong></p>
+<pre>
+	<code>
+// every call to Amazon DynamoDB that fail will
+// call this function before the operation's callback
+DynamoDB.on('error', function( operation, error, payload ) {
+    // you could use this to log fails into LogWatch for 
+    // later analysis or SQS queue lazy processing
+})
+	</code>
+</pre>
+
+
 
 <p><strong>Insert Item</strong> ( does not replace existing items )</p>
-
-<pre><code>DynamoDB
+<pre>
+	<code>
+DynamoDB
     .table('users')
     .insert({
         email: 'test@test.com',
@@ -136,36 +162,42 @@ DynamoDB
             }
         }
     })
-</code></pre>
+	</code>
+</pre>
+
+
 
 <p><strong>Update Item</strong> ( does not create the item if item does not exist )</p>
-
-<pre><code>// update multiple attributes in a HASH table
+<pre>
+	<code>
+// update multiple attributes in a HASH table
 DynamoDB
-    .table('users')
-    .where('email').eq('test@test.com')
-    .update({
-        password: 'qwert', 
-        firstname: 'Smith'
-    }, function( err, data ) {
-        console.log( err, data )
-    })
+	.table('users')
+	.where('email').eq('test@test.com')
+	.update({
+		password: 'qwert', 
+		firstname: 'Smith'
+	}, function( err, data ) {
+		console.log( err, data )
+	})
 
 // update 1 attribute in a HASH-RANGE table
 DynamoDB
-    .table('messages')
-    .where('to').eq('user1@test.com')
-    .where('date').eq( 1375538399 )
-    .update({
-        seen: true
-    }, function( err, data ) {
-        console.log( err, data )
-    })
-</code></pre>
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.where('date').eq( 1375538399 )
+	.update({
+		seen: true
+	}, function( err, data ) {
+		console.log( err, data )
+	})
+	</code>
+</pre>
 
 <p><strong>Replace Item</strong> ( does not create the item if item does not exist )</p>
-
-<pre><code>// completely replaces the item, new item will only contain specified attributes 
+<pre>
+	<code>
+// completely replaces the item, new item will only contain specified attributes 
 DynamoDB
     .table('users')
     .replace({
@@ -175,11 +207,13 @@ DynamoDB
     }, function(err,data) {
         console.log( err, data )
     })
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Insert on Duplicate Key Update</strong> ( in 1 request to DynamoDB )</p>
-
-<pre><code>DynamoDB
+<pre>
+	<code>
+DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
     .insert_or_update({
@@ -188,11 +222,13 @@ DynamoDB
     }, function( err, data ) {
         console.log( err, data )
     })
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Increment Item's Attribute(s)</strong> ( does not create the item if item does not exist )</p>
-
-<pre><code>// increment 1 attribute in a HASH table 
+<pre>
+	<code>
+// increment 1 attribute in a HASH table 
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -214,22 +250,27 @@ DynamoDB
     }, function( err, data ) {
         console.log( err, data )
     })
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Delete Item's Attribute(s)</strong></p>
-
-<pre><code>DynamoDB
-    .table('messages')
-    .where('to').eq('user1@test.com')
-    .where('date').eq( 1375538399 )
-    .delete(['seen','subject'], function( err, data ) {
-        console.log( err, data )
-    })
-</code></pre>
+<pre>
+	<code>
+DynamoDB
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.where('date').eq( 1375538399 )
+	.delete(['seen','subject'], function( err, data ) {
+		console.log( err, data )
+	})
+	</code>
+</pre>
 
 <p><strong>Delete Item</strong></p>
 
-<pre><code>// delete an item from a HASH table
+<pre>
+	<code>
+// delete an item from a HASH table
 DynamoDB
     .table('users')
     .where('email').eq( 'test@test.com' )
@@ -245,11 +286,13 @@ DynamoDB
     .delete(function( err, data ) {
         console.log( err, data )
     })
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Get Item</strong></p>
-
-<pre><code>// getting an item with HASH key only
+<pre>
+	<code>
+// getting an item with HASH key only
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -275,11 +318,13 @@ DynamoDB
     .get(function( err, data ) {
         console.log( err, data )
     })
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Query</strong> ( not possible on HASH only tables )</p>
-
-<pre><code>// for hash key comparson operator is always eq()
+<pre>
+	<code>
+// for hash key comparson operator is always eq()
 // for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
 
 // base query, return 10 records with consistent read
@@ -302,11 +347,13 @@ DynamoDB
     .query(function( err, data ) {
         console.log( err, data )
     })
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Query an Index with order_by()</strong></p>
-
-<pre><code>// suppose you have an index on messages called starredIndex
+<pre>
+	<code>
+// suppose you have an index on messages called starredIndex
 // and you want to retrieve only the messages that are starred
 
 DynamoDB
@@ -332,11 +379,13 @@ DynamoDB
 // NOTE: specifying non-projected fields in select() will:
 // * cost you extra reads on a LSI index
 // * not be returned on a GSI index
-</code></pre>
+	</code>
+</pre>
 
 <p><strong>Query filtering</strong></p>
-
-<pre><code>// A filter lets you apply conditions to the data after query
+<pre>
+	<code>
+// A filter lets you apply conditions to the data after query
 // Only the items that meet your conditions are returned
 // All the conditions must evaluate to true ( conditions are ANDed together )
 // Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
@@ -348,25 +397,100 @@ DynamoDB
     .query(function( err, data ) {
         console.log( err, data )
     })
-</code></pre>
+	</code>
+</pre>
+
+
+
+
+<p><strong>Query continue from last item</strong></p>
+<pre>
+	<code>
+// query a table until the end of results :)
+(function recursive_call( $lastKey ) {
+    DynamoDB
+        .table('messages')
+        .where('to').eq('user1@test.com')
+        .resume($lastKey)
+        .query(function( err, data ) {
+            // handle error, process data ...
+
+            if (this.LastEvaluatedKey === null) {
+                // reached end, do a callback() or 
+                return
+            } 
+
+            var $this = this
+            setTimeout(function() {
+                recursive_call($this.LastEvaluatedKey)
+            },1000)
+
+        })
+})(null)    
+	</code>
+</pre>
+
+
+
 
 <p><strong>Full table scan</strong> </p>
-
-<pre><code>// optionally you can limit the returned attributes with .select()
+<pre>
+	<code>
+// optionally you can limit the returned attributes with .select()
 // and the number of results with .limit()
 
 DynamoDB
     .table('messages')
     .select('from','subject')
+    .having('somkey').eq('somevalue')
     .limit(10)
     .scan(function( err, data ) {
         console.log( err, data )
     })
 
-// NOTE: specifying non-projected fields in select() will:
-// * cost you extra reads on a LSI index
-// * not be returned on a GSI index
-</code></pre>
+// continous scan until end of table
+
+(function recursive_call( $lastKey ) {
+    DynamoDB
+        .table('messages')
+        .resume($lastKey)
+        .scan(function( err, data ) {
+            // handle error, process data ...
+
+            if (this.LastEvaluatedKey === null) {
+                // reached end, do a callback() or 
+                return
+            } 
+
+            var $this = this
+            setTimeout(function() {
+                recursive_call($this.LastEvaluatedKey)
+            },1000)
+
+        })
+})(null)    
+	</code>
+</pre>
+
+
+
+
+
+
+<p><strong>GSI scan</strong> </p>
+<pre>
+	<code>
+DynamoDB
+    .table('messages')
+    .index('GSI_Index_Name')
+    .scan(function( err, data ) {
+        console.log( err, data )
+    })
+	</code>
+</pre>
+
+
+
 
 <h1>
 <a id="tables-referenced-in-the-samples" class="anchor" href="#tables-referenced-in-the-samples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tables referenced in the samples</h1>
