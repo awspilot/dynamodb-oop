@@ -121,8 +121,8 @@ console.log( DynamoDB.client )
 
 <p><strong>Global error feed</strong></p>
 <pre class="command-line code">
-<span class="comment">// every call to Amazon DynamoDB that fail will
-<span class="comment">// call this function before the operation's callback
+<span class="comment">// every call to Amazon DynamoDB that fail will</span>
+<span class="comment">// call this function before the operation's callback</span>
 DynamoDB.on('error', function( operation, error, payload ) {
     <span class="comment">// you could use this to log fails into LogWatch for </span>
     <span class="comment">// later analysis or SQS queue lazy processing</span>
