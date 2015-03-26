@@ -2,6 +2,6 @@
 
 #aws-dynamodb
 
-[![Documentation here]](http://databank.github.io/aws-dynamodb)
+[Documentation here](http://databank.github.io/aws-dynamodb)
 
 
