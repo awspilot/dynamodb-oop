@@ -71,14 +71,12 @@ pre.command-line .output {
 </pre>
 
 <p><strong>Testing</strong></p>
-	<pre>
-		<code>
-// add AWS credentials to your environment first
-source test/credentials
+<pre class="command-line">
+<span class="comment">// add AWS credentials to your environment first</span>
+<span class="command">source test/credentials</span>
 
-// run the tests
-npm test
-	</code>
+<span class="comment">// run the tests</span>
+<span class="command">npm test</span>
 </pre>
 
 
@@ -93,49 +91,42 @@ npm test
 
 
 <p><strong>Initialization</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 var $credentials = {
     "accessKeyId": "XXXXXXXXXXXXXXXX", 
     "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
     "region": "eu-west-1"
 }
 var DynamoDB = require('aws-dynamodb')($credentials)
-	</code>
 </pre>
 
 
 
 <p><strong>Doing raw calls to aws-sdk</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 DynamoDB.client.listTables(function(err, data) {
     console.log(data.TableNames);
 });
 console.log( DynamoDB.client )
-	</code>
 </pre>
 
 
 
 
 <p><strong>Global error feed</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 // every call to Amazon DynamoDB that fail will
 // call this function before the operation's callback
 DynamoDB.on('error', function( operation, error, payload ) {
     // you could use this to log fails into LogWatch for 
     // later analysis or SQS queue lazy processing
 })
-	</code>
 </pre>
 
 
 
 <p><strong>Insert Item</strong> ( does not replace existing items )</p>
-<pre>
-	<code>
+<pre class="command-line">
 DynamoDB
     .table('users')
     .insert({
@@ -183,14 +174,12 @@ DynamoDB
             }
         }
     })
-	</code>
 </pre>
 
 
 
 <p><strong>Update Item</strong> ( does not create the item if item does not exist )</p>
-<pre>
-	<code>
+<pre class="command-line">
 // update multiple attributes in a HASH table
 DynamoDB
 	.table('users')
@@ -212,12 +201,10 @@ DynamoDB
 	}, function( err, data ) {
 		console.log( err, data )
 	})
-	</code>
 </pre>
 
 <p><strong>Replace Item</strong> ( does not create the item if item does not exist )</p>
-<pre>
-	<code>
+<pre class="command-line">
 // completely replaces the item, new item will only contain specified attributes 
 DynamoDB
     .table('users')
@@ -228,12 +215,10 @@ DynamoDB
     }, function(err,data) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 <p><strong>Insert on Duplicate Key Update</strong> ( in 1 request to DynamoDB )</p>
-<pre>
-	<code>
+<pre class="command-line">
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -243,12 +228,10 @@ DynamoDB
     }, function( err, data ) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 <p><strong>Increment Item's Attribute(s)</strong> ( does not create the item if item does not exist )</p>
-<pre>
-	<code>
+<pre class="command-line">
 // increment 1 attribute in a HASH table 
 DynamoDB
     .table('users')
@@ -271,12 +254,10 @@ DynamoDB
     }, function( err, data ) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 <p><strong>Delete Item's Attribute(s)</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
@@ -284,13 +265,10 @@ DynamoDB
 	.delete(['seen','subject'], function( err, data ) {
 		console.log( err, data )
 	})
-	</code>
 </pre>
 
 <p><strong>Delete Item</strong></p>
-
-<pre>
-	<code>
+<pre class="command-line">
 // delete an item from a HASH table
 DynamoDB
     .table('users')
@@ -307,12 +285,10 @@ DynamoDB
     .delete(function( err, data ) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 <p><strong>Get Item</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 // getting an item with HASH key only
 DynamoDB
     .table('users')
@@ -339,12 +315,10 @@ DynamoDB
     .get(function( err, data ) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 <p><strong>Query</strong> ( not possible on HASH only tables )</p>
-<pre>
-	<code>
+<pre class="command-line">
 // for hash key comparson operator is always eq()
 // for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
 
@@ -368,12 +342,10 @@ DynamoDB
     .query(function( err, data ) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 <p><strong>Query an Index with order_by()</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 // suppose you have an index on messages called starredIndex
 // and you want to retrieve only the messages that are starred
 
@@ -400,12 +372,10 @@ DynamoDB
 // NOTE: specifying non-projected fields in select() will:
 // * cost you extra reads on a LSI index
 // * not be returned on a GSI index
-	</code>
 </pre>
 
 <p><strong>Query filtering</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 // A filter lets you apply conditions to the data after query
 // Only the items that meet your conditions are returned
 // All the conditions must evaluate to true ( conditions are ANDed together )
@@ -418,15 +388,13 @@ DynamoDB
     .query(function( err, data ) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 
 
 
 <p><strong>Query continue from last item</strong></p>
-<pre>
-	<code>
+<pre class="command-line">
 // query a table until the end of results :)
 (function recursive_call( $lastKey ) {
     DynamoDB
@@ -448,15 +416,13 @@ DynamoDB
 
         })
 })(null)    
-	</code>
 </pre>
 
 
 
 
 <p><strong>Full table scan</strong> </p>
-<pre>
-	<code>
+<pre class="command-line">
 // optionally you can limit the returned attributes with .select()
 // and the number of results with .limit()
 
@@ -489,8 +455,7 @@ DynamoDB
             },1000)
 
         })
-})(null)    
-	</code>
+})(null) 
 </pre>
 
 
@@ -499,15 +464,13 @@ DynamoDB
 
 
 <p><strong>GSI scan</strong> </p>
-<pre>
-	<code>
+<pre class="command-line">
 DynamoDB
     .table('messages')
     .index('GSI_Index_Name')
     .scan(function( err, data ) {
         console.log( err, data )
     })
-	</code>
 </pre>
 
 
