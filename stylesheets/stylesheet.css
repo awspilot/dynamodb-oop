@@ -6,6 +6,54 @@
  *    user zoom.
  */
 
+ 
+ pre.command-line {
+  border: 2px solid #ddd;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  -webkit-font-smoothing: auto;
+}
+pre.command-line em {
+  color: #F9FE64;
+  font-style: italic;
+}
+pre.command-line .comment {
+  color: #ccc;
+}
+pre.command-line .output {
+  color: #63E463;
+}
+pre.command-line.code {
+  color: #63E463;
+}
+
+aside {
+	position: fixed;
+}
+aside ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+aside ul li a {
+	padding-left: 10px;
+	line-height: 25px;
+	display: block;
+}
+aside ul li a:hover {
+	background: #2e7bcf;
+	color: #ffffff;
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 html {
   font-family: sans-serif; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -450,9 +498,10 @@ a:hover {
 header {
   padding-top: 40px;
   padding-bottom: 40px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
   background: #2e7bcf url(../images/header-bg.jpg) 0 0 repeat-x;
-  border-bottom: solid 1px #275da1;
+  /* background-color: #252525;
+  border-bottom: 1px dashed #b5e853;*/
 }
 
 header h1 {
@@ -460,7 +509,7 @@ header h1 {
   margin-top: 0;
   margin-bottom: 0.2em;
   font-size: 72px;
-  font-weight: normal;
+  font-weight: 100;
   line-height: 1;
   color: #fff;
   letter-spacing: -1px;
@@ -485,11 +534,10 @@ header h2 {
 
 #content-wrapper {
   padding-top: 30px;
-  border-top: solid 1px #fff;
 }
 
 #main-content {
-  float: left;
+  float: right;
   width: 690px;
 }
 
@@ -498,13 +546,13 @@ header h2 {
 }
 
 aside#sidebar {
-  float: right;
+  float: left;
   width: 200px;
   min-height: 504px;
   padding-left: 20px;
   font-size: 12px;
   line-height: 1.3;
-  background: transparent url(../images/sidebar-bg.jpg) 0 0 no-repeat;
+ 
 }
 
 aside#sidebar p.repo-owner,
@@ -521,7 +569,7 @@ a.button {
   height: 58px;
   padding-top: 22px;
   padding-left: 68px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 23px;
   line-height: 1.2;
   color: #fff;
@@ -614,10 +662,11 @@ form {
 #main-content h1 {
   margin-top: 0;
   margin-bottom: 0;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
-  font-size: 2.8em;
-  font-weight: normal;
-  color: #474747;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-size: 22px;
+  text-shadow: 1px 1px 1px #000000;
+  font-weight: 300;
+  color: #686868;
   text-indent: 6px;
   letter-spacing: -1px;
 }
@@ -631,7 +680,7 @@ form {
 
 #main-content h2 {
   margin-bottom: 8px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 22px;
   font-weight: bold;
   color: #474747;
@@ -647,7 +696,7 @@ form {
 #main-content h3 {
   margin-top: 24px;
   margin-bottom: 8px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 18px;
   font-weight: bold;
   color: #474747;
@@ -663,7 +712,7 @@ form {
 
 #main-content h4 {
   margin-bottom: 8px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 15px;
   font-weight: bold;
   color: #474747;
@@ -679,7 +728,7 @@ h4:before {
 
 #main-content h5 {
   margin-bottom: 8px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 14px;
   color: #474747;
   text-indent: 3px;
@@ -693,7 +742,7 @@ h5:before {
 
 #main-content h6 {
   margin-bottom: 8px;
-  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif;
+  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: .8em;
   color: #474747;
   text-indent: 3px;

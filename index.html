@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
@@ -18,26 +18,7 @@
   
   
 	<style>
-pre.command-line {
-  border: 2px solid #ddd;
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  -webkit-font-smoothing: auto;
-}
-pre.command-line em {
-  color: #F9FE64;
-  font-style: italic;
-}
-pre.command-line .comment {
-  color: #ccc;
-}
-pre.command-line .output {
-  color: #63E463;
-}
-pre.command-line.code {
-  color: #63E463;
-}
+
 	</style>
   
   </head>
@@ -46,24 +27,30 @@ pre.command-line.code {
     <header>
       <div class="inner">
         <h1>Aws-dynamodb</h1>
-        <h2>Wrapper around aws-sdk for nodejs to simplify working with DynamoDB</h2>
+		<p><a href="https://www.npmjs.com/package/aws-dynamodb"><img src="https://nodei.co/npm/aws-dynamodb.png?downloads=true" alt="npm page"></a></p>
         <a href="https://github.com/databank/aws-dynamodb" class="button"><small>View project on</small> GitHub</a>
+		
+          <a href="https://github.com/databank/aws-dynamodb/zipball/master" class="button" style="top: 90px;background: transparent url(../images/download-button.png) 0 0 no-repeat;">
+            <small>Download</small>
+            .zip file
+          </a>
+		
+		
       </div>
     </header>
 
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <p><a href="https://www.npmjs.com/package/aws-dynamodb"><img src="https://nodei.co/npm/aws-dynamodb.png?downloads=true" alt="npm page"></a></p>
+          
           
 		  
-		  <p><a href="http://packagequality.com/#?package=aws-dynamodb"><img src="http://npm.packagequality.com/badge/aws-dynamodb.png" alt="npm page"></a></p>
+		  
 
 <h1>
-<a id="aws-dynamodb" class="anchor" href="#aws-dynamodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>aws-dynamodb</h1>
+<a id="aws-dynamodb" class="anchor" href="#aws-dynamodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wrapper around aws-sdk for nodejs to simplify working with DynamoDB</h1>
 
-<p>Wrapper around aws-sdk for nodejs to simplify working with DynamoDB</p>
-
+<a name="installation"></a>
 <p><strong>Installation</strong></p>
 
 <pre class="command-line">
@@ -76,6 +63,7 @@ pre.command-line.code {
 <span class="command">npm update aws-dynamodb</span>
 </pre>
 
+<a name="testing"></a>
 <p><strong>Testing</strong></p>
 <pre class="command-line">
 <span class="comment">// add AWS credentials to your environment first</span>
@@ -95,7 +83,7 @@ pre.command-line.code {
 
 
 
-
+<a name="initialization"></a>
 <p><strong>Initialization</strong></p>
 <pre class="command-line code">
 var $credentials = {
@@ -107,7 +95,7 @@ var DynamoDB = require('aws-dynamodb')($credentials)
 </pre>
 
 
-
+<a name="rawcalls"></a>
 <p><strong>Doing raw calls to aws-sdk</strong></p>
 <pre class="command-line code">
 DynamoDB.client.listTables(function(err, data) {
@@ -118,7 +106,7 @@ console.log( DynamoDB.client )
 
 
 
-
+<a name="errorfeed"></a>
 <p><strong>Global error feed</strong></p>
 <pre class="command-line code">
 <span class="comment">// every call to Amazon DynamoDB that fail will</span>
@@ -130,7 +118,7 @@ DynamoDB.on('error', function( operation, error, payload ) {
 </pre>
 
 
-
+<a name="insert"></a>
 <p><strong>Insert Item</strong> ( does not replace existing items )</p>
 <pre class="command-line code">
 DynamoDB
@@ -183,7 +171,7 @@ DynamoDB
 </pre>
 
 
-
+<a name="update"></a>
 <p><strong>Update Item</strong> ( does not create the item if item does not exist )</p>
 <pre class="command-line code">
 <span class="comment">// update multiple attributes in a HASH table</span>
@@ -209,6 +197,7 @@ DynamoDB
 	})
 </pre>
 
+<a name="replace"></a>
 <p><strong>Replace Item</strong> ( does not create the item if item does not exist )</p>
 <pre class="command-line code">
 <span class="comment">// completely replaces the item, new item will only contain specified attributes </span>
@@ -223,6 +212,7 @@ DynamoDB
     })
 </pre>
 
+<a name="insertorupdate"></a>
 <p><strong>Insert on Duplicate Key Update</strong> ( in 1 request to DynamoDB )</p>
 <pre class="command-line code">
 DynamoDB
@@ -236,6 +226,7 @@ DynamoDB
     })
 </pre>
 
+<a name="increment"></a>
 <p><strong>Increment Item's Attribute(s)</strong> ( does not create the item if item does not exist )</p>
 <pre class="command-line code">
 <span class="comment">// increment 1 attribute in a HASH table </span>
@@ -262,6 +253,7 @@ DynamoDB
     })
 </pre>
 
+<a name="deleteattributes"></a>
 <p><strong>Delete Item's Attribute(s)</strong></p>
 <pre class="command-line code">
 DynamoDB
@@ -273,6 +265,7 @@ DynamoDB
 	})
 </pre>
 
+<a name="deleteitem"></a>
 <p><strong>Delete Item</strong></p>
 <pre class="command-line code">
 <span class="comment">// delete an item from a HASH table</span>
@@ -293,6 +286,7 @@ DynamoDB
     })
 </pre>
 
+<a name="get"></a>
 <p><strong>Get Item</strong></p>
 <pre class="command-line code">
 <span class="comment">// getting an item with HASH key only</span>
@@ -323,6 +317,7 @@ DynamoDB
     })
 </pre>
 
+<a name="query"></a>
 <p><strong>Query</strong> ( not possible on HASH only tables )</p>
 <pre class="command-line code">
 <span class="comment">// for hash key comparson operator is always eq()</span>
@@ -350,6 +345,7 @@ DynamoDB
     })
 </pre>
 
+<a name="queryindex"></a>
 <p><strong>Query an Index with order_by()</strong></p>
 <pre class="command-line code">
 <span class="comment">// suppose you have an index on messages called starredIndex</span>
@@ -380,6 +376,8 @@ DynamoDB
 <span class="comment">// * not be returned on a GSI index</span>
 </pre>
 
+
+<a name="queryfilter"></a>
 <p><strong>Query filtering</strong></p>
 <pre class="command-line code">
 <span class="comment">// A filter lets you apply conditions to the data after query</span>
@@ -398,7 +396,7 @@ DynamoDB
 
 
 
-
+<a name="querycontinue"></a>
 <p><strong>Query continue from last item</strong></p>
 <pre class="command-line code">
 <span class="comment">// query a table until the end of results :)</span>
@@ -426,7 +424,7 @@ DynamoDB
 
 
 
-
+<a name="scan"></a>
 <p><strong>Full table scan</strong> </p>
 <pre class="command-line code">
 <span class="comment">// optionally you can limit the returned attributes with .select()</span>
@@ -468,7 +466,7 @@ DynamoDB
 
 
 
-
+<a name="scanindex"></a>
 <p><strong>GSI scan</strong> </p>
 <pre class="command-line code">
 DynamoDB
@@ -549,18 +547,28 @@ DynamoDB
         </section>
 
         <aside id="sidebar">
-          <a href="https://github.com/databank/aws-dynamodb/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/databank/aws-dynamodb/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+			<ul>
+				<li><a href="#installation">Installation</a>
+				<li><a href="#testing">Testing</a>
+				<li><a href="#intitialization">Initialization</a>
+				<li><a href="#rawcalls">Raw Calls</a>
+				<li><a href="#errorfeed">Error Feed</a>
+				<li><a href="#insert">Insert</a>
+				<li><a href="#update">Update</a>
+				<li><a href="#replace">Replace (no insert)</a>
+				<li><a href="#insertorupdate">Insert or Update</a>
+				<li><a href="#increment">Increment (no insert)</a>
+				<li><a href="#deleteattributes">Delete Attributes</a>
+				<li><a href="#deleteitem">Delete Item</a>
+				<li><a href="#get">Get Item</a>
+				<li><a href="#query">Query</a>
+				<li><a href="#queryindex">Query Index</a>
+				<li><a href="#queryfilter">Query Filter</a>
+				<li><a href="#querycontinue">Query Resume</a>
+				<li><a href="#scan">Scan</a>
+				<li><a href="#scanindex">Scan Index</a>
+          
 
-          <p class="repo-owner"><a href="https://github.com/databank/aws-dynamodb"></a> is maintained by <a href="https://github.com/databank">databank</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
       </div>
     </div>
