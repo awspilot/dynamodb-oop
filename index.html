@@ -8,7 +8,14 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
+	<script src="//cdn.mergejs.com/lib/jquery/1.9.1/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/mode-javascript.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/theme-twilight.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/theme-monokai.js"></script>
+ 
+	
+	
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -18,7 +25,7 @@
   
   
 	<style>
-
+	.code {font-size: 14px;line-height: 21px;white-space: pre;}
 	</style>
   
   </head>
@@ -29,11 +36,6 @@
         <h1>Aws-dynamodb</h1>
 		<p><a href="https://www.npmjs.com/package/aws-dynamodb"><img src="https://nodei.co/npm/aws-dynamodb.png?downloads=true" alt="npm page"></a></p>
         <a href="https://github.com/databank/aws-dynamodb" class="button"><small>View project on</small> GitHub</a>
-		
-          <a href="https://github.com/databank/aws-dynamodb/zipball/master" class="button" style="top: 90px;background: transparent url(../images/download-button.png) 0 0 no-repeat;">
-            <small>Download</small>
-            .zip file
-          </a>
 		
 		
       </div>
@@ -53,25 +55,29 @@
 <a name="installation"></a>
 <p><strong>Installation</strong></p>
 
-<pre class="command-line">
-<span class="command">npm install aws-dynamodb</span>
+<div class="bash">
 
-<span class="comment">// check for new versions</span>
-<span class="command">npm outdated</span>
+npm install aws-dynamodb
 
-<span class="comment">// upgrade if necessary</span>
-<span class="command">npm update aws-dynamodb</span>
-</pre>
+// check for new versions
+npm outdated
+
+// upgrade if necessary
+npm update aws-dynamodb
+
+</div>
 
 <a name="testing"></a>
 <p><strong>Testing</strong></p>
-<pre class="command-line">
-<span class="comment">// add AWS credentials to your environment first</span>
-<span class="command">source test/credentials</span>
+<div class="bash">
 
-<span class="comment">// run the tests</span>
-<span class="command">npm test</span>
-</pre>
+// add AWS credentials to your environment first
+source test/credentials
+
+// run the tests
+npm test
+
+</div>
 
 
 
@@ -85,42 +91,49 @@
 
 <a name="initialization"></a>
 <p><strong>Initialization</strong></p>
-<pre class="command-line code">
+<div class="code">
+
 var $credentials = {
     "accessKeyId": "XXXXXXXXXXXXXXXX", 
     "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
     "region": "eu-west-1"
 }
 var DynamoDB = require('aws-dynamodb')($credentials)
-</pre>
+
+</div>
 
 
 <a name="rawcalls"></a>
 <p><strong>Doing raw calls to aws-sdk</strong></p>
-<pre class="command-line code">
+<div class="code">
+
 DynamoDB.client.listTables(function(err, data) {
     console.log(data.TableNames);
 });
 console.log( DynamoDB.client )
-</pre>
+
+</div>
 
 
 
 <a name="errorfeed"></a>
 <p><strong>Global error feed</strong></p>
-<pre class="command-line code">
-<span class="comment">// every call to Amazon DynamoDB that fail will</span>
-<span class="comment">// call this function before the operation's callback</span>
+<div class="code">
+
+// every call to Amazon DynamoDB that fail will
+// call this function before the operation's callback
 DynamoDB.on('error', function( operation, error, payload ) {
-    <span class="comment">// you could use this to log fails into LogWatch for </span>
-    <span class="comment">// later analysis or SQS queue lazy processing</span>
+    // you could use this to log fails into LogWatch for 
+    // later analysis or SQS queue lazy processing
 })
-</pre>
+
+</div>
 
 
 <a name="insert"></a>
 <p><strong>Insert Item</strong> ( does not replace existing items )</p>
-<pre class="command-line code">
+<div class="code">
+
 DynamoDB
     .table('users')
     .insert({
@@ -141,8 +154,8 @@ DynamoDB
         message: 'Bar'
     })
 
-<span class="comment">// insert item with nested attributes</span>
-<span class="comment">// carefull though as foo.bar domain actually exist :)</span>
+// insert item with nested attributes
+// carefull though as foo.bar domain actually exist :)
 DynamoDB
     .table('messages')
     .insert({
@@ -168,13 +181,50 @@ DynamoDB
             }
         }
     })
-</pre>
+
+</div>
+
+
+
+<a name="insertorupdate"></a>
+<p><strong>Insert on Duplicate Key Update</strong> ( 1 request to DynamoDB )</p>
+<div class="code">
+
+DynamoDB
+    .table('users')
+    .where('email').eq('test@test.com')
+    .insert_or_update({
+        password: 'qwert', 
+        firstname: 'Smith'
+    }, function( err, data ) {
+        console.log( err, data )
+    })
+
+</div>
+
+<a name="insertorreplace"></a>
+<p><strong>Insert on Duplicate Key Replace</strong> ( 1 request to DynamoDB )</p>
+<div class="code">
+
+DynamoDB
+	.table('users')
+	.insert_or_replace({
+		email: 'test@test.com',
+		password: 'qwert', 
+		firstname: 'Smith'
+	}, function( err, data ) {
+		console.log( err, data )
+	})
+
+</div>
+
 
 
 <a name="update"></a>
 <p><strong>Update Item</strong> ( does not create the item if item does not exist )</p>
-<pre class="command-line code">
-<span class="comment">// update multiple attributes in a HASH table</span>
+<div class="code">
+
+// update multiple attributes in a HASH table
 DynamoDB
 	.table('users')
 	.where('email').eq('test@test.com')
@@ -185,7 +235,7 @@ DynamoDB
 		console.log( err, data )
 	})
 
-<span class="comment">// update 1 attribute in a HASH-RANGE table</span>
+// update 1 attribute in a HASH-RANGE table
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
@@ -195,12 +245,14 @@ DynamoDB
 	}, function( err, data ) {
 		console.log( err, data )
 	})
-</pre>
+
+</div>
 
 <a name="replace"></a>
 <p><strong>Replace Item</strong> ( does not create the item if item does not exist )</p>
-<pre class="command-line code">
-<span class="comment">// completely replaces the item, new item will only contain specified attributes </span>
+<div class="code">
+
+// completely replaces the item, new item will only contain specified attributes 
 DynamoDB
     .table('users')
     .replace({
@@ -210,26 +262,16 @@ DynamoDB
     }, function(err,data) {
         console.log( err, data )
     })
-</pre>
 
-<a name="insertorupdate"></a>
-<p><strong>Insert on Duplicate Key Update</strong> ( in 1 request to DynamoDB )</p>
-<pre class="command-line code">
-DynamoDB
-    .table('users')
-    .where('email').eq('test@test.com')
-    .insert_or_update({
-        password: 'qwert', 
-        firstname: 'Smith'
-    }, function( err, data ) {
-        console.log( err, data )
-    })
-</pre>
+</div>
+
+
 
 <a name="increment"></a>
 <p><strong>Increment Item's Attribute(s)</strong> ( does not create the item if item does not exist )</p>
-<pre class="command-line code">
-<span class="comment">// increment 1 attribute in a HASH table </span>
+<div class="code">
+
+// increment 1 attribute in a HASH table 
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -239,23 +281,25 @@ DynamoDB
         console.log( err, data )
     })
 
-<span class="comment">// increment multiple attributes in a HASH-RANGE table</span>
+// increment multiple attributes in a HASH-RANGE table
 DynamoDB
     .table('statistics')
     .where('domain').eq('mydomain.com')
     .where('day').eq('2013-11-01')
     .increment({
         visitors: 1,
-        page_views 5,
+        page_views: 5,
         unique_page_views: 1
     }, function( err, data ) {
         console.log( err, data )
     })
-</pre>
+
+</div>
 
 <a name="deleteattributes"></a>
 <p><strong>Delete Item's Attribute(s)</strong></p>
-<pre class="command-line code">
+<div class="code">
+
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
@@ -263,12 +307,14 @@ DynamoDB
 	.delete(['seen','subject'], function( err, data ) {
 		console.log( err, data )
 	})
-</pre>
+
+</div>
 
 <a name="deleteitem"></a>
 <p><strong>Delete Item</strong></p>
-<pre class="command-line code">
-<span class="comment">// delete an item from a HASH table</span>
+<div class="code">
+
+// delete an item from a HASH table
 DynamoDB
     .table('users')
     .where('email').eq( 'test@test.com' )
@@ -276,7 +322,7 @@ DynamoDB
         console.log( err, data )
     })
 
-<span class="comment">// delete an item from a HASH-RANGE table</span>
+// delete an item from a HASH-RANGE table
 DynamoDB
     .table('messages')
     .where('to').eq( 'user1@test.com' )
@@ -284,12 +330,14 @@ DynamoDB
     .delete(function( err, data ) {
         console.log( err, data )
     })
-</pre>
+
+</div>
 
 <a name="get"></a>
 <p><strong>Get Item</strong></p>
-<pre class="command-line code">
-<span class="comment">// getting an item with HASH key only</span>
+<div class="code">
+
+// getting an item with HASH key only
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -297,7 +345,7 @@ DynamoDB
         console.log( err, data )
     })
 
-<span class="comment">// getting an item from a HASH-RANGE table, with consistent read</span>
+// getting an item from a HASH-RANGE table, with consistent read
 DynamoDB
     .table('messages')
     .where('to').eq('user1@test.com')
@@ -307,7 +355,7 @@ DynamoDB
         console.log( err, data )
     })
 
-<span class="comment">// specifying what attributes to return</span>
+// specifying what attributes to return
 DynamoDB
     .table('users')
     .select('email','registered_at')
@@ -315,15 +363,17 @@ DynamoDB
     .get(function( err, data ) {
         console.log( err, data )
     })
-</pre>
+
+</div>
 
 <a name="query"></a>
 <p><strong>Query</strong> ( not possible on HASH only tables )</p>
-<pre class="command-line code">
-<span class="comment">// for hash key comparson operator is always eq()</span>
-<span class="comment">// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)</span>
+<div class="code">
 
-<span class="comment">// base query, return 10 records with consistent read</span>
+// for hash key comparson operator is always eq()
+// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
+
+// base query, return 10 records with consistent read
 DynamoDB
     .table('statistics')
     .where('domain').eq('mydomain.com')
@@ -333,7 +383,7 @@ DynamoDB
         console.log(err,data)
     })
 
-<span class="comment">// only return specified fields, in descending order</span>
+// only return specified fields, in descending order
 DynamoDB
     .table('statistics')
     .select('unique_visitors','unique_pageviews')
@@ -343,13 +393,15 @@ DynamoDB
     .query(function( err, data ) {
         console.log( err, data )
     })
-</pre>
+
+</div>
 
 <a name="queryindex"></a>
 <p><strong>Query an Index with order_by()</strong></p>
-<pre class="command-line code">
-<span class="comment">// suppose you have an index on messages called starredIndex</span>
-<span class="comment">// and you want to retrieve only the messages that are starred</span>
+<div class="code">
+
+// suppose you have an index on messages called starredIndex
+// and you want to retrieve only the messages that are starred
 
 DynamoDB
     .table('messages')
@@ -360,7 +412,7 @@ DynamoDB
         console.log( err, data )
     })
 
-<span class="comment">// return all attributes including non-projected ( LSI only )</span>
+// return all attributes including non-projected ( LSI only )
 DynamoDB
     .table('messages')
     .select( DynamoDB.ALL )
@@ -371,19 +423,21 @@ DynamoDB
         console.log( err, data )
     })
 
-<span class="comment">// NOTE: specifying non-projected fields in select() will:</span>
-<span class="comment">// * cost you extra reads on a LSI index</span>
-<span class="comment">// * not be returned on a GSI index</span>
-</pre>
+// NOTE: specifying non-projected fields in select() will:
+// * cost you extra reads on a LSI index
+// * not be returned on a GSI index
+
+</div>
 
 
 <a name="queryfilter"></a>
 <p><strong>Query filtering</strong></p>
-<pre class="command-line code">
-<span class="comment">// A filter lets you apply conditions to the data after query</span>
-<span class="comment">// Only the items that meet your conditions are returned</span>
-<span class="comment">// All the conditions must evaluate to true ( conditions are ANDed together )</span>
-<span class="comment">// Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)</span>
+<div class="code">
+
+// A filter lets you apply conditions to the data after query
+// Only the items that meet your conditions are returned
+// All the conditions must evaluate to true ( conditions are ANDed together )
+// Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
 DynamoDB
     .table('messages')
     .where('to').eq('user1@test.com')
@@ -392,24 +446,25 @@ DynamoDB
     .query(function( err, data ) {
         console.log( err, data )
     })
-</pre>
+</div>
 
 
 
 <a name="querycontinue"></a>
 <p><strong>Query continue from last item</strong></p>
-<pre class="command-line code">
-<span class="comment">// query a table until the end of results :)</span>
+<div class="code">
+
+// query a table until the end of results :)
 (function recursive_call( $lastKey ) {
     DynamoDB
         .table('messages')
         .where('to').eq('user1@test.com')
         .resume($lastKey)
         .query(function( err, data ) {
-            <span class="comment">// handle error, process data ...</span>
+            // handle error, process data ...
 
             if (this.LastEvaluatedKey === null) {
-                <span class="comment">// reached end, do a callback() maybe</span>
+                // reached end, do a callback() maybe
                 return
             } 
 
@@ -420,15 +475,17 @@ DynamoDB
 
         })
 })(null)    
-</pre>
+
+</div>
 
 
 
 <a name="scan"></a>
 <p><strong>Full table scan</strong> </p>
-<pre class="command-line code">
-<span class="comment">// optionally you can limit the returned attributes with .select()</span>
-<span class="comment">// and the number of results with .limit()</span>
+<div class="code">
+
+// optionally you can limit the returned attributes with .select()
+// and the number of results with .limit()
 
 DynamoDB
     .table('messages')
@@ -439,17 +496,16 @@ DynamoDB
         console.log( err, data )
     })
 
-<span class="comment">// continous scan until end of table</span>
-
+// continous scan until end of table
 (function recursive_call( $lastKey ) {
     DynamoDB
         .table('messages')
         .resume($lastKey)
         .scan(function( err, data ) {
-            <span class="comment">// handle error, process data ...</span>
+            // handle error, process data ...
 
             if (this.LastEvaluatedKey === null) {
-                <span class="comment">// reached end, do a callback() maybe</span>
+                // reached end, do a callback() maybe
                 return
             } 
 
@@ -460,7 +516,8 @@ DynamoDB
 
         })
 })(null) 
-</pre>
+
+</div>
 
 
 
@@ -468,14 +525,16 @@ DynamoDB
 
 <a name="scanindex"></a>
 <p><strong>GSI scan</strong> </p>
-<pre class="command-line code">
+<div class="code">
+
 DynamoDB
     .table('messages')
     .index('GSI_Index_Name')
     .scan(function( err, data ) {
         console.log( err, data )
     })
-</pre>
+
+</div>
 
 
 
@@ -545,7 +604,7 @@ DynamoDB
 </tbody>
 </table>
         </section>
-
+		<!-- sidebar -->
         <aside id="sidebar">
 			<ul>
 				<li><a href="#installation">Installation</a>
@@ -553,10 +612,15 @@ DynamoDB
 				<li><a href="#intitialization">Initialization</a>
 				<li><a href="#rawcalls">Raw Calls</a>
 				<li><a href="#errorfeed">Error Feed</a>
-				<li><a href="#insert">Insert</a>
+				
+				<li><a href="#insert">Insert ( no update )</a>
+				<li><a href="#insertorupdate">Insert or Update</a>
+				<li><a href="#insertorreplace">Insert or Replace</a>
+				<li><a href="#insertorincrement">Insert or Increment</a>
+				
+				
 				<li><a href="#update">Update</a>
 				<li><a href="#replace">Replace (no insert)</a>
-				<li><a href="#insertorupdate">Insert or Update</a>
 				<li><a href="#increment">Increment (no insert)</a>
 				<li><a href="#deleteattributes">Delete Attributes</a>
 				<li><a href="#deleteitem">Delete Item</a>
@@ -569,10 +633,49 @@ DynamoDB
 				<li><a href="#scanindex">Scan Index</a>
           
 
-        </aside>
+        </aside>	
       </div>
     </div>
+	
 
+	
+<script>
+$(function() {
+
+	$('.code').each(function() {
+		var $newid = 'ace-' + Math.random()
+		$(this).attr('id', $newid).height( $(this).height() )
+		var $e = ace.edit($newid)
+		if ($(this).hasClass('bash')) {
+		} else {
+			$e.getSession().setMode("ace/mode/javascript")
+		}
+		$e.setTheme("ace/theme/monokai")
+		$e.setReadOnly(true)
+		$e.setShowPrintMargin(false)
+	})
+		//;
+		//
+
+    var $sidebar   = $("#sidebar"), 
+        $window    = $(window),
+        offset     = { top: 100 },
+        topPadding = 150;
+
+    $window.scroll(function() {		
+        //if ($window.scrollTop() > offset.top) {
+        //   $sidebar.stop().animate({
+        //        marginTop: $window.scrollTop() - offset.top + topPadding
+        //    });
+        //} else {
+        //    $sidebar.stop().animate({
+        //        marginTop: 0
+        //    });
+        //}
+    });
+    
+});
+</script>
 <!-- Begin Keptify Tracking -->
 <script type='text/javascript'>
 (function() {
@@ -584,6 +687,8 @@ DynamoDB
 })();
 </script>
 <!-- End Keptify Tracking -->
+
+
 
   </body>
 </html>
