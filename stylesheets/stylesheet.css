@@ -528,8 +528,9 @@ header h2 {
 
 .inner {
   position: relative;
-  width: 940px;
-  margin: 0 auto;
+  width: 1140px;
+  /* margin: 0 auto; */
+  margin-left: 50px;
 }
 
 #content-wrapper {
@@ -538,7 +539,7 @@ header h2 {
 
 #main-content {
   float: right;
-  width: 690px;
+  width: 890px;
 }
 
 #main-content img {
