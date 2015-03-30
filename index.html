@@ -226,6 +226,28 @@ DynamoDB
 	})
 </div>
 
+<a name="updateanddelete"></a>
+<h1>Update and Delete</h1>
+<p>
+</p>
+<div class="code">
+// The following will add/update one attribute ('foo') and delete 2 attributes ('bar' and 'baz')
+// it is prefered over delete([attr,attr]) as the operation is performed with 1 query
+// WARNING: do not use undefined in nested lists or objects, it WILL cause issues<br>
+
+DynamoDB
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.where('date').eq( 1375538399 )
+	.update({
+		bar: undefined,
+		baz: undefined,
+		foo: 'bar'
+	}, function( err, data ) {
+		console.log( err, data )
+	})
+</div>
+
 <a name="replace"></a>
 <h1>Replace Item</h1>
 <p>does not create the item if item does not exist</p>
@@ -276,13 +298,14 @@ DynamoDB
 <h1>Delete Item's Attribute(s)</h1>
 <p></p>
 <div class="code">
+// there are 2 ways of deleting item attributes, see <a href='#updateanddelete'>update+delete</a>
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
 	.where('date').eq( 1375538399 )
 	.delete(['seen','subject'], function( err, data ) {
 		console.log( err, data )
-	})
+	})	
 </div>
 
 <a name="deleteitem"></a>
@@ -588,6 +611,7 @@ DynamoDB
 				
 				
 				<li><a href="#update">Update</a>
+				<li><a href="#updateanddelete">Update+Delete Attributes</a>
 				<li><a href="#replace">Replace (no insert)</a>
 				<li><a href="#increment">Increment (no insert)</a>
 				<li><a href="#deleteattributes">Delete Attributes</a>
