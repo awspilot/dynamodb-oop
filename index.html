@@ -25,7 +25,7 @@
   
   
 	<style>
-	.code {font-size: 14px;line-height: 21px;white-space: pre;}
+	.code {font-size: 14px;line-height: 24px;white-space: pre;}
 	</style>
   
   </head>
@@ -49,18 +49,14 @@
 		  
 		  
 
-<h1>
-<a id="aws-dynamodb" class="anchor" href="#aws-dynamodb" aria-hidden="true"></a></h1>
 
 
 <a href="https://www.npmjs.com/package/aws-dynamodb"><img src="https://nodei.co/npm/aws-dynamodb.png?downloads=true" alt="npm page"></a>
 
 
 <a name="installation"></a>
-<p><strong>Installation</strong></p>
-
-<div class="bash">
-
+<h1>Installation</h1>
+<div class="code bash">
 npm install aws-dynamodb
 
 // check for new versions
@@ -68,76 +64,58 @@ npm outdated
 
 // upgrade if necessary
 npm update aws-dynamodb
-
 </div>
 
 <a name="testing"></a>
-<p><strong>Testing</strong></p>
-<div class="bash">
-
+<h1>Testing</h1>
+<div class="code bash">
 // add AWS credentials to your environment first
 source test/credentials
 
 // run the tests
 npm test
-
 </div>
 
 
-
-
-
-
-
-
-
-
-
 <a name="initialization"></a>
-<p><strong>Initialization</strong></p>
+<h1>Init</h1>
 <div class="code">
-
 var $credentials = {
     "accessKeyId": "XXXXXXXXXXXXXXXX", 
     "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
     "region": "eu-west-1"
 }
 var DynamoDB = require('aws-dynamodb')($credentials)
-
 </div>
 
 
 <a name="rawcalls"></a>
-<p><strong>Doing raw calls to aws-sdk</strong></p>
+<h1>Raw Calls to aws sdk</h1>
 <div class="code">
-
 DynamoDB.client.listTables(function(err, data) {
     console.log(data.TableNames);
 });
 console.log( DynamoDB.client )
-
 </div>
 
 
 
 <a name="errorfeed"></a>
-<p><strong>Global error feed</strong></p>
+<h1>Global error feed</h1>
 <div class="code">
-
 // every call to Amazon DynamoDB that fail will
 // call this function before the operation's callback
 DynamoDB.on('error', function( operation, error, payload ) {
     // you could use this to log fails into LogWatch for 
     // later analysis or SQS queue lazy processing
 })
-
 </div>
 
 
 <a name="insert"></a>
-<p><strong>Insert Item</strong> ( does not replace existing items )</p>
+<h1>Insert Item</h1>
+<p>does not replace existing items</p>
 <div class="code">
-
 DynamoDB
     .table('users')
     .insert({
@@ -185,15 +163,14 @@ DynamoDB
             }
         }
     })
-
 </div>
 
 
 
 <a name="insertorupdate"></a>
-<p><strong>Insert on Duplicate Key Update</strong> ( 1 request to DynamoDB )</p>
+<h1>Insert on Duplicate Item Update</h1>
+<p>1 request to DynamoDB</p>
 <div class="code">
-
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -203,13 +180,12 @@ DynamoDB
     }, function( err, data ) {
         console.log( err, data )
     })
-
 </div>
 
 <a name="insertorreplace"></a>
-<p><strong>Insert on Duplicate Key Replace</strong> ( 1 request to DynamoDB )</p>
+<h1>Insert on Duplicate Item Replace</h1>
+<p>1 request to DynamoDB</p>
 <div class="code">
-
 DynamoDB
 	.table('users')
 	.insert_or_replace({
@@ -219,15 +195,14 @@ DynamoDB
 	}, function( err, data ) {
 		console.log( err, data )
 	})
-
 </div>
 
 
 
 <a name="update"></a>
-<p><strong>Update Item</strong> ( does not create the item if item does not exist )</p>
+<h1>Update Item</h1>
+<p>does not create the item if item does not exist</p>
 <div class="code">
-
 // update multiple attributes in a HASH table
 DynamoDB
 	.table('users')
@@ -249,13 +224,12 @@ DynamoDB
 	}, function( err, data ) {
 		console.log( err, data )
 	})
-
 </div>
 
 <a name="replace"></a>
-<p><strong>Replace Item</strong> ( does not create the item if item does not exist )</p>
+<h1>Replace Item</h1>
+<p>does not create the item if item does not exist</p>
 <div class="code">
-
 // completely replaces the item, new item will only contain specified attributes 
 DynamoDB
     .table('users')
@@ -266,15 +240,14 @@ DynamoDB
     }, function(err,data) {
         console.log( err, data )
     })
-
 </div>
 
 
 
 <a name="increment"></a>
-<p><strong>Increment Item's Attribute(s)</strong> ( does not create the item if item does not exist )</p>
+<h1>Increment Item's Attribute(s)</h1>
+<p>( does not create the item if item does not exist )</p>
 <div class="code">
-
 // increment 1 attribute in a HASH table 
 DynamoDB
     .table('users')
@@ -291,19 +264,18 @@ DynamoDB
     .where('domain').eq('mydomain.com')
     .where('day').eq('2013-11-01')
     .increment({
-        visitors: 1,
-        page_views: 5,
-        unique_page_views: 1
+        visitors: 2,
+		unique_visitors: 1,
+        page_views: 5
     }, function( err, data ) {
         console.log( err, data )
     })
-
 </div>
 
 <a name="deleteattributes"></a>
-<p><strong>Delete Item's Attribute(s)</strong></p>
+<h1>Delete Item's Attribute(s)</h1>
+<p></p>
 <div class="code">
-
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
@@ -311,13 +283,12 @@ DynamoDB
 	.delete(['seen','subject'], function( err, data ) {
 		console.log( err, data )
 	})
-
 </div>
 
 <a name="deleteitem"></a>
-<p><strong>Delete Item</strong></p>
+<h1>Delete Item</h1>
+<p></p>
 <div class="code">
-
 // delete an item from a HASH table
 DynamoDB
     .table('users')
@@ -334,13 +305,12 @@ DynamoDB
     .delete(function( err, data ) {
         console.log( err, data )
     })
-
 </div>
 
 <a name="get"></a>
-<p><strong>Get Item</strong></p>
+<h1>Get Item</h1>
+<p></p>
 <div class="code">
-
 // getting an item with HASH key only
 DynamoDB
     .table('users')
@@ -367,13 +337,12 @@ DynamoDB
     .get(function( err, data ) {
         console.log( err, data )
     })
-
 </div>
 
 <a name="query"></a>
-<p><strong>Query</strong> ( not possible on HASH only tables )</p>
+<h1>Query</h1>
+<p>not possible on HASH only tables</p>
 <div class="code">
-
 // for hash key comparson operator is always eq()
 // for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
 
@@ -397,13 +366,12 @@ DynamoDB
     .query(function( err, data ) {
         console.log( err, data )
     })
-
 </div>
 
 <a name="queryindex"></a>
-<p><strong>Query an Index with order_by()</strong></p>
+<h1>Query an Index with order_by()</h1>
+<p></p>
 <div class="code">
-
 // suppose you have an index on messages called starredIndex
 // and you want to retrieve only the messages that are starred
 
@@ -430,14 +398,13 @@ DynamoDB
 // NOTE: specifying non-projected fields in select() will:
 // * cost you extra reads on a LSI index
 // * not be returned on a GSI index
-
 </div>
 
 
 <a name="queryfilter"></a>
-<p><strong>Query filtering</strong></p>
+<h1>Query filtering</h1>
+<p></p>
 <div class="code">
-
 // A filter lets you apply conditions to the data after query
 // Only the items that meet your conditions are returned
 // All the conditions must evaluate to true ( conditions are ANDed together )
@@ -455,9 +422,9 @@ DynamoDB
 
 
 <a name="querycontinue"></a>
-<p><strong>Query continue from last item</strong></p>
+<h1>Query continue from last item</h1>
+<p></p>
 <div class="code">
-
 // query a table until the end of results :)
 (function recursive_call( $lastKey ) {
     DynamoDB
@@ -479,15 +446,14 @@ DynamoDB
 
         })
 })(null)    
-
 </div>
 
 
 
 <a name="scan"></a>
-<p><strong>Full table scan</strong> </p>
+<h1>Full table scan</h1>
+<p> </p>
 <div class="code">
-
 // optionally you can limit the returned attributes with .select()
 // and the number of results with .limit()
 
@@ -519,8 +485,7 @@ DynamoDB
             },1000)
 
         })
-})(null) 
-
+})(null)
 </div>
 
 
@@ -528,16 +493,15 @@ DynamoDB
 
 
 <a name="scanindex"></a>
-<p><strong>GSI scan</strong> </p>
+<h1>GSI scan</h1>
+<p> </p>
 <div class="code">
-
 DynamoDB
     .table('messages')
     .index('GSI_Index_Name')
     .scan(function( err, data ) {
         console.log( err, data )
     })
-
 </div>
 
 
@@ -648,7 +612,7 @@ $(function() {
 
 	$('.code').each(function() {
 		var $newid = 'ace-' + Math.random()
-		$(this).attr('id', $newid).height( $(this).height() )
+		$(this).attr('id', $newid).height( $(this).height() + 24 )
 		var $e = ace.edit($newid)
 		if ($(this).hasClass('bash')) {
 		} else {
@@ -662,20 +626,21 @@ $(function() {
 		//
 
     var $sidebar   = $("#sidebar"), 
-        $window    = $(window),
-        offset     = { top: 100 },
-        topPadding = 150;
+        $window    = $(window)
 
     $window.scroll(function() {		
-        //if ($window.scrollTop() > offset.top) {
-        //   $sidebar.stop().animate({
+		console.log($window.scrollTop())
+        if ($window.scrollTop() > 208 ) {
+			$sidebar.css('position','fixed').css('top','20px')
+		//   $sidebar.stop().animate({
         //        marginTop: $window.scrollTop() - offset.top + topPadding
         //    });
-        //} else {
+        } else {
+			$sidebar.css('position','absolute')
         //    $sidebar.stop().animate({
         //        marginTop: 0
         //    });
-        //}
+        }
     });
     
 });

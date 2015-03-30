@@ -29,7 +29,7 @@ pre.command-line.code {
 }
 
 aside {
-	position: fixed;
+	position: absolute;
 }
 aside ul {
 	list-style-type: none;
@@ -38,8 +38,11 @@ aside ul {
 }
 aside ul li a {
 	padding-left: 10px;
-	line-height: 25px;
+	line-height: 26px;
 	display: block;
+	font-family: Raleway;
+	font-size: 16px;
+	font-weight: 100;
 }
 aside ul li a:hover {
 	background: #2e7bcf;
@@ -661,13 +664,13 @@ form {
 /* GENERAL ELEMENT TYPE STYLES */
 
 #main-content h1 {
-  margin-top: 0;
+	margin-top: 50px;
   margin-bottom: 0;
   font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
-  font-size: 22px;
-  text-shadow: 1px 1px 1px #000000;
-  font-weight: 300;
-  color: #686868;
+  font-size: 36px;
+	/*text-shadow: 1px 1px 1px #000000;*/
+  font-weight: 200;
+  color: #666666;
   text-indent: 6px;
   letter-spacing: -1px;
 }
