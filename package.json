@@ -11,8 +11,8 @@
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.22",
-	"homepage": "https://github.com/databank/aws-dynamodb",
+	"version": "0.1.24",
+	"homepage": "http://databank.github.com/aws-dynamodb",
 	"bugs": "https://github.com/databank/aws-dynamodb/issues",
 	"repository": {
 		"type" :  "git",
