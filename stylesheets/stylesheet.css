@@ -502,7 +502,8 @@ header {
   padding-top: 40px;
   padding-bottom: 40px;
   font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
-  background: #2e7bcf url(../images/header-bg.jpg) 0 0 repeat-x;
+  background-color: #edf0eb;
+  border-bottom: 1px solid #c8c8c8;
   /* background-color: #252525;
   border-bottom: 1px dashed #b5e853;*/
 }
@@ -514,7 +515,7 @@ header h1 {
   font-size: 72px;
   font-weight: 100;
   line-height: 1;
-  color: #fff;
+  color: #f48b00;
   letter-spacing: -1px;
 }
 
@@ -569,8 +570,6 @@ aside#sidebar p.repo-owner a {
 }
 
 a.button {
-  width: 134px;
-  height: 58px;
   padding-top: 22px;
   padding-left: 68px;
   font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
@@ -586,7 +585,6 @@ header a.button {
   position: absolute;
   top: 0;
   right: 0;
-  background: transparent url(../images/github-button.png) 0 0 no-repeat;
 }
 aside a.button {
   display: block;
@@ -667,11 +665,10 @@ form {
 	margin-top: 50px;
   margin-bottom: 0;
   font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
-  font-size: 36px;
+  font-size: 32px;
 	/*text-shadow: 1px 1px 1px #000000;*/
-  font-weight: 200;
-  color: #666666;
-  text-indent: 6px;
+  font-weight: 100;
+  color: #f48b00;;
   letter-spacing: -1px;
 }
 
