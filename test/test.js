@@ -327,6 +327,313 @@ describe('insert', function () {
 	})
 
 })
+
+
+
+
+
+
+
+
+
+
+
+describe('update', function () {
+	// if missing hash and/or range will fail becauseof exist constrain	
+
+	
+    it('should fail if wrong type for HASH', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq(1)
+			.where('range').eq(1)
+			.update({
+				key: 'value'
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw {error: 'should fail'}
+			})
+    })
+    it('should fail if wrong type for RANGE', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash')
+			.where('range').eq('range')
+			.update({
+				key: 'value'
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw {error: 'should fail'}
+			})
+    })
+    it('should fail if wrong type for RANGE', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash')
+			.where('range').eq('range')
+			.update({
+				key: 'value'
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw {error: 'should fail'}
+			})
+    })
+	
+    it('should fail if we try to update the RANGE key', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash')
+			.where('range').eq(1)
+			.update({
+				range: 2
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw {error: 'should fail'}
+			})
+    })	
+
+    it('should fail if we try to update an inexistent item', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash999')
+			.where('range').eq(1)
+			.update({
+				key: 'value'
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw {error: 'should fail'}
+			})
+    })	
+
+	// @todo: also try update gsi index with wrong type
+    it('should fail if we try to update GSI index range key with the wrong type', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash')
+			.where('range').eq(1)
+			.update({
+				gsi_range: 1
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw {error: 'should fail'}
+			})
+    })	
+	
+	it('should update', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').eq(1)
+			.update({
+				gsi_range: 'b',
+				string: 'string',
+				number: 1,
+				null: null,
+				mixed_array: [ 1, 'a', null, { k1: 'v1', k2: 'v2', k3: 'v3' }, [] ],
+				object: { key1: 'value1', key2: 22 }
+			}, function(err, data) {
+				if (err)
+					throw err
+				else
+					DynamoDB
+						.table($tableName)
+						.where('hash').eq('hash1')
+						.where('range').eq(1)
+						.consistentRead()
+						.get(function( err, data ) {
+							if (err)
+								throw err
+							else {
+								if (data.string !== 'string' ) throw { error: 'unexpected value'}
+								if (data.number !== 1 ) throw { error: 'unexpected value'}
+								if (data.null !== null ) throw { error: 'unexpected value'}
+								// @todo: check all values
+								done()
+							}
+						})
+					
+				 
+			})
+    })
+
+	it('should delete attributes when passing undefined', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').eq(1)
+			.update({
+				string: undefined,
+				number: undefined,
+				null: undefined,
+				mixed_array: [1,'a', null, { k1: 'v99', k2: undefined }, [] ],
+				object: { key: undefined }
+			}, function(err, data) {
+				if (err)
+					throw err
+				else
+					DynamoDB
+						.table($tableName)
+						.where('hash').eq('hash1')
+						.where('range').eq(1)
+						.consistentRead()
+						.get(function( err, data ) {
+							if (err)
+								throw err
+							else {
+								if (data.hasOwnProperty('string')) throw { error: 'unexpected value'}
+								if (data.hasOwnProperty('number')) throw { error: 'unexpected value'}
+								if (data.hasOwnProperty('null')) throw { error: 'unexpected value'}
+								// @todo: check the values
+								done()
+							}
+						})
+			})
+    })
+	
+	
+	
+    //it('should fail if we try to update GSI index range key with the wrong type', function(done) { 
+	//	DynamoDB
+	//		table($tableName)
+	//		.where('hash').eq('hash')
+	//		.where('range').eq(1)
+	//		.update({
+	//			gsi_range: 1
+	//		}, function(err, data) {
+	//			if (err)
+	//				done()
+	//			else
+	//				throw {error: 'should fail'}
+	//		})
+    //})	
+
+	
+	/*
+    it('should fail if HASH is wrong type', function(done) { 
+		DynamoDB
+			table($tableName)
+			.insert({
+				hash: 1,
+				range: 1
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw err
+			})
+    })
+    it('should fail if RANGE is wrong type', function(done) { 
+		DynamoDB
+			table($tableName)
+			.insert({
+				hash: 'hash1',
+				range: 'xxx'
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw err
+			})
+    })
+	
+    it('should fail if GSI RANGE is wrong type', function(done) { 
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').eq(1)
+			.delete(function( err, data ) {
+				DynamoDB
+					table($tableName)
+					.insert({
+						hash: 'hash1',
+						range: 1,
+						gsi_range: 1
+					}, function(err, data) {
+						if (err)
+							done()
+						else
+							throw err
+					})
+			})
+    })	
+	
+    it('should insert when item does not exist', function(done) { 
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').eq(1)
+			.delete(function( err, data ) {
+				
+				DynamoDB
+					table($tableName)
+					.insert({
+						hash: 'hash1',
+						range: 1,
+						gsi_range: 'a'
+					}, function(err, data) {
+						if (err)
+							throw err
+						else
+							DynamoDB
+								table($tableName)
+								.insert({
+									hash: 'hash1',
+									range: 2
+								}, function(err, data) {
+									// is ok if it fails since this would be a duplicate when executing 2nd time
+									// we just want this item present in the database
+									done()
+								})
+						
+					})
+					
+
+			})
+    })
+	
+    it('should fail when item already exists', function(done) { 	
+		DynamoDB
+			table($tableName)
+			.insert({
+				hash: 'hash1',
+				range: 1
+			}, function(err, data) {
+				if (err)
+					done()
+				else
+					throw err
+			})
+	})
+	*/
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 describe('query', function () {
     it('should fail when table name is wrong', function(done) { 	
 		DynamoDB
