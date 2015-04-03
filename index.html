@@ -13,6 +13,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/mode-javascript.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/theme-twilight.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/theme-monokai.js"></script>
+	<script src="https://rawgit.com/databank/ui-dynamodb/master/public/js/bundle.js"></script>
  
 	
 	
@@ -431,12 +432,27 @@ DynamoDB
 // A filter lets you apply conditions to the data after query
 // Only the items that meet your conditions are returned
 // All the conditions must evaluate to true ( conditions are ANDed together )
-// Comparison operators: eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
+// You can not apply filter on HASH or RANGE key
+// Comparison operators: 
+// The ones supported for RANGE key:
+// 			eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
+// Plus:
+//			ne(), defined(), undefined()
+// Unsupported yet ( for type SET ):
+//			contains(), not_contains(), in()
+//
+// WARNING: defined() and undefined() are aliases for DynamoDB's NULL and NOT_NULL
+// they refer to the presence of an attribute and has nothing to do with it's value
+// so   .having('attribute').null() differs from .having('attribute').eq( null )
+// also .having('attribute').not_null() differs from .having('attribute').ne( null )  
+
 DynamoDB
     .table('messages')
     .where('to').eq('user1@test.com')
     .having('one_attribute').between(100,200)
     .having('other_attribute').eq(true)
+	.having('deleted').undefined()      // or .null()
+	.having('last_login').defined()     // or .not_null()
     .query(function( err, data ) {
         console.log( err, data )
     })
