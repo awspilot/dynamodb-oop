@@ -206,6 +206,22 @@ describe('describeTable', function () {
 })
 
 describe('insert', function () {
+
+    it('should NOT fail when missing callback', function(done) { 
+		DynamoDB
+			table($tableName)
+			.insert({
+				hash: 'hash1',
+				range: 99,
+				number: 99,
+				null: null
+			})
+		setTimeout(function() {
+			done()
+		},5000)	
+    })
+
+
     it('should fail if missing RANGE', function(done) { 
 		DynamoDB
 			table($tableName)
@@ -290,6 +306,7 @@ describe('insert', function () {
 					.insert({
 						hash: 'hash1',
 						range: 1,
+						number: 1,
 						gsi_range: 'a'
 					}, function(err, data) {
 						if (err)
@@ -299,7 +316,8 @@ describe('insert', function () {
 								table($tableName)
 								.insert({
 									hash: 'hash1',
-									range: 2
+									range: 2,
+									number: 2
 								}, function(err, data) {
 									// is ok if it fails since this would be a duplicate when executing 2nd time
 									// we just want this item present in the database
@@ -341,7 +359,18 @@ describe('insert', function () {
 describe('update', function () {
 	// if missing hash and/or range will fail becauseof exist constrain	
 
-	
+    it('should NOT fail when missing callback', function(done) { 
+		DynamoDB
+			table($tableName)
+			.where('hash').eq('hash999')
+			.where('range').eq(999)
+			.update({
+				key: 1
+			})
+		setTimeout(function() {
+			done()
+		},5000)	
+    })
     it('should fail if wrong type for HASH', function(done) { 
 		DynamoDB
 			table($tableName)
@@ -475,7 +504,6 @@ describe('update', function () {
 			.where('range').eq(1)
 			.update({
 				string: undefined,
-				number: undefined,
 				null: undefined,
 				mixed_array: [1,'a', null, { k1: 'v99', k2: undefined }, [] ],
 				object: { key: undefined }
@@ -493,7 +521,6 @@ describe('update', function () {
 								throw err
 							else {
 								if (data.hasOwnProperty('string')) throw { error: 'unexpected value'}
-								if (data.hasOwnProperty('number')) throw { error: 'unexpected value'}
 								if (data.hasOwnProperty('null')) throw { error: 'unexpected value'}
 								// @todo: check the values
 								done()
@@ -677,6 +704,227 @@ describe('query', function () {
 					throw err
 			})
 	})
+	
+    it('.where(RANGE).le()', function(done) { 	
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').le(99)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 3)
+					throw err
+					
+				done()
+			})
+	})
+    it('.where(RANGE).lt()', function(done) { 	
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').lt(99)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+    it('.where(RANGE).ge()', function(done) { 	
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').ge(2)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+    it('.where(RANGE).gt()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').gt(2)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 1)
+					throw err
+					
+				done()
+			})
+	})
+    it('.where(RANGE).between()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').between(2,99)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})	
+	
+	/* @todo: test begin with for RANGE type NUMBER
+    it('.where(RANGE).begins_with()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').begins_with(9)
+			.query( function(err, data) {
+				if (err)
+					console.log(err)
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+	*/
+
+	
+	it('.having(atribute).le()', function(done) { 
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('number').le(2)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+    it('.having(atribute).lt()', function(done) { 	
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('number').lt(99)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+    it('.having(atribute).ge()', function(done) { 	
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('number').ge(2)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+    it('.having(atribute).gt()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('number').gt(2)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 1)
+					throw err
+					
+				done()
+			})
+	})
+    it('.having(atribute).between()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('number').between(2,99)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})	
+    it('.having(attribute).ne()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('number').ne(99)
+			.query( function(err, data) {
+				if (err)
+					console.log(err)
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+    
+
+	it('.having(attribute).defined()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('null').defined()
+			.query( function(err, data) {
+				if (err)
+					console.log(err)
+
+				if (data.length !== 1)
+					throw err
+					
+				done()
+			})
+	})
+	
+	it('.having(attribute).undefined()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.having('null').undefined()
+			.query( function(err, data) {
+				if (err)
+					console.log(err)
+
+				if (data.length !== 2)
+					throw err
+					
+				done()
+			})
+	})
+	// @todo: contains, not_contains, in (for type SET )
+
 })
 
 
@@ -699,8 +947,8 @@ describe('scan', function () {
 				if (err)
 					throw err
 				else {
-					if (data.length !== 2)
-						throw 'should be length: 2'
+					if (data.length !== 3)
+						throw 'should be length: 3'
 					else
 						done()
 				}
