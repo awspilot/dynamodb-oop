@@ -87,8 +87,12 @@ var $credentials = {
     "region": "eu-west-1"
 }
 var DynamoDB = require('aws-dynamodb')($credentials)
-</div>
 
+// Alternatively, use an existing instance of AWS.DynamoDB.
+var AWS = require('aws-sdk');
+var $db = new AWS.DynamoDB();
+var DynamoDB = require('aws-dynamodb')($db);
+</div>
 
 <a name="rawcalls"></a>
 <h1>Raw Calls to aws sdk</h1>
