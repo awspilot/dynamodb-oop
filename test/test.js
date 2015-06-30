@@ -209,7 +209,7 @@ describe('insert', function () {
 
     it('should NOT fail when missing callback', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.insert({
 				hash: 'hash1',
 				range: 99,
@@ -224,7 +224,7 @@ describe('insert', function () {
 
     it('should fail if missing RANGE', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.insert({
 				hash: 'hash1'
 			}, function(err, data) {
@@ -236,7 +236,7 @@ describe('insert', function () {
     })
     it('should fail if missing HASH', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.insert({
 				range: 1
 			}, function(err, data) {
@@ -248,7 +248,7 @@ describe('insert', function () {
     })
     it('should fail if HASH is wrong type', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.insert({
 				hash: 1,
 				range: 1
@@ -261,7 +261,7 @@ describe('insert', function () {
     })
     it('should fail if RANGE is wrong type', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.insert({
 				hash: 'hash1',
 				range: 'xxx'
@@ -280,7 +280,7 @@ describe('insert', function () {
 			.where('range').eq(1)
 			.delete(function( err, data ) {
 				DynamoDB
-					table($tableName)
+					.table($tableName)
 					.insert({
 						hash: 'hash1',
 						range: 1,
@@ -302,7 +302,7 @@ describe('insert', function () {
 			.delete(function( err, data ) {
 				
 				DynamoDB
-					table($tableName)
+					.table($tableName)
 					.insert({
 						hash: 'hash1',
 						range: 1,
@@ -313,7 +313,7 @@ describe('insert', function () {
 							throw err
 						else
 							DynamoDB
-								table($tableName)
+								.table($tableName)
 								.insert({
 									hash: 'hash1',
 									range: 2,
@@ -332,7 +332,7 @@ describe('insert', function () {
 	
     it('should fail when item already exists', function(done) { 	
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.insert({
 				hash: 'hash1',
 				range: 1
@@ -343,7 +343,22 @@ describe('insert', function () {
 					throw err
 			})
 	})
-
+    //it('should fail .if(hash).eq().if(range).eq()', function(done) { 	
+	//	DynamoDB
+	//		table($tableName)
+	//		.if('hash').eq('hash1')
+	//		.if('range').eq(1)
+	//		.insert({
+	//			hash: 'hash1',
+	//			range: 1
+	//		}, function(err, data) {
+	//			console.log(err,data)
+	//			//if (err)
+	//				done()
+	//			//else
+	//			//	throw err
+	//		})
+	//})
 })
 
 
@@ -361,7 +376,7 @@ describe('update', function () {
 
     it('should NOT fail when missing callback', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash999')
 			.where('range').eq(999)
 			.update({
@@ -373,7 +388,7 @@ describe('update', function () {
     })
     it('should fail if wrong type for HASH', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq(1)
 			.where('range').eq(1)
 			.update({
@@ -387,7 +402,7 @@ describe('update', function () {
     })
     it('should fail if wrong type for RANGE', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash')
 			.where('range').eq('range')
 			.update({
@@ -401,7 +416,7 @@ describe('update', function () {
     })
     it('should fail if wrong type for RANGE', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash')
 			.where('range').eq('range')
 			.update({
@@ -416,7 +431,7 @@ describe('update', function () {
 	
     it('should fail if we try to update the RANGE key', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash')
 			.where('range').eq(1)
 			.update({
@@ -431,7 +446,7 @@ describe('update', function () {
 
     it('should fail if we try to update an inexistent item', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash999')
 			.where('range').eq(1)
 			.update({
@@ -447,7 +462,7 @@ describe('update', function () {
 	// @todo: also try update gsi index with wrong type
     it('should fail if we try to update GSI index range key with the wrong type', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash')
 			.where('range').eq(1)
 			.update({
@@ -462,7 +477,7 @@ describe('update', function () {
 	
 	it('should update', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash1')
 			.where('range').eq(1)
 			.update({
@@ -499,7 +514,7 @@ describe('update', function () {
 
 	it('should delete attributes when passing undefined', function(done) { 
 		DynamoDB
-			table($tableName)
+			.table($tableName)
 			.where('hash').eq('hash1')
 			.where('range').eq(1)
 			.update({
@@ -955,6 +970,26 @@ describe('scan', function () {
 					
 			})
 	})	
+    //it('.having(atribute).gt()', function(done) { 	
+	//	DynamoDB
+	//		.table('domains')
+	//		.having('quota_used').gt(0)
+	//		.scan( function(err, data) {
+	//			console.log("err:", err )
+	//			console.log("domains:",data.length)
+	//			done()
+	//			//if (err)
+	//			//	throw err
+	//			//else {
+	//			//	if (data.length !== 3)
+	//			//		throw 'should be length: 3'
+	//			//	else
+	//			//		done()
+	//			//}
+	//				
+	//		})
+	//})	
+
 })
 
 
