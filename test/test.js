@@ -45,14 +45,14 @@ describe('waiting for table to delete', function () {
 				.describeTable({
 					TableName: $tableName
 				}, function(err, data) {
-					
+
 					if (err && err.code === 'ResourceNotFoundException') {
 						clearInterval($existInterval)
 						return done()
-					} 
+					}
 					if (err)
 						throw err
-					
+
 					if (data.TableStatus === 'DELETING')
 						process.stdout.write('.')
 				})
@@ -121,7 +121,7 @@ describe('client.createTable', function () {
 						}
 					}
 				],
-				
+
 				/*
 				"LocalSecondaryIndexes": [
 					{
@@ -141,8 +141,8 @@ describe('client.createTable', function () {
 					}
 				],
 				*/
-				
-				
+
+
 			}, function(err, data) {
 				if (err) {
 					throw err
@@ -174,47 +174,113 @@ describe('waiting for table to become ACTIVE', function () {
 						if (data.Table.TableStatus === 'ACTIVE') {
 							clearInterval($existInterval)
 							done()
-						} 
+						}
 					}
 				})
 		}, 1000)
 	})
 })
-
-describe('describeTable', function () {
-    it('should throw error on inexistent table', function(done) { 
+describe('.table().describe()', function () {
+	it('should throw error on inexistent table', function(done) {
 		DynamoDB
-			.client
-			.describeTable({
-				TableName: 'inexistent-table'
-			}, function(err, data) {
+			.table('inexistent-table')
+			.describe(function(err, data) {
 				if (err)
 					done()
 				else
 					throw err
 			})
-    });
-
-    it('should return table data', function(done) { 
+	});
+	it('should return a valid Object for createTabe', function(done) {
 		DynamoDB
-			.client
-			.describeTable({
-				TableName: $tableName
-			}, function(err, data) {
+			.table($tableName)
+			.describe( function(err, data) {
 				if (err)
 					throw err
 				else {
-					expect(data).to.have.property('Table')
-					expect(data.Table).to.have.property('KeySchema')
-					done()
+					// create table based on 1st table
+					data.TableName = 'copy-' + $tableName
+					DynamoDB
+						.client.createTable( data, function(err,data) {
+							// failed to create an identic table
+							if (err)
+								throw err
+							else
+								done()
+						} )
 				}
 			})
-    })
+	})
+	it('waiting for temporary table to become active', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: 'copy-' + $tableName
+				}, function(err, data) {
+					if (err) {
+						throw err
+					} else {
+						if (data.Table.TableStatus === 'ACTIVE') {
+							clearInterval($existInterval)
+							done()
+						}
+					}
+				})
+		}, 1000)
+	})
+	it('deleting copy of temporary table from previous test', function(done) {
+		DynamoDB
+			.client
+			.describeTable({
+				TableName: 'copy-' + $tableName
+			}, function(err, data) {
+				if (err) {
+					if (err.code === 'ResourceNotFoundException')
+						done()
+					else
+						throw 'could not describe table'
+				} else {
+					DynamoDB
+						.client
+						.deleteTable({
+							TableName: 'copy-' + $tableName
+						}, function(err, data) {
+							if (err)
+								throw 'delete failed'
+							else
+								done()
+						})
+				}
+			})
+	});
+	it('waiting for temporary table to delete', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: 'copy-' + $tableName
+				}, function(err, data) {
+
+					if (err && err.code === 'ResourceNotFoundException') {
+						clearInterval($existInterval)
+						return done()
+					}
+					if (err) {
+						throw err
+						return
+					}
+					if (data.TableStatus === 'DELETING')
+						process.stdout.write('.')
+				})
+		}, 1000)
+	})
+
 })
 
 describe('insert', function () {
 
-    it('should NOT fail when missing callback', function(done) { 
+    it('should NOT fail when missing callback', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert({
@@ -225,11 +291,11 @@ describe('insert', function () {
 			})
 		setTimeout(function() {
 			done()
-		},5000)	
+		},5000)
     })
 
 
-    it('should fail if missing RANGE', function(done) { 
+    it('should fail if missing RANGE', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert({
@@ -241,7 +307,7 @@ describe('insert', function () {
 					throw err
 			})
     })
-    it('should fail if missing HASH', function(done) { 
+    it('should fail if missing HASH', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert({
@@ -253,7 +319,7 @@ describe('insert', function () {
 					throw err
 			})
     })
-    it('should fail if HASH is wrong type', function(done) { 
+    it('should fail if HASH is wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert({
@@ -266,7 +332,7 @@ describe('insert', function () {
 					throw err
 			})
     })
-    it('should fail if RANGE is wrong type', function(done) { 
+    it('should fail if RANGE is wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert({
@@ -279,8 +345,8 @@ describe('insert', function () {
 					throw err
 			})
     })
-	
-    it('should fail if GSI RANGE is wrong type', function(done) { 
+
+    it('should fail if GSI RANGE is wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -299,15 +365,15 @@ describe('insert', function () {
 							throw err
 					})
 			})
-    })	
-	
-    it('should insert when item does not exist', function(done) { 
+    })
+
+    it('should insert when item does not exist', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
 			.where('range').eq(1)
 			.delete(function( err, data ) {
-				
+
 				DynamoDB
 					.table($tableName)
 					.insert({
@@ -330,14 +396,14 @@ describe('insert', function () {
 									// we just want this item present in the database
 									done()
 								})
-						
+
 					})
-					
+
 
 			})
     })
-	
-    it('should fail when item already exists', function(done) { 	
+
+    it('should fail when item already exists', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert({
@@ -350,7 +416,7 @@ describe('insert', function () {
 					throw err
 			})
 	})
-    //it('should fail .if(hash).eq().if(range).eq()', function(done) { 	
+    //it('should fail .if(hash).eq().if(range).eq()', function(done) {
 	//	DynamoDB
 	//		table($tableName)
 	//		.if('hash').eq('hash1')
@@ -379,9 +445,9 @@ describe('insert', function () {
 
 
 describe('update', function () {
-	// if missing hash and/or range will fail becauseof exist constrain	
+	// if missing hash and/or range will fail becauseof exist constrain
 
-    it('should NOT fail when missing callback', function(done) { 
+    it('should NOT fail when missing callback', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash999')
@@ -391,9 +457,9 @@ describe('update', function () {
 			})
 		setTimeout(function() {
 			done()
-		},5000)	
+		},5000)
     })
-    it('should fail if wrong type for HASH', function(done) { 
+    it('should fail if wrong type for HASH', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq(1)
@@ -407,7 +473,7 @@ describe('update', function () {
 					throw {error: 'should fail'}
 			})
     })
-    it('should fail if wrong type for RANGE', function(done) { 
+    it('should fail if wrong type for RANGE', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash')
@@ -421,7 +487,7 @@ describe('update', function () {
 					throw {error: 'should fail'}
 			})
     })
-    it('should fail if wrong type for RANGE', function(done) { 
+    it('should fail if wrong type for RANGE', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash')
@@ -435,8 +501,8 @@ describe('update', function () {
 					throw {error: 'should fail'}
 			})
     })
-	
-    it('should fail if we try to update the RANGE key', function(done) { 
+
+    it('should fail if we try to update the RANGE key', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash')
@@ -449,9 +515,9 @@ describe('update', function () {
 				else
 					throw {error: 'should fail'}
 			})
-    })	
+    })
 
-    it('should fail if we try to update an inexistent item', function(done) { 
+    it('should fail if we try to update an inexistent item', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash999')
@@ -464,10 +530,10 @@ describe('update', function () {
 				else
 					throw {error: 'should fail'}
 			})
-    })	
+    })
 
 	// @todo: also try update gsi index with wrong type
-    it('should fail if we try to update GSI index range key with the wrong type', function(done) { 
+    it('should fail if we try to update GSI index range key with the wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash')
@@ -480,9 +546,9 @@ describe('update', function () {
 				else
 					throw {error: 'should fail'}
 			})
-    })	
-	
-	it('should update', function(done) { 
+    })
+
+	it('should update', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -514,12 +580,12 @@ describe('update', function () {
 								done()
 							}
 						})
-					
-				 
+
+
 			})
     })
 
-	it('should delete attributes when passing undefined', function(done) { 
+	it('should delete attributes when passing undefined', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -550,10 +616,10 @@ describe('update', function () {
 						})
 			})
     })
-	
-	
-	
-    //it('should fail if we try to update GSI index range key with the wrong type', function(done) { 
+
+
+
+    //it('should fail if we try to update GSI index range key with the wrong type', function(done) {
 	//	DynamoDB
 	//		table($tableName)
 	//		.where('hash').eq('hash')
@@ -566,11 +632,11 @@ describe('update', function () {
 	//			else
 	//				throw {error: 'should fail'}
 	//		})
-    //})	
+    //})
 
-	
+
 	/*
-    it('should fail if HASH is wrong type', function(done) { 
+    it('should fail if HASH is wrong type', function(done) {
 		DynamoDB
 			table($tableName)
 			.insert({
@@ -583,7 +649,7 @@ describe('update', function () {
 					throw err
 			})
     })
-    it('should fail if RANGE is wrong type', function(done) { 
+    it('should fail if RANGE is wrong type', function(done) {
 		DynamoDB
 			table($tableName)
 			.insert({
@@ -596,8 +662,8 @@ describe('update', function () {
 					throw err
 			})
     })
-	
-    it('should fail if GSI RANGE is wrong type', function(done) { 
+
+    it('should fail if GSI RANGE is wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -616,15 +682,15 @@ describe('update', function () {
 							throw err
 					})
 			})
-    })	
-	
-    it('should insert when item does not exist', function(done) { 
+    })
+
+    it('should insert when item does not exist', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
 			.where('range').eq(1)
 			.delete(function( err, data ) {
-				
+
 				DynamoDB
 					table($tableName)
 					.insert({
@@ -645,14 +711,14 @@ describe('update', function () {
 									// we just want this item present in the database
 									done()
 								})
-						
+
 					})
-					
+
 
 			})
     })
-	
-    it('should fail when item already exists', function(done) { 	
+
+    it('should fail when item already exists', function(done) {
 		DynamoDB
 			table($tableName)
 			.insert({
@@ -684,7 +750,7 @@ describe('update', function () {
 
 
 describe('query', function () {
-    it('should fail when table name is wrong', function(done) { 	
+    it('should fail when table name is wrong', function(done) {
 		DynamoDB
 			.table('inexistent-table')
 			.query( function(err, data) {
@@ -694,7 +760,7 @@ describe('query', function () {
 					throw err
 			})
 	})
-    it('should fail when no .where() is specified', function(done) { 	
+    it('should fail when no .where() is specified', function(done) {
 		DynamoDB
 			.table($tableName)
 			.query( function(err, data) {
@@ -704,7 +770,7 @@ describe('query', function () {
 					throw err
 			})
 	})
-    it('should fail when HASH has wrong type', function(done) { 	
+    it('should fail when HASH has wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq(5)
@@ -715,7 +781,7 @@ describe('query', function () {
 					throw err
 			})
 	})
-    it('should fail when querying without HASH .eq()', function(done) { 	
+    it('should fail when querying without HASH .eq()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').gt('aaa')
@@ -726,8 +792,8 @@ describe('query', function () {
 					throw err
 			})
 	})
-	
-    it('.where(RANGE).le()', function(done) { 	
+
+    it('.where(RANGE).le()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -738,11 +804,11 @@ describe('query', function () {
 
 				if (data.length !== 3)
 					throw err
-					
+
 				done()
 			})
 	})
-    it('.where(RANGE).lt()', function(done) { 	
+    it('.where(RANGE).lt()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -753,11 +819,11 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
-    it('.where(RANGE).ge()', function(done) { 	
+    it('.where(RANGE).ge()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -768,7 +834,7 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
@@ -783,7 +849,7 @@ describe('query', function () {
 
 				if (data.length !== 1)
 					throw err
-					
+
 				done()
 			})
 	})
@@ -798,11 +864,11 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
-	})	
-	
+	})
+
 	/* @todo: test begin with for RANGE type NUMBER
     it('.where(RANGE).begins_with()', function(done) {
 		DynamoDB
@@ -815,14 +881,14 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
 	*/
 
-	
-	it('.having(atribute).le()', function(done) { 
+
+	it('.having(atribute).le()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -833,11 +899,11 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
-    it('.having(atribute).lt()', function(done) { 	
+    it('.having(atribute).lt()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -848,11 +914,11 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
-    it('.having(atribute).ge()', function(done) { 	
+    it('.having(atribute).ge()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('hash1')
@@ -863,7 +929,7 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
@@ -878,7 +944,7 @@ describe('query', function () {
 
 				if (data.length !== 1)
 					throw err
-					
+
 				done()
 			})
 	})
@@ -893,10 +959,10 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
-	})	
+	})
     it('.having(attribute).ne()', function(done) {
 		DynamoDB
 			.table($tableName)
@@ -908,11 +974,11 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
-    
+
 
 	it('.having(attribute).defined()', function(done) {
 		DynamoDB
@@ -925,11 +991,11 @@ describe('query', function () {
 
 				if (data.length !== 1)
 					throw err
-					
+
 				done()
 			})
 	})
-	
+
 	it('.having(attribute).undefined()', function(done) {
 		DynamoDB
 			.table($tableName)
@@ -941,7 +1007,7 @@ describe('query', function () {
 
 				if (data.length !== 2)
 					throw err
-					
+
 				done()
 			})
 	})
@@ -951,7 +1017,7 @@ describe('query', function () {
 
 
 describe('scan', function () {
-    it('should fail when table name is wrong', function(done) { 	
+    it('should fail when table name is wrong', function(done) {
 		DynamoDB
 			.table('inexistent-table')
 			.scan( function(err, data) {
@@ -961,8 +1027,8 @@ describe('scan', function () {
 					throw err
 			})
 	})
-	
-    it('should return 2 items', function(done) { 	
+
+    it('should return 2 items', function(done) {
 		DynamoDB
 			.table($tableName)
 			.scan( function(err, data) {
@@ -974,10 +1040,10 @@ describe('scan', function () {
 					else
 						done()
 				}
-					
+
 			})
-	})	
-    //it('.having(atribute).gt()', function(done) { 	
+	})
+    //it('.having(atribute).gt()', function(done) {
 	//	DynamoDB
 	//		.table('domains')
 	//		.having('quota_used').gt(0)
@@ -993,15 +1059,15 @@ describe('scan', function () {
 	//			//	else
 	//			//		done()
 	//			//}
-	//				
+	//
 	//		})
-	//})	
+	//})
 
 })
 
 
 describe('GSI scan', function () {
-    it('should fail when index name is wrong', function(done) { 	
+    it('should fail when index name is wrong', function(done) {
 		DynamoDB
 			.table('inexistent-table')
 			.index('gsi_index')
@@ -1012,8 +1078,8 @@ describe('GSI scan', function () {
 					throw err
 			})
 	})
-	
-    it('should return 1 item', function(done) { 	
+
+    it('should return 1 item', function(done) {
 		DynamoDB
 			.table($tableName)
 			.index('gsi_index')
@@ -1026,9 +1092,9 @@ describe('GSI scan', function () {
 					else
 						done()
 				}
-					
+
 			})
-	})	
+	})
 })
 
 
@@ -1067,14 +1133,14 @@ describe('waiting for table to delete', function () {
 				.describeTable({
 					TableName: $tableName
 				}, function(err, data) {
-					
+
 					if (err && err.code === 'ResourceNotFoundException') {
 						clearInterval($existInterval)
 						return done()
-					} 
+					}
 					if (err)
 						throw err
-					
+
 					if (data.TableStatus === 'DELETING')
 						process.stdout.write('.')
 				})
