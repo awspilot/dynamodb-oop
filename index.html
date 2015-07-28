@@ -285,29 +285,6 @@ DynamoDB
 	}, function( err, data ) {
 		console.log( err, data )
 	})
-
-// deprecated, to be removed in 0.2
-DynamoDB
-    .table('users')
-    .where('email').eq('test@test.com')
-    .increment({
-        login_count: 1
-    }, function( err, data ) {
-        console.log( err, data )
-    })
-
-// increment multiple attributes in a HASH-RANGE table
-DynamoDB
-    .table('statistics')
-    .where('domain').eq('mydomain.com')
-    .where('day').eq('2013-11-01')
-    .increment({
-        visitors: 2,
-		unique_visitors: 1,
-        page_views: 5
-    }, function( err, data ) {
-        console.log( err, data )
-    })
 </div>
 
 <a name="deleteattributes"></a>
@@ -323,23 +300,7 @@ DynamoDB
 		subject: DynamoDB.del()
 	}, function(err) {})
 
-// Deprecated ways of deleting an attribute, to be removed in 0.2.x
-DynamoDB
-	.table('messages')
-	.where('to').eq('user1@test.com')
-	.where('date').eq( 1375538399 )
-	.update({
-		seen: undefined,
-		subject: undefined
-	}, function(err) {})
 
-DynamoDB
-	.table('messages')
-	.where('to').eq('user1@test.com')
-	.where('date').eq( 1375538399 )
-	.delete(['seen','subject'], function( err, data ) {
-		console.log( err, data )
-	})
 
 </div>
 
@@ -580,6 +541,53 @@ DynamoDB
 
 
 
+
+
+
+<a name="deprecated"></a>
+<h1>Deprecated</h1>
+<p> To be removed in aws-dynamodb@0.2</p>
+<div class="code">
+
+DynamoDB
+    .table('users')
+    .where('email').eq('test@test.com')
+    .increment({
+        login_count: 1
+    }, function( err, data ) {
+        console.log( err, data )
+    })
+</div>
+
+<div class="code">
+
+// Deprecated ways to deleting an attribute
+DynamoDB
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.where('date').eq( 1375538399 )
+	.update({
+		seen: undefined,
+		subject: undefined
+	}, function(err) {})
+
+DynamoDB
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.where('date').eq( 1375538399 )
+	.delete(['seen','subject'], function( err, data ) {
+		console.log( err, data )
+	})
+</div>
+
+
+
+
+
+
+
+
+
 <h1>
 <a id="tables-referenced-in-the-samples" class="anchor" href="#tables-referenced-in-the-samples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tables referenced in the samples</h1>
 
@@ -675,6 +683,8 @@ DynamoDB
 				<li><a href="#querycontinue">Query Resume</a>
 				<li><a href="#scan">Scan</a>
 				<li><a href="#scanindex">Scan Index</a>
+
+				<li><a href="#deprecated">Deprecated</a>
 
 
         </aside>
