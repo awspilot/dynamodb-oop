@@ -14,21 +14,21 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/theme-twilight.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/theme-monokai.js"></script>
 	<script src="https://rawgit.com/databank/ui-dynamodb/master/public/js/bundle.js"></script>
- 
-	
-	
+
+
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <title>Amazon DynamoDB nodejs module</title>
-  
-  
-  
+
+
+
 	<style>
 	.code {font-size: 13px;line-height: 22px;white-space: pre;}
 	</style>
-  
+
   </head>
 
   <body>
@@ -38,17 +38,17 @@
 		<p style='color: #666666;'><span class="octicon octicon-link">Wrapper around aws-sdk for nodejs to simplify working with DynamoDB</span></p>
         <!-- <a href="https://github.com/databank/aws-dynamodb" class="button"><small>View project on</small> GitHub</a> -->
 		<a href="https://www.npmjs.com/package/aws-dynamodb" class="button"><img src="https://nodei.co/npm/aws-dynamodb.png?downloads=true" alt="npm page"></a>
-		
+
       </div>
     </header>
 
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          
-          
-		  
-		  
+
+
+
+
 
 
 
@@ -82,8 +82,8 @@ npm test
 <h1>Init</h1>
 <div class="code">
 var $credentials = {
-    "accessKeyId": "XXXXXXXXXXXXXXXX", 
-    "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ", 
+    "accessKeyId": "XXXXXXXXXXXXXXXX",
+    "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
     "region": "eu-west-1"
 }
 var DynamoDB = require('aws-dynamodb')($credentials)
@@ -107,7 +107,7 @@ console.log( DynamoDB.client )
 // every call to Amazon DynamoDB that fail will
 // call this function before the operation's callback
 DynamoDB.on('error', function( operation, error, payload ) {
-    // you could use this to log fails into LogWatch for 
+    // you could use this to log fails into LogWatch for
     // later analysis or SQS queue lazy processing
 })
 </div>
@@ -173,14 +173,19 @@ DynamoDB
 <p>1 request to DynamoDB</p>
 <div class="code">
 DynamoDB
-    .table('users')
-    .where('email').eq('test@test.com')
-    .insert_or_update({
-        password: 'qwert', 
-        firstname: 'Smith'
-    }, function( err, data ) {
-        console.log( err, data )
-    })
+	.table('users')
+	.where('email').eq('test@test.com')
+	.insert_or_update({
+		password: 'qwert',
+		firstname: 'Smith',
+		number: 5,
+		page_views: DynamoDB.add(5), // increment by 5
+		liat: [5,'a', {}, [] ], // nested attributes
+		phones: Dynamo.add([5,'a']), // push these elements at the end of the array
+		unneded_attribute: DynamoDB.del()
+	}, function( err, data ) {
+		console.log( err, data )
+	})
 </div>
 
 <a name="insertorreplace"></a>
@@ -191,7 +196,7 @@ DynamoDB
 	.table('users')
 	.insert_or_replace({
 		email: 'test@test.com',
-		password: 'qwert', 
+		password: 'qwert',
 		firstname: 'Smith'
 	}, function( err, data ) {
 		console.log( err, data )
@@ -209,8 +214,12 @@ DynamoDB
 	.table('users')
 	.where('email').eq('test@test.com')
 	.update({
-		password: 'qwert', 
-		firstname: 'Smith'
+		password: 'qwert',
+		firstname: 'Smith',
+		page_views: DynamoDB.add(5), // increment by 5
+		liat: [5,'a', {}, [] ], // nested attributes
+		phones: Dynamo.add([5,'a']), // push these elements at the end of the array
+		unneded_attribute: DynamoDB.del(),
 	}, function( err, data ) {
 		console.log( err, data )
 	})
@@ -227,33 +236,11 @@ DynamoDB
 	})
 </div>
 
-<a name="updateanddelete"></a>
-<h1>Update and Delete</h1>
-<p>
-</p>
-<div class="code">
-// The following will add/update one attribute ('foo') and delete 2 attributes ('bar' and 'baz')
-// it is prefered over delete([attr,attr]) as the operation is performed with 1 query
-// WARNING: do not use undefined in nested lists or objects, it WILL cause issues<br>
-
-DynamoDB
-	.table('messages')
-	.where('to').eq('user1@test.com')
-	.where('date').eq( 1375538399 )
-	.update({
-		bar: undefined,
-		baz: undefined,
-		foo: 'bar'
-	}, function( err, data ) {
-		console.log( err, data )
-	})
-</div>
-
 <a name="replace"></a>
 <h1>Replace Item</h1>
 <p>does not create the item if item does not exist</p>
 <div class="code">
-// completely replaces the item, new item will only contain specified attributes 
+// completely replaces the item, new item will only contain specified attributes
 DynamoDB
     .table('users')
     .replace({
@@ -271,7 +258,7 @@ DynamoDB
 <h1>Increment Item's Attribute(s)</h1>
 <p>( does not create the item if item does not exist )</p>
 <div class="code">
-// increment 1 attribute in a HASH table 
+// increment 1 attribute in a HASH table
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -299,14 +286,33 @@ DynamoDB
 <h1>Delete Item's Attribute(s)</h1>
 <p></p>
 <div class="code">
-// there are 2 ways of deleting item attributes, see <a href='#updateanddelete'>update+delete</a>
+DynamoDB
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.where('date').eq( 1375538399 )
+	.update({
+		seen: DynamoDB.del(),
+		subject: DynamoDB.del()
+	}, function(err) {})
+
+// Deprecated ways of deleting an attribute, to be removed in 0.2.x
+DynamoDB
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.where('date').eq( 1375538399 )
+	.update({
+		seen: undefined,
+		subject: undefined
+	}, function(err) {})
+
 DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
 	.where('date').eq( 1375538399 )
 	.delete(['seen','subject'], function( err, data ) {
 		console.log( err, data )
-	})	
+	})
+
 </div>
 
 <a name="deleteitem"></a>
@@ -433,7 +439,7 @@ DynamoDB
 // Only the items that meet your conditions are returned
 // All the conditions must evaluate to true ( conditions are ANDed together )
 // You can not apply filter on HASH or RANGE key
-// Comparison operators: 
+// Comparison operators:
 // The ones supported for RANGE key:
 // 			eq(), le() , lt() , ge() , gt() , begins_with() , between(a,b)
 // Plus:
@@ -444,7 +450,7 @@ DynamoDB
 // WARNING: defined() and undefined() are aliases for DynamoDB's NULL and NOT_NULL
 // they refer to the presence of an attribute and has nothing to do with it's value
 // so   .having('attribute').null() differs from .having('attribute').eq( null )
-// also .having('attribute').not_null() differs from .having('attribute').ne( null )  
+// also .having('attribute').not_null() differs from .having('attribute').ne( null )
 
 DynamoDB
     .table('messages')
@@ -476,7 +482,7 @@ DynamoDB
             if (this.LastEvaluatedKey === null) {
                 // reached end, do a callback() maybe
                 return
-            } 
+            }
 
             var $this = this
             setTimeout(function() {
@@ -484,7 +490,7 @@ DynamoDB
             },1000)
 
         })
-})(null)    
+})(null)
 </div>
 
 
@@ -516,7 +522,7 @@ DynamoDB
             if (this.LastEvaluatedKey === null) {
                 // reached end, do a callback() maybe
                 return
-            } 
+            }
 
             var $this = this
             setTimeout(function() {
@@ -619,15 +625,14 @@ DynamoDB
 				<li><a href="#intitialization">Initialization</a>
 				<li><a href="#rawcalls">Raw Calls</a>
 				<li><a href="#errorfeed">Error Feed</a>
-				
+
 				<li><a href="#insert">Insert ( no update )</a>
 				<li><a href="#insertorupdate">Insert or Update</a>
 				<li><a href="#insertorreplace">Insert or Replace</a>
 				<li><a href="#insertorincrement">Insert or Increment</a>
-				
-				
+
+
 				<li><a href="#update">Update</a>
-				<li><a href="#updateanddelete">Update+Delete Attributes</a>
 				<li><a href="#replace">Replace (no insert)</a>
 				<li><a href="#increment">Increment (no insert)</a>
 				<li><a href="#deleteattributes">Delete Attributes</a>
@@ -639,15 +644,15 @@ DynamoDB
 				<li><a href="#querycontinue">Query Resume</a>
 				<li><a href="#scan">Scan</a>
 				<li><a href="#scanindex">Scan Index</a>
-          
 
-        </aside>	
+
+        </aside>
       </div>
     </div>
-	
+
 <a href="https://github.com/databank/aws-dynamodb"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
-	
+
 <script>
 $(function() {
 
@@ -666,10 +671,10 @@ $(function() {
 		//;
 		//
 
-    var $sidebar   = $("#sidebar"), 
+    var $sidebar   = $("#sidebar"),
         $window    = $(window)
 
-    $window.scroll(function() {		
+    $window.scroll(function() {
 		console.log($window.scrollTop())
         if ($window.scrollTop() > 208 ) {
 			$sidebar.css('position','fixed').css('top','20px')
@@ -683,7 +688,7 @@ $(function() {
         //    });
         }
     });
-    
+
 });
 </script>
 <!-- Begin Keptify Tracking -->
