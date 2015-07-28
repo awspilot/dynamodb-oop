@@ -184,8 +184,8 @@ DynamoDB
 		firstname: 'Smith',
 		number: 5,
 		page_views: DynamoDB.add(5), // increment by 5
-		liat: [5,'a', {}, [] ], // nested attributes
-		phones: Dynamo.add([5,'a']), // push these elements at the end of the array
+		list: [5,'a', {}, [] ], // nested attributes
+		phones: DynamoDB.add([5,'a']), // push these elements at the end of the array
 		unneded_attribute: DynamoDB.del()
 	}, function( err, data ) {
 		console.log( err, data )
