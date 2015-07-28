@@ -262,7 +262,31 @@ DynamoDB
 <h1>Increment Item's Attribute(s)</h1>
 <p>( does not create the item if item does not exist )</p>
 <div class="code">
-// increment 1 attribute in a HASH table
+// increment attributes, if the key does not exist, it is not created
+DynamoDB
+	.table('users')
+	.where('email').eq('test@test.com')
+	.update({
+		login_count: DynamoDB.add() // increment by 1
+		add5: DynamoDB.add(5) // increment by 5
+		sub7: DynamoDB.add(-7) // decrement by 7
+	}, function( err, data ) {
+		console.log( err, data )
+	})
+
+// increment attributes, if the key does not exist, it is created
+DynamoDB
+	.table('users')
+	.where('email').eq('test@test.com')
+	.insert_or_update({
+		login_count: DynamoDB.add() // increment by 1
+		add5: DynamoDB.add(5) // increment by 5
+		sub7: DynamoDB.add(-7) // decrement by 7
+	}, function( err, data ) {
+		console.log( err, data )
+	})
+
+// deprecated, to be removed in 0.2
 DynamoDB
     .table('users')
     .where('email').eq('test@test.com')
@@ -633,12 +657,15 @@ DynamoDB
 				<li><a href="#insert">Insert ( no update )</a>
 				<li><a href="#insertorupdate">Insert or Update</a>
 				<li><a href="#insertorreplace">Insert or Replace</a>
-				<li><a href="#insertorincrement">Insert or Increment</a>
+
 
 
 				<li><a href="#update">Update</a>
 				<li><a href="#replace">Replace (no insert)</a>
-				<li><a href="#increment">Increment (no insert)</a>
+
+				<li><a href="#increment">Increment</a>
+
+
 				<li><a href="#deleteattributes">Delete Attributes</a>
 				<li><a href="#deleteitem">Delete Item</a>
 				<li><a href="#get">Get Item</a>
