@@ -1,16 +1,5 @@
 
-var expect = require('chai').expect
-var async = require('async')
-var DynamoDB = require('../lib/dynamodb')()
-DynamoDB.on('error', function(op, error, payload ) {
-	//console.log(op,error,payload)
-})
-DynamoDB.on('beforeRequest', function(op, payload ) {
-	//console.log("--------------------------------")
-	//console.log(op,payload)
-})
-var $tableName = 'test_hash_range'
-
+require('./lib/common')
 
 describe('insert', function () {
 	it('should fail if missing RANGE', function(done) {
