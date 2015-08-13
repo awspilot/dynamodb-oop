@@ -25,7 +25,8 @@
 	"devDependencies": {
 		"mocha": "*",
 		"chai": "*",
-		"should": "*"
+		"should": "*",
+		"async": "*"
 	},
 	"scripts": {
 		"test": "mocha --timeout 100000 -S -R spec"
