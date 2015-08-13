@@ -1,5 +1,7 @@
 
 expect = require('chai').expect
+async = require('async')
+
 DynamoDB = require('../../lib/dynamodb')()
 DynamoDB.on('error', function(op, error, payload ) {
 	//console.log(op,error,payload)
