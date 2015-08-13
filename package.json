@@ -28,7 +28,7 @@
 		"should": "*"
 	},
 	"scripts": {
-		"test": "mocha --timeout 100000 -R spec"
+		"test": "mocha --timeout 100000 -S -R spec"
 	},
 	"engines": {
 		"node": "*"
