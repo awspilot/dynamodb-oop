@@ -31,21 +31,6 @@ describe('update', function () {
 					throw {error: 'should fail'}
 			})
 	})
-	it('should fail if wrong type for RANGE', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash')
-			.where('range').eq('range')
-			.update({
-				key: 'value'
-			}, function(err, data) {
-				if (err)
-					done()
-				else
-					throw {error: 'should fail'}
-			})
-	})
-
 	it('should fail if we try to update the RANGE key', function(done) {
 		DynamoDB
 			.table($tableName)
