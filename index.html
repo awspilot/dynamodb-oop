@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/tree.css">
 	<script src="//cdn.mergejs.com/lib/jquery/1.9.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/mode-javascript.js"></script>
@@ -660,36 +661,91 @@ DynamoDB
         </section>
 		<!-- sidebar -->
         <aside id="sidebar">
-			<ul>
-				<li><a href="#installation">Installation</a>
-				<li><a href="#testing">Testing</a>
-				<li><a href="#initialization">Initialization</a>
-				<li><a href="#rawcalls">Raw Calls</a>
-				<li><a href="#errorfeed">Error Feed</a>
-
-				<li><a href="#insert">Insert ( no update )</a>
-				<li><a href="#insertorupdate">Insert or Update</a>
-				<li><a href="#insertorreplace">Insert or Replace</a>
 
 
 
-				<li><a href="#update">Update</a>
-				<li><a href="#replace">Replace (no insert)</a>
-
-				<li><a href="#increment">Increment</a>
 
 
-				<li><a href="#deleteattributes">Delete Attributes</a>
-				<li><a href="#deleteitem">Delete Item</a>
-				<li><a href="#get">Get Item</a>
-				<li><a href="#query">Query</a>
-				<li><a href="#queryindex">Query Index</a>
-				<li><a href="#queryfilter">Query Filter</a>
-				<li><a href="#querycontinue">Query Resume</a>
-				<li><a href="#scan">Scan</a>
-				<li><a href="#scanindex">Scan Index</a>
 
-				<li><a href="#deprecated">Deprecated</a>
+
+
+
+
+<ul class="tree">
+<li>
+    <span class="tree_label"><a href="#installation">Installation</a></label>
+<li>
+    <span class="tree_label"><a href="#testing">Testing</a>
+<li>
+    <span class="tree_label"><a href="#initialization">Initialization</a>
+<li>
+    <span class="tree_label"><a href="#rawcalls">Raw Calls</a>
+<li>
+    <span class="tree_label"><a href="#errorfeed">Error Feed</a>
+
+<li>
+    <input type="checkbox" id="treeinsert" />
+    <label class="tree_label sub" for="treeinsert">Insert</label>
+    <ul>
+        <li><span class="tree_label"><a href="#insert">Insert ( no update )</a>
+        <li><span class="tree_label"><a href="#insertorupdate">Insert or Update</a>
+        <li><span class="tree_label"><a href="#insertorreplace">Insert or Replace</a>
+        <li><span class="tree_label">Batch Insert (N.Impl)
+    </ul>
+
+<li>
+    <input type="checkbox" id="treeupdate" />
+    <label class="tree_label sub" for="treeupdate">Update</label>
+    <ul>
+        <li><span class="tree_label"><a href="#update">Update ( no insert )</a>
+        <li><span class="tree_label"><a href="#insertorupdate">Insert or Update</a>
+        <li><span class="tree_label"><a href="#increment">Increment</a>
+        <li><span class="tree_label"><a href="#deleteattributes">Delete Attributes</a>
+    </ul>
+
+<li>
+    <input type="checkbox" id="treereplace" />
+    <label class="tree_label sub" for="treereplace">Replace</label>
+    <ul>
+        <li><span class="tree_label"><a href="#replace">Replace (no insert)</a>
+        <li><span class="tree_label"><a href="#insertorreplace">Insert or Replace</a>
+    </ul>
+
+<li>
+    <span class="tree_label"><a href="#deleteitem">Delete Item</a>
+
+<li>
+    <input type="checkbox" id="treeget" />
+    <label class="tree_label sub" for="treeget">Get Item</label>
+    <ul>
+        <li><span class="tree_label"><a href="#get">Get Item</a>
+        <li><span class="tree_label">Batch Get Item (N.Impl)
+    </ul>
+
+
+<li>
+    <input type="checkbox" id="treequery" />
+    <label class="tree_label sub" for="treequery">Query</label>
+    <ul>
+        <li><span class="tree_label"><a href="#query">Query</a>
+        <li><span class="tree_label"><a href="#queryindex">Query Index</a>
+        <li><span class="tree_label"><a href="#queryfilter">Query Filter</a>
+        <li><span class="tree_label"><a href="#querycontinue">Query Resume</a>
+    </ul>
+
+
+<li>
+    <input type="checkbox" id="treescan" />
+    <label class="tree_label sub" for="treescan">Scan</label>
+    <ul>
+        <li><span class="tree_label"><a href="#scan">Scan</a>
+        <li><span class="tree_label"><a href="#scanindex">Scan Index</a>
+    </ul>
+
+
+    <li>
+        <span class="tree_label"><a href="#deprecated">Deprecated</a>
+
 
 
         </aside>

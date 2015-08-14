@@ -6,7 +6,7 @@
  *    user zoom.
  */
 
- 
+
  pre.command-line {
   border: 2px solid #ddd;
   background-color: #333;
@@ -37,26 +37,25 @@ aside ul {
 	padding: 0px;
 }
 aside ul li a {
-	padding-left: 10px;
 	line-height: 26px;
 	display: block;
 	font-family: Raleway;
-	font-size: 16px;
-	font-weight: 100;
+    padding: 0px 3px;
 }
 aside ul li a:hover {
 	background: #2e7bcf;
 	color: #ffffff;
+    border-radius: 2px;
 }
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
+
+
+
+
+
+
+
+
 html {
   font-family: sans-serif; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -554,10 +553,9 @@ aside#sidebar {
   float: left;
   width: 200px;
   min-height: 504px;
-  padding-left: 20px;
   font-size: 12px;
   line-height: 1.3;
- 
+
 }
 
 aside#sidebar p.repo-owner,
@@ -928,4 +926,3 @@ footer a:hover {
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) { }
-

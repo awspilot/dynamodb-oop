@@ -1,0 +1,101 @@
+
+.tree input {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  }
+
+.tree input ~ ul { display: none; }
+
+.tree input:checked ~ ul { display: block; }
+
+/* ————————————————————–
+  Tree rows
+*/
+.tree li {position: relative;padding: 0 0 0px 12px;}
+
+.tree ul li { padding: 1em 0 0 1em; }
+
+.tree > li:last-child { padding-bottom: 0; }
+
+/* ————————————————————–
+  Tree labels
+*/
+.tree_label {position: relative;display: inline-block;line-height: 26px;color: #2879d0;}
+
+label.tree_label { cursor: pointer; }
+
+label.tree_label:hover { color: #666; }
+
+/* ————————————————————–
+  Tree expanded icon
+*/
+label.tree_label.sub:before {
+  background: #f48b00;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  float: left;
+  margin: 7px 0px 0 -24px;
+  width: 12px;
+  height: 12px;
+  border-radius: 1em;
+  content: '+';
+  text-align: center;
+  line-height: 10px;
+  }
+
+:checked ~ label.tree_label:before { content: '–'; }
+
+/* ————————————————————–
+  Tree branches
+*/
+.tree li:before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -6px;
+  display: block;
+  width: 0;
+  border-left: 1px solid #c8c8c8;
+  content: "";
+  }
+
+.tree_label:after {
+  position: absolute;
+  top: 0;
+  left: -1.5em;
+  display: block;
+  height: 13px;
+  width: 1em;
+  border-bottom: 1px solid #c8c8c8;
+  border-left: 1px solid #c8c8c8;
+  border-radius: 0 0 0 .3em;
+  content: '';
+  }
+
+label.tree_label:after { border-bottom: 0; }
+
+:checked ~ label.tree_label:after {
+  border-radius: 0 .3em 0 0;
+  border-top: 1px solid #c8c8c8;
+  border-right: 1px solid #c8c8c8;
+  border-bottom: 0;
+  border-left: 0;
+  bottom: 0;
+  top: 12px;
+  height: auto;
+  }
+
+.tree li:last-child:before {
+  height: 1em;
+  bottom: auto;
+  }
+
+.tree > li:last-child:before { display: none; }
+
+.tree_custom {
+  display: block;
+  background: #eee;
+  padding: 1em;
+  border-radius: 0.3em;
+}
