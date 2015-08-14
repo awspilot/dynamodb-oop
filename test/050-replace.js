@@ -134,6 +134,28 @@ describe('replace', function () {
 				})
 		})
 	})
+	it('test ALL_OLD  on replace existing item', function(done) {
+		DynamoDB
+			.table($tableName)
+			.return(DynamoDB.ALL_OLD)
+			.replace({
+				hash: 'hash1',
+				range: 1,
+				string: 'aaa',
+			}, function(err, data ) {
+				if (err) throw err
+
+				assert.deepEqual(data, { hash: 'hash1',
+					null: null,
+					range: 1,
+					gsi_range: 'b',
+					object: { key2: 22, key1: 'value1' },
+					old_array: [ 1, 'a', null, { k3: 'v3', k1: 'v1', k2: 'v2' }, [] ],
+					string: 'newstring'
+				})
+				done()
+			})
+	})
 	it('removing all items...', function(done) {
 		DynamoDB
 			.table($tableName)
