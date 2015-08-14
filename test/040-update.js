@@ -88,9 +88,6 @@ describe('update', function () {
 					throw {error: 'should fail'}
 			})
 	})
-
-
-
 	it('should update existing item', function(done) {
 		// insert
 		DynamoDB.table($tableName).insert({hash: 'hash1',range:1, old_number: 1, old_array: [1,2,3], string: 'aaa', 'ignore': 'me', 'delete': 'me'}, function(err) {
@@ -138,6 +135,20 @@ describe('update', function () {
 							})
 				})
 		})
+	})
+	it('test UPDATED_OLD  on update existing item', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('hash1')
+			.where('range').eq(1)
+			.return(DynamoDB.UPDATED_OLD)
+			.update({
+				old_number: DynamoDB.add(20),
+			}, function(err, data ) {
+				if (err) throw err
+				assert.deepEqual(data, { old_number: 10 })
+				done()
+			})
 	})
 	it('removing all items...', function(done) {
 		DynamoDB
