@@ -152,5 +152,22 @@ describe('update', function () {
 				})
 		})
 	})
-
+	it('removing all items...', function(done) {
+		DynamoDB
+			.table($tableName)
+			.scan(function(err, data) {
+				if (err)
+					throw err
+				else {
+					async.each(data, function(item,cb) {
+						DynamoDB.table($tableName).where('hash').eq(item.hash).where('range').eq(item.range).delete(function(err) { cb(err) })
+					}, function(err) {
+						if (err)
+							throw err
+						else
+							done()
+					})
+				}
+			})
+	})
 })
