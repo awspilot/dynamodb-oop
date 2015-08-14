@@ -2,20 +2,7 @@
 require('./lib/common')
 
 describe('update', function () {
-	// if missing hash and/or range will fail becauseof exist constrain
 
-	it('should NOT fail when missing callback', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash999')
-			.where('range').eq(999)
-			.update({
-				key: 1
-			})
-		setTimeout(function() {
-			done()
-		},5000)
-	})
 	it('should fail if wrong type for HASH', function(done) {
 		DynamoDB
 			.table($tableName)
