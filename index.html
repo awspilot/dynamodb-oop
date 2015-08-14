@@ -179,6 +179,7 @@ DynamoDB
 DynamoDB
 	.table('users')
 	.where('email').eq('test@test.com')
+	.return(DynamoDB.UPDATED_OLD)
 	.insert_or_update({
 		password: 'qwert',
 		firstname: 'Smith',
@@ -198,6 +199,7 @@ DynamoDB
 <div class="code">
 DynamoDB
 	.table('users')
+	.return(DynamoDB.ALL_OLD)
 	.insert_or_replace({
 		email: 'test@test.com',
 		password: 'qwert',
@@ -217,6 +219,7 @@ DynamoDB
 DynamoDB
 	.table('users')
 	.where('email').eq('test@test.com')
+	.return(DynamoDB.ALL_OLD)
 	.update({
 		password: 'qwert',
 		firstname: 'Smith',
@@ -247,6 +250,7 @@ DynamoDB
 // completely replaces the item, new item will only contain specified attributes
 DynamoDB
     .table('users')
+	.return(DynamoDB.UPDATED_OLD)
     .replace({
         email: 'test@test.com',
         password: 'qwert',
@@ -321,6 +325,7 @@ DynamoDB
     .table('messages')
     .where('to').eq( 'user1@test.com' )
     .where('date').eq( 1375538399 )
+	.return(DynamoDB.ALL_OLD)
     .delete(function( err, data ) {
         console.log( err, data )
     })
