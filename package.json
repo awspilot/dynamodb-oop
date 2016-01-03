@@ -19,6 +19,7 @@
 		"url": "https://github.com/databank/aws-dynamodb"
 	},
 	"main": "./lib/dynamodb",
+	"license": "MIT",
 	"dependencies": {
 		"aws-sdk": ">=2.1.16"
 	},
