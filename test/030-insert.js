@@ -93,7 +93,6 @@ describe('insert', function () {
 			.where('hash').eq('hash1')
 			.where('range').eq(1)
 			.delete(function( err, data ) {
-
 				DynamoDB
 					.table($tableName)
 					.insert({
@@ -103,23 +102,35 @@ describe('insert', function () {
 						delete_me: 'aaa',
 						gsi_range: 'a',
 						array: [1,2,3],
-						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']}
+						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
+						string_set: DynamoDB.stringSet(['aaa','bbb','ccc']),
+						number_set: DynamoDB.numberSet([111,222,333]),
 					}, function(err, data) {
 						if (err)
 							throw err
-						else
-							DynamoDB
-								.table($tableName)
-								.insert({
-									hash: 'hash1',
-									range: 2,
-									number: 2
-								}, function(err, data) {
-									// is ok if it fails since this would be a duplicate when executing 2nd time
-									// we just want this item present in the database
-									done()
-								})
 
+						DynamoDB
+							.table($tableName)
+							.where('hash').eq('hash1')
+							.where('range').eq(1)
+							.get(function(err, item) {
+								if (err)
+									throw err
+
+								item.number_set.sort()
+								assert.deepEqual(item, {
+									hash: 'hash1',
+									range: 1,
+									number: 1,
+									delete_me: 'aaa',
+									gsi_range: 'a',
+									array: [1,2,3],
+									object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
+									string_set: ['aaa','bbb','ccc'],
+									number_set: [ 111, 222, 333 ],
+								}, {strict: true })
+								done()
+							})
 					})
 			})
 	})
