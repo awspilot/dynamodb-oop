@@ -560,40 +560,77 @@ DynamoDB
 <!-- ------------------------------------------------------ data types --------------------------------------------------- -->
 <a name="datatypes"></a>
 <h1>DynamoDB data types supported by aws-dynamodb</h1>
-<p> </p>
+<p> Please note binary data types B and BS are not supported yet.</p>
 <div class="code">
 
 DynamoDB
 	.table($tableName)
 	.insert({
-		// string
+		// String
 		string1: 'string',
 		string2: DynamoDB.S('string'),
 
-		// number
+		// Number
 		number1: 1,
 		number2: DynamoDB.N(1),
 
-		// boolean
+		// Boolean
 		bool1: true,
 
+		// Null
+		null: null,
+
+		// Array (L)
 		array1: [1,[],true,{}],
 		array2: DynamoDB.L([1,[],true,{}]),
 
-		object: {prop1: 1, prop2: '2', prop3: true, prop4: null, prop5: {}, prop6: []},
-
-		null: null,
-
+		// Array of unique numbers numberSet (NS)
 		number_set: DynamoDB.NS([111,222,333]),
 
+		// Array or unique strings stringSet (SS)
 		string_set: DynamoDB.SS(['aaa','bbb','ccc']),
+
+		// Object key-value Map (M)
+		object: {prop1: 1, prop2: '2', prop3: true, prop4: null, prop5: {}, prop6: []},
 
 	})
 </div>
 
+<!-- ------------------------------------------------------ operations  --------------------------------------------------- -->
+<a name="operations"></a>
+<h1>Operations on supported data types</h1>
+<div class="code">
 
+DynamoDB
+	.table($tableName)
+	.insert({
+		// delete an iteam of any data type
+		any_item: DynamoDB.del(),
 
+		// increment a number (N)
+		number1: DynamoDB.add(),
+		number2: DynamoDB.add(5),
+		number3: DynamoDB.add(DynamoDB.N(5)),
 
+		// add elements to an Array (L)
+		array1: DynamoDB.add([1,[],{},null,'string']),
+		array2: DynamoDB.add(DynamoDB.L([1,[],{},null,'string'])),
+
+		// removing elements from an Array is not supported by AWS
+
+		// adding elements to a stringSet (SS)
+		string_set: DynamoDB.add(DynamoDB.SS(['aaa','bbb'])),
+
+		// removing elements from a stringSet (SS)
+		string_set: DynamoDB.del(DynamoDB.SS(['aaa','bbb'])),
+
+		// adding elements to a numberSet (NS)
+		number_set: DynamoDB.add(DynamoDB.NS([111,222])),
+
+		// removing elements from a numberSet (NS)
+		number_set: DynamoDB.del(DynamoDB.NS([111,222])),
+	})
+</div>
 
 
 
@@ -736,7 +773,7 @@ DynamoDB
         <li><span class="tree_label"><a href="#scanindex">Scan Index</a>
     </ul>
 
-<li><span class="tree_label"><a href="#datatypes">Data Types</a>
+<li><span class="tree_label"><a href="#datatypes">Data Types & Operations</a>
 
 
 <li><span class="tree_label"><a href="#deprecated">Deprecated</a>
