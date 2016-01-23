@@ -155,8 +155,10 @@ DynamoDB
         string: "string",
         number: 1,
         array_empty: [],
-        array_strings: ['alfa','beta','gama'],
-        array_numbers: [7,9,15],
+        array_strings: ['alfa','beta','gama'], // inserted as datatype L
+		string_set: DynamoDB.SS(['sss','bbb','ccc']), // inserted as datatype SS
+        array_numbers: [7,9,15], // inserted as datatype L
+		number_set: DynamoDB.NS([111,222,333]), // inserted as datatype NS
         array_mixed: [null, "string", 5, true, false, { key: "value"}, ["nested","array"] ],
         nested_object: {
             name: "Foo",
@@ -187,8 +189,13 @@ DynamoDB
 		number: 5,
 		page_views: DynamoDB.add(5), // increment by 5
 		list: [5,'a', {}, [] ], // nested attributes
-		phones: DynamoDB.add([5,'a']), // push these elements at the end of the array
-		unneded_attribute: DynamoDB.del()
+		phones: DynamoDB.add([5,'a']), // push these elements at the end of the list (L)
+		string_set: DynamoDB.add(DynamoDB.SS(['ddd','eee'])), // add to SS,
+		number_set: DynamoDB.add(DynamoDB.NS([444,555])), // add to NS,
+
+		unneeded_attribute: DynamoDB.del(),
+		unneeded_ss_items: DynamoDB.del(DynamoDB.SS(['ccc','ddd'])), // remove elements from stringSet
+		unneeded_ns_items: DynamoDB.del(DynamoDB.NS([111,444])), // remove elements from numberSet
 	}, function( err, data ) {
 		console.log( err, data )
 	})
@@ -227,7 +234,7 @@ DynamoDB
 		page_views: DynamoDB.add(5), // increment by 5
 		list: [5,'a', {}, [] ], // nested attributes
 		phones: DynamoDB.add([5,'a']), // push these elements at the end of the array
-		unneded_attribute: DynamoDB.del(),
+		unneeded_attribute: DynamoDB.del(),
 	}, function( err, data ) {
 		console.log( err, data )
 	})
