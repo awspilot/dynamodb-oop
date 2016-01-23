@@ -603,11 +603,12 @@ DynamoDB
 
 DynamoDB
 	.table($tableName)
-	.insert({
+	.where(..)
+	.update({
 		// delete an iteam of any data type
 		any_item: DynamoDB.del(),
 
-		// increment a number (N)
+		// increment a number (N), use minus (-) to decrement
 		number1: DynamoDB.add(),
 		number2: DynamoDB.add(5),
 		number3: DynamoDB.add(DynamoDB.N(5)),
@@ -617,6 +618,10 @@ DynamoDB
 		array2: DynamoDB.add(DynamoDB.L([1,[],{},null,'string'])),
 
 		// removing elements from an Array is not supported by AWS
+
+		// adding properties to an Object (M) is not supported
+
+		// deleting properties from an Object (M) is not supported
 
 		// adding elements to a stringSet (SS)
 		string_set: DynamoDB.add(DynamoDB.SS(['aaa','bbb'])),
