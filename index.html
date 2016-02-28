@@ -554,7 +554,25 @@ DynamoDB
 </div>
 
 
+<!-- ------------------------------------------------------  capacity --------------------------------------------------- -->
+<a name="capacity"></a>
+<h1>Consumed Capacity</h1>
+<p> As of version 0.1.51, aws-dynamodb returns TOTAL consumed capacity by default </p>
+<div class="code">
 
+DynamoDB
+	.table($tableName)
+	.operation(parameters, function callback() {
+		console.log(this.ConsumedCapacity)
+	})
+// you can override it using
+DynamoDB
+	.table($tableName)
+	.return_consumed_capacity('INDEXES') // 'TOTAL' / 'INDEXES' / NONE
+	.operation(parameters, function (err,data) {
+		console.log(this.ConsumedCapacity)
+	})
+</div>
 
 
 <!-- ------------------------------------------------------ data types --------------------------------------------------- -->
@@ -777,6 +795,8 @@ DynamoDB
         <li><span class="tree_label"><a href="#scan">Scan</a>
         <li><span class="tree_label"><a href="#scanindex">Scan Index</a>
     </ul>
+
+<li><span class="tree_label"><a href="#capacity">Consumed Capacity</a>
 
 <li><span class="tree_label"><a href="#datatypes">Data Types & Operations</a>
 
