@@ -676,13 +676,13 @@ DynamoDB
 <p>Replaces an item if found, insert if item not found</p>
 
 <b>.delete()</b><br>
-<p>
-	Deletes one item<br>
-	.table(tableName)<br>
-	.where(partitionKey).eq()<br>
-	[.where(sortkey) < .le() | .lt() | .ge() | .gt() | .begins_with() | .between() > ]<br>
-	.delete()<br>
-</p>
+<p>Deletes one item</p>
+<div class="code">
+	.table(tableName)
+	.where(partitionKey).eq()
+	[.where(sortkey) < .le() | .lt() | .ge() | .gt() | .begins_with() | .between() > ]
+	.delete()
+</div>
 
 <b>.get()</b><br>
 <p>
