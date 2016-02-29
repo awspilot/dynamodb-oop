@@ -696,10 +696,33 @@ DynamoDB
 </div>
 
 <b>.query()</b><br>
-<p>
-	Return items from one partition<br>
-
-</p>
+<p>Return items from one partition</p>
+<div class="code">
+DynamoDB
+	.table(tableName)
+	[ .select() ]
+	[ .consistent_read() | .ConsistentRead() ]
+	.where(partitionKey).eq()
+	[.where(sortkey) < .le() | .lt() | .ge() | .gt() | .begins_with() | .between() > ]
+	[ .order_by(indexName) | .index(indexName) ]
+	[ .descending() ]
+	[ .limit(numberOfResults) ]
+	[
+		.having(attribute)
+		<
+			.le() | .lt() | .ge() | .gt() | .begins_with() | .between() |
+			.ne | .not_null() | .defined() | .null() | .undefined() | .contains() | .not_contains() | .in() | .exists() | .not_exists()
+		>
+		|
+		.filter(attribute)
+		<
+		 .le() | .lt() | .ge() | .gt() | .begins_with() | .between() |
+		 .ne | .not_null() | .defined() | .null() | .undefined() | .contains() | .not_contains() | .in() | .exists() | .not_exists()
+		>
+	]
+	[ .resume( lastKey )]
+	.query()
+</div>
 
 
 <b>.scan()</b><br>
@@ -751,7 +774,7 @@ limit()
 eq, le, lt, ge, gt, begins_with, between,
 
 query filter only:
-ne, not_null, defined, null, undefined, contains, not_contains, in, exists, not_exists,
+,
 -->
 
 
