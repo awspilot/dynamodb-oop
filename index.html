@@ -661,18 +661,32 @@ DynamoDB
 <a name="glossary"></a>
 <h1>Glossary</h1>
 <b>.insert()</b><br>
+<p>Inserts a new item in a table or fails if already exists</p>
 
 <b>.replace()</b><br>
+<p>Replaces an item if found, fail if item not found</p>
+
 <b>.update()</b><br>
+<p>Updates an item if found, fail if item not found</p>
 
 <b>.insert_or_update()</b><br>
+<p>Updates an item if found, insert if item not found</p>
+
 <b>.insert_or_replace()</b><br>
+<p>Replaces an item if found, insert if item not found</p>
 
 <b>.delete()</b><br>
-<b>.get()</b><br>
-<b>.query()</b><br>
-<b>.scan()</b><br>
+<p>Deletes one item</p>
 
+<b>.get()</b><br>
+<p>Get one item</p>
+
+
+<b>.query()</b><br>
+<p>Return items from a partition</p>
+
+<b>.scan()</b><br>
+<p>Traverse table and return items from multiple partitions</p>
 
 
 <!-- data types
