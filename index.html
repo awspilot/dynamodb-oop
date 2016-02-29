@@ -661,7 +661,7 @@ DynamoDB
 <a name="glossary"></a>
 <h1>Glossary</h1>
 <b>.insert()</b><br>
-<p>Inserts a new item in a table or fails if already exists</p>
+<p>Inserts a new item in a table, fail if item exists</p>
 
 <b>.replace()</b><br>
 <p>Replaces an item if found, fail if item not found</p>
@@ -679,15 +679,27 @@ DynamoDB
 <p>Deletes one item</p>
 
 <b>.get()</b><br>
-<p>Get one item</p>
-
+<p>
+	Get one item<br>
+	.table(tableName)<br>
+	.where(partitionKey).eq()<br>
+	[.where(sortkey) < .le() | .lt() | .ge() | .gt() | .begins_with() | .between() > ]<br>
+	.get()<br>
+</p>
 
 <b>.query()</b><br>
-<p>Return items from a partition</p>
+<p>
+	Return items from one partition<br>
+
+</p>
+
 
 <b>.scan()</b><br>
 <p>Traverse table and return items from multiple partitions</p>
 
+
+<b>.where()</b><br>
+<p>Used with partition or sort key only.</p>
 
 <!-- data types
 SS stringSet
