@@ -457,15 +457,15 @@ DynamoDB
 // also .having('attribute').not_null() differs from .having('attribute').ne( null )
 
 DynamoDB
-    .table('messages')
-    .where('to').eq('user1@test.com')
-    .having('one_attribute').between(100,200)
-    .having('other_attribute').eq(true)
+	.table('messages')
+	.where('to').eq('user1@test.com')
+	.having('one_attribute').between(100,200)
+	.having('other_attribute').eq(true)
 	.having('deleted').undefined()      // or .null()
 	.having('last_login').defined()     // or .not_null()
-    .query(function( err, data ) {
-        console.log( err, data )
-    })
+	.query(function( err, data ) {
+		console.log( err, data )
+	})
 </div>
 
 
@@ -658,9 +658,67 @@ DynamoDB
 
 
 
+<a name="glossary"></a>
+<h1>Glossary</h1>
+<b>.insert()</b><br>
+
+<b>.replace()</b><br>
+<b>.update()</b><br>
+
+<b>.insert_or_update()</b><br>
+<b>.insert_or_replace()</b><br>
+
+<b>.delete()</b><br>
+<b>.get()</b><br>
+<b>.query()</b><br>
+<b>.scan()</b><br>
 
 
 
+<!-- data types
+SS stringSet
+N number
+S string
+NS numberSet
+L list
+-->
+
+<!-- data operations
+add
+del
+
+-->
+
+<!--
+select()
+return()
+addSelect()
+consistent_read()
+ConsistentRead()
+
+return_consumed_capacity()
+ReturnConsumedCapacity()
+
+descending()
+desc()
+
+index()
+order_by()
+
+.where()
+resume()
+filter()
+having()
+limit()
+
+
+
+
+eq, le, lt, ge, gt, begins_with, between,
+
+query filter only:
+ne, not_null, defined, null, undefined, contains, not_contains, in, exists, not_exists,
+-->
 
 
 
@@ -800,6 +858,7 @@ DynamoDB
 
 <li><span class="tree_label"><a href="#datatypes">Data Types & Operations</a>
 
+<li><span class="tree_label"><a href="#glossary">Glossary</a>
 
 <li><span class="tree_label"><a href="#deprecated">Deprecated</a>
 
