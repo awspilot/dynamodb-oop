@@ -690,8 +690,7 @@ DynamoDB
 <div class="code">
 DynamoDB
 	.table(tableName)
-	.where(partitionKey).eq()
-	[.where(sortkey) < .le() | .lt() | .ge() | .gt() | .begins_with() | .between() > ]
+	<WhereCondition>
 	.get()
 </div>
 
@@ -700,26 +699,13 @@ DynamoDB
 <div class="code">
 DynamoDB
 	.table(tableName)
-	[ .select() ]
+	[ <AttributesToGet> ]
 	[ .consistent_read() | .ConsistentRead() ]
-	.where(partitionKey).eq()
-	[.where(sortkey) < .le() | .lt() | .ge() | .gt() | .begins_with() | .between() > ]
+	<WhereCondition>
 	[ .order_by(indexName) | .index(indexName) ]
 	[ .descending() ]
 	[ .limit(numberOfResults) ]
-	[
-		.having(attribute)
-		<
-			.le() | .lt() | .ge() | .gt() | .begins_with() | .between() |
-			.ne | .not_null() | .defined() | .null() | .undefined() | .contains() | .not_contains() | .in() | .exists() | .not_exists()
-		>
-		|
-		.filter(attribute)
-		<
-		 .le() | .lt() | .ge() | .gt() | .begins_with() | .between() |
-		 .ne | .not_null() | .defined() | .null() | .undefined() | .contains() | .not_contains() | .in() | .exists() | .not_exists()
-		>
-	]
+	[ <QueryFilter> ]
 	[ .resume( lastKey )]
 	.query()
 </div>
@@ -729,13 +715,31 @@ DynamoDB
 <p>Traverse table and return items from multiple partitions</p>
 
 <a name="wherecondition"></a>
-<b>.where()</b><br>
+<b>.where() - WhereCondition</b><br>
 <p>Used with partition or sort key only.</p>
 <div class="code">
 .where(partitionKey).eq()
 [ .where(sortkey) < .le() | .lt() | .ge() | .gt() | .begins_with() | .between() > ]
 </div>
 
+
+<b>.filter(), .having() - QueryFilter</b><br>
+<p></p>
+<div class="code">
+	.having(attribute)
+	<
+		.le() | .lt() | .ge() | .gt() | .begins_with() | .between() |
+		.ne | .not_null() | .defined() | .null() | .undefined() | .contains() | .not_contains() | .in() | .exists() | .not_exists()
+	>
+	|
+	.filter(attribute)
+	<
+	 .le() | .lt() | .ge() | .gt() | .begins_with() | .between() |
+	 .ne | .not_null() | .defined() | .null() | .undefined() | .contains() | .not_contains() | .in() | .exists() | .not_exists()
+	>
+</div>
+
+<b>.select() - AttributesToGet</b>
 
 
 <!-- data types
