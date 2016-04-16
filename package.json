@@ -24,10 +24,12 @@
 		"aws-sdk": ">=2.1.16"
 	},
 	"devDependencies": {
+		"aws-sdk": ">=2.1.16",
 		"mocha": "*",
 		"chai": "*",
 		"should": "*",
-		"async": "*"
+		"async": "*",
+		"assert": "*"
 	},
 	"scripts": {
 		"test": "mocha --timeout 100000 -S -R spec"
