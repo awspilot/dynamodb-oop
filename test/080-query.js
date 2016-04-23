@@ -1,17 +1,55 @@
-return
-var expect = require('chai').expect
-var DynamoDB = require('../lib/dynamodb')()
-DynamoDB.on('error', function(op, error, payload ) {
-	//console.log(op,error,payload)
-})
-DynamoDB.on('beforeRequest', function(op, payload ) {
-	//console.log("--------------------------------")
-	//console.log(op,payload)
-})
-var $tableName = 'test_hash_range'
+require('./lib/common')
 
 describe('query', function () {
-    it('should fail when table name is wrong', function(done) {
+	it('prepare data for query', function(done) {
+		async.parallel([
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.insert({
+						hash: 'query',
+						range: 1,
+						number: 1,
+						array: [1,2,3,4],
+						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
+						string_set: DynamoDB.stringSet(['aaa','bbb','ccc','ddd1']),
+						number_set: DynamoDB.numberSet([111,222,333]),
+					}, function(err, data) {cb(err)})
+			},
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.insert({
+						hash: 'query',
+						range: 2,
+						number: 2,
+						array: [1,2,3,4],
+						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee2']},
+						string_set: DynamoDB.stringSet(['aaa','bbb','ccc']),
+						number_set: DynamoDB.numberSet([111,222,333]),
+					}, function(err, data) {cb(err)})
+			},
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.insert({
+						hash: 'query',
+						range: 99,
+						number: 3,
+						array: [1,2,3,4],
+						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
+						string_set: DynamoDB.stringSet(['aaa','bbb','ccc','ddd3']),
+						number_set: DynamoDB.numberSet([111,222,333]),
+					}, function(err, data) {cb(err)})
+			}
+		], function(err) {
+			if (err)
+				throw err
+
+			done()
+		})
+	})
+	it('should fail when table name is wrong', function(done) {
 		DynamoDB
 			.table('inexistent-table')
 			.query( function(err, data) {
@@ -21,7 +59,7 @@ describe('query', function () {
 					throw err
 			})
 	})
-    it('should fail when no .where() is specified', function(done) {
+	it('should fail when no .where() is specified', function(done) {
 		DynamoDB
 			.table($tableName)
 			.query( function(err, data) {
@@ -31,7 +69,7 @@ describe('query', function () {
 					throw err
 			})
 	})
-    it('should fail when HASH has wrong type', function(done) {
+	it('should fail when HASH has wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq(5)
@@ -42,7 +80,7 @@ describe('query', function () {
 					throw err
 			})
 	})
-    it('should fail when querying without HASH .eq()', function(done) {
+	it('should fail when querying without HASH .eq()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').gt('aaa')
@@ -53,225 +91,103 @@ describe('query', function () {
 					throw err
 			})
 	})
-
-    it('.where(RANGE).le()', function(done) {
+	it('.where(RANGE).le()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash1')
+			.where('hash').eq('query')
 			.where('range').le(99)
 			.query( function(err, data) {
 				if (err)
 					throw err
 
 				if (data.length !== 3)
-					throw err
+					throw "expected 3 got " + data.length
 
 				done()
 			})
 	})
-    it('.where(RANGE).lt()', function(done) {
+	it('.where(RANGE).lt()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash1')
+			.where('hash').eq('query')
 			.where('range').lt(99)
 			.query( function(err, data) {
 				if (err)
 					throw err
 
 				if (data.length !== 2)
-					throw err
+					throw "expected 2 got " + data.length
 
 				done()
 			})
 	})
-    it('.where(RANGE).ge()', function(done) {
+	it('.where(RANGE).ge()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash1')
+			.where('hash').eq('query')
 			.where('range').ge(2)
 			.query( function(err, data) {
 				if (err)
 					throw err
 
 				if (data.length !== 2)
-					throw err
+					throw "expected 2 got " + data.length
 
 				done()
 			})
 	})
-    it('.where(RANGE).gt()', function(done) {
+	it('.where(RANGE).gt()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash1')
+			.where('hash').eq('query')
 			.where('range').gt(2)
 			.query( function(err, data) {
 				if (err)
 					throw err
 
 				if (data.length !== 1)
-					throw err
+					throw "expected 1 got " + data.length
 
 				done()
 			})
 	})
-    it('.where(RANGE).between()', function(done) {
+	it('.where(RANGE).between()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash1')
+			.where('hash').eq('query')
 			.where('range').between(2,99)
 			.query( function(err, data) {
 				if (err)
 					throw err
 
 				if (data.length !== 2)
-					throw err
+					throw "expected 2 got " + data.length
 
 				done()
 			})
 	})
-
-	/* @todo: test begin with for RANGE type NUMBER
-    it('.where(RANGE).begins_with()', function(done) {
+	it('.select().where().having().query()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash1')
-			.where('range').begins_with(9)
-			.query( function(err, data) {
-				if (err)
-					console.log(err)
-
-				if (data.length !== 2)
-					throw err
-
-				done()
-			})
-	})
-	*/
-
-
-	it('.having(atribute).le()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
-			.having('number').le(2)
-			.query( function(err, data) {
-				if (err)
-					throw err
-
-				if (data.length !== 2)
-					throw { errorMessage: 'results should be 2 but is ' + data.length }
-
-				done()
-			})
-	})
-    it('.having(atribute).lt()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
-			.having('number').lt(99)
-			.query( function(err, data) {
-				if (err)
-					throw err
-
-				if (data.length !== 2)
-					throw err
-
-				done()
-			})
-	})
-    it('.having(atribute).ge()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
-			.having('number').ge(2)
-			.query( function(err, data) {
-				if (err)
-					throw err
-
-				if (data.length !== 2)
-					throw err
-
-				done()
-			})
-	})
-    it('.having(atribute).gt()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
-			.having('number').gt(2)
-			.query( function(err, data) {
-				if (err)
-					throw err
-
-				if (data.length !== 1)
-					throw err
-
-				done()
-			})
-	})
-    it('.having(atribute).between()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
-			.having('number').between(2,99)
-			.query( function(err, data) {
-				if (err)
-					throw err
-
-				if (data.length !== 2)
-					throw err
-
-				done()
-			})
-	})
-    it('.having(attribute).ne()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
+			.select('number','object.ccc','object.ddd', 'object.eee','string_set[0]', 'number_set[0]','array[0]','array[1]','array[2]')
+			.where('hash').eq('query')
+			.having('object.ccc').eq(3)
+			//.having('number').eq(1)
 			.having('number').ne(99)
+			.having('array[1]').between(0,2)
+			.having('array[2]').in([3,4,'a'])
+			.having('object.eee').not_null()
+			.having('object.fff').null()
+			.having('object.eee[1]').begins_with('eee')
+			.having('object.eee[1]').contains('eee')
+			.having('string_set').contains('aaa')
+			.having('string_set').not_contains('ddd1')
 			.query( function(err, data) {
 				if (err)
-					console.log(err)
-
-				if (data.length !== 2)
 					throw err
 
+				// @todo: check returned value
 				done()
 			})
 	})
-
-
-	it('.having(attribute).defined()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
-			.having('null').defined()
-			.query( function(err, data) {
-				if (err)
-					console.log(err)
-
-				if (data.length !== 1)
-					throw err
-
-				done()
-			})
-	})
-
-	it('.having(attribute).undefined()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash1')
-			.having('null').undefined()
-			.query( function(err, data) {
-				if (err)
-					console.log(err)
-
-				if (data.length !== 2)
-					throw err
-
-				done()
-			})
-	})
-	// @todo: contains, not_contains, in (for type SET )
-
 })
