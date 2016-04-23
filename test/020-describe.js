@@ -40,6 +40,7 @@ describe('.table().describe()', function () {
 					TableName: 'copy-' + $tableName
 				}, function(err, data) {
 					if (err) {
+						clearInterval($existInterval)
 						throw err
 					} else {
 						if (data.Table.TableStatus === 'ACTIVE') {
