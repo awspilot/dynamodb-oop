@@ -50,8 +50,10 @@ describe('waiting for table to delete', function () {
 						clearInterval($existInterval)
 						return done()
 					}
-					if (err)
+					if (err) {
+						clearInterval($existInterval)
 						throw err
+					}
 
 					if (data.TableStatus === 'DELETING')
 						process.stdout.write('.')
