@@ -39,8 +39,10 @@ describe('client.createTable()', function () {
 						clearInterval($existInterval)
 						return done()
 					}
-					if (err)
+					if (err) {
+						clearInterval($existInterval)
 						throw err
+					}
 
 					if (data.TableStatus === 'DELETING')
 						process.stdout.write('.')
