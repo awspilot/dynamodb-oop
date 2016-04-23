@@ -5,4 +5,5 @@
 [Documentation here](http://databank.github.io/aws-dynamodb)
 
 
+[![npm version](https://badge.fury.io/js/aws-dynamodb.svg)](https://badge.fury.io/js/aws-dynamodb)
 [![Chat ](https://badges.gitter.im/databank/aws-dynamodb.png)](https://gitter.im/databank/aws-dynamodb)
