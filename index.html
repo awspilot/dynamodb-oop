@@ -366,7 +366,7 @@ DynamoDB
 // specifying what attributes to return
 DynamoDB
     .table('users')
-    .select('email','registered_at')
+    .select('email','registered_at','object.attribute','string_set[0]','array[1]')
     .where('email').eq( 'test@test.com' )
     .get(function( err, data ) {
         console.log( err, data )
@@ -393,7 +393,7 @@ DynamoDB
 // only return specified fields, in descending order
 DynamoDB
     .table('statistics')
-    .select('unique_visitors','unique_pageviews')
+    .select('unique_visitors','unique_pageviews','object.attribute','string_set[0]','array[1]')
     .where('domain').eq('mydomain.com')
     .where('day').ge('2013-11-01')
     .descending()
@@ -460,9 +460,15 @@ DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
 	.having('one_attribute').between(100,200)
-	.having('other_attribute').eq(true)
+	.having('object.attribute').eq(true)
 	.having('deleted').undefined()      // or .null()
 	.having('last_login').defined()     // or .not_null()
+	.having('string').begins_with('substring')
+	.having('string').contains('substring')
+	.having('string_set').contains('one')
+	.having('number').between(0,2)
+	.having('attribute').in([3,4,'a'])
+	.having('fridge.shelf[1].cookies').not_contains('sugar')
 	.query(function( err, data ) {
 		console.log( err, data )
 	})
@@ -508,7 +514,7 @@ DynamoDB
 
 DynamoDB
     .table('messages')
-    .select('from','subject')
+    .select('from','subject','object.attribute','string_set[0]','array[1]')
     .having('somkey').eq('somevalue')
     .limit(10)
     .scan(function( err, data ) {
