@@ -6,4 +6,5 @@
 
 
 [![npm version](https://badge.fury.io/js/aws-dynamodb.svg)](https://badge.fury.io/js/aws-dynamodb)
+[![Build Status](https://travis-ci.org/databank/aws-dynamodb.svg?branch=master)](https://travis-ci.org/databank/aws-dynamodb)
 [![Chat ](https://badges.gitter.im/databank/aws-dynamodb.png)](https://gitter.im/databank/aws-dynamodb)
