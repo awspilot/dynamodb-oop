@@ -10,6 +10,7 @@ describe('query', function () {
 						hash: 'query',
 						range: 1,
 						number: 1,
+						string: "one two three",
 						array: [1,2,3,4],
 						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
 						string_set: DynamoDB.stringSet(['aaa','bbb','ccc','ddd1']),
@@ -23,6 +24,7 @@ describe('query', function () {
 						hash: 'query',
 						range: 2,
 						number: 2,
+						string: "one two three four",
 						array: [1,2,3,4],
 						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee2']},
 						string_set: DynamoDB.stringSet(['aaa','bbb','ccc']),
@@ -36,6 +38,7 @@ describe('query', function () {
 						hash: 'query',
 						range: 99,
 						number: 3,
+						string: "three four five",
 						array: [1,2,3,4],
 						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
 						string_set: DynamoDB.stringSet(['aaa','bbb','ccc','ddd3']),
@@ -187,6 +190,42 @@ describe('query', function () {
 					throw err
 
 				// @todo: check returned value
+				done()
+			})
+	})
+
+	// having in string
+	it('.select().where().having(string).contains().not_contains().query()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.select('number','string')
+			.where('hash').eq('query')
+			.having('string').contains('one')
+			.having('string').contains('two')
+			.having('string').not_contains('four')
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				console.log(JSON.stringify(data))
+				done()
+			})
+	})
+
+	// having in stringset
+	it('.select().where().having(stringset).contains().not_contains().query()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.select('string_set')
+			.where('hash').eq('query')
+			.having('string_set').contains('aaa')
+			.having('string_set').contains('bbb')
+			.having('string_set').not_contains('ddd1')
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				console.log(JSON.stringify(data))
 				done()
 			})
 	})
