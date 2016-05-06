@@ -15,7 +15,7 @@ AWS.config.update({endpoint: 'http://localhost:4567'});
 
 DynamoDB = require('../../lib/dynamodb')(new AWS.DynamoDB())
 DynamoDB.on('error', function(op, error, payload ) {
-	//console.log(op,error,payload)
+	//console.log(op,error,JSON.stringify(payload))
 })
 DynamoDB.on('beforeRequest', function(op, payload ) {
 	//console.log("--------------------------------")
