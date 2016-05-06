@@ -206,7 +206,8 @@ describe('query', function () {
 				if (err)
 					throw err
 
-				console.log(JSON.stringify(data))
+				//console.log(JSON.stringify(data))
+				// @todo: check returned value
 				done()
 			})
 	})
