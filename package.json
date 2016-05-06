@@ -25,6 +25,7 @@
 	},
 	"devDependencies": {
 		"aws-sdk": ">=2.3.9",
+		"memdown": "*",
 		"dynalite": "1.0.0",
 		"mocha": "*",
 		"chai": "*",
