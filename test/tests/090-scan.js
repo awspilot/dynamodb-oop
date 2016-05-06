@@ -10,7 +10,48 @@ describe('scan', function () {
 					throw err
 			})
 	})
+	it('insert before scan', function(done) {
+		async.parallel([
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.insert({
+						hash: 'scan1',
+						range: 1,
+						number: 1,
+						delete_me: 'aaa',
+						gsi_range: 'a',
+						array: [1,2,3],
+						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
+						string_set: DynamoDB.stringSet(['aaa','bbb','ccc']),
+						number_set: DynamoDB.numberSet([111,222,333]),
+					}, function(err) {
+						cb(err)
+					})
+			},
 
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.insert({
+						hash: 'scan2',
+						range: 99,
+						number: 3,
+						string: "three four five",
+						array: [1,2,3,4],
+						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
+						string_set: DynamoDB.stringSet(['aaa','bbb','ccc','ddd3']),
+						number_set: DynamoDB.numberSet([111,222,333]),
+					}, function(err) {
+						cb(err)
+					})
+			}
+		], function(err) {
+			if (err) throw err
+
+			done()
+		})
+	})
 	it('.select().having().scan()', function(done) {
 		DynamoDB
 			.table($tableName)
