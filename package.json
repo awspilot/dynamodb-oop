@@ -21,10 +21,11 @@
 	"main": "./lib/dynamodb",
 	"license": "MIT",
 	"dependencies": {
-		"aws-sdk": ">=2.1.16"
+		"aws-sdk": ">=2.3.9"
 	},
 	"devDependencies": {
-		"aws-sdk": ">=2.1.16",
+		"aws-sdk": ">=2.3.9",
+		"dynalite": "1.0.0",
 		"mocha": "*",
 		"chai": "*",
 		"should": "*",
