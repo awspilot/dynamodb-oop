@@ -10,7 +10,7 @@ dynaliteServer.listen(4567, function(err) {
 })
 
 var AWS = require('aws-sdk')
-//AWS.config.update({endpoint: 'http://localhost:4567'});
+AWS.config.update({endpoint: 'http://localhost:4567'});
 
 
 DynamoDB = require('../../lib/dynamodb')(new AWS.DynamoDB())
