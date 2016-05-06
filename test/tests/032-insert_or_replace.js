@@ -1,6 +1,4 @@
 
-require('./lib/common')
-
 describe('insert_or_replace()', function () {
 	it('should insert new item', function(done) {
 		DynamoDB

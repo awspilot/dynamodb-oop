@@ -1,5 +1,4 @@
 
-require('./lib/common')
 return
 
 describe('insert_or_update()', function () {

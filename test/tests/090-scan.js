@@ -1,4 +1,3 @@
-require('./lib/common')
 
 describe('scan', function () {
 	it('should fail when table name is wrong', function(done) {

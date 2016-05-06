@@ -1,6 +1,4 @@
 
-require('./lib/common')
-
 describe('delete()', function () {
 	it('should fail if wrong type for HASH', function(done) {
 		DynamoDB

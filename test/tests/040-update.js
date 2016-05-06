@@ -1,6 +1,4 @@
 
-require('./lib/common')
-
 describe('update', function () {
 
 	it('should fail if wrong type for HASH', function(done) {

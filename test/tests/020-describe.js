@@ -1,6 +1,4 @@
 
-require('./lib/common')
-
 describe('.table().describe()', function () {
 	it('should throw error on inexistent table', function(done) {
 		DynamoDB

@@ -1,4 +1,3 @@
-require('./lib/common')
 
 describe('query', function () {
 	it('prepare data for query', function(done) {

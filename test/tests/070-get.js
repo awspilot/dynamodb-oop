@@ -1,6 +1,4 @@
 
-require('./lib/common')
-
 describe('get()', function (done) {
 	it('prepare for get()', function(done) {
 		DynamoDB

@@ -1,6 +1,4 @@
 
-require('./lib/common')
-
 describe('client.createTable()', function () {
 	it('deleting test table if exists', function(done) {
 		DynamoDB
