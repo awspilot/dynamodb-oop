@@ -51,53 +51,14 @@ describe('query', function () {
 			done()
 		})
 	})
-	it('should fail when table name is wrong', function(done) {
-		DynamoDB
-			.table('inexistent-table')
-			.query( function(err, data) {
-				if (err)
-					done()
-				else
-					throw err
-			})
-	})
-	it('should fail when no .where() is specified', function(done) {
-		DynamoDB
-			.table($tableName)
-			.query( function(err, data) {
-				if (err)
-					done()
-				else
-					throw err
-			})
-	})
-	it('should fail when HASH has wrong type', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq(5)
-			.query( function(err, data) {
-				if (err)
-					done()
-				else
-					throw err
-			})
-	})
-	it('should fail when querying without HASH .eq()', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').gt('aaa')
-			.query( function(err, data) {
-				if (err)
-					done()
-				else
-					throw err
-			})
-	})
 	it('.where(RANGE).le()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('query')
 			.where('range').le(99)
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
@@ -113,6 +74,9 @@ describe('query', function () {
 			.table($tableName)
 			.where('hash').eq('query')
 			.where('range').lt(99)
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
@@ -128,6 +92,9 @@ describe('query', function () {
 			.table($tableName)
 			.where('hash').eq('query')
 			.where('range').ge(2)
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
@@ -143,6 +110,9 @@ describe('query', function () {
 			.table($tableName)
 			.where('hash').eq('query')
 			.where('range').gt(2)
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
@@ -158,6 +128,9 @@ describe('query', function () {
 			.table($tableName)
 			.where('hash').eq('query')
 			.where('range').between(2,99)
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
@@ -168,11 +141,33 @@ describe('query', function () {
 				done()
 			})
 	})
+	/* No begins with for type N
+	it('.where(RANGE).begins_with()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('query')
+			.where('range').begins_with(1)
+			.on('beforeRequest', function(op, payload) {
+				console.log(op, JSON.stringify(payload,null,"\t"))
+			})
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				if (data.length !== 2)
+					throw "expected 2 got " + data.length
+
+				done()
+			})
+	})
+	*/
+
 	it('.select().where().having().query()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.select('number','object.ccc','object.ddd', 'object.eee','string_set[0]', 'number_set[0]','array[0]','array[1]','array[2]')
+			.select('hash','range','number','object.ccc','object.ddd', 'object.eee','string_set[0]', 'number_set[0]','array[0]','array[1]','array[2]')
 			.where('hash').eq('query')
+			.where('range').gt(0)
 			.having('object.ccc').eq(3)
 			//.having('number').eq(1)
 			.having('number').ne(99)
@@ -184,6 +179,9 @@ describe('query', function () {
 			.having('object.eee[1]').contains('eee')
 			.having('string_set').contains('aaa')
 			.having('string_set').not_contains('ddd1')
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
@@ -192,7 +190,6 @@ describe('query', function () {
 				done()
 			})
 	})
-
 	// having in string
 	it('.select().where().having(string).contains().not_contains().query()', function(done) {
 		DynamoDB
@@ -202,6 +199,9 @@ describe('query', function () {
 			.having('string').contains('one')
 			.having('string').contains('two')
 			.having('string').not_contains('four')
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
@@ -211,7 +211,6 @@ describe('query', function () {
 				done()
 			})
 	})
-
 	// having in stringset
 	it('.select().where().having(stringset).contains().not_contains().query()', function(done) {
 		DynamoDB
@@ -221,6 +220,9 @@ describe('query', function () {
 			.having('string_set').contains('aaa')
 			.having('string_set').contains('bbb')
 			.having('string_set').not_contains('ddd1')
+			//.on('beforeRequest', function(op, payload) {
+			//	console.log(op, JSON.stringify(payload,null,"\t"))
+			//})
 			.query( function(err, data) {
 				if (err)
 					throw err
