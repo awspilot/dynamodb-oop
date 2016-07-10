@@ -10,10 +10,8 @@ dynaliteServer.listen(4567, function(err) {
 })
 
 var AWS = require('aws-sdk')
-AWS.config.update({endpoint: 'http://localhost:4567'});
+DynamoDB = require('../../lib/dynamodb')( new AWS.DynamoDB({endpoint: 'http://localhost:4567', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
 
-
-DynamoDB = require('../../lib/dynamodb')(new AWS.DynamoDB())
 DynamoDB.on('error', function(op, error, payload ) {
 	//console.log(op,error,JSON.stringify(payload))
 })
