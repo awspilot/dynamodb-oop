@@ -2,7 +2,7 @@
 	"author": {
 		"name": "Adrian Praja",
 		"email": "adrian@databank.ro",
-		"url": "https://geekinbox.com"
+		"url": "https://databank.ro"
 	},
 	"name": "aws-dynamodb",
 	"description": "Wrapper around aws-sdk for nodejs to simplify working with DynamoDB",
@@ -11,7 +11,7 @@
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.53",
+	"version": "0.1.54",
 	"homepage": "http://databank.github.com/aws-dynamodb",
 	"bugs": "https://github.com/databank/aws-dynamodb/issues",
 	"repository": {
