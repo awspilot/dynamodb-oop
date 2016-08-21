@@ -2,7 +2,7 @@
 
 #aws-dynamodb
 
-[Documentation here](http://databank.github.io/aws-dynamodb)
+[Documentation here](http://awspilot.github.io/aws-dynamodb)
 
 
 [![npm version](https://badge.fury.io/js/aws-dynamodb.svg)](https://badge.fury.io/js/aws-dynamodb)
