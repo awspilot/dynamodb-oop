@@ -2,7 +2,7 @@
 	"author": {
 		"name": "Adrian Praja",
 		"email": "adrian@databank.ro",
-		"url": "https://databank.ro"
+		"url": "https://awspilot.com"
 	},
 	"name": "aws-dynamodb",
 	"description": "Wrapper around aws-sdk for nodejs to simplify working with DynamoDB",
@@ -11,12 +11,12 @@
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.54",
-	"homepage": "http://databank.github.com/aws-dynamodb",
-	"bugs": "https://github.com/databank/aws-dynamodb/issues",
+	"version": "0.1.55",
+	"homepage": "http://awspilot.github.com/aws-dynamodb",
+	"bugs": "https://github.com/awspilot/aws-dynamodb/issues",
 	"repository": {
 		"type" :  "git",
-		"url": "https://github.com/databank/aws-dynamodb"
+		"url": "https://github.com/awspilot/aws-dynamodb"
 	},
 	"main": "./lib/dynamodb",
 	"license": "MIT",
