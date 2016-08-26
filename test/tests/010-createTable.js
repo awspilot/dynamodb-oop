@@ -79,6 +79,14 @@ describe('client.createTable()', function () {
 						AttributeName: "gsi_range",
 						AttributeType: "S"
 					},
+					{
+						AttributeName: "account-id",
+						AttributeType: "S"
+					},
+					{
+						AttributeName: "accountid",
+						AttributeType: "S"
+					},
 				],
 				"GlobalSecondaryIndexes": [
 					{
@@ -98,6 +106,40 @@ describe('client.createTable()', function () {
 						//	"NonKeyAttributes": [
 						//		"string"
 						//	],
+							ProjectionType: "ALL"
+						},
+						ProvisionedThroughput: {
+							ReadCapacityUnits: 1,
+							WriteCapacityUnits: 1
+						}
+					},
+					{
+						IndexName: "byAccount-Id",
+						KeySchema: [
+							{
+								AttributeName: "account-id",
+								KeyType: "HASH"
+							}
+						],
+
+						Projection: {
+							ProjectionType: "ALL"
+						},
+						ProvisionedThroughput: {
+							ReadCapacityUnits: 1,
+							WriteCapacityUnits: 1
+						}
+					},
+					{
+						IndexName: "byAccountId",
+						KeySchema: [
+							{
+								AttributeName: "accountid",
+								KeyType: "HASH"
+							}
+						],
+
+						Projection: {
 							ProjectionType: "ALL"
 						},
 						ProvisionedThroughput: {
