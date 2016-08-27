@@ -92,7 +92,8 @@ describe('special signs in attribute names', function () {
 				hash: 'hash_with_dot',
 				range: 1234,
 				'account.id': "aaa",
-				'non.key.attribute': 1
+				'non.key.attribute': 1,
+				'nested.object': { 'nested.attribute': 2 }
 			}, function(err, data) {
 				if (err)
 					throw err
@@ -109,23 +110,27 @@ describe('special signs in attribute names', function () {
 			.descending()
 			.where('account.id').eq( 'aaa' )
 			.on('beforeRequest', function(op, payload) {
-				console.log(op, JSON.stringify(payload,null,"\t"))
+				//console.log(op, JSON.stringify(payload,null,"\t"))
 			})
 			.query(function(err, data ) {
 				if (err)
 					throw err
 
-				console.log(data)
-				//assert.equal(data.length,1)
-				//assert.equal(data[0]['account.id'],'aaa')
+				assert.equal(data.length,1)
+				assert.equal(data[0]['account.id'],'aaa')
+				assert.equal(data[0]['nested.object']['nested.attribute'],2)
 
 				done()
 			})
 	})
 
-
-
-	//it('should allow attributes with "-" sign in having', function(done) {
-
+	// @todo: allow "." in filter by wrapping attribute name in ``
+	//it('should allow attributes with "." sign in filter()', function(done) {
 	//})
+
+
+	// @todo: allow "." in select by wrapping attribute name in ``
+	//it('should allow attributes with "." sign in select()', function(done) {
+	//})
+
 })
