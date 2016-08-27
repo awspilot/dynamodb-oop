@@ -5,13 +5,13 @@
 		"url": "https://awspilot.com"
 	},
 	"name": "aws-dynamodb",
-	"description": "Wrapper around aws-sdk for nodejs to simplify working with DynamoDB",
+	"description": "Write code with fashion, speak fluent DynamoDB 😃 ",
 	"keywords": [
-		"dynamo",
+		"aws dynamodb",
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.58",
+	"version": "0.1.59",
 	"homepage": "http://awspilot.github.com/dynamodb-oop",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
