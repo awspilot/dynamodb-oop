@@ -12,11 +12,11 @@
 		"aws"
 	],
 	"version": "0.1.58",
-	"homepage": "http://awspilot.github.com/aws-dynamodb",
-	"bugs": "https://github.com/awspilot/aws-dynamodb/issues",
+	"homepage": "http://awspilot.github.com/dynamodb-oop",
+	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
 		"type" :  "git",
-		"url": "https://github.com/awspilot/aws-dynamodb"
+		"url": "https://github.com/awspilot/dynamodb-oop"
 	},
 	"main": "./lib/dynamodb",
 	"license": "MIT",
