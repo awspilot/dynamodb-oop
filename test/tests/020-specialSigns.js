@@ -102,26 +102,26 @@ describe('special signs in attribute names', function () {
 			})
 	})
 
-	//it('query attributes with "." sign in where()', function(done) {
-	//	DynamoDB
-	//		.table($tableName)
-	//		.index('byAccount.Id')
-	//		.descending()
-	//		.where('account.id').eq( 'aaa' )
-	//		.on('beforeRequest', function(op, payload) {
-	//			console.log(op, JSON.stringify(payload,null,"\t"))
-	//		})
-	//		.query(function(err, data ) {
-	//			if (err)
-	//				throw err
+	it('query attributes with "." sign in where()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.index('byAccount.Id')
+			.descending()
+			.where('account.id').eq( 'aaa' )
+			.on('beforeRequest', function(op, payload) {
+				console.log(op, JSON.stringify(payload,null,"\t"))
+			})
+			.query(function(err, data ) {
+				if (err)
+					throw err
 
-	//			console.log(data)
-	//			//assert.equal(data.length,1)
-	//			//assert.equal(data[0]['account.id'],'aaa')
+				console.log(data)
+				//assert.equal(data.length,1)
+				//assert.equal(data[0]['account.id'],'aaa')
 
-	//			done()
-	//		})
-	//})
+				done()
+			})
+	})
 
 
 
