@@ -84,7 +84,7 @@ describe('client.createTable()', function () {
 						AttributeType: "S"
 					},
 					{
-						AttributeName: "accountid",
+						AttributeName: "account.id",
 						AttributeType: "S"
 					},
 				],
@@ -131,10 +131,10 @@ describe('client.createTable()', function () {
 						}
 					},
 					{
-						IndexName: "byAccountId",
+						IndexName: "byAccount.Id",
 						KeySchema: [
 							{
-								AttributeName: "accountid",
+								AttributeName: "account.id",
 								KeyType: "HASH"
 							}
 						],
