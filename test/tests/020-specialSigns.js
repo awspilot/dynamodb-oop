@@ -7,7 +7,8 @@ describe('special signs in attribute names', function () {
 				hash: 'hash_with_minus',
 				range: 1234,
 				'account-id': "aaa",
-				'non-key-attribute': 1
+				'non-key-attribute': 1,
+				'nested-object': { 'nested-attribute': 2 }
 			}, function(err, data) {
 				if (err)
 					throw err
@@ -33,7 +34,7 @@ describe('special signs in attribute names', function () {
 
 				assert.equal(data.length,1)
 				assert.equal(data[0]['account-id'],'aaa')
-
+				assert.equal(data[0]['nested-object']['nested-attribute'],2)
 				done()
 			})
 	})
@@ -45,6 +46,7 @@ describe('special signs in attribute names', function () {
 			.descending()
 			.where('account-id').eq( 'aaa' )
 			.having('non-key-attribute').gt(0)
+			.having('nested-object.nested-attribute').gt(0)
 			.on('beforeRequest', function(op, payload) {
 				//console.log(op, JSON.stringify(payload,null,"\t"))
 			})
@@ -54,13 +56,14 @@ describe('special signs in attribute names', function () {
 
 				assert.equal(data.length,1)
 				assert.equal(data[0]['non-key-attribute'],1)
+				assert.equal(data[0]['nested-object']['nested-attribute'],2)
 				done()
 			})
 	})
 	it('query attributes with "-" sign in select()', function(done) {
 		DynamoDB
 			.table($tableName)
-			.select("non-key-attribute")
+			.select("non-key-attribute","nested-object.nested-attribute")
 			.index('byAccount-Id')
 			.descending()
 			.where('account-id').eq( 'aaa' )
@@ -72,8 +75,9 @@ describe('special signs in attribute names', function () {
 					throw err
 
 				assert.equal(data.length,1)
-				assert.equal(Object.keys(data[0]).length,1)
+				assert.equal(Object.keys(data[0]).length,2)
 				assert.equal(data[0]['non-key-attribute'],1)
+				assert.equal(data[0]['nested-object']['nested-attribute'],2)
 				done()
 			})
 	})
