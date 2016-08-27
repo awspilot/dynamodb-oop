@@ -1,7 +1,8 @@
 require('./lib/common')
 
-require("./tests/010-createTable.js")
-require("./tests/020-describe.js")
+require("./tests/000-createTable.js")
+require("./tests/010-describe.js")
+require("./tests/020-specialSigns.js")
 require("./tests/030-insert.js")
 require("./tests/031-insert_or_update.js")
 require("./tests/032-insert_or_replace.js")

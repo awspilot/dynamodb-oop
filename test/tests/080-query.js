@@ -1,23 +1,5 @@
 
 describe('query', function () {
-	it('should allow attributes with "-" sign in it', function(done) {
-		DynamoDB
-			.table($tableName)
-			.index('byAccount-Id')
-			.descending()
-			.where('account-id').eq( 'aaa' )
-			.on('beforeRequest', function(op, payload) {
-				//console.log(op, JSON.stringify(payload,null,"\t"))
-			})
-			.query(function(err, data ) {
-				if (err)
-					throw err
-
-				done()
-			})
-	})
-
-
 	it('prepare data for query', function(done) {
 		async.parallel([
 			function(cb) {
