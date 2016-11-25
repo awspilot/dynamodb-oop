@@ -1,4 +1,4 @@
-[![npm page](https://nodei.co/npm/aws-dynamodb.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/dynamodb-oop)
+[![npm page](https://nodei.co/npm/aws-dynamodb.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/aws-dynamodb)
 
 #dynamodb-oop
 
