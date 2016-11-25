@@ -1,6 +1,23 @@
 
-describe('insert_or_update()', function () {
+describe('insert_or_update($attrz)', function () {
+	it('should not modify $attrz', function(done) {
+		var $to_insert = {
+			hash: 'hash_test_clone_object',
+			range: 1,
+			string: DynamoDB.S("test")
+		}
+		var $cloned = JSON.parse(JSON.stringify($to_insert))
+		DynamoDB
+			.table($tableName)
+			.return(DynamoDB.ALL_NEW)
+			.insert_or_update($to_insert, function(err, data) {
+				if (err)
+					throw err
 
+				assert.deepEqual($to_insert,$cloned)
+				done()
+			})
+	})
 	it('should insert new item', function(done) {
 		DynamoDB
 			.table($tableName)
