@@ -147,32 +147,42 @@ DynamoDB
 // insert item with nested attributes
 // carefull though as foo.bar domain actually exist :)
 DynamoDB
-    .table('messages')
-    .insert({
-        to: 'test@test.com',
-        date: new Date().getTime(),
-        boolean_true: true,
-        boolean_false: false,
-        key_null: null,
-        string: "string",
-        number: 1,
-        array_empty: [],
-        array_strings: ['alfa','beta','gama'], // inserted as datatype L
+	.table('messages')
+	.insert({
+		to: 'test@test.com',
+		date: new Date().getTime(),
+		boolean_true: true,
+		boolean_false: false,
+		key_null: null,
+		string: "string",
+		number: 1,
+		buffer: new Buffer("test"),
+		array_empty: [],
+		array_strings: ['alfa','beta','gama'], // inserted as datatype L
 		string_set: DynamoDB.SS(['sss','bbb','ccc']), // inserted as datatype SS
-        array_numbers: [7,9,15], // inserted as datatype L
+		array_numbers: [7,9,15], // inserted as datatype L
 		number_set: DynamoDB.NS([111,222,333]), // inserted as datatype NS
-        array_mixed: [null, "string", 5, true, false, { key: "value"}, ["nested","array"] ],
-        nested_object: {
-            name: "Foo",
-            email: "baz@foo.bar",
-            nested_attribute: {
-                boolean_value: true,
-                null_key: null,
-                some_string: "tadaa",
-                lucky_number: 12
-            }
-        }
-    })
+		array_mixed: [
+			null,
+			"string",
+			5,
+			true,
+			false,
+			{ key: "value"},
+			["nested","array"],
+			new Buffer("test")
+		],
+		nested_object: {
+			name: "Foo",
+			email: "baz@foo.bar",
+			nested_attribute: {
+				boolean_value: true,
+				null_key: null,
+				some_string: "tadaa",
+				lucky_number: 12
+			}
+		}
+	})
 </div>
 
 
@@ -584,7 +594,8 @@ DynamoDB
 <!-- ------------------------------------------------------ data types --------------------------------------------------- -->
 <a name="datatypes"></a>
 <h1>DynamoDB data types supported by aws-dynamodb</h1>
-<p> Please note binary data types B and BS are not supported yet.</p>
+<p> Please note binary data types BS is not supported yet.</p>
+<p> Binary data type B is supported only as of 0.1.62</p>
 <div class="code">
 
 DynamoDB
@@ -604,6 +615,9 @@ DynamoDB
 		// Null
 		null: null,
 
+		// Buffer (B)
+		buff: new Buffer('test'),
+
 		// Array (L)
 		array1: [1,[],true,{}],
 		array2: DynamoDB.L([1,[],true,{}]),
@@ -615,7 +629,7 @@ DynamoDB
 		string_set: DynamoDB.SS(['aaa','bbb','ccc']),
 
 		// Object key-value Map (M)
-		object: {prop1: 1, prop2: '2', prop3: true, prop4: null, prop5: {}, prop6: []},
+		object: { prop1: 1, prop2: '2', prop3: true, prop4: null, prop5: {}, prop6: [], prop7: new Buffer('test') },
 
 	})
 </div>
