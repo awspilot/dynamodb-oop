@@ -20,7 +20,7 @@ describe('get()', function (done) {
 				done()
 			})
 	})
-	it('.get() item with select()', function(done) {
+	it('.select().get()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.select('range','delete_me','inexistent','object.ccc','object.ddd', 'string_set[0]', 'number_set[0]','array[0]')
@@ -32,6 +32,47 @@ describe('get()', function (done) {
 
 				// @todo: incomplete
 				//console.log(JSON.stringify(data))
+				done()
+			})
+	})
+	it('.get().then()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-get')
+			.where('range').eq(1)
+			.get()
+			.then(function(data) {
+				done()
+			})
+	})
+	it('.get().then() - unhandled', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-get')
+			.where('range_unexistent').eq(1)
+			.get()
+		setTimeout(function() {
+			done()
+		},5000)
+
+	})
+	it('.get().then().catch()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-get')
+			.where('range_unexistent').eq(1)
+			.get()
+			.catch(function(e) {
+				done()
+			})
+	})
+	it('.get().then(,errorHandler)', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-get')
+			.where('range_unexistent').eq(1)
+			.get()
+			.then( null, function(e) {
 				done()
 			})
 	})
