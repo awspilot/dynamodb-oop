@@ -74,6 +74,38 @@ describe('scan', function () {
 				done()
 			})
 	})
+	it('.scan().then()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.scan()
+			.then( function(data) {
+				done()
+			})
+	})
+	it('.scan().then() - unhandled', function(done) {
+		DynamoDB
+			.table('inexistent_table')
+			.scan()
+		setTimeout(function() {
+			done()
+		},5000)
+	})
+	it('.scan().catch()', function(done) {
+		DynamoDB
+			.table('inexistent_table')
+			.scan()
+			.catch( function(err) {
+				done()
+			})
+	})
+	it('.scan().then(, errorHandler)', function(done) {
+		DynamoDB
+			.table('inexistent_table')
+			.scan()
+			.then(null, function(err) {
+				done()
+			})
+	})
 })
 
 	// @todo: gsi scan
