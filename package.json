@@ -11,7 +11,7 @@
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.62",
+	"version": "0.1.63",
 	"homepage": "http://awspilot.github.com/dynamodb-oop",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
