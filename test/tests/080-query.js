@@ -232,4 +232,46 @@ describe('query', function () {
 				done()
 			})
 	})
+
+
+
+
+	it('.query().then()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('query')
+			.query()
+			.then(function(data) {
+				done()
+			})
+	})
+	it('.query().then() - unhandled', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('query')
+			.where('range').le(99)
+			.query()
+		setTimeout(function() {
+			done()
+		},5000)
+	})
+	it('.query().then().catch()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('unexistent_hash').eq('query')
+			.query()
+			.catch(function(err) {
+				done()
+			})
+	})
+	it('.query().then(,errorHandler)', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('unexistent_hash').eq('query')
+			.query()
+			.then(null,function(err) {
+				done()
+			})
+	})
+
 })

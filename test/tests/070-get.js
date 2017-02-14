@@ -62,7 +62,7 @@ describe('get()', function (done) {
 			.where('hash').eq('test-get')
 			.where('range_unexistent').eq(1)
 			.get()
-			.catch(function(e) {
+			.catch(function(err) {
 				done()
 			})
 	})
