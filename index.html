@@ -120,32 +120,53 @@ DynamoDB.on('error', function( operation, error, payload ) {
 </div>
 
 
+<h1>Response</h1>
+<p>If a callback function is supplied, the response will be returned as callback(error, data)</p>
+<p>If no callback function is supplied, <a href="https://www.npmjs.com/package/promise" target="_blank">Promise</a> will be returned </p>
+
+<div class="code">
+	DynamoDB
+		.table()
+		.method(parameters, function( err, response ) {
+
+		})
+</div>
+<div class="code">
+	DynamoDB
+		.table()
+		.method(parameters)
+		.then( callback_if_success, callback_if_failed )
+		.catch( callback_if_failed )
+</div>
+
 <a name="insert"></a>
 <h1>Insert Item</h1>
 <p>does not replace existing items</p>
 <div class="code">
 DynamoDB
-    .table('users')
-    .insert({
-        email: 'test@test.com',
-        password: 'qwert',
-        created_at: new Date().getTime(),
-        updated_at: null
-    }, function(err,data) {
-        console.log( err, data )
-    })
+	.table('users')
+	.insert({
+		email: 'test@test.com',
+		password: 'qwert',
+		created_at: new Date().getTime(),
+		updated_at: null
+	}, function(err,data) {
+		console.log( err, data )
+	})
 
 DynamoDB
-    .table('messages')
-    .insert({
-        to: 'test@test.com',
-        date: new Date().getTime(),
-        subject: 'Foo',
-        message: 'Bar'
-    })
+	.table('messages')
+	.insert({
+		to: 'test@test.com',
+		date: new Date().getTime(),
+		subject: 'Foo',
+		message: 'Bar'
+	})
+	.then(console.log, console.log)
+	.catch(console.log)
 
 // insert item with nested attributes
-// carefull though as foo.bar domain actually exist :)
+// carefull though as foo.bar domain actually exists :)
 DynamoDB
 	.table('messages')
 	.insert({
@@ -189,7 +210,6 @@ DynamoDB
 
 <a name="insertorupdate"></a>
 <h1>Insert on Duplicate Item Update</h1>
-<p>1 request to DynamoDB</p>
 <div class="code">
 DynamoDB
 	.table('users')
@@ -330,7 +350,7 @@ DynamoDB
 
 <a name="deleteitem"></a>
 <h1>Delete Item</h1>
-<p></p>
+<p>delete() does not fail if the item does not exist</p>
 <div class="code">
 // delete an item from a HASH table
 DynamoDB
