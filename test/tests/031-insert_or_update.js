@@ -1,10 +1,13 @@
 
-describe('insert_or_update($attrz)', function () {
+describe('insert_or_update()', function () {
 	it('should not modify $attrz', function(done) {
 		var $to_insert = {
 			hash: 'hash_test_clone_object',
 			range: 1,
-			string: DynamoDB.S("test")
+			nested1: { value: 1},
+
+			string: DynamoDB.S("test"),
+			number: DynamoDB.add(1),
 		}
 		var $cloned = JSON.parse(JSON.stringify($to_insert))
 		DynamoDB
@@ -198,7 +201,43 @@ describe('insert_or_update($attrz)', function () {
 			})
 	})
 
-	it('removing all items...', function(done) {
+
+
+	it('.insert_or_update().then()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert_or_update({
+				hash: 'promise',
+				range: 1,
+			})
+			.then(function(data) {
+				done()
+			})
+	})
+	it('.insert_or_update() - unhandled', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert_or_update({
+				hash: 1,
+				range: 1,
+			})
+		setTimeout(function() {
+			done()
+		},5000)
+	})
+	it('.insert_or_update().catch()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert_or_update({
+				hash: 1,
+				range: 1,
+			})
+			.catch(function(err) {
+				done()
+			})
+	})
+
+	it('cleanup...', function(done) {
 		DynamoDB
 			.table($tableName)
 			.scan(function(err, data) {
