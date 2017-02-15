@@ -1,5 +1,5 @@
 
-describe('scan', function () {
+describe('scan()', function () {
 	it('should fail when table name is wrong', function(done) {
 		DynamoDB
 			.table('inexistent-table')

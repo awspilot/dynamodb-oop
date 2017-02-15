@@ -1,5 +1,5 @@
 
-describe('query', function () {
+describe('query()', function () {
 	it('prepare data for query', function(done) {
 		async.parallel([
 			function(cb) {
