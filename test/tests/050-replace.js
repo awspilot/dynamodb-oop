@@ -1,53 +1,26 @@
 
 describe('replace', function () {
-	it('should fail if wrong type for HASH', function(done) {
+	it('.where(hash).eq(wrongtype ) - should fail', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq(1)
-			.where('range').eq(1)
 			.replace({
+				hash: 1,
+				range: 1,
 				key: 'value'
 			}, function(err, data) {
 				if (err)
-					done()
-				else
-					throw {error: 'should fail'}
+					return done()
+
+				throw {error: 'should fail'}
 			})
 	})
-	it('should fail if wrong type for RANGE', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash')
-			.where('range').eq('range')
-			.replace({
-				key: 'value'
-			}, function(err, data) {
-				if (err)
-					done()
-				else
-					throw {error: 'should fail'}
-			})
-	})
-	it('should fail if we try to replace the RANGE key', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq('hash')
-			.where('range').eq(1)
-			.replace({
-				range: 2
-			}, function(err, data) {
-				if (err)
-					done()
-				else
-					throw {error: 'should fail'}
-			})
-	})
+
 	it('should fail if we try to replace GSI index range key with the wrong type', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash')
-			.where('range').eq(1)
 			.replace({
+				hash: 'hash',
+				range: 1,
 				gsi_range: 1
 			}, function(err, data) {
 				if (err)
@@ -59,10 +32,11 @@ describe('replace', function () {
 	it('should fail if we try to replace an inexistent item', function(done) {
 		DynamoDB
 			.table($tableName)
-			.where('hash').eq('hash999')
+			.where('hash').eq()
 			.where('range').eq(1)
 			.replace({
-				key: 'value'
+				hash: 'hash999',
+				range: 1,
 			}, function(err, data) {
 				if (err)
 					done()
@@ -73,7 +47,7 @@ describe('replace', function () {
 
 
 
-	it('should replace existing item', function(done) {
+	it('.replace()', function(done) {
 		// insert
 		DynamoDB.table($tableName).insert({hash: 'hash1',range:1, old_number: 1, old_array: [1,2,3], string: 'aaa', 'ignore': 'me', 'delete': 'me'}, function(err) {
 			if (err)
@@ -139,7 +113,55 @@ describe('replace', function () {
 				done()
 			})
 	})
-	it('removing all items...', function(done) {
+	it('.replace().then()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.return(DynamoDB.ALL_OLD)
+			.replace({
+				hash: 'hash1',
+				range: 1,
+				key: 'promise1'
+			})
+			.then(function(data) {
+				done()
+			})
+	})
+	it('.replace() - unhandled', function(done) {
+		DynamoDB
+			.table($tableName)
+			.return(DynamoDB.ALL_OLD)
+			.replace({
+				hash: 'hash1',
+				range: 1,
+				key: 'promise2'
+			})
+		setTimeout(function() {
+			done()
+		},5000)
+	})
+	it('.replace().catch()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.replace({
+				hash: 'promise',
+				range: 1,
+			})
+			.catch(function(err) {
+				done()
+			})
+	})
+	it('.replace().then(,errorHandler)', function(done) {
+		DynamoDB
+			.table($tableName)
+			.replace({
+				hash: 'promise',
+				range: 1,
+			})
+			.then( null, function(err) {
+				done()
+			})
+	})
+	it('cleanup...', function(done) {
 		DynamoDB
 			.table($tableName)
 			.scan(function(err, data) {

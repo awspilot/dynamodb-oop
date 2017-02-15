@@ -45,7 +45,7 @@ describe('get()', function (done) {
 				done()
 			})
 	})
-	it('.get().then() - unhandled', function(done) {
+	it('.get() - unhandled', function(done) {
 		DynamoDB
 			.table($tableName)
 			.where('hash').eq('test-get')

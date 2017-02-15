@@ -248,7 +248,6 @@ describe('insert', function () {
 				range: 1
 			})
 			.then(function(data) {
-				console.log(data)
 				done()
 			})
 	})
