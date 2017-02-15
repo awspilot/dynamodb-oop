@@ -1,5 +1,5 @@
 
-describe('replace', function () {
+describe('replace()', function () {
 	it('.where(hash).eq(wrongtype ) - should fail', function(done) {
 		DynamoDB
 			.table($tableName)

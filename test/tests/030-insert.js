@@ -1,5 +1,5 @@
 
-describe('insert', function () {
+describe('insert()', function () {
 	it('should fail if missing RANGE', function(done) {
 		DynamoDB
 			.table($tableName)
