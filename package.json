@@ -5,13 +5,13 @@
 		"url": "https://awspilot.com"
 	},
 	"name": "aws-dynamodb",
-	"description": "Write code with fashion, speak fluent DynamoDB 😃 ",
+	"description": "Speak fluent DynamoDB, write code with fashion, I Promise() 😃 ",
 	"keywords": [
 		"aws dynamodb",
 		"dynamodb",
 		"aws"
 	],
-	"version": "0.1.63",
+	"version": "0.1.64",
 	"homepage": "http://awspilot.github.com/dynamodb-oop",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
