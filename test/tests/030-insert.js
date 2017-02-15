@@ -240,7 +240,52 @@ describe('insert', function () {
 			})
 	})
 
-	it('removing all items...', function(done) {
+	it('.insert().then()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert({
+				hash: 'promise',
+				range: 1
+			})
+			.then(function(data) {
+				console.log(data)
+				done()
+			})
+	})
+	it('.insert() - unhandled', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert({
+				hash: 'promise',
+				range: 1
+			})
+		setTimeout(function() {
+			done()
+		},5000)
+	})
+	it('.insert().catch()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert({
+				hash: 'promise',
+				range: 1
+			})
+			.catch(function(err) {
+				done()
+			})
+	})
+	it('.insert().then(,errorHandler)', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert({
+				hash: 'promise',
+				range: 1
+			})
+			.then( null, function(err) {
+				done()
+			})
+	})
+	it('cleanup', function(done) {
 		DynamoDB
 			.table($tableName)
 			.scan(function(err, data) {
@@ -258,22 +303,4 @@ describe('insert', function () {
 				}
 			})
 	})
-
-	// future tests
-	//it('should fail .if(hash).eq().if(range).eq()', function(done) {
-	//	DynamoDB
-	//		table($tableName)
-	//		.if('hash').eq('hash1')
-	//		.if('range').eq(1)
-	//		.insert({
-	//			hash: 'hash1',
-	//			range: 1
-	//		}, function(err, data) {
-	//			console.log(err,data)
-	//			//if (err)
-	//				done()
-	//			//else
-	//			//	throw err
-	//		})
-	//})
 })
