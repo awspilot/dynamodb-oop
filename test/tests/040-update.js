@@ -95,7 +95,41 @@ describe('update()', function () {
 	})
 
 
-	it('removing all items...', function(done) {
+	it('.update().then()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.return(DynamoDB.UPDATED_OLD)
+			.where('hash').eq('test-updated-old')
+			.where('range').eq(1)
+			.update({
+				number: 1,
+			})
+			.then(function(data) {
+				done()
+			})
+	})
+	it('.update() - unhandled', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq(1)
+			.where('range_unexistent').eq(1)
+			.update({})
+		setTimeout(function() {
+			done()
+		},5000)
+	})
+	it('.update().catch()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq(1)
+			.where('range_unexistent').eq(1)
+			.update({})
+			.catch(function(err) {
+				done()
+			})
+	})
+
+	it('cleanup...', function(done) {
 		DynamoDB
 			.table($tableName)
 			.scan(function(err, data) {
