@@ -72,12 +72,15 @@ npm update aws-dynamodb
 
 <a name="testing"></a>
 <h1>Testing</h1>
+<p>tests will run in a in-memory implementation of DynamoDB server <a href="https://www.npmjs.com/package/dynalite" target="_blank">dynalite</a>
 <div class="code bash">
-// add AWS credentials to your environment first
-source test/credentials
+	npm test
+</div>
+<p>If you want to test against your own DynamoDB database, add AWS credentials to your environment first
+<div class="code bash">
+	source test/credentials
 
-// run the tests
-npm test
+	npm test
 </div>
 
 
