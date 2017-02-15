@@ -1,5 +1,5 @@
 
-describe('update', function () {
+describe('update()', function () {
 
 	// dynalite: "ADD action is not supported for the type L", UpdateExpression
 	it('should update existing item', function(done) {

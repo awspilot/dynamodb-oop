@@ -43,7 +43,49 @@ describe('delete()', function () {
 				})
 		})
 	})
-	it('removing all items...', function(done) {
+	it('.delete().then()', function(done) {
+		DynamoDB.table($tableName).return(DynamoDB.ALL_OLD).insert({hash: 'promise',range:1, }).then(function() {
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('promise')
+					.where('range').eq(1)
+					.delete()
+					.then(function(data) {
+						done()
+					})
+		})
+	})
+	it('.delete() - unhandled', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq(1)
+			.where('range').eq(1)
+			.delete()
+		setTimeout(function() {
+			done()
+		},5000)
+	})
+	it('.delete().catch()', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq(1)
+			.where('range').eq(1)
+			.delete()
+			.catch(function(err) {
+				done()
+			})
+	})
+	it('.delete().then(,errorHandler)', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq(1)
+			.where('range').eq(1)
+			.delete()
+			.then(null,function(err) {
+				done()
+			})
+	})
+	it('cleanup...', function(done) {
 		DynamoDB
 			.table($tableName)
 			.scan(function(err, data) {
