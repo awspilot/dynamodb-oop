@@ -1,5 +1,5 @@
 
-describe('insert_or_replace()', function () {
+describe('insert_or_replace( new_item )', function () {
 	it('should insert new item', function(done) {
 		DynamoDB
 			.table($tableName)
@@ -7,6 +7,7 @@ describe('insert_or_replace()', function () {
 				hash: 'hash1',
 				range: 1,
 				number: 5,
+				boolean: false,
 				array: [0,null,{},"string"],
 				delete_me_later: {}
 			},function(err,data) {
@@ -23,17 +24,18 @@ describe('insert_or_replace()', function () {
 							throw err
 							return
 						}
-						assert.deepEqual(data, {hash: 'hash1', range: 1, number: 5, array: [0,null,{},"string"], delete_me_later: {} })
+						assert.deepEqual(data, {hash: 'hash1', range: 1, number: 5, boolean: false, array: [0,null,{},"string"], delete_me_later: {} })
 						done()
 					})
 			})
 	})
-	it('should replace existing item', function(done) {
+	it('.insert_or_replace( existing_item )', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert_or_replace({
 				hash: 'hash1',
 				range: 1,
+				boolean: false,
 				a: 'a'
 			}, function(err) {
 				DynamoDB
@@ -45,12 +47,12 @@ describe('insert_or_replace()', function () {
 							throw err
 							return
 						}
-						assert.deepEqual(data, {hash: 'hash1', range: 1, a: 'a'})
+						assert.deepEqual(data, {hash: 'hash1', range: 1, boolean: false, a: 'a'})
 						done()
 					})
 			})
 	})
-	it('test ALL_OLD  on replace for existing item', function(done) {
+	it('.return(DynamoDB.ALL_OLD).insert_or_replace()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.return(DynamoDB.ALL_OLD)
@@ -61,7 +63,7 @@ describe('insert_or_replace()', function () {
 			}, function(err, data ) {
 				if (err) throw err
 
-				assert.deepEqual(data, {hash: 'hash1', range: 1, a: 'a'})
+				assert.deepEqual(data, {hash: 'hash1', range: 1, boolean: false, a: 'a'})
 				done()
 			})
 	})

@@ -27,6 +27,8 @@ describe('insert_or_update()', function () {
 			.insert_or_update({
 				hash: 'hash1',
 				range: 1,
+
+				boolean: false,
 				number_a: 5,
 				number_b: 7,
 				number_c: 1,
@@ -90,6 +92,7 @@ describe('insert_or_update()', function () {
 							hash: 'hash1',
 							range: 1,
 
+							boolean: false,
 							number_a: 5,
 							number_b: 7,
 							number_c: 1,
@@ -134,6 +137,7 @@ describe('insert_or_update()', function () {
 				hash: 'hash1',
 				range: 1,
 				a: 'a', // new item
+				boolean2: false,
 
 				number_a: DynamoDB.add(5,'N'),
 				number_b: DynamoDB.add(DynamoDB.number(3)),

@@ -2,13 +2,10 @@
 describe('update()', function () {
 
 	// dynalite: "ADD action is not supported for the type L", UpdateExpression
-	it('should update existing item', function(done) {
+	it('.update( existing_item )', function(done) {
 		// insert
 		DynamoDB
 			.table($tableName)
-			//.on('beforeRequest', function(op, payload) {
-			//	console.log(op, JSON.stringify(payload,null,"\t"))
-			//})
 			.insert_or_replace({
 				hash: 'test-update',
 				range:1,
@@ -25,13 +22,11 @@ describe('update()', function () {
 					.table($tableName)
 					.where('hash').eq('test-update')
 					.where('range').eq(1)
-					//.on('beforeRequest', function(op, payload) {
-					//	console.log(op, JSON.stringify(payload,null,"\t"))
-					//})
 					.return(DynamoDB.ALL_NEW)
 					.update({
 						gsi_range: 'b',
 						string: 'newstring',
+						boolean: false,
 						old_number: DynamoDB.add(9),
 						null: null,
 						//old_array: DynamoDB.add([ 1, 'a', null, { k1: 'v1', k2: 'v2', k3: 'v3' }, [] ]),
@@ -47,6 +42,7 @@ describe('update()', function () {
 							old_number: 10,
 							//old_array: [ 1,2,3, 1, 'a', null, { k3: 'v3', k1: 'v1', k2: 'v2' }, [] ],
 							string: 'newstring',
+							boolean: false,
 							ignore: 'me',
 
 							null: null,
@@ -59,7 +55,7 @@ describe('update()', function () {
 	})
 
 
-	it('test UPDATED_OLD on update existing item', function(done) {
+	it('.return(DynamoDB.UPDATED_OLD).update( existing_item )', function(done) {
 
 		DynamoDB
 			.table($tableName)
@@ -69,8 +65,10 @@ describe('update()', function () {
 			.insert_or_replace({
 				hash: 'test-updated-old',
 				range: 1,
+
 				number: 10,
 				number2: 10,
+				boolean: true,
 			}, function(err) {
 				if (err) throw err
 
@@ -85,10 +83,11 @@ describe('update()', function () {
 					.update({
 						number: DynamoDB.add(20),
 						number2: 30,
+						boolean: false,
 					}, function(err, data ) {
 
 						if (err) throw err
-						assert.deepEqual(data, { number: 10, number2: 10 })
+						assert.deepEqual(data, { number: 10, number2: 10, boolean: true })
 						done()
 					})
 			})

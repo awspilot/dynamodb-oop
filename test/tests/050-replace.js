@@ -1,6 +1,6 @@
 
 describe('replace()', function () {
-	it('.where(hash).eq(wrongtype ) - should fail', function(done) {
+	it('.where(hash).eq( wrongtype ) - should fail', function(done) {
 		DynamoDB
 			.table($tableName)
 			.replace({
@@ -60,6 +60,7 @@ describe('replace()', function () {
 					range: 1,
 					gsi_range: 'b',
 					string: 'newstring',
+					boolean: false,
 					null: null,
 					old_array: [ 1, 'a', null, { k1: 'v1', k2: 'v2', k3: 'v3' }, [] ],
 					object: { key1: 'value1', key2: 22 },
@@ -81,6 +82,7 @@ describe('replace()', function () {
 									range: 1,
 									old_array: [ 1, 'a', null, { k3: 'v3', k1: 'v1', k2: 'v2' }, [] ],
 									string: 'newstring',
+									boolean: false,
 
 									null: null,
 									gsi_range: 'b',
@@ -91,7 +93,7 @@ describe('replace()', function () {
 				})
 		})
 	})
-	it('test ALL_OLD  on replace existing item', function(done) {
+	it('.return(DynamoDB.ALL_OLD).replace( existing_item )', function(done) {
 		DynamoDB
 			.table($tableName)
 			.return(DynamoDB.ALL_OLD)
@@ -108,7 +110,8 @@ describe('replace()', function () {
 					gsi_range: 'b',
 					object: { key2: 22, key1: 'value1' },
 					old_array: [ 1, 'a', null, { k3: 'v3', k1: 'v1', k2: 'v2' }, [] ],
-					string: 'newstring'
+					string: 'newstring',
+					boolean: false,
 				})
 				done()
 			})
