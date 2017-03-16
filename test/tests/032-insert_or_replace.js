@@ -3,6 +3,7 @@ describe('insert_or_replace( new_item )', function () {
 	it('should insert new item', function(done) {
 		DynamoDB
 			.table($tableName)
+			.return(DynamoDB.ALL_OLD)
 			.insert_or_replace({
 				hash: 'hash1',
 				range: 1,
@@ -32,12 +33,19 @@ describe('insert_or_replace( new_item )', function () {
 	it('.insert_or_replace( existing_item )', function(done) {
 		DynamoDB
 			.table($tableName)
+			.return(DynamoDB.ALL_OLD)
+			//.return_consumed_capacity('INDEXES')
 			.insert_or_replace({
 				hash: 'hash1',
 				range: 1,
 				boolean: false,
 				a: 'a'
-			}, function(err) {
+			}, function(err, data) {
+				if (err) {
+					throw err
+					return
+				}
+
 				DynamoDB
 					.table($tableName)
 					.where('hash').eq('hash1')
