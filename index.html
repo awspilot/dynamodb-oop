@@ -41,7 +41,7 @@
         <h1>Aws Dynamodb</h1>
 		<p style='color: #666666;'><span class="octicon octicon-link">Wrapper around aws-sdk for nodejs to simplify working with DynamoDB</span></p>
         <!-- <a href="https://github.com/awspilot/dynamodb-oop" class="button"><small>View project on</small> GitHub</a> -->
-		<a href="https://www.npmjs.com/package/aws-dynamodb" class="button"><img src="https://nodei.co/npm/aws-dynamodb.png?downloads=true" alt="npm page"></a>
+		<a href="https://www.npmjs.com/package/@awspilot/dynamodb" class="button"><img src="https://nodei.co/npm/@awspilot/dynamodb.png?downloads=true" alt="npm page"></a>
 
       </div>
     </header>
@@ -62,13 +62,13 @@
 <a name="installation"></a>
 <h1>Installation</h1>
 <div class="code bash">
-npm install aws-dynamodb
+npm install @awspilot/dynamodb
 
 // check for new versions
 npm outdated
 
 // upgrade if necessary
-npm update aws-dynamodb
+npm update @awspilot/dynamodb
 </div>
 
 <a name="testing"></a>
@@ -93,12 +93,12 @@ var $credentials = {
     "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
     "region": "eu-west-1"
 }
-var DynamoDB = require('aws-dynamodb')($credentials)
+var DynamoDB = require('@awspilot/dynamodb')($credentials)
 
 // Alternatively, use an existing instance of AWS.DynamoDB.
 var AWS = require('aws-sdk');
 var $db = new AWS.DynamoDB();
-var DynamoDB = require('aws-dynamodb')($db);
+var DynamoDB = require('@awspilot/dynamodb')($db);
 </div>
 
 <a name="rawcalls"></a>
