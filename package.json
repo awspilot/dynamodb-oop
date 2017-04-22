@@ -4,15 +4,14 @@
 		"email": "adrian@databank.ro",
 		"url": "https://awspilot.com"
 	},
-	"name": "aws-dynamodb",
+	"name": "@awspilot/dynamodb",
 	"description": "Speak fluent DynamoDB, write code with fashion, I Promise() 😃 ",
 	"keywords": [
-		"aws dynamodb",
 		"dynamodb",
-		"aws"
+		"promise"
 	],
-	"version": "0.1.66",
-	"homepage": "http://awspilot.github.com/dynamodb-oop",
+	"version": "0.1.69",
+	"homepage": "https://awspilot.github.io/dynamodb-oop/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
 		"type" :  "git",
