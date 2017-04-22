@@ -2,4 +2,7 @@
 
 # @awspilot/dynamodb
 
+[![Build Status](https://travis-ci.org/awspilot/dynamodb-oop.svg?branch=master)](https://travis-ci.org/awspilot/dynamodb-oop)
+
+
 [Documentation here](http://awspilot.github.io/dynamodb-oop)
