@@ -15,7 +15,7 @@
 [Documentation here](http://awspilot.github.io/dynamodb-oop)
 
 
----
+
 
 
 ### Older version
@@ -33,9 +33,9 @@
 You can safely update from aws-dynamodb to @awspilot/dynamodb there are no breaking changes  
 
 
-```
+---
 Note:  
 
 Please know your npm sources and avoid including npm packages for every small thing  
 According to [this post](https://iamakulov.com/notes/npm-malicious-packages/) there were packages in the npm registry that steal your environment variables
-```
+
