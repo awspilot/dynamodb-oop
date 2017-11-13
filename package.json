@@ -10,7 +10,7 @@
 		"dynamodb",
 		"promise"
 	],
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"homepage": "https://awspilot.github.io/dynamodb-oop/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
@@ -21,7 +21,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"aws-sdk": ">=2.45.0",
-		"amazon-dax-client": "*",
 		"promise": "*"
 	},
 	"devDependencies": {
