@@ -10,7 +10,7 @@
 		"dynamodb",
 		"promise"
 	],
-	"version": "1.0.9",
+	"version": "1.1.0",
 	"homepage": "https://awspilot.github.io/dynamodb-oop/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
