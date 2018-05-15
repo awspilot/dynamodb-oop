@@ -1,5 +1,6 @@
 
 describe('insert()', function () {
+
 	it('should fail if missing RANGE', function(done) {
 		DynamoDB
 			.table($tableName)
@@ -286,6 +287,37 @@ describe('insert()', function () {
 				done()
 			})
 	})
+
+
+	it("INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 1 ", function(done) {
+		DynamoDB.query(this.test.title, function(err, data) {
+			if (err)
+				throw err
+			else
+				done()
+		})
+	})
+	
+	// ok to fail because there is a duplicate
+	it("INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 1, `boolean` = true, `null` = null ", function(done) {
+		DynamoDB.query(this.test.title, function(err, data) {
+			if (err)
+				done()
+			else
+				throw err
+		})
+	})
+
+	it("INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 2 ", function(done) {
+		DynamoDB.query(this.test.title)
+		.then(function() {
+			done()
+		})
+		.catch(function(err) {
+			throw err
+		})
+	})
+
 	it('cleanup', function(done) {
 		DynamoDB
 			.table($tableName)
@@ -304,4 +336,5 @@ describe('insert()', function () {
 				}
 			})
 	})
+
 })
