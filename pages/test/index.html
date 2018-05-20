@@ -70,16 +70,17 @@
 
 
 
-<a name="installation"></a>
-<h1>Installation</h1>
+<a name="testing"></a>
+<h1>Testing</h1>
+<p>tests will run in a in-memory implementation of DynamoDB server <a href="https://www.npmjs.com/package/dynalite" target="_blank">dynalite</a>
 <div class="code bash">
-npm install @awspilot/dynamodb
+	npm test
+</div>
+<p>If you want to test against your own DynamoDB database, add AWS credentials to your environment first
+<div class="code bash">
+	source test/credentials
 
-// check for new versions
-npm outdated
-
-// upgrade if necessary
-npm update @awspilot/dynamodb
+	npm test
 </div>
 
 
