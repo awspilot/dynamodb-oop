@@ -105,18 +105,8 @@
 
 <li><span class="tree_label"><a href="../../pages/insert/">Insert</a>
 <li><span class="tree_label"><a href="../../pages/update/">Update</a>
-
-
-<li>
-    <input type="checkbox" id="treereplace" />
-    <label class="tree_label sub" for="treereplace">Replace</label>
-    <ul>
-        <li><span class="tree_label"><a href="../../pages/replace/#replace">Replace (no insert)</a>
-        <li><span class="tree_label"><a href="../../pages/replace/#insertorreplace">Insert or Replace</a>
-    </ul>
-
-<li>
-    <span class="tree_label"><a href="../../pages/delete/#deleteitem">Delete</a>
+<li><span class="tree_label"><a href="../../pages/replace/">Replace</a>
+<li><span class="tree_label"><a href="../../pages/delete/">Delete</a>
 
 <li>
     <input type="checkbox" id="treeget" />
