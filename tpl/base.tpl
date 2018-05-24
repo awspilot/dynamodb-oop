@@ -107,35 +107,9 @@
 <li><span class="tree_label"><a href="../../pages/update/">Update</a>
 <li><span class="tree_label"><a href="../../pages/replace/">Replace</a>
 <li><span class="tree_label"><a href="../../pages/delete/">Delete</a>
-
-<li>
-    <input type="checkbox" id="treeget" />
-    <label class="tree_label sub" for="treeget">Get Item</label>
-    <ul>
-        <li><span class="tree_label"><a href="../../pages/get/#get">Get Item</a>
-        <li><span class="tree_label">Batch Get Item (N.Impl)
-    </ul>
-
-
-<li>
-    <input type="checkbox" id="treequery" />
-    <label class="tree_label sub" for="treequery">Query</label>
-    <ul>
-        <li><span class="tree_label"><a href="../../pages/query/#query">Query</a>
-        <li><span class="tree_label"><a href="../../pages/query/#queryindex">Query Index</a>
-        <li><span class="tree_label"><a href="../../pages/query/#queryfilter">Query Filter</a>
-        <li><span class="tree_label"><a href="../../pages/query/#querycontinue">Query Resume</a>
-    </ul>
-
-
-<li>
-    <input type="checkbox" id="treescan" />
-    <label class="tree_label sub" for="treescan">Scan</label>
-    <ul>
-        <li><span class="tree_label"><a href="../../pages/scan/#scan">Scan</a>
-        <li><span class="tree_label"><a href="../../pages/scan/#scanindex">Scan Index</a>
-    </ul>
-
+<li><span class="tree_label"><a href="../../pages/get/">Get</a>
+<li><span class="tree_label"><a href="../../pages/query/">Query</a>
+<li><span class="tree_label"><a href="../../pages/scan/">Scan</a>
 
 
 
