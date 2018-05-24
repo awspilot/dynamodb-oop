@@ -131,7 +131,7 @@
     </ul>
 
 <li>
-    <span class="tree_label"><a href="../../pages/delete/#deleteitem">Delete Item</a>
+    <span class="tree_label"><a href="../../pages/delete/#deleteitem">Delete</a>
 
 <li>
     <input type="checkbox" id="treeget" />
