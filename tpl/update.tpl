@@ -30,3 +30,21 @@ DynamoDB
 		console.log( err, data )
 	})
 </div>
+
+
+<a name="increment"></a>
+<h1>Increment Item's Attribute(s)</h1>
+
+<div class="code">
+// increment attributes, if the key does not exist, it is not created
+DynamoDB
+	.table('users')
+	.where('email').eq('test@test.com')
+	.update({
+		login_count: DynamoDB.add(), // increment by 1
+		add5: DynamoDB.add(5), // increment by 5
+		sub7: DynamoDB.add(-7) // decrement by 7
+	}, function( err, data ) {
+		console.log( err, data )
+	})
+</div>
