@@ -103,20 +103,9 @@
 <li><span class="tree_label"><a href="../../pages/deprecated/">Deprecated</a>
 <li><span class="tree_label"><a href="../../pages/error/">Error Feed</a>
 
-
 <li><span class="tree_label"><a href="../../pages/insert/">Insert</a>
+<li><span class="tree_label"><a href="../../pages/update/">Update</a>
 
-
-
-<li>
-    <input type="checkbox" id="treeupdate" />
-    <label class="tree_label sub" for="treeupdate">Update</label>
-    <ul>
-        <li><span class="tree_label"><a href="../../pages/update/#update">Update ( no insert )</a>
-        <li><span class="tree_label"><a href="../../pages/update/#insertorupdate">Insert or Update</a>
-        <li><span class="tree_label"><a href="../../pages/update/#increment">Increment</a>
-        <li><span class="tree_label"><a href="../../pages/update/#deleteattributes">Delete Attributes</a>
-    </ul>
 
 <li>
     <input type="checkbox" id="treereplace" />
