@@ -94,19 +94,16 @@
 
 
 <ul class="tree">
+<li><span class="tree_label"><a href="../../pages/install/">Installation</a></span>
+<li><span class="tree_label"><a href="../../pages/test/">Testing</a><span>
+<li><span class="tree_label"><a href="../../pages/init/">Initialization</a></span>
+<li><span class="tree_label"><a href="../../pages/raw_calls/">Raw Calls</a>
+<li><span class="tree_label"><a href="../../pages/capacity/#capacity">Consumed Capacity</a>
+<li><span class="tree_label"><a href="../../pages/datatypes/#datatypes">Data Types & Operations</a>
+<li><span class="tree_label"><a href="../../pages/deprecated/#deprecated">Deprecated</a>
+<li><span class="tree_label"><a href="../../pages/error/">Error Feed</a>
 <li>
-    <span class="tree_label"><a href="../../pages/install/">Installation</a></span>
-<li>
-    <span class="tree_label"><a href="../../pages/test/">Testing</a><span>
-<li>
-    <span class="tree_label"><a href="../../pages/init/">Initialization</a></span>
-<li>
-    <span class="tree_label"><a href="../../pages/raw_calls/">Raw Calls</a>
-<li>
-    <span class="tree_label"><a href="../../pages/error/">Error Feed</a>
-
-<li>
-    <input type="checkbox" id="treeinsert" />
+	<input type="checkbox" id="treeinsert" />
     <label class="tree_label sub" for="treeinsert">Insert</label>
     <ul>
         <li><span class="tree_label"><a href="../../pages/insert/#insert">Insert ( no update )</a>
@@ -164,13 +161,6 @@
         <li><span class="tree_label"><a href="../../pages/scan/#scanindex">Scan Index</a>
     </ul>
 
-<li><span class="tree_label"><a href="../../pages/capacity/#capacity">Consumed Capacity</a>
-
-<li><span class="tree_label"><a href="../../pages/datatypes/#datatypes">Data Types & Operations</a>
-
-<!--<li><span class="tree_label"><a href="#glossary">Glossary</a>-->
-
-<li><span class="tree_label"><a href="../../pages/deprecated/#deprecated">Deprecated</a>
 
 
 
