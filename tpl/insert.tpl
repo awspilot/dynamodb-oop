@@ -1,42 +1,27 @@
 
 <a name="insert"></a>
 <h1>Insert Item</h1>
-<p>does not replace existing items</p>
+<p> 
+	Insert does not replace existing items, 
+	
+	<br><br>
+	WARNING: insert() will do an extra call (describeTable) to get the table schema and prevent item overwrite,
+	If an item with the same key exists, 'ConditionalCheckFailedException' error is returned<br>
+
+</p>
+
 <div class="code">
+// carefull though as foo.bar domain actually exists :)
+
 DynamoDB
 	.table('users')
 	.insert({
 		email: 'test@test.com',
 		password: 'qwert',
-		created_at: new Date().getTime(),
-		updated_at: null
-	}, function(err,data) {
-		console.log( err, data )
-	})
-
-DynamoDB
-	.table('messages')
-	.insert({
-		to: 'test@test.com',
-		date: new Date().getTime(),
-		subject: 'Foo',
-		message: 'Bar'
-	})
-	.then(console.log, console.log)
-	.catch(console.log)
-
-// insert item with nested attributes
-// carefull though as foo.bar domain actually exists :)
-DynamoDB
-	.table('messages')
-	.insert({
-		to: 'test@test.com',
-		date: new Date().getTime(),
-		boolean_true: true,
-		boolean_false: false,
-		key_null: null,
-		string: "string",
+		boolean: true,
 		number: 1,
+		created_at: new Date().getTime(),
+		updated_at: null,
 		buffer: new Buffer("test"),
 		array_empty: [],
 		array_strings: ['alfa','beta','gama'], // inserted as datatype L
@@ -63,12 +48,14 @@ DynamoDB
 				lucky_number: 12
 			}
 		}
+	}, function(err,data) {
+		console.log( err, data )
 	})
 </div>
 
 
 
-<a name="insertorupdate"></a>
+
 <h1>Insert on Duplicate Item Update</h1>
 <div class="code">
 DynamoDB
@@ -93,7 +80,7 @@ DynamoDB
 	})
 </div>
 
-<a name="insertorreplace"></a>
+
 <h1>Insert on Duplicate Item Replace</h1>
 <p>1 request to DynamoDB</p>
 <div class="code">
