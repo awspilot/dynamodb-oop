@@ -1,7 +1,15 @@
 
 <a name="update"></a>
 <h1>Update Item</h1>
-<p>does not create the item if item does not exist</p>
+<p>
+	Update does not insert a new item if it does not already exist. Use <a>.insert_or_update()</a> instead.<br>
+	
+	<br><br>
+	WARNING: update() will do an extra call (describeTable) to get the table schema and prevent item creation,<br>
+	If an item with the same key does not exist, 'ConditionalCheckFailedException' error is returned<br>
+	<br><br>
+
+</p>
 <div class="code">
 // update multiple attributes in a HASH table
 DynamoDB
@@ -19,24 +27,12 @@ DynamoDB
 		console.log( err, data )
 	})
 
-// update 1 attribute in a HASH-RANGE table
-DynamoDB
-	.table('messages')
-	.where('to').eq('user1@test.com')
-	.where('date').eq( 1375538399 )
-	.update({
-		seen: true
-	}, function( err, data ) {
-		console.log( err, data )
-	})
-</div>
 
 
-<a name="increment"></a>
 <h1>Increment Item's Attribute(s)</h1>
 
 <div class="code">
-// increment attributes, if the key does not exist, it is not created
+
 DynamoDB
 	.table('users')
 	.where('email').eq('test@test.com')

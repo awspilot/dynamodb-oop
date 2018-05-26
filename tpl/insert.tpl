@@ -2,7 +2,7 @@
 <a name="insert"></a>
 <h1>Insert Item</h1>
 <p> 
-	Insert does not replace existing items.
+	Insert does not replace existing items. Use <a>.insert_or_replace()</a> or <a>.insert_or_update()</a> instead.<br>
 	
 	<br><br>
 	WARNING: insert() will do an extra call (describeTable) to get the table schema and prevent item overwrite,<br>
