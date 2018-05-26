@@ -21,6 +21,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-javascript.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-html.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-twilight.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-monokai.js"></script>
 	<!-- <script src="https://rawgit.com/databank/ui-dynamodb/master/public/js/bundle.js"></script> -->
