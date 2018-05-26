@@ -29,7 +29,7 @@ DynamoDB
 </div>
 
 <a name="queryindex"></a>
-<h1>Query an Index with order_by()</h1>
+<h1>Query an Index with index()</h1>
 <p></p>
 <div class="code">
 // suppose you have an index on messages called starredIndex
@@ -37,8 +37,8 @@ DynamoDB
 
 DynamoDB
     .table('messages')
+    .index('starredIndex')
     .where('to').eq('user1@test.com')
-    .order_by('starredIndex')
     .descending()
     .query(function( err, data ) {
         console.log( err, data )
@@ -47,9 +47,9 @@ DynamoDB
 // return all attributes including non-projected ( LSI only )
 DynamoDB
     .table('messages')
+    .index('starredIndex')
     .select( DynamoDB.ALL )
     .where('to').eq('user1@test.com')
-    .order_by('starredIndex')
     .descending()
     .query(function( err, data ) {
         console.log( err, data )
