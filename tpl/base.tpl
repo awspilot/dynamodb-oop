@@ -103,7 +103,6 @@
 
 <ul class="tree">
 <li><span class="tree_label"><a href="/dynamodb-oop/">Install</a></span>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span>
 
 
@@ -131,13 +130,14 @@
 
 <li>
 	<input type="checkbox" id="treemisc" />
-	<label class="tree_label sub" for="treemisc">Miscellaneous</label>
+	<label class="tree_label sub" for="treemisc">Misc</label>
 	<ul>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
 	</ul>
 
 </ul>
