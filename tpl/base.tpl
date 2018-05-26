@@ -95,8 +95,8 @@
 
 <ul class="tree">
 <li><span class="tree_label"><a href="/dynamodb-oop/">Install</a></span>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Testing</a><span>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Initialization</a></span>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Init</a></span>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types & Operations</a>

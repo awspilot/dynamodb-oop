@@ -1,6 +1,6 @@
-<a name="testing"></a>
-<h1>Testing</h1>
-<p>tests will run in a in-memory implementation of DynamoDB server <a href="https://www.npmjs.com/package/dynalite" target="_blank">dynalite</a>
+
+<h1>Tests</h1>
+<p>Tests will run in a in-memory implementation of DynamoDB server <a href="https://www.npmjs.com/package/dynalite" target="_blank">dynalite</a>
 <div class="code bash">
 	npm test
 </div>

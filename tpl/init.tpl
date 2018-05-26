@@ -1,4 +1,4 @@
-<a name="initialization"></a>
+
 <h1>Init</h1>
 <div class="code">
 var $credentials = {
