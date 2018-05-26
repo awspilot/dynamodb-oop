@@ -1,18 +1,36 @@
 
 <h1>Include in NodeJS</h1>
 <div class="code">
-var $credentials = {
-    "accessKeyId": "XXXXXXXXXXXXXXXX",
-    "secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
-    "region": "eu-west-1"
+var credentials = {
+	"accessKeyId": "XXXXXXXXXXXXXXXX",
+	"secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
+	"region": "eu-west-1"
 }
-var DynamoDB = require('@awspilot/dynamodb')($credentials)
+var DynamoDB = require('@awspilot/dynamodb')(credentials)
 
 // Alternatively, use an existing instance of AWS.DynamoDB.
 var AWS = require('aws-sdk');
 var $db = new AWS.DynamoDB();
 var DynamoDB = require('@awspilot/dynamodb')($db);
 </div>
+
+
+
+
+<h1>Include in Browser</h1>
+<div class="code">
+var credentials = {
+	"accessKeyId": "XXXXXXXXXXXXXXXX",
+	"secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
+	"region": "eu-west-1"
+}
+
+var dynamo = new AWS.DynamoDB( credentials ) // aws-sdk
+var DynamoDB = new window['@awspilot/dynamodb'](dynamo)
+
+</div>
+
+
 
 <h1>Response</h1>
 <p>If a callback function is supplied, the response will be returned as callback(error, data)</p>
