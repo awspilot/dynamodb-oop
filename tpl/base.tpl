@@ -5,10 +5,10 @@
 	<meta http-equiv="X-UA-Compatible" content="chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="../../stylesheets/stylesheet.css" media="screen">
-	<link rel="stylesheet" type="text/css" href="../../stylesheets/pygment_trac.css" media="screen">
-	<link rel="stylesheet" type="text/css" href="../../stylesheets/print.css" media="print">
-	<link rel="stylesheet" type="text/css" href="../../stylesheets/tree.css">
+	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/stylesheet.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/pygment_trac.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/print.css" media="print">
+	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/tree.css">
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
@@ -94,24 +94,34 @@
 
 
 <ul class="tree">
-<li><span class="tree_label"><a href="../../pages/install/">Installation</a></span>
-<li><span class="tree_label"><a href="../../pages/test/">Testing</a><span>
-<li><span class="tree_label"><a href="../../pages/init/">Initialization</a></span>
-<li><span class="tree_label"><a href="../../pages/raw_calls/">Raw Calls</a>
-<li><span class="tree_label"><a href="../../pages/capacity/">Consumed Capacity</a>
-<li><span class="tree_label"><a href="../../pages/datatypes/">Data Types & Operations</a>
-<li><span class="tree_label"><a href="../../pages/deprecated/">Deprecated</a>
-<li><span class="tree_label"><a href="../../pages/error/">Error Feed</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/">Install</a></span>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Testing</a><span>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Initialization</a></span>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types & Operations</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
 
-<li><span class="tree_label"><a href="../../pages/insert/">Insert</a>
-<li><span class="tree_label"><a href="../../pages/update/">Update</a>
-<li><span class="tree_label"><a href="../../pages/replace/">Replace</a>
-<li><span class="tree_label"><a href="../../pages/delete/">Delete</a>
-<li><span class="tree_label"><a href="../../pages/get/">Get</a>
-<li><span class="tree_label"><a href="../../pages/query/">Query</a>
-<li><span class="tree_label"><a href="../../pages/scan/">Scan</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
 
-
+<!--
+<li>
+    <input type="checkbox" id="treeinsert" />
+    <label class="tree_label sub" for="treeinsert">Insert</label>
+    <ul>
+        <li><span class="tree_label"><a href="#insert">Insert ( no update )</a>
+        <li><span class="tree_label"><a href="#insertorupdate">Insert or Update</a>
+        <li><span class="tree_label"><a href="#insertorreplace">Insert or Replace</a>
+        <li><span class="tree_label">Batch Insert (N.Impl)
+    </ul>
+-->
 
         </aside>
       </div>
