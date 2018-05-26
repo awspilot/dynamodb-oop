@@ -1,7 +1,7 @@
 
 <a name="query"></a>
 <h1>Query</h1>
-<p>not possible on HASH only tables</p>
+
 <div class="code">
 // for hash key comparson operator is always eq()
 // for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
