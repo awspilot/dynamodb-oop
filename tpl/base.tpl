@@ -111,17 +111,15 @@
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
 
-<!--
+
 <li>
-    <input type="checkbox" id="treeinsert" />
-    <label class="tree_label sub" for="treeinsert">Insert</label>
-    <ul>
-        <li><span class="tree_label"><a href="#insert">Insert ( no update )</a>
-        <li><span class="tree_label"><a href="#insertorupdate">Insert or Update</a>
-        <li><span class="tree_label"><a href="#insertorreplace">Insert or Replace</a>
-        <li><span class="tree_label">Batch Insert (N.Impl)
-    </ul>
--->
+	<input type="checkbox" id="treeinsert" />
+	<label class="tree_label sub" for="treeinsert">Miscellaneous</label>
+	<ul>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
+
+</ul>
+
 
         </aside>
       </div>
