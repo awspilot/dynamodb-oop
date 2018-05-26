@@ -13,4 +13,13 @@ npm update @awspilot/dynamodb
 
 <h1>Include in Browser</h1>
 
-<p> Not documented :( </p>
+<p> 
+	Please use <a href="https://rawgit.com/ ">rawgit</a> CDN, to get the latest version paste the url:<br>
+	https://github.com/awspilot/dynamodb-oop/blob/master/dist/dynamodbjs.js
+</p>
+<div class="code html">
+	
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.247.1.min.js"></script>
+	<script src="https://rawgit.com/awspilot/dynamodb-oop/master/dist/dynamodbjs.js"></script>
+</div>
+
