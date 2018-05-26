@@ -82,7 +82,7 @@ DynamoDB
 
 
 <h1>Insert on Duplicate Item Replace</h1>
-<p>1 request to DynamoDB</p>
+
 <div class="code">
 DynamoDB
 	.table('users')
