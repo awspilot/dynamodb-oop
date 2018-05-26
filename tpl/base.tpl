@@ -108,7 +108,7 @@
 
 
 <li>
-	<input type="checkbox" id="treeops" checked />
+	<input type="checkbox" id="treeops" />
 	<label class="tree_label sub" for="treeops">Operations</label>
 	<ul>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert</a>
@@ -122,7 +122,7 @@
 
 
 <li>
-	<input type="checkbox" id="treemisc" checked />
+	<input type="checkbox" id="treemisc" />
 	<label class="tree_label sub" for="treemisc">Miscellaneous</label>
 	<ul>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
