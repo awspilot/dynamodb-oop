@@ -63,8 +63,8 @@ DynamoDB
 
 
 <a name="queryfilter"></a>
-<h1>Query filtering</h1>
-<p></p>
+<h1>Query filtering with .having()</h1>
+<p>.having() is alias of .filter()</p>
 <div class="code">
 // A filter lets you apply conditions to the data after query
 // Only the items that meet your conditions are returned
@@ -87,15 +87,15 @@ DynamoDB
 	.table('messages')
 	.where('to').eq('user1@test.com')
 	.having('one_attribute').between(100,200)
-	.having('object.attribute').eq(true)
+	.filter('object.attribute').eq(true)
 	.having('deleted').undefined()      // or .null()
-	.having('last_login').defined()     // or .not_null()
+	.filter('last_login').defined()     // or .not_null()
 	.having('string').begins_with('substring')
-	.having('string').contains('substring')
+	.filter('string').contains('substring')
 	.having('string_set').contains('one')
-	.having('number').between(0,2)
+	.filter('number').between(0,2)
 	.having('attribute').in([3,4,'a'])
-	.having('fridge.shelf[1].cookies').not_contains('sugar')
+	.filter('fridge.shelf[1].cookies').not_contains('sugar')
 	.query(function( err, data ) {
 		console.log( err, data )
 	})
