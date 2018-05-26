@@ -11,6 +11,6 @@ npm outdated
 npm update @awspilot/dynamodb
 </div>
 
-<h1>Using in Browser</h1>
+<h1>Include in Browser</h1>
 
 <p> Not documented :( </p>
