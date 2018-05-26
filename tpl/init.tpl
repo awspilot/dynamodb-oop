@@ -1,5 +1,5 @@
 
-<h1>Init</h1>
+<h1>Include in NodeJS</h1>
 <div class="code">
 var $credentials = {
     "accessKeyId": "XXXXXXXXXXXXXXXX",
