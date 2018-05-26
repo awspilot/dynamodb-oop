@@ -10,8 +10,15 @@
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/print.css" media="print">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/tree.css">
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+
+
+
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.247.1.min.js"></script>
+	<script src="https://cdn.rawgit.com/awspilot/dynamodb-oop/785f4265/dist/dynamodbjs.js"></script>
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-javascript.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-twilight.js"></script>
