@@ -103,23 +103,34 @@
 
 
 
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
+
+
 
 
 <li>
-	<input type="checkbox" id="treeinsert" />
-	<label class="tree_label sub" for="treeinsert">Miscellaneous</label>
+	<input type="checkbox" id="treeops" checked />
+	<label class="tree_label sub" for="treeops">Operations</label>
+	<ul>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert</a>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update</a>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
+		<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
+	</ul>
+
+
+<li>
+	<input type="checkbox" id="treemisc" checked />
+	<label class="tree_label sub" for="treemisc">Miscellaneous</label>
 	<ul>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
+	</ul>
+
 </ul>
 
 
