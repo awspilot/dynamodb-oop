@@ -53,8 +53,24 @@ DynamoDB
 	})
 </div>
 
+// SQL keywords must be enclosed in "`", keywords inside json must be enclosed in quotes
 
-
+<div class="code">
+	DynamoDB.query(`
+		INSERT INTO `users` SET
+			email         = 'test@test.com',
+			password      = 'qwert',
+			bool          = true,
+			one           = 1,
+			updated_at    = null,
+			a_list        = [ 'alfa', 'beta', 'gama', 1, null, true ], 
+			a_map         = { 'string': 's', 'number': 1 },
+			ss            =  new StringSet( 'sss','bbb','ccc' ),
+			ns            =  new NumberSet( 111, 222, 333 ),
+	`, function( err, data ) {
+		
+	})
+</div>
 
 <h1>Insert on Duplicate Item Update</h1>
 <div class="code">
