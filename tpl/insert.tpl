@@ -49,7 +49,7 @@ DynamoDB
 			}
 		}
 	}, function(err,data) {
-		console.log( err, data )
+
 	})
 </div>
 
