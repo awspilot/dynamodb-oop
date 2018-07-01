@@ -308,7 +308,7 @@ describe('insert()', function () {
 		})
 	})
 
-	it("INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 2 ", function(done) {
+	it("INSERT INTO test_hash_range SET `hash` = 'sql-insert', `range` = 2 ", function(done) {
 		DynamoDB.query(this.test.title)
 		.then(function() {
 			done()
@@ -318,6 +318,24 @@ describe('insert()', function () {
 		})
 	})
 
+
+	it("INSERT INTO test_hash_range VALUES ( <JSON> ), ( <JSON> ) ", function(done) {
+		DynamoDB.query("INSERT INTO test_hash_range VALUES ({'hash': 'sql-batchinsert', 'range': 1}), ({'hash': 'sql-batchinsert', 'range': 2}) ", function(err, data) {
+			if (err)
+				throw err
+			
+			done()
+		})
+	})
+	it("INSERT INTO test_hash_range VALUES ( <JSON> ), ( <JSON> ) - promise ", function(done) {
+		DynamoDB.query("INSERT INTO test_hash_range VALUES ({'hash': 'sql-batchinsert', 'range': 1}), ({'hash': 'sql-batchinsert', 'range': 2}) ")
+		.then(function() {
+			done()
+		})
+		.catch(function(err) {
+			throw err
+		})
+	})
 	it('cleanup', function(done) {
 		DynamoDB
 			.table($tableName)
