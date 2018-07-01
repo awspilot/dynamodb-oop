@@ -57,7 +57,7 @@ DynamoDB
 
 <div class="code">
 	DynamoDB.query(`
-		INSERT INTO `users` SET
+		INSERT INTO users SET
 			email         = 'test@test.com',
 			password      = 'qwert',
 			bool          = true,
