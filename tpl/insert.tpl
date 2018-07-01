@@ -76,7 +76,7 @@ DynamoDB.query(`
 	`, 
 	function( err, data ) {
 		
-	})
+	});
 
 // insert using VALUES does not currently support StringSet or NumberSet
 DynamoDB.query(`
@@ -94,7 +94,7 @@ DynamoDB.query(`
 	`, 
 	function( err, data ) {
 		
-	})
+	});
 
 
 </div>
