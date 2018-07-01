@@ -56,6 +56,8 @@ DynamoDB
 <br><br>
 
 
+insert with multiple items in "VALUES" is handled as <a href='https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html' target='_blank'>batchWriteItem</a> 
+will replace existig items
 <div class="code">
 // SQL keywords must be enclosed in "`", keywords inside json must be enclosed in quotes
 // if no callback supplied, promise is returned
@@ -95,7 +97,6 @@ DynamoDB.query(`
 	function( err, data ) {
 		
 	});
-
 
 </div>
 
