@@ -120,7 +120,7 @@ DynamoDB
 		unneeded_ss_items: DynamoDB.del(DynamoDB.SS(['ccc','ddd'])), // remove elements from stringSet
 		unneeded_ns_items: DynamoDB.del(DynamoDB.NS([111,444])), // remove elements from numberSet
 	}, function( err, data ) {
-		console.log( err, data )
+
 	})
 </div>
 
@@ -136,8 +136,8 @@ DynamoDB
 		password: 'qwert',
 		firstname: 'Smith'
 	}, function( err, data ) {
-		console.log( err, data )
-	})
+
+	});
 
 
 DynamoDB.query(`
@@ -146,6 +146,7 @@ DynamoDB.query(`
 		({ email         : 'user1@test.com', active: false }),
 		({ email         : 'user2@test.com', active: false }),
 		({ email         : 'user2@test.com', active: true  })
+
 	`, 
 	function( err, data ) {
 		
