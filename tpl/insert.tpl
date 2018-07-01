@@ -53,6 +53,7 @@ DynamoDB
 	})
 </div>
 
+<br><br>
 // SQL keywords must be enclosed in "`", keywords inside json must be enclosed in quotes
 
 <div class="code">
