@@ -139,6 +139,18 @@ DynamoDB
 	}, function( err, data ) {
 		console.log( err, data )
 	})
+
+
+DynamoDB.query(`
+
+	INSERT INTO users VALUES 
+		({ email         : 'user1@test.com', active: false }),
+		({ email         : 'user2@test.com', active: false }),
+		({ email         : 'user2@test.com', active: true  })
+	`, 
+	function( err, data ) {
+		
+	});
 </div>
 
 
