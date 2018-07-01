@@ -68,7 +68,7 @@ DynamoDB.query(`
 		bool          = true,
 		one           = 1,
 		updated_at    = null,
-		a_list        = [ 'alfa', 'beta', 'gama', 1, null, true ], 
+		a_list        = [ 'alpha', 'beta', 'gamma', 1, null, true ], 
 		a_map         = { 'string': 's', 'number': 1 },
 		ss            =  new StringSet( 'sss','bbb','ccc' ),
 		ns            =  new NumberSet( 111, 222, 333 ),
@@ -77,6 +77,26 @@ DynamoDB.query(`
 	function( err, data ) {
 		
 	})
+
+// insert using VALUES does not currently support StringSet or NumberSet
+DynamoDB.query(`
+
+	INSERT INTO users VALUES ({
+		email         : 'test@test.com',
+		password      : 'qwert',
+		bool          : true,
+		one           : 1,
+		updated_at    : null,
+		a_list        : [ 'alpha', 'beta', 'gamma', 1, null, true ], 
+		a_map         : { 'string': 's', 'number': 1 },
+	})
+
+	`, 
+	function( err, data ) {
+		
+	})
+
+
 </div>
 
 <h1>Insert on Duplicate Item Update</h1>
