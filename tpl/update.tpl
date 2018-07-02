@@ -3,7 +3,7 @@
 <h1>Update Item</h1>
 <p>
 	Update does not insert a new item if it does not already exist. Use <a>.insert_or_update()</a> instead.<br>
-	
+
 	<br><br>
 	WARNING: update() will do an extra call (describeTable) to get the table schema and prevent item creation,<br>
 	If an item with the same key does not exist, 'ConditionalCheckFailedException' error is returned<br>
@@ -24,9 +24,9 @@ DynamoDB
 		phones: DynamoDB.add([5,'a']), // push these elements at the end of the array
 		unneeded_attribute: DynamoDB.del(),
 	}, function( err, data ) {
-		console.log( err, data )
-	})
 
+	});
+</div>
 
 
 <h1>Increment Item's Attribute(s)</h1>
