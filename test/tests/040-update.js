@@ -128,6 +128,68 @@ describe('update()', function () {
 			})
 	})
 
+
+
+
+	it('.update() - add() to List, StringSet, NumberSet', function(done) {
+		async.waterfall([
+
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.insert_or_replace({
+						hash: 'test-updated-ss-add',
+						range: 1,
+						arr: ['x','y'],
+						//obj: {number: 1},
+						ss: DynamoDB.SS( ['bbb','ccc'] ),
+						ns: DynamoDB.NS( [ 33,22] ),
+					}, function(err) {
+						if (err) throw err
+						cb()
+					})
+			},
+
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-ss-add')
+					.where('range').eq(1)
+					.update({
+						arr: DynamoDB.add( ['x','y', false, null, {}] ),
+						//obj: DynamoDB.add( { color: 'blue'} ),
+						ss:  DynamoDB.add( DynamoDB.SS(['aaa','ddd']) ),
+						ns:  DynamoDB.add( DynamoDB.NS([11,44]) ),
+
+					}, function(err, data ) {
+						if (err) throw err
+
+						cb()
+					})
+			},
+
+		],function(err) {
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-ss-add')
+					.where('range').eq(1)
+					//.return(DynamoDB.UPDATED_OLD)
+					//.on('beforeRequest', function(op, payload) {
+					//	console.log(op, JSON.stringify(payload,null,"\t"))
+					//})
+					.get( function(err, data ) {
+						if (err) throw err
+
+						assert.deepEqual(data.arr, [ 'x', 'y', 'x', 'y', false, null, {} ] )
+						assert.deepEqual(data.ss, [ 'bbb', 'ccc', 'aaa', 'ddd' ] )
+						assert.deepEqual(data.ns, [ 33, 22, 11, 44 ] )
+
+						done()
+					})
+		})
+	})
+
+
 	it('cleanup...', function(done) {
 		DynamoDB
 			.table($tableName)
