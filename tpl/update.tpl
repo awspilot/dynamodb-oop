@@ -25,7 +25,7 @@ DynamoDB
 		unneeded_attribute: DynamoDB.del(),
 	}, function( err, data ) {
 
-	});
+	})
 </div>
 
 
@@ -41,6 +41,6 @@ DynamoDB
 		add5: DynamoDB.add(5), // increment by 5
 		sub7: DynamoDB.add(-7) // decrement by 7
 	}, function( err, data ) {
-		console.log( err, data )
+
 	})
 </div>
