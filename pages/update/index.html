@@ -28,8 +28,18 @@ DynamoDB
 
 		list: [5,'a', {}, [] ],
 
-		// push these elements at the end of the array
-		phones: DynamoDB.add( [ 5, 'a' ] ),
+		// ADD to array (L) - not documented by AWS
+		arr:  DynamoDB.add( ['x','y', false, null, {}] ),
+
+		// ADD to StringSet and NumberSet, will only keep unique values
+		ss1:  DynamoDB.add( DynamoDB.SS(['aaa','ddd']) ),
+		ns1:  DynamoDB.add( DynamoDB.NS([11,44]) ),
+
+		// delete from StringSet and NumberSet
+		ss2:  DynamoDB.del( DynamoDB.SS(['bbb']) ),
+		ns2:  DynamoDB.del( DynamoDB.NS([22]) ),
+
+		// delete from Array (L) not supported by Amazon
 
 		// delete attribute
 		unneeded_attribute: DynamoDB.del(),
