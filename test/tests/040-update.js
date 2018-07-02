@@ -190,6 +190,62 @@ describe('update()', function () {
 	})
 
 
+	it('.update() - del() from StringSet and NumberSet', function(done) {
+		async.waterfall([
+
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.insert_or_replace({
+						hash: 'test-updated-ss-del',
+						range: 1,
+						//arr: ['x','y'],
+						ss: DynamoDB.SS( ['bbb','ccc'] ),
+						ns: DynamoDB.NS( [ 33,22] ),
+					}, function(err) {
+						if (err) throw err
+						cb()
+					})
+			},
+
+			function(cb) {
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-ss-del')
+					.where('range').eq(1)
+					.update({
+
+						ss:  DynamoDB.del( DynamoDB.SS(['bbb']) ),
+						ns:  DynamoDB.del( DynamoDB.NS([22]) ),
+
+					}, function(err, data ) {
+						if (err) throw err
+
+						cb()
+					})
+			},
+
+		],function(err) {
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-ss-del')
+					.where('range').eq(1)
+					//.return(DynamoDB.UPDATED_OLD)
+					//.on('beforeRequest', function(op, payload) {
+					//	console.log(op, JSON.stringify(payload,null,"\t"))
+					//})
+					.get( function(err, data ) {
+						if (err) throw err
+
+						assert.deepEqual(data.ss, [ 'ccc' ] )
+						assert.deepEqual(data.ns, [ 33 ] )
+
+						done()
+					})
+		})
+	})
+
+
 	it('cleanup...', function(done) {
 		DynamoDB
 			.table($tableName)
