@@ -1,15 +1,16 @@
 
 <a name="update"></a>
 <h1>Update Item</h1>
-<p>
-	Update does not insert a new item if it does not already exist. Use <a>.insert_or_update()</a> instead.<br>
 
-	<br><br>
-	WARNING: update() will do an extra call (describeTable) to get the table schema and prevent item creation,<br>
-	If an item with the same key does not exist, 'ConditionalCheckFailedException' error is returned<br>
-	<br><br>
+Update is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html" target="_blank">updateItem</a> with an extra condition to make sure item exists.<br>
+<br>
+Update does not insert a new item if it does not already exist. Use <a href="../insert-or-update/">.insert_or_update()</a> instead.<br>
 
-</p>
+<br>
+WARNING: update() will do an extra call (describeTable) to get the table schema and prevent item creation,<br>
+If an item with the same key does not exist, 'ConditionalCheckFailedException' error is returned<br>
+
+<br>
 <div class="code">
 // update multiple attributes in a HASH table
 DynamoDB
