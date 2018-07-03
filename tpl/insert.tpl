@@ -10,7 +10,7 @@ WARNING: insert() will do an extra call (describeTable) to get the table schema 
 If an item with the same key exists, 'ConditionalCheckFailedException' error is returned<br>
 
 
-
+<br>
 <div class="code">
 // carefull though as foo.bar domain actually exists :)
 
