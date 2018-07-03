@@ -2,16 +2,14 @@
 <a name="insert"></a>
 <h1>Insert Item</h1>
 
-Insert is handled as <a href="" target="_blank">putItem</a> with an extra condition that item does not already exist.<br>
+Insert is handled as <a href="" target="_blank">putItem</a> with an extra condition to make sure item does not already exist.<br>
+<br>
+Insert does not replace existing items. Use <a href="../insert-or-replace/">.insert_or_replace()</a> or <a href="../insert-or-update/">.insert_or_update()</a> instead.<br>
+<br>
+WARNING: insert() will do an extra call (describeTable) to get the table schema and prevent item overwrite,<br>
+If an item with the same key exists, 'ConditionalCheckFailedException' error is returned<br>
 
-<p> 
-	Insert does not replace existing items. Use <a>.insert_or_replace()</a> or <a>.insert_or_update()</a> instead.<br>
-	
-	<br><br>
-	WARNING: insert() will do an extra call (describeTable) to get the table schema and prevent item overwrite,<br>
-	If an item with the same key exists, 'ConditionalCheckFailedException' error is returned<br>
 
-</p>
 
 <div class="code">
 // carefull though as foo.bar domain actually exists :)
