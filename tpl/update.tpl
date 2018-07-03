@@ -5,7 +5,8 @@
 Update is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html" target="_blank">updateItem</a> with an extra condition to make sure item exists.<br>
 <br>
 Update does not insert a new item if it does not already exist. Use <a href="../insert-or-update/">.insert_or_update()</a> instead.<br>
-
+<br>
+Update can only update one item specified in WHERE (AWS DynamoDB limitation)<br>
 <br>
 WARNING: update() will do an extra call (describeTable) to get the table schema and prevent item creation,<br>
 If an item with the same key does not exist, 'ConditionalCheckFailedException' error is returned<br>
@@ -47,4 +48,35 @@ DynamoDB
 	}, function( err, data ) {
 
 	})
+</div>
+<br><br>
+
+SQL version does not currently support adding / removing from StringSet or NumberSet. (Awspilot limitation).<br>
+
+
+<br>
+<div class="code">
+UPDATE
+	users
+SET
+	`active`          = true,
+	`nulled`          = null,
+	`updated_at`      = 1468137844,
+	
+	/* delete attribute */
+	`activation_code` = undefined,
+	
+	/* increment attribute */
+	`login_count`    += 1,
+	
+	`list`            = ['a',1,true, null, {}, [] ],
+	`map`             = {
+		nonkeyword = 'value1',
+		"sqlkeyword1" = 'value2',
+		'sqlkeyword2' = 'value3'
+	},
+	`tags`            = new StringSet(['dev','nodejs']),
+	`lucky_numbers`   = new NumberSet([ 12, 23 ])
+WHERE
+	domain = 'test.com' AND user = 'testuser'
 </div>
