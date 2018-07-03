@@ -12,7 +12,7 @@ WARNING: update() will do an extra call (describeTable) to get the table schema 
 If an item with the same key does not exist, 'ConditionalCheckFailedException' error is returned<br>
 
 <br>
-<div class="code">
+<div class="code sql">
 // update multiple attributes in a HASH table
 DynamoDB
 	.table('users')

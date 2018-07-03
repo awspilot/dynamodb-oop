@@ -21,6 +21,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-javascript.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-sql.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-html.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-twilight.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-monokai.js"></script>
@@ -171,6 +172,9 @@ $(function() {
 		$(this).attr('id', $newid).height( $(this).height() + 24 )
 		var $e = ace.edit($newid)
 		if ($(this).hasClass('bash')) {
+			
+		} else if ($(this).hasClass('sql')) {
+			$e.getSession().setMode("ace/mode/sql")
 		} else {
 			$e.getSession().setMode("ace/mode/javascript")
 		}
