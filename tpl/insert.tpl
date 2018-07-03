@@ -1,6 +1,9 @@
 
 <a name="insert"></a>
 <h1>Insert Item</h1>
+
+Insert is handled as <a href="" target="_blank">putItem</a> with an extra condition that item does not already exist.<br>
+
 <p> 
 	Insert does not replace existing items. Use <a>.insert_or_replace()</a> or <a>.insert_or_update()</a> instead.<br>
 	
