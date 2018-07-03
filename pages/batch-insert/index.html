@@ -6,6 +6,7 @@ Insert with multiple items in "VALUES" is handled as <a href='https://docs.aws.a
 <div class="code">
 
 // if there are multiple items in VALUES then batchWriteItem is performed 
+// insert using VALUES does not currently support StringSet or NumberSet
 DynamoDB.query(`
 
 	INSERT INTO users VALUES 
