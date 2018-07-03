@@ -108,7 +108,8 @@
 
 
 
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert ( no update )</a>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/">Insert or Update</a>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/">Batch Insert</a>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update</a>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a>
