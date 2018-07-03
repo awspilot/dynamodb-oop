@@ -2,7 +2,7 @@
 <a name="insert"></a>
 <h1>Insert Item</h1>
 
-Insert is handled as <a href="" target="_blank">putItem</a> with an extra condition to make sure item does not already exist.<br>
+Insert is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html" target="_blank">putItem</a> with an extra condition to make sure item does not already exist.<br>
 <br>
 Insert does not replace existing items. Use <a href="../insert-or-replace/">.insert_or_replace()</a> or <a href="../insert-or-update/">.insert_or_update()</a> instead.<br>
 <br>
