@@ -1,7 +1,7 @@
 
 <h1>Insert on Duplicate Item Update</h1>
 
-Insert is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html" target="_blank">updateItem</a><br>
+Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html" target="_blank">updateItem</a>.<br>
 
 
 
