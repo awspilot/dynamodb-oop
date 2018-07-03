@@ -124,8 +124,6 @@ DynamoDB
 
 
 <h1>Insert on Duplicate Item Replace</h1>
-insert with multiple items in "VALUES" is handled as <a href='https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html' target='_blank'>batchWriteItem</a> 
-
 
 <div class="code">
 DynamoDB
@@ -137,20 +135,8 @@ DynamoDB
 		firstname: 'Smith'
 	}, function( err, data ) {
 
-	});
+	})
 
-// if there are multiple items in VALUES then batchWriteItem is performed 
-DynamoDB.query(`
-
-	INSERT INTO users VALUES 
-		({ email         : 'user1@test.com', active: false }),
-		({ email         : 'user2@test.com', active: false }),
-		({ email         : 'user2@test.com', active: true  })
-
-	`, 
-	function( err, data ) {
-		
-	});
 </div>
 
 
