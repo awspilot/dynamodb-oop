@@ -29,33 +29,60 @@ query_handler = function( idx, yml ) {
 			global.DDBSQL = false
 
 		DynamoDB.query( yml.Tests.query[idx].query, function(err, data ) {
-			if (yml.Tests.query[idx].shouldFail) {
-				if (err) {
-					if (!(yml.Tests.query[idx].validations || []).length)
-						return done()
+			var dataItem;
+			async.waterfall([
+				function(cb) {
+					if (! yml.Tests.query[idx].hasOwnProperty('dataItem'))
+						return cb()
 
-					yml.Tests.query[idx].validations.forEach(function(el) {
-						assert.deepEqual(eval( el.key ), eval( el.value ))
+					var dt = DynamoDB.table(yml.Tests.query[idx].dataItem.table)
+					Object.keys(yml.Tests.query[idx].dataItem.item).map(function(k) {
+						dt.where(k).eq(yml.Tests.query[idx].dataItem.item[k])
 					})
+					dt.get(function(err, new_data ) {
+						if (err)
+							throw err
+
+						dataItem = new_data
+						cb()
+					})
+					
+				},
+			], function() {
+				
+				if (yml.Tests.query[idx].shouldFail) {
+					if (err) {
+						if (!(yml.Tests.query[idx].validations || []).length)
+							return done()
+
+						yml.Tests.query[idx].validations.forEach(function(el) {
+							assert.deepEqual(eval( el.key ), eval( el.value ))
+						})
+						done()
+					}
+				} else {
+					if (err)
+						throw err
+
+					if (yml.Tests.query[idx].log === true) {
+						console.log("data=", JSON.stringify(data, null, "\t"))
+						if (dataItem) console.log("dataItem=", JSON.stringify(dataItem, null, "\t"))
+					}
+
+					if (yml.Tests.query[idx].results)
+						assert.equal(data.length, yml.Tests.query[idx].results)
+
+					if (yml.Tests.query[idx].validations) {
+						yml.Tests.query[idx].validations.forEach(function(el) {
+							assert.deepEqual(eval( el.key ), eval( el.value ))
+						})
+					}
 					done()
 				}
-			} else {
-				if (err)
-					throw err
+			})
 
-				if (yml.Tests.query[idx].log === true)
-					console.log("result=", JSON.stringify(data, null, "\t"))
 
-				if (yml.Tests.query[idx].results)
-					assert.equal(data.length, yml.Tests.query[idx].results)
 
-				if (yml.Tests.query[idx].validations) {
-					yml.Tests.query[idx].validations.forEach(function(el) {
-						assert.deepEqual(eval( el.key ), eval( el.value ))
-					})
-				}
-				done()
-			}
 		})
 	}
 }
@@ -77,7 +104,6 @@ run_test = function(test_name, yml_file ) {
 	
 	describe(test_name, function () {
 		var yml = yaml.safeLoad(fs.readFileSync(yml_file, 'utf8'))
-		console.log("yml=", yml )
 		before(before_test(yml.Prepare.Data))
 		// beforeEach
 
