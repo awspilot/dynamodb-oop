@@ -1,4 +1,4 @@
-
+fs = require('fs')
 async = require('async')
 assert = require('assert')
 yaml = require('js-yaml')
@@ -20,3 +20,69 @@ DynamoDB.on('beforeRequest', function(op, payload ) {
 	//console.log("--------------------------------")
 	//console.log(op,payload)
 })
+
+query_handler = function( idx, yml ) {
+	return function(done) {
+		if (yml.Tests.query[idx].log === true)
+			global.DDBSQL = true
+		else
+			global.DDBSQL = false
+
+		DynamoSQL.query( yml.Tests.query[idx].query, function(err, data ) {
+			if (yml.Tests.query[idx].shouldFail) {
+				if (err) {
+					if (!(yml.Tests.query[idx].validations || []).length)
+						return done()
+
+					yml.Tests.query[idx].validations.forEach(function(el) {
+						assert.deepEqual(eval( el.key ), eval( el.value ))
+					})
+					done()
+				}
+			} else {
+				if (err)
+					throw err
+
+				if (yml.Tests.query[idx].log === true)
+					console.log("result=", JSON.stringify(data, null, "\t"))
+
+				if (yml.Tests.query[idx].results)
+					assert.equal(data.length, yml.Tests.query[idx].results)
+
+				if (yml.Tests.query[idx].validations) {
+					yml.Tests.query[idx].validations.forEach(function(el) {
+						assert.deepEqual(eval( el.key ), eval( el.value ))
+					})
+				}
+				done()
+			}
+		})
+	}
+}
+
+before_test = function(data) {
+	return function(done) {
+		async.each(data, function(q, cb ) {
+			DynamoSQL.query(q, {}, cb )
+		}, function(err) {
+			if (err)
+				throw err
+
+			done()
+		})
+	}
+}
+
+run_test = function(test_name, yml_file ) {
+	
+	describe(test_name, function () {
+		var yml = yaml.safeLoad(fs.readFileSync(yml_file, 'utf8'))
+		before(before_test(yml.Prepare.Data))
+		// beforeEach
+
+		yml.Tests.query.forEach(function(v,k) {
+			it(yml.Tests.query[k].title || yml.Tests.query[k].query, query_handler(k, yml ) )
+			
+		})
+	})
+}
