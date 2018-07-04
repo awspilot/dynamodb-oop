@@ -3,29 +3,66 @@ Prepare:
 Tests:
     query:
         -
-          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>
+          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER> 
           query: INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 1
-          #validations:
-          #    - key: data[0].ss[2]
-          #      value: "'jkl'"
-          #    - key: data[0].ns[2]
-          #      value: 33
-          
+
         -
           title: INSERT INTO tbl_name SET ... existing item ( should fail )...
           query: INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 1
           shouldFail: true
-          #log: true
+
+        -
+          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, bool = true
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-bool', `range` = 1, bool = true
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-bool',  range: 1 }
+          validations:
+              - key: dataItem.bool
+                value: true
+
+        -
+          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, `null` = null, 
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-null', `range` = 1, `null` = null
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-null',  range: 1 }
+          validations:
+              - key: dataItem.null
+                value: null
+
+        -
+          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, `list` = [ true , false, 1, 'two', null, {} ]
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-list', `range` = 1, `list` = [ true , false, 1, 'two', null, {} ]
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-list',  range: 1 }
+          validations:
+              - key: dataItem.list
+                value: [ true , false, 1, 'two', null, {} ]
+
+        -
+          title: "INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, `map` = { bool: true , 'number': 1, 'string': 'two', \"null\": null, 'nested-list': [] }"
+          query: "INSERT INTO test_hash_range SET `hash` = 'sql-test-map', `range` = 1, `map` = { bool: true , 'number': 1, 'string': 'two', \"null\": null, 'nested-list': [] }"
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-map',  range: 1 }
+          validations:
+              - key: dataItem.map
+                value: { bool: true , number: 1, 'string': 'two', "null": null, 'nested-list': [] }
 
 
-        - query: INSERT INTO `test_hash_range` SET `hash` = 'test-ss-ns', `range` = 1, ss = new StringSet(['asd','fgh','jkl']), ns = new NumberSet([99,66,33])
-        #  query does not work yet
-        #- query: SELECT * FROM `test_hash_range` WHERE `hash` = 'test-ss-ns' AND `range` = 1
-        #  validations:
-        #      - key: data[0].ss[2]
-        #        value: "'jkl'"
-        #      - key: data[0].ns[2]
-        #        value: 33
+
+        - title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, ss = new StringSet(...), ns = new NumberSet(...)
+          query: INSERT INTO `test_hash_range` SET `hash` = 'test-ss-ns', `range` = 1, ss = new StringSet(['asd','fgh','jkl']), ns = new NumberSet([99,66,33])
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'test-ss-ns',  range: 1 }
+          validations:
+              - key: dataItem.ss[2]
+                value: "'jkl'"
+              - key: dataItem.ns[2]
+                value: 33
 
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> )
@@ -47,8 +84,17 @@ Tests:
                     subarray: []
                 },
             })
-          validations: []
-
-
-
-
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'test-insert-sql',  range: 1 }
+          validations:
+              - key: dataItem.number
+                value: 1
+              - key: dataItem.boolean
+                value: true
+              - key: dataItem.null
+                value: null
+              - key: dataItem.array
+                value: [1,2, 3 ]
+              - key: dataItem.object
+                value: { substring: "aaa", subnumber: 1,  subobject: {},  subarray: [] }
