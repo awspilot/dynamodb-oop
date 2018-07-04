@@ -1,0 +1,13 @@
+Prepare:
+    Data:
+        - INSERT INTO test_hash_range SET `hash` = 'sql-test-delete', `range` = 1
+Tests:
+    query:
+        - query: delete from `test_hash_range` where `hash` = 'sql-test-delete' and `range` = 1
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-delete',  range: 1 }
+          validations:
+               - key: Object.keys(dataItem).length
+                 value: 0
+          log: false

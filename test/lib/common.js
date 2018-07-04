@@ -90,7 +90,7 @@ query_handler = function( idx, yml ) {
 before_test = function(data) {
 	return function(done) {
 		async.each(data, function(q, cb ) {
-			DynamoDB.query(q, {}, cb )
+			DynamoDB.query(q, cb )
 		}, function(err) {
 			if (err)
 				throw err
