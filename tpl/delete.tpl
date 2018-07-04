@@ -37,6 +37,12 @@ DynamoDB
 
 	DynamoDB.query("DELETE FROM `users` WHERE `email` = 'test@test.com'", function(err) { });
 
-	DynamoDB.query("DELETE FROM `messages` WHERE `to` = 'user1@test.com' AND `date` =  1375538399 ", function(err) { });
+	DynamoDB.query(`
+		DELETE FROM 
+			messages 
+		WHERE 
+			to   = 'user1@test.com' AND 
+			date =  1375538399 
+	`, function(err) { });
 
 </div>
