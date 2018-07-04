@@ -15,16 +15,30 @@ DynamoDB
 		password: 'qwert',
 		firstname: 'Smith',
 		number: 5,
-		page_views: DynamoDB.add(5), // increment by 5
-		list: [5,'a', {}, [] ], // nested attributes
-		phones: DynamoDB.add([5,'a']), // push these elements at the end of the list (L)
-		string_set: DynamoDB.add(DynamoDB.SS(['ddd','eee'])), // add to SS,
-		number_set: DynamoDB.add(DynamoDB.NS([444,555])), // add to NS,
+		
+		// increment by 5
+		page_views: DynamoDB.add(5), 
+		
+		// nested attributes
+		list: [5,'a', {}, [] ], 
+		
+		// push these elements at the end of the list (L)
+		phones: DynamoDB.add([5,'a']), 
+		
+		// add to SS,
+		string_set: DynamoDB.add(DynamoDB.SS(['ddd','eee'])), 
+		
+		// add to NS,
+		number_set: DynamoDB.add(DynamoDB.NS([444,555])), 
 
 		unneeded_attribute: DynamoDB.del(),
-		unneeded_ss_items: DynamoDB.del(DynamoDB.SS(['ccc','ddd'])), // remove elements from stringSet
-		unneeded_ns_items: DynamoDB.del(DynamoDB.NS([111,444])), // remove elements from numberSet
+		
+		// remove elements from stringSet
+		unneeded_ss_items: DynamoDB.del(DynamoDB.SS(['ccc','ddd'])), 
+		
+		// remove elements from numberSet
+		unneeded_ns_items: DynamoDB.del(DynamoDB.NS([111,444])), 
 	}, function( err, data ) {
 
-	})
+	});
 </div>
