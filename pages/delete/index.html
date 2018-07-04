@@ -2,27 +2,45 @@
 	</style></head> <body><header><div class="inner"><h1><b>@AwsPilot</b>'s DynamoDB</h1> <p style="color: #666666;;"><span class="octicon octicon-link">Speak fluent DynamoDB, write code with fashion, I Promise() 😃</span> <br><br> <a href="https://travis-ci.org/awspilot/dynamodb-oop"><img src="https://travis-ci.org/awspilot/dynamodb-oop.svg?branch=master"></a> <a href="https://badge.fury.io/js/%40awspilot%2Fdynamodb"><img src="https://badge.fury.io/js/%40awspilot%2Fdynamodb.svg"></a> <a href="https://www.npmjs.com/package/@awspilot/dynamodb"><img src="https://img.shields.io/npm/dm/@awspilot/dynamodb.svg?maxAge=2592000"></a> <a href="https://www.npmjs.com/package/@awspilot/dynamodb"><img src="https://img.shields.io/npm/dy/@awspilot/dynamodb.svg?maxAge=2592000"></a> <a href="https://www.npmjs.com/package/@awspilot/dynamodb"><img src="https://img.shields.io/npm/dt/@awspilot/dynamodb.svg?maxAge=2592000"></a></p> </div></header> <div id="content-wrapper"><div class="inner clearfix"><section id="main-content">
 <a name="deleteitem"></a>
 <h1>Delete Item</h1>
-<p>delete() does not fail if the item does not exist</p>
+
+Delete is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html" target="_blank">deleteItem</a>.<br>
+<br>
+Does not fail if the item does not exist.<br>
+<br>
+Deletes a single item in a table by primary key<br>
+<br>
 <div class="code">
+
 // delete an item from a HASH table
 DynamoDB
-    .table('users')
-    .where('email').eq( 'test@test.com' )
-    .delete(function( err, data ) {
-        console.log( err, data )
-    })
+	.table('users')
+	.where('email').eq( 'test@test.com' )
+	.delete(function( err, data ) {
+
+	});
 
 // delete an item from a HASH-RANGE table
 DynamoDB
-    .table('messages')
-    .where('to').eq( 'user1@test.com' )
-    .where('date').eq( 1375538399 )
+	.table('messages')
+	.where('to').eq( 'user1@test.com' )
+	.where('date').eq( 1375538399 )
 	.return(DynamoDB.ALL_OLD)
-    .delete(function( err, data ) {
-        console.log( err, data )
-    })
+	.delete(function( err, data ) {
+
+	});
+
 </div>
-</section> <aside id="sidebar"><ul class="tree"><li><span class="tree_label"><a href="/dynamodb-oop/">Install</a></span> </li><li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span> </li><li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert ( no update )</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/">Insert or Update</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/">Insert or Replace</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/">Batch Insert</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update ( existing item )</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a> <li><input type="checkbox" id="treemisc"> <label class="tree_label sub" for="treemisc">Misc</label> <ul><li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span></span></span></li></span></li></span></li></span></li></span></li></span></li></ul></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></ul></aside></div></div> <a href="https://github.com/awspilot/dynamodb-oop"><img style="position: absolute; top: 0; right: 0; border: 0;;" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"></a> <script>$(function() {
+<br>
+
+
+<br>
+<div class="code">
+
+	DynamoDB.query("DELETE FROM `users` WHERE `email` = 'test@test.com'", function(err) { });
+
+	DynamoDB.query("DELETE FROM `messages` WHERE `to` = 'user1@test.com' AND `date` =  1375538399 ", function(err) { });
+
+</div></section> <aside id="sidebar"><ul class="tree"><li><span class="tree_label"><a href="/dynamodb-oop/">Install</a></span> </li><li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span> </li><li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert ( no update )</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/">Insert or Update</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/">Insert or Replace</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/">Batch Insert</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update ( existing item )</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a> <li><input type="checkbox" id="treemisc"> <label class="tree_label sub" for="treemisc">Misc</label> <ul><li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a> <li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span></span></span></li></span></li></span></li></span></li></span></li></span></li></ul></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></span></li></ul></aside></div></div> <a href="https://github.com/awspilot/dynamodb-oop"><img style="position: absolute; top: 0; right: 0; border: 0;;" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"></a> <script>$(function() {
 
 	$('.code').each(function() {
 		var $newid = 'ace-' + Math.random()
