@@ -13,12 +13,16 @@ If an item with the same key exists, 'ConditionalCheckFailedException' error is 
 
 <br>
 <div class="code">
-// carefull though as foo.bar domain actually exists :)
+
 
 DynamoDB
 	.table('users')
 	.insert({
-		email: 'test@test.com',
+
+		// carefull though as foo.bar domain actually exists :)
+		domain: 'foo.bar',
+		email: 'baz@foo.bar',
+
 		password: 'qwert',
 		boolean: true,
 		number: 1,
