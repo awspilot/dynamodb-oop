@@ -17,3 +17,39 @@ DynamoDB
         console.log( err, data )
     })
 </div>
+<br><br>
+
+
+
+
+<br>
+<div class="code sql">
+DynamoDB.query(`
+
+	REPLACE INTO 
+		users
+	SET
+		email          =  'test@test.com',
+
+		updated_at     = 1530709469085,
+		last_login_at  = null,
+		active         = true,
+		a_list         = [
+			'a',
+			1,
+			true,
+			null
+		],
+		a_object       = { 
+			'string': 'text',
+			'number': 1,
+			'bool'  : true,
+			'null'  : null, 
+		},
+		ss = new StringSet(['a','b','c']), 
+		ns = new NumberSet([1,2,3])
+
+`, function( err ){
+	
+})
+</div>
