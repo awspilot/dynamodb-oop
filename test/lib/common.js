@@ -1,6 +1,7 @@
 
 async = require('async')
 assert = require('assert')
+yaml = require('js-yaml')
 $tableName = 'test_hash_range'
 
 var dynalite = require('dynalite'),

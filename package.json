@@ -28,6 +28,7 @@
 		"browserify": "^14.5.0",
 		"browserify-shim": "^3.8.14",
 
+		"js-yaml": "3.11.0",
 		"memdown": "*",
 		"dynalite": "1.2.0",
 		"mocha": "3.5.3",
