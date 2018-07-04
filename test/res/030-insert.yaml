@@ -18,7 +18,36 @@ Tests:
           #log: true
 
 
+        - query: INSERT INTO `test_hash_range` SET `hash` = 'test-ss-ns', `range` = 1, ss = new StringSet(['asd','fgh','jkl']), ns = new NumberSet([99,66,33])
+        #  query does not work yet
+        #- query: SELECT * FROM `test_hash_range` WHERE `hash` = 'test-ss-ns' AND `range` = 1
+        #  validations:
+        #      - key: data[0].ss[2]
+        #        value: "'jkl'"
+        #      - key: data[0].ns[2]
+        #        value: 33
 
+
+        - title: INSERT INTO tbl_name VALUES ( <JSON> )
+          query: 
+            |
+            INSERT INTO 
+                `test_hash_range`
+            VALUES ({ 
+                "hash":  'test-insert-sql',
+                'range':  1,
+                'number': 1,  
+                'boolean': true, 
+                'null': null,
+                'array': [1,2, 3 ], 
+                'object': { 
+                    "substring": "aaa",
+                    subnumber: 1, 
+                    subobject: {}, 
+                    subarray: []
+                },
+            })
+          validations: []
 
 
 
