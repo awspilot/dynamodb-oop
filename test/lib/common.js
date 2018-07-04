@@ -28,7 +28,7 @@ query_handler = function( idx, yml ) {
 		else
 			global.DDBSQL = false
 
-		DynamoSQL.query( yml.Tests.query[idx].query, function(err, data ) {
+		DynamoDB.query( yml.Tests.query[idx].query, function(err, data ) {
 			if (yml.Tests.query[idx].shouldFail) {
 				if (err) {
 					if (!(yml.Tests.query[idx].validations || []).length)
@@ -63,7 +63,7 @@ query_handler = function( idx, yml ) {
 before_test = function(data) {
 	return function(done) {
 		async.each(data, function(q, cb ) {
-			DynamoSQL.query(q, {}, cb )
+			DynamoDB.query(q, {}, cb )
 		}, function(err) {
 			if (err)
 				throw err
@@ -77,6 +77,7 @@ run_test = function(test_name, yml_file ) {
 	
 	describe(test_name, function () {
 		var yml = yaml.safeLoad(fs.readFileSync(yml_file, 'utf8'))
+		console.log("yml=", yml )
 		before(before_test(yml.Prepare.Data))
 		// beforeEach
 
