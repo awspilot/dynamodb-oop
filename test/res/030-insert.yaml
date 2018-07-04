@@ -1,0 +1,25 @@
+Prepare:
+    Data: []
+Tests:
+    query:
+        -
+          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 1
+          #validations:
+          #    - key: data[0].ss[2]
+          #      value: "'jkl'"
+          #    - key: data[0].ns[2]
+          #      value: 33
+          
+        -
+          title: INSERT INTO tbl_name SET ... existing item ( should fail )...
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 1
+          shouldFail: true
+          #log: true
+
+
+
+
+
+
+

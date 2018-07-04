@@ -4,6 +4,7 @@ require("./tests/000-createTable.js")
 require("./tests/010-describe.js")
 require("./tests/020-specialSigns.js")
 require("./tests/030-insert.js")
+run_test('[SQL] INSERT',  'test/res/030-insert.yaml' ) // insert sql version
 require("./tests/031-insert_or_update.js")
 require("./tests/032-insert_or_replace.js")
 require("./tests/040-update.js")
