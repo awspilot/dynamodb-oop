@@ -1,0 +1,106 @@
+Prepare:
+    Data: []
+Tests:
+    query:
+        # test update inexistent
+        - title: UPDATE inexistent item should throw 'ConditionalCheckFailedException'
+          query: UPDATE `test_hash_range` SET  x = 1234 WHERE `hash` = 'inexistent' and `range` = 1
+          shouldFail: true
+          validations: 
+              - key: err.code
+                value: "'ConditionalCheckFailedException'"
+
+
+
+
+        -
+          title: "" 
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-update', `range` = 1
+
+        # test update string, number , boolean, array, object, null
+        - title: "UPDATE tbl_name SET `string` = <STRING>, `number` = <NUMBER>, `boolean` = <BOOL>, `null` = null, `array` = <LIST>, `object` = <MAP> "
+          query: 
+              |
+              UPDATE 
+                `test_hash_range` 
+              SET  
+                `string`  = 'text', 
+                `number`  = 1,
+                `boolean` = true,
+                `null`    = null,
+                `array`   = ['a',1,true,null],
+                `object`  = { 
+                    'string': 'text',
+                    'number': 1,
+                    'bool'  : true,
+                    'null'  : null, 
+                }
+               
+              WHERE
+                `hash` = 'sql-test-update' AND 
+                `range` = 1
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+          validations: 
+               - key: dataItem.string
+                 value: "'text'"
+               - key: dataItem.number
+                 value: 1
+               - key: dataItem.boolean
+                 value: true
+               - key: dataItem.null
+                 value: "null"
+               - key: dataItem.array
+                 value: ['a',1,true,null]
+               - key: dataItem.object
+                 value: {  string: 'text', number: 1, bool  : true, null  : null,  }
+
+        
+        # test increment number
+        - query: "UPDATE test_hash_range SET `number` += 10 WHERE `hash` = 'sql-test-update' AND `range` = 1 "
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+          validations: 
+               - key: dataItem.number
+                 value: 11
+
+        - query: "UPDATE test_hash_range SET `number` += -10 WHERE `hash` = 'sql-test-update' AND `range` = 1 "
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+          validations: 
+               - key: dataItem.number
+                 value: 1
+        
+        # test delete item
+        - query: "UPDATE test_hash_range SET `number` = undefined WHERE `hash` = 'sql-test-update' AND `range` = 1 "
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+          validations: 
+               - key: Object.keys(dataItem).length
+                 value: 7
+
+        # test stringset, numberset
+        - query: "UPDATE test_hash_range SET ss = new StringSet(['a','b','c']), ns = new NumberSet([1,2,3]) WHERE `hash` = 'sql-test-update' AND `range` = 1 "
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+        
+          validations: 
+               - key: dataItem.ss
+                 value: ['a','b','c']
+               - key: dataItem.ns
+                 value: [1,2,3]
+
+        
+        # test add to stringset
+        
+        # test remove from stringset
+        
+        # test add to numberset
+        
+        # test remove from numberset
+
