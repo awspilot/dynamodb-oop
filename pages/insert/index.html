@@ -26,10 +26,19 @@ DynamoDB
 		updated_at: null,
 		buffer: new Buffer("test"),
 		array_empty: [],
-		array_strings: ['alfa','beta','gama'], // inserted as datatype L
-		string_set: DynamoDB.SS(['sss','bbb','ccc']), // inserted as datatype SS
-		array_numbers: [7,9,15], // inserted as datatype L
-		number_set: DynamoDB.NS([111,222,333]), // inserted as datatype NS
+		
+		// inserted as datatype L
+		array_strings: ['alfa','beta','gama'], 
+		
+		// inserted as datatype SS
+		string_set: DynamoDB.SS(['sss','bbb','ccc']), 
+		
+		// inserted as datatype L
+		array_numbers: [7,9,15], 
+		
+		// inserted as datatype NS
+		number_set: DynamoDB.NS([111,222,333]), 
+
 		array_mixed: [
 			null,
 			"string",
@@ -40,6 +49,7 @@ DynamoDB
 			["nested","array"],
 			new Buffer("test")
 		],
+
 		nested_object: {
 			name: "Foo",
 			email: "baz@foo.bar",
@@ -52,7 +62,7 @@ DynamoDB
 		}
 	}, function(err,data) {
 
-	})
+	});
 </div>
 
 <br><br>
