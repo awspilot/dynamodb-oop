@@ -155,8 +155,9 @@
 		<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
 	</ul>
 
-</ul>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/">Disqus</a></span>
+
+</ul>
 
         </aside>
       </div>
