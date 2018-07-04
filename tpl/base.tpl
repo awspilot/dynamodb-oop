@@ -59,6 +59,7 @@
 				<a href='https://www.npmjs.com/package/@awspilot/dynamodb'><img src='https://img.shields.io/npm/dy/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
 				<a href='https://www.npmjs.com/package/@awspilot/dynamodb'><img src='https://img.shields.io/npm/dt/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
 
+				<a href='https://github.com/awspilot/dynamodb-oop'><img src='https://img.shields.io/github/license/awspilot/dynamodb-oop.svg' /></a>
 			</p>
 			<!--
 				<a href="https://www.npmjs.com/package/@awspilot/dynamodb" class="button"><img src="https://nodei.co/npm/@awspilot/dynamodb.png?downloads=true" alt="npm page"></a>
