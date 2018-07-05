@@ -40,7 +40,7 @@ Tests:
                 value: {  string: 'text', number: 1, bool  : true, null  : null,  }
 
         # test stringset, numberset
-        - title: "REPLACE INTO tbl_name SET `hash` = ...existent hash..., ss = new StringSet(..), ns = new NumberSet(...) "
+        - title: "REPLACE INTO tbl_name SET `hash` = <STRING>, ss = new StringSet(..), ns = new NumberSet(...) "
           query: 
               |
               REPLACE INTO 
@@ -62,4 +62,28 @@ Tests:
                  value: ['a','b','c']
                - key: dataItem.ns
                  value: [1,2,3]
+          log: false
+
+
+
+
+
+        - title: "REPLACE INTO tbl_name SET `hash` = <STRING>, d = new Date('2018-07-05T07:50:15.416Z').getTime() "
+          query: 
+              |
+              REPLACE INTO 
+                  test_hash_range 
+              SET 
+                  `hash` = 'replace-inexistent-hash', 
+                  `range` = 1, 
+                  d = new Date('2018-07-05T07:50:15.416Z').getTime()
+
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'replace-inexistent-hash',  range: 1 }
+          validations:
+               - key: Object.keys(dataItem).length
+                 value: 3
+               - key: dataItem.d
+                 value: 1530777015416
           log: false

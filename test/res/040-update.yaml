@@ -95,7 +95,18 @@ Tests:
                - key: dataItem.ns
                  value: [1,2,3]
 
+        # test date
         
+        - title: "UPDATE test_hash_range SET d = new Date('2018-07-05T07:50:15.416Z').getTime() WHERE `hash` = <STRING> AND `range` = <NUMBER> "
+          query: "UPDATE test_hash_range SET d = new Date('2018-07-05T07:50:15.416Z').getTime() WHERE `hash` = 'sql-test-update' AND `range` = 1 "
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+          validations:
+              - key: dataItem.d
+                value: 1530777015416
+          log: false
+
         # test add to stringset
         
         # test remove from stringset
