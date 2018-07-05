@@ -108,7 +108,8 @@
 
 
 <ul class="tree">
-<li><span class="tree_label"><a href="/dynamodb-oop/">Install</a></span>
+<li><span class="tree_label"><a href="/dynamodb-oop/">Home</a></span>
+<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/">Install</a></span>
 <li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span>
 
 
