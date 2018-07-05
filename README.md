@@ -1,5 +1,5 @@
 
-### Current version
+### @awspilot/dynamodb
 
 ##### @awspilot/dynamodb is a NodeJS and Browser utility to access Amazon DynamoDB databases
 
