@@ -1,18 +1,19 @@
 
-### Current version [![Build Status](https://travis-ci.org/awspilot/dynamodb-oop.svg?branch=master)](https://travis-ci.org/awspilot/dynamodb-oop)
+### Current version 
 
 
 ```
   npm install @awspilot/dynamodb
 ```
 
+[![Build Status](https://travis-ci.org/awspilot/dynamodb-oop.svg?branch=master)](https://travis-ci.org/awspilot/dynamodb-oop)
 [![npm version](https://badge.fury.io/js/%40awspilot%2Fdynamodb.svg)](https://badge.fury.io/js/%40awspilot%2Fdynamodb) 
 [![Downloads](https://img.shields.io/npm/dm/@awspilot/dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb) 
 [![Downloads](https://img.shields.io/npm/dy/@awspilot/dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb) 
 [![Downloads](https://img.shields.io/npm/dt/@awspilot/dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb) 
-
-
-[Documentation here](http://awspilot.github.io/dynamodb-oop)
+![License](https://img.shields.io/github/license/awspilot/dynamodb-oop.svg)
+[![Dependencies](https://david-dm.org/awspilot/dynamodb.svg)](https://david-dm.org/awspilot/dynamodb) 
+[Documentation here](https://awspilot.github.io/dynamodb-oop)
 
 
 
