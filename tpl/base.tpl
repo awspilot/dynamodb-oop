@@ -52,14 +52,18 @@
 				<br><br>
 				
 
-				<a href='https://travis-ci.org/awspilot/dynamodb-oop'><img src='https://travis-ci.org/awspilot/dynamodb-oop.svg?branch=master'/></a>
-				<a href='https://badge.fury.io/js/%40awspilot%2Fdynamodb'><img src='https://badge.fury.io/js/%40awspilot%2Fdynamodb.svg' /></a>
+				<a href='https://travis-ci.org/awspilot/dynamodb-oop' target="_blank"><img src='https://travis-ci.org/awspilot/dynamodb-oop.svg?branch=master'/></a>
+				<a href='https://badge.fury.io/js/%40awspilot%2Fdynamodb' target="_blank"><img src='https://badge.fury.io/js/%40awspilot%2Fdynamodb.svg' /></a>
 
-				<a href='https://www.npmjs.com/package/@awspilot/dynamodb'><img src='https://img.shields.io/npm/dm/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
-				<a href='https://www.npmjs.com/package/@awspilot/dynamodb'><img src='https://img.shields.io/npm/dy/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
-				<a href='https://www.npmjs.com/package/@awspilot/dynamodb'><img src='https://img.shields.io/npm/dt/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
+				<a href='https://www.npmjs.com/package/@awspilot/dynamodb' target="_blank"><img src='https://img.shields.io/npm/dm/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
+				<a href='https://www.npmjs.com/package/@awspilot/dynamodb' target="_blank"><img src='https://img.shields.io/npm/dy/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
+				<a href='https://www.npmjs.com/package/@awspilot/dynamodb' target="_blank"><img src='https://img.shields.io/npm/dt/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
 
-				<a href='https://github.com/awspilot/dynamodb-oop'><img src='https://img.shields.io/github/license/awspilot/dynamodb-oop.svg' /></a>
+				<a href='https://github.com/awspilot/dynamodb-oop' target="_blank"><img src='https://img.shields.io/github/license/awspilot/dynamodb-oop.svg' /></a>
+
+
+				<a href='https://david-dm.org/awspilot/dynamodb-oop' target="_blank"><img src='https://david-dm.org/awspilot/dynamodb-oop.svg' /></a>
+
 			</p>
 			<!--
 				<a href="https://www.npmjs.com/package/@awspilot/dynamodb" class="button"><img src="https://nodei.co/npm/@awspilot/dynamodb.png?downloads=true" alt="npm page"></a>
