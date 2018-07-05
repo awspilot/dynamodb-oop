@@ -13,8 +13,8 @@ DynamoDB
     .limit(10)
     .consistent_read()
     .query(function(err, data ) {
-        console.log(err,data)
-    })
+
+    });
 
 // only return specified fields, in descending order
 DynamoDB
@@ -24,13 +24,13 @@ DynamoDB
     .where('day').ge('2013-11-01')
     .descending()
     .query(function( err, data ) {
-        console.log( err, data )
-    })
+
+    });
 </div>
 
 <a name="queryindex"></a>
 <h1>Query an Index with index()</h1>
-<p></p>
+<br>
 <div class="code">
 // suppose you have an index on messages called starredIndex
 // and you want to retrieve only the messages that are starred
@@ -41,8 +41,8 @@ DynamoDB
     .where('to').eq('user1@test.com')
     .descending()
     .query(function( err, data ) {
-        console.log( err, data )
-    })
+
+    });
 
 // return all attributes including non-projected ( LSI only )
 DynamoDB
@@ -52,8 +52,8 @@ DynamoDB
     .where('to').eq('user1@test.com')
     .descending()
     .query(function( err, data ) {
-        console.log( err, data )
-    })
+
+    });
 
 // NOTE: specifying non-projected fields in select() will:
 // * cost you extra reads on a LSI index
@@ -96,7 +96,7 @@ DynamoDB
 	.having('attribute').in([3,4,'a'])
 	.filter('fridge.shelf[1].cookies').not_contains('sugar')
 	.query(function( err, data ) {
-		console.log( err, data )
+
 	})
 </div>
 
@@ -117,14 +117,14 @@ DynamoDB
 
             if (this.LastEvaluatedKey === null) {
                 // reached end, do a callback() maybe
-                return
+                return;
             }
 
-            var $this = this
+            var $this = this;
             setTimeout(function() {
-                recursive_call($this.LastEvaluatedKey)
-            },1000)
+                recursive_call($this.LastEvaluatedKey);
+            },1000);
 
         })
-})(null)
+})(null);
 </div>

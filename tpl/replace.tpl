@@ -14,8 +14,8 @@ DynamoDB
         password: 'qwert',
         created_at: new Date().getTime()
     }, function(err,data) {
-        console.log( err, data )
-    })
+
+    });
 </div>
 <br><br>
 
@@ -47,9 +47,12 @@ DynamoDB.query(`
 			'null'  : null, 
 		},
 		ss = new StringSet(['a','b','c']), 
-		ns = new NumberSet([1,2,3])
+		ns = new NumberSet([1,2,3]),
+		
+		/* evaluated to String or Number when parsed  */
+		expire_at =  new Date( 1530723266352 ).getTime()
 
 `, function( err ){
 	
-})
+});
 </div>

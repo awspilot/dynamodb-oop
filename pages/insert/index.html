@@ -88,6 +88,9 @@ DynamoDB.query(`
 		a_map         = { 'string': 's', 'number': 1 },
 		ss            =  new StringSet( 'sss','bbb','ccc' ),
 		ns            =  new NumberSet( 111, 222, 333 ),
+		
+		/* evaluated to String or Number when parsed  */
+		expire_at     =  new Date( 1530723266352 ).getTime()
 
 	`, 
 	function( err, data ) {

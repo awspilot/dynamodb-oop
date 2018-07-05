@@ -47,7 +47,7 @@ DynamoDB
 
 	}, function( err, data ) {
 
-	})
+	});
 </div>
 <br><br>
 
@@ -81,10 +81,16 @@ DynamoDB.query(`
 			'sqlkeyword2' = 'value3'
 		},
 		tags            = new StringSet(['dev','nodejs']),
-		lucky_numbers   = new NumberSet([ 12, 23 ])
+		lucky_numbers   = new NumberSet([ 12, 23 ]),
+		
+		/* evaluated to String or Number when parsed  */
+		expire_at       =  new Date( 1530723266352 ).getTime()
+
 	WHERE
 		domain = 'test.com' AND user = 'testuser'
 
-`, function(err) {})
+`, function(err) {
+	
+});
 
 </div>
