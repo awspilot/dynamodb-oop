@@ -5,17 +5,19 @@
 	<b>.replace()</b> does not create the item if item does not exist, use <a href='/pages/insert/'><b>insert_or_replace()</b></a> instead
 </p>
 <div class="code">
-// completely replaces the item, new item will only contain specified attributes
-DynamoDB
-    .table('users')
-	.return(DynamoDB.UPDATED_OLD)
-    .replace({
-        email: 'test@test.com',
-        password: 'qwert',
-        created_at: new Date().getTime()
-    }, function(err,data) {
 
-    });
+	// completely replaces the item, new item will only contain specified attributes
+	DynamoDB
+	    .table('users')
+		.return(DynamoDB.UPDATED_OLD)
+	    .replace({
+	        email: 'test@test.com',
+	        password: 'qwert',
+	        created_at: new Date().getTime()
+	    }, function(err,data) {
+
+	    });
+
 </div>
 <br><br>
 
@@ -24,35 +26,37 @@ DynamoDB
 
 <br>
 <div class="code">
-DynamoDB.query(`
 
-	REPLACE INTO 
-		users
-	SET
-		email          =  'test@test.com',
+	DynamoDB.query(`
 
-		updated_at     = 1530709469085,
-		last_login_at  = null,
-		active         = true,
-		a_list         = [
-			'a',
-			1,
-			true,
-			null
-		],
-		a_object       = { 
-			'string': 'text',
-			'number': 1,
-			'bool'  : true,
-			'null'  : null, 
-		},
-		ss = new StringSet(['a','b','c']), 
-		ns = new NumberSet([1,2,3]),
+		REPLACE INTO 
+			users
+		SET
+			email          =  'test@test.com',
+
+			updated_at     = 1530709469085,
+			last_login_at  = null,
+			active         = true,
+			a_list         = [
+				'a',
+				1,
+				true,
+				null
+			],
+			a_object       = { 
+				'string': 'text',
+				'number': 1,
+				'bool'  : true,
+				'null'  : null, 
+			},
+			ss = new StringSet(['a','b','c']), 
+			ns = new NumberSet([1,2,3]),
+			
+			/* evaluated to String or Number when parsed  */
+			expire_at =  new Date( 1530723266352 ).getTime()
+
+	`, function( err ){
 		
-		/* evaluated to String or Number when parsed  */
-		expire_at =  new Date( 1530723266352 ).getTime()
+	});
 
-`, function( err ){
-	
-});
 </div>

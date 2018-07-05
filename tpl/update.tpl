@@ -13,41 +13,43 @@ If an item with the same key does not exist, 'ConditionalCheckFailedException' e
 
 <br>
 <div class="code">
-// update multiple attributes in a HASH table
-DynamoDB
-	.table('users')
-	.where('email').eq('test@test.com')
-	.return(DynamoDB.ALL_OLD)
-	.update({
-		password: 'qwert',
-		name: 'Smith',
-		active: true,
-		subscription: null,
 
-		// increment
-		page_views: DynamoDB.add(5),
+	// update multiple attributes in a HASH table
+	DynamoDB
+		.table('users')
+		.where('email').eq('test@test.com')
+		.return(DynamoDB.ALL_OLD)
+		.update({
+			password: 'qwert',
+			name: 'Smith',
+			active: true,
+			subscription: null,
 
-		list: [5,'a', {}, [] ],
+			// increment
+			page_views: DynamoDB.add(5),
 
-		// ADD to array (L) - not documented by AWS
-		arr:  DynamoDB.add( ['x','y', false, null, {}] ),
+			list: [5,'a', {}, [] ],
 
-		// ADD to StringSet and NumberSet, will only keep unique values
-		ss1:  DynamoDB.add( DynamoDB.SS(['aaa','ddd']) ),
-		ns1:  DynamoDB.add( DynamoDB.NS([11,44]) ),
+			// ADD to array (L) - not documented by AWS
+			arr:  DynamoDB.add( ['x','y', false, null, {}] ),
 
-		// delete from StringSet and NumberSet
-		ss2:  DynamoDB.del( DynamoDB.SS(['bbb']) ),
-		ns2:  DynamoDB.del( DynamoDB.NS([22]) ),
+			// ADD to StringSet and NumberSet, will only keep unique values
+			ss1:  DynamoDB.add( DynamoDB.SS(['aaa','ddd']) ),
+			ns1:  DynamoDB.add( DynamoDB.NS([11,44]) ),
 
-		// delete from Array (L) not supported by Amazon
+			// delete from StringSet and NumberSet
+			ss2:  DynamoDB.del( DynamoDB.SS(['bbb']) ),
+			ns2:  DynamoDB.del( DynamoDB.NS([22]) ),
 
-		// delete attribute
-		unneeded_attribute: DynamoDB.del(),
+			// delete from Array (L) not supported by Amazon
 
-	}, function( err, data ) {
+			// delete attribute
+			unneeded_attribute: DynamoDB.del(),
 
-	});
+		}, function( err, data ) {
+
+		});
+
 </div>
 <br><br>
 
@@ -56,41 +58,42 @@ SQL version does not currently support adding / removing from StringSet or Numbe
 
 <br>
 <div class="code">
-DynamoDB.query(`
 
-	UPDATE
-		users
-	SET
-		active          = true,
-		nulled          = null,
-		updated_at      = 1468137844,
+	DynamoDB.query(`
+
+		UPDATE
+			users
+		SET
+			active          = true,
+			nulled          = null,
+			updated_at      = 1468137844,
+			
+			/* delete attribute */
+			activation_code = undefined,
+			
+			/* increment attribute */
+			login_count    += 1,
+
+			/* decrement attribute */
+			days_left    += -1,
+
+			list            = ['a',1,true, null, {}, [] ],
+			map             = {
+				nonkeyword = 'value1',
+				"sqlkeyword1" = 'value2',
+				'sqlkeyword2' = 'value3'
+			},
+			tags            = new StringSet(['dev','nodejs']),
+			lucky_numbers   = new NumberSet([ 12, 23 ]),
+			
+			/* evaluated to String or Number when parsed  */
+			expire_at       =  new Date( 1530723266352 ).getTime()
+
+		WHERE
+			domain = 'test.com' AND user = 'testuser'
+
+	`, function(err) {
 		
-		/* delete attribute */
-		activation_code = undefined,
-		
-		/* increment attribute */
-		login_count    += 1,
-
-		/* decrement attribute */
-		days_left    += -1,
-
-		list            = ['a',1,true, null, {}, [] ],
-		map             = {
-			nonkeyword = 'value1',
-			"sqlkeyword1" = 'value2',
-			'sqlkeyword2' = 'value3'
-		},
-		tags            = new StringSet(['dev','nodejs']),
-		lucky_numbers   = new NumberSet([ 12, 23 ]),
-		
-		/* evaluated to String or Number when parsed  */
-		expire_at       =  new Date( 1530723266352 ).getTime()
-
-	WHERE
-		domain = 'test.com' AND user = 'testuser'
-
-`, function(err) {
-	
-});
+	});
 
 </div>

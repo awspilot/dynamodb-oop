@@ -181,6 +181,8 @@ $(function() {
 			
 		} else if ($(this).hasClass('sql')) {
 			$e.getSession().setMode("ace/mode/sql")
+		} else if ($(this).hasClass('html')) {
+			$e.getSession().setMode("ace/mode/html")
 		} else {
 			$e.getSession().setMode("ace/mode/javascript")
 		}

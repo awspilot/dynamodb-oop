@@ -10,23 +10,26 @@ Deletes a single item in a table by primary key.<br>
 <br>
 <div class="code">
 
-// delete an item from a HASH table
-DynamoDB
-	.table('users')
-	.where('email').eq( 'test@test.com' )
-	.delete(function( err, data ) {
+	// delete an item from a HASH table
+	DynamoDB
+		.table('users')
+		.where('email').eq( 'test@test.com' )
+		.delete(function( err, data ) {
 
-	});
+		});
 
-// delete an item from a HASH-RANGE table
-DynamoDB
-	.table('messages')
-	.where('to').eq( 'user1@test.com' )
-	.where('date').eq( 1375538399 )
-	.return(DynamoDB.ALL_OLD)
-	.delete(function( err, data ) {
+</div>
+<br>
+<div class="code">
+	// delete an item from a HASH-RANGE table
+	DynamoDB
+		.table('messages')
+		.where('to').eq( 'user1@test.com' )
+		.where('date').eq( 1375538399 )
+		.return(DynamoDB.ALL_OLD)
+		.delete(function( err, data ) {
 
-	});
+		});
 
 </div>
 <br>

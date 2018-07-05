@@ -3,6 +3,7 @@
 <h1>Get Item</h1>
 <p></p>
 <div class="code">
+
 	// getting an item with HASH key only
 	DynamoDB
 	    .table('users')
@@ -10,9 +11,11 @@
 	    .get(function( err, data ) {
 
 	    });
+
 </div>
 <br>
 <div class="code">
+
 	// getting an item from a HASH-RANGE table, with consistent read
 	DynamoDB
 	    .table('messages')
@@ -22,9 +25,11 @@
 	    .get(function( err, data ) {
 
 	    });
+
 </div>
 <br>
 <div class="code">
+
 	// specifying what attributes to return
 	DynamoDB
 	    .table('users')
@@ -33,4 +38,5 @@
 	    .get(function( err, data ) {
 
 	    });
+
 </div>

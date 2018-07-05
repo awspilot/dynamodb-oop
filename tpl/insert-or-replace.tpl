@@ -4,15 +4,16 @@ Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReferen
 
 <br>
 <div class="code">
-DynamoDB
-	.table('users')
-	.return(DynamoDB.ALL_OLD)
-	.insert_or_replace({
-		email: 'test@test.com',
-		password: 'qwert',
-		firstname: 'Smith'
-	}, function( err, data ) {
 
-	})
+	DynamoDB
+		.table('users')
+		.return(DynamoDB.ALL_OLD)
+		.insert_or_replace({
+			email: 'test@test.com',
+			password: 'qwert',
+			firstname: 'Smith'
+		}, function( err, data ) {
+
+		})
 
 </div>
