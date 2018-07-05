@@ -98,3 +98,12 @@ Tests:
                 value: [1,2, 3 ]
               - key: dataItem.object
                 value: { substring: "aaa", subnumber: 1,  subobject: {},  subarray: [] }
+
+        - title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, d = new Date('2018-07-05T07:50:15.416Z').getTime()
+          query: INSERT INTO `test_hash_range` SET `hash` = 'test-insert-date', `range` = 1, d = new Date('2018-07-05T07:50:15.416Z').getTime()
+          dataItem: 
+              table: test_hash_range
+              item: { hash: 'test-insert-date',  range: 1 }
+          validations:
+              - key: dataItem.d
+                value: 1530777015416
