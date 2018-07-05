@@ -26,7 +26,6 @@
   npm install aws-dynamodb
 ```
 [![npm version](https://badge.fury.io/js/aws-dynamodb.svg)](https://badge.fury.io/js/aws-dynamodb) 
-[![Downloads](https://img.shields.io/npm/dm/aws-dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/aws-dynamodb) 
 [![Downloads](https://img.shields.io/npm/dy/aws-dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/aws-dynamodb) 
 [![Downloads](https://img.shields.io/npm/dt/aws-dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/aws-dynamodb) 
 
