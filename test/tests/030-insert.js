@@ -202,6 +202,97 @@ describe('insert()', function () {
 			})
 	})
 
+
+	it('.insert() - test new Set( <ARRAY_OF_NUMBERS> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert({
+				hash: 'hash-test-set-ns',
+				range: 1,
+				number_set: new Set([ 111, 222, 333 ]),
+			}, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('hash-test-set-ns')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						item.number_set.sort()
+						assert.deepEqual(item, {
+							hash: 'hash-test-set-ns',
+							range: 1,
+							number_set: [ 111, 222, 333 ],
+						}, {strict: true })
+						done()
+					})
+			})
+	})
+
+	it('.insert() - test new Set( <ARRAY_OF_STRINGS> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert({
+				hash: 'hash-test-set-ss',
+				range: 1,
+				string_set: new Set([ 'aaa', 'bbb', 'ccc' ]),
+			}, function(err, data ) {
+				if (err)
+					throw err
+
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('hash-test-set-ss')
+					.where('range').eq(1)
+					.get(function(err, item, raw ) {
+						if (err)
+							throw err
+
+						item.string_set.sort()
+						assert.deepEqual(item, {
+							hash: 'hash-test-set-ss',
+							range: 1,
+							string_set: [ 'aaa', 'bbb', 'ccc'  ],
+						}, {strict: true })
+						done()
+					})
+			})
+	})
+
+	it('.insert() - test new Set( <MIXED> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert({
+				hash: 'hash-test-set-mixed',
+				range: 1,
+				set1: new Set(),
+				set2: new Set(['a', 1, {} ]),
+			}, function(err, data ) {
+				if (err)
+					throw err
+
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('hash-test-set-mixed')
+					.where('range').eq(1)
+					.get(function(err, item, raw ) {
+						if (err)
+							throw err
+
+						assert.deepEqual(Array.isArray(item.set1), true )
+						assert.deepEqual(Array.isArray(item.set2), true )
+
+						done()
+					})
+			})
+	})
+
 	it('insert binary', function(done) {
 		var $buf_obj = {
 			hash: 'hash_test_buffer',
