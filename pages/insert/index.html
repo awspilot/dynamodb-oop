@@ -34,13 +34,17 @@ If an item with the same key exists, 'ConditionalCheckFailedException' error is 
 			array_strings: ['alfa','beta','gama'], 
 			
 			// inserted as datatype SS
-			string_set: DynamoDB.SS(['sss','bbb','ccc']), 
-			
-			// inserted as datatype L
-			array_numbers: [7,9,15], 
-			
+			string_set1: DynamoDB.SS(['sss','bbb','ccc']), 
+			string_set2: new Set(['sss','bbb','ccc']), 
+
 			// inserted as datatype NS
-			number_set: DynamoDB.NS([111,222,333]), 
+			number_set1: DynamoDB.NS([111,222,333]), 
+			number_set2: new Set([[111,222,333]]),
+
+			// inserted as datatype L
+			list1: [7,9,15], 
+			list2: new Set([]),
+			list3: new Set([ 'a', 1 ]),
 
 			array_mixed: [
 				null,

@@ -33,6 +33,20 @@ If an item with the same key does not exist, 'ConditionalCheckFailedException' e
 
 			// ADD to array (L) - not documented by AWS
 			arr:  DynamoDB.add( ['x','y', false, null, {}] ),
+			
+			// updated as datatype SS
+			string_set1: DynamoDB.SS(['sss','bbb','ccc']), 
+			string_set2: new Set(['sss','bbb','ccc']), 
+
+			// updated as datatype NS
+			number_set1: DynamoDB.NS([111,222,333]), 
+			number_set2: new Set([[111,222,333]]),
+
+			// updated as datatype L
+			list1: [7,9,15], 
+			list2: new Set([]),
+			list3: new Set([ 'a', 1 ]),
+
 
 			// ADD to StringSet and NumberSet, will only keep unique values
 			ss1:  DynamoDB.add( DynamoDB.SS(['aaa','ddd']) ),
