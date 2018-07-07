@@ -76,6 +76,106 @@ describe('insert_or_replace( new_item )', function () {
 			})
 	})
 
+
+
+
+
+
+
+	it('.insert_or_replace() - test new Set( <ARRAY_OF_NUMBERS> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert_or_replace({
+				hash: 'test-replace-set-ns',
+				range: 1,
+				number_set: new Set([ 111, 222, 333 ]),
+			}, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-replace-set-ns')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						item.number_set.sort()
+						assert.deepEqual(item, {
+							hash: 'test-replace-set-ns',
+							range: 1,
+							number_set: [ 111, 222, 333 ],
+						}, {strict: true })
+						done()
+					})
+			})
+	})
+
+	it('.insert_or_replace() - test new Set( <ARRAY_OF_STRINGS> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert_or_replace({
+				hash: 'test-replace-set-ss',
+				range: 1,
+				string_set: new Set([ 'aaa', 'bbb', 'ccc' ]),
+			}, function(err, data ) {
+				if (err)
+					throw err
+
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-replace-set-ss')
+					.where('range').eq(1)
+					.get(function(err, item, raw ) {
+						if (err)
+							throw err
+
+						item.string_set.sort()
+						assert.deepEqual(item, {
+							hash: 'test-replace-set-ss',
+							range: 1,
+							string_set: [ 'aaa', 'bbb', 'ccc'  ],
+						}, {strict: true })
+						done()
+					})
+			})
+	})
+
+	it('.insert_or_replace() - test new Set( <MIXED> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.insert_or_replace({
+				hash: 'test-replace-set-mixed',
+				range: 1,
+				set1: new Set(),
+				set2: new Set(['a', 1, {} ]),
+			}, function(err, data ) {
+				if (err)
+					throw err
+
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-replace-set-mixed')
+					.where('range').eq(1)
+					.get(function(err, item, raw ) {
+						if (err)
+							throw err
+
+						assert.deepEqual(Array.isArray(item.set1), true )
+						assert.deepEqual(Array.isArray(item.set2), true )
+
+						done()
+					})
+			})
+	})
+
+
+
+
+
 	it('.insert_or_replace().then()', function(done) {
 		DynamoDB
 			.table($tableName)
