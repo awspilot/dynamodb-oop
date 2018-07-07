@@ -94,6 +94,90 @@ describe('update()', function () {
 	})
 
 
+	it('.update() - test new Set( <ARRAY_OF_NUMBERS> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-updated-old')
+			.where('range').eq(1)
+			.update({
+				set: new Set([ 111, 222, 333 ]),
+			}, function(err, data) {
+				if (err)
+					throw err
+	
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-old')
+					.where('range').eq(1)
+					.get(function(err, item, raw ) {
+						if (err)
+							throw err
+	
+						assert.deepEqual(raw.Item.set.NS, [ 111, 222, 333 ], {strict: true })
+						done()
+					})
+			})
+	})
+
+	it('.update() - test new Set( <ARRAY_OF_STRINGS> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-updated-old')
+			.where('range').eq(1)
+			.update({
+				set: new Set([ 'aaa', 'bbb', 'ccc' ]),
+			}, function(err, data ) {
+				if (err)
+					throw err
+	
+	
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-old')
+					.where('range').eq(1)
+					.get(function(err, item, raw ) {
+						if (err)
+							throw err
+	
+						
+						assert.deepEqual(raw.Item.set.SS, [ 'aaa', 'bbb', 'ccc'  ], {strict: true })
+						done()
+					})
+			})
+	})
+
+	it('.update() - test new Set( <MIXED> )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-updated-old')
+			.where('range').eq(1)
+			.update({
+				set1: new Set(),
+				set2: new Set(['a', 1, {} ]),
+			}, function(err, data ) {
+				if (err)
+					throw err
+	
+	
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-old')
+					.where('range').eq(1)
+					.get(function(err, item, raw ) {
+						if (err)
+							throw err
+	
+						//console.log(JSON.stringify(raw, null, "\t"))
+						assert.deepEqual(raw.Item.set1.L, [], {strict: true })
+						assert.deepEqual(raw.Item.set2.L, [ { "S": "a" }, { "N": "1" }, { "M": {} }  ], {strict: true })
+	
+						done()
+					})
+			})
+	})
+	
+
+
 	it('.update().then()', function(done) {
 		DynamoDB
 			.table($tableName)
