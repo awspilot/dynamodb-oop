@@ -18,8 +18,8 @@
 	npm install @awspilot/dynamodb
 
 ```
-
-
+ 
+ 
 #### [ Documentation and Examples ](https://awspilot.github.io/dynamodb-oop)  
 
 
