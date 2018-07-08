@@ -24,11 +24,6 @@ DynamoDB.on('beforeRequest', function(op, payload ) {
 	//console.log(op,payload)
 })
 
-if (typeof Set !== 'undefined') {
-	// nodejs 0.10 does not support new Set()
-	require('./set')
-}
-
 query_handler = function( idx, yml ) {
 	return function(done) {
 		if (yml.Tests.query[idx].log === true)
