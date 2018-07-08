@@ -266,7 +266,7 @@ describe('update()', function () {
 
 						assert.deepEqual(data.arr, [ 'x', 'y', 'x', 'y', false, null, {} ] )
 						assert.deepEqual(data.ss, [ 'bbb', 'ccc', 'aaa', 'ddd' ] )
-						assert.deepEqual(data.ns, [ 33, 22, 11, 44 ] )
+						assert.deepEqual(data.ns.sort(function(a,b) { return a > b ? 1 : -1 }), [ 11, 22, 33, 44 ] )
 
 						done()
 					})
