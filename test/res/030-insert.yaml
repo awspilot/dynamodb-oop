@@ -61,8 +61,8 @@ Tests:
           validations:
               - key: dataItem.ss[2]
                 value: "'jkl'"
-              - key: dataItem.ns[2]
-                value: 33
+              - key: dataItem.ns.sort(function(a,b) { return a > b ? 1 : -1 })[2]
+                value: 99
 
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> )
