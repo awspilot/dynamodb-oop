@@ -17,7 +17,7 @@
 	"homepage": "https://awspilot.github.io/dynamodb-oop/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
-		"type" :  "git",
+		"type": "git",
 		"url": "https://github.com/awspilot/dynamodb-oop"
 	},
 	"main": "./lib/dynamodb",
@@ -30,16 +30,17 @@
 	"devDependencies": {
 		"browserify": "^14.5.0",
 		"browserify-shim": "^3.8.14",
-
 		"js-yaml": "3.11.0",
 		"memdown": "*",
 		"dynalite": "1.2.0",
-		"mocha": "3.5.3",
+		"mocha": "3.0.0-2",
 		"async": "*",
 		"assert": "*"
 	},
 	"browserify": {
-		"transform": [ "browserify-shim" ]
+		"transform": [
+			"browserify-shim"
+		]
 	},
 	"browserify-shim": {
 		"aws-sdk": "global:AWS",
