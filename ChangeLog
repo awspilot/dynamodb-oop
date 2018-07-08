@@ -1,0 +1,8 @@
+1.2.0 
+- dynalite removed from dev dependencies
+1.1.8 
+- RawFilterExpression, RawProjectionExpression
+- tests for new Set()
+1.1.7
+- support for new Date() in SQL
+- sql tests
