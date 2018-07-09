@@ -30,8 +30,6 @@
 	"devDependencies": {
 		"assert": "*",
 		"async": "*",
-		"browserify": "^14.5.0",
-		"browserify-shim": "^3.8.14",
 		"js-yaml": "3.12.0",
 		"mocha": "^3.0.0-2"
 	},
