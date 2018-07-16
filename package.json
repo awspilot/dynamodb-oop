@@ -31,7 +31,7 @@
 		"assert": "1.4.1",
 		"async": "2.6.1",
 		"js-yaml": "3.12.0",
-		"mocha": "^3.0.0-2"
+		"mocha": "5.2.0"
 	},
 	"browserify": {
 		"transform": [
@@ -44,7 +44,7 @@
 		"promise": "global:promise"
 	},
 	"scripts": {
-		"test": "mocha --timeout 100000 -S -R spec"
+		"test": "mocha --timeout 100000 -S -R spec --exit"
 	},
 	"engines": {
 		"node": "*"
