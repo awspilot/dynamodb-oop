@@ -55,29 +55,9 @@
 
     <div id="content-wrapper">
 
-        <section id="main-content">
 
 
 
-
-
-
-
-
-
-
-
-{{{content}}}
-
-
-
-
-
-
-
-
-        </section>
-		<!-- sidebar -->
         <aside id="sidebar">
 
 
@@ -147,6 +127,13 @@
 </ul>
 
         </aside>
+
+
+
+
+        <section id="main-content">{{{content}}}</section>
+		<!-- sidebar -->
+
 
     </div>
 
