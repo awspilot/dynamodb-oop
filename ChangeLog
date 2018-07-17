@@ -1,3 +1,5 @@
+1.2.2
+- support for SELECT ( without HAVING )
 1.2.1
 - basic support for SCAN sql
 1.2.0 
