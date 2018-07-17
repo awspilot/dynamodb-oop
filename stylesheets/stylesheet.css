@@ -522,7 +522,7 @@ header h2 {
 
 #content-wrapper {position: absolute;top: 60px;left: 0px;right: 0px;bottom: 0px;overflow: auto;}
 
-#main-content {position: absolute;top: 0px;right: 0px;left: 200px;padding: 40px;}
+#main-content {position: absolute;top: 0px;right: 0px;left: 200px;bottom: 0px;overflow: auto;padding: 40px;}
 
 #main-content img {
   max-width: 100%;
