@@ -1,0 +1,164 @@
+Prepare:
+    Data:
+        - INSERT INTO test_hash_range SET `hash` =  'test-sql-query', `range` =  1,  `number` = 1,                     `array` = ['string'], gsi_range = 'findme'
+        - INSERT INTO test_hash_range SET `hash` =  'test-sql-query', `range` =  2,  `number` = 2,  `boolean` = true,  `array` = [ 777    ], gsi_range = 'aaa'
+        - INSERT INTO test_hash_range SET `hash` =  'test-sql-query', `range` =  99, `number` = 99, `boolean` = false, `array` = [ true   ], rand = 77
+        #- INSERT INTO test_hash_range SET `hash` =  'test-sql-query', `range` =  'aaa'
+        # - INSERT INTO test_hash_range SET `hash` =  'test-sql-query', `range` =  'aaz'
+        # - INSERT INTO test_hash_range SET `hash` =  'test-sql-query', `range` =  'bbb'
+        # - INSERT INTO test_hash_range SET `hash` =  5,       `range` = 5
+Tests:
+    query:
+        - query: SELECT * FROM test_hash_range
+          shouldFail: true
+
+        - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query"
+          results: 3
+
+        # - query: SELECT * FROM test_hash_range WHERE `hash` = 5
+        #   results: 1
+        # 
+        - query: SELECT * FROM test_hash_range WHERE `hash` = 'test-sql-query' and `range` > 1
+          results: 2
+        
+        - query: SELECT * FROM test_hash_range WHERE `hash` = 'test-sql-query' and `range` = 99
+          results: 1
+
+        - query: SELECT * FROM test_hash_range WHERE `hash` = 'test-sql-query' and `range` BETWEEN 2 AND 4
+          results: 1
+
+        - query: SELECT * FROM test_hash_range USE INDEX gsi_index WHERE `hash` = 'test-sql-query' 
+          results: 2
+
+
+        - query: SELECT * FROM test_hash_range USE INDEX gsi_index WHERE `hash` = 'test-sql-query' AND gsi_range LIKE 'find%'
+          results: 1
+
+
+        - query: SELECT * FROM test_hash_range USE INDEX gsi_index WHERE `hash` = 'test-sql-query' AND gsi_range BETWEEN 'aab' AND 'z'
+          results: 1
+
+
+
+
+
+
+
+
+        - query: SELECT * FROM test_hash_range WHERE `hash` = 'test-sql-query' LIMIT 2
+          results: 2
+        
+
+
+        - query: SELECT * FROM test_hash_range WHERE `hash` = 'test-sql-query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+
+
+
+
+        - query: SELECT rand FROM test_hash_range  WHERE `hash` = 'test-sql-query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].rand
+                value: 77
+              - key: Object.keys(data).length
+                value: 1
+        
+        - query: SELECT `range`, inexistent_field FROM test_hash_range  WHERE `hash` = 'test-sql-query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+              - key: Object.keys(data[0]).length
+                value: 1
+        
+        - query: SELECT `hash`, `range`  FROM test_hash_range  WHERE `hash` = 'test-sql-query' DESC LIMIT 1
+          results: 1
+          validations:
+              - key: data[0].range
+                value: 99
+              - key: Object.keys(data[0]).length
+                value: 2
+        
+        - query: SELECT `hash`, *  FROM test_hash_range  WHERE `hash` = 'test-sql-query'
+          results: 3
+          shouldFail: false
+
+        
+        # - query: SELECT `hash` AS h  FROM test_hash_range  WHERE `hash` = 'test-sql-query'
+        #   shouldFail: false
+        #   log: true
+        
+        - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" CONSISTENT_READ
+          results: 3
+        
+        
+        # - query: SELECT CONSISTENT_READ * FROM test_hash_range WHERE `hash` = "test-sql-query"
+        #   results: 3
+        #   log: true
+
+
+
+        # HAVING not supported yet
+
+
+        # - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING gsi_string = "findme"
+        #   results: 1
+        #   validations:
+        #       - key: data[0].range
+        #         value: 1
+        # 
+        # - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING `number` BETWEEN 50 AND 150
+        #   results: 1
+        #   validations:
+        #       - key: data[0].range
+        #         value: 99
+        # 
+        # - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING gsi_string LIKE 'find%'
+        #   results: 1
+        #   validations:
+        #       - key: data[0].range
+        #         value: 1
+        # 
+        # - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING `boolean` = true
+        #   results: 1
+        #   validations:
+        #       - key: data[0].range
+        #         value: 2
+        # 
+        # - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING `boolean` = false
+        #   results: 1
+        #   validations:
+        #       - key: data[0].range
+        #         value: 99
+        #   #log: true
+        # 
+        # - query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING gsi_string CONTAINS 'indm'
+        #   results: 1
+        #   validations:
+        #       - key: data[0].range
+        #         value: 1
+
+        # - 
+        #   query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING array CONTAINS 'string'
+        #   log: true
+        # 
+        # - 
+        #   query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING array CONTAINS 777
+        #   log: true
+        # 
+        # - 
+        #   query: SELECT * FROM test_hash_range WHERE `hash` = "test-sql-query" HAVING array CONTAINS true
+        #   log: true
+
+        # HAVING xpatn OP | eg obj, obj.ccc array[1],
+        # HAVING string between A and Z
+        # HAVING field IN [ a,b,c]
+        # HAVING field NOT NULL
+        # HAVING field NULL
+        # HAVING string NOT CONTAINS 'text'
+        # HAVING stringset CONTAINS 'text'
+        # HAVING stringset NOT CONTAINS 'text'
