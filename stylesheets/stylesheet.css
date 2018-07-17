@@ -536,10 +536,7 @@ header h2 {
 
 #content-wrapper {position: absolute;top: 60px;left: 0px;right: 0px;bottom: 0px;overflow: auto;}
 
-#main-content {
-  float: right;
-  width: 890px;
-}
+#main-content {position: absolute;top: 0px;right: 0px;left: 200px;padding: 40px;}
 
 #main-content img {
   max-width: 100%;
@@ -833,9 +830,6 @@ footer a:hover {
   }
   header h2 {
     font-size: 30px;
-  }
-  #main-content {
-    width: 490px;
   }
   #main-content h1:before,
   #main-content h2:before,
