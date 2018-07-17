@@ -173,27 +173,6 @@ $(function() {
 		$e.setReadOnly(true)
 		$e.setShowPrintMargin(false)
 	})
-		//;
-		//
-
-    var $sidebar   = $("#sidebar"),
-        $window    = $(window)
-
-	$window.scroll(function() {
-
-		if ($window.scrollTop() > 208 ) {
-			$sidebar.css('position','fixed').css('top','20px')
-		//   $sidebar.stop().animate({
-		//        marginTop: $window.scrollTop() - offset.top + topPadding
-		//    });
-		} else {
-			$sidebar.css('position','absolute')
-			//    $sidebar.stop().animate({
-			//        marginTop: 0
-			//    });
-		}
-	});
-
 });
 </script>
 
