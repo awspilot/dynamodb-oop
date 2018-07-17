@@ -28,9 +28,7 @@ pre.command-line.code {
   color: #63E463;
 }
 
-aside {
-	position: absolute;
-}
+
 aside ul {
 	list-style-type: none;
 	margin: 0px;
@@ -548,7 +546,7 @@ header h2 {
 }
 
 aside#sidebar {
-  float: left;
+	position: absolute;top: 0px;left: 0px;bottom: 0px;
   width: 200px;
   min-height: 504px;
   font-size: 12px;
@@ -892,11 +890,7 @@ footer a:hover {
     display: inline;
     font-size: 13px;
   }
-  #main-content,
-  aside#sidebar {
-    float: none;
-    width: 100% ! important;
-  }
+
   aside#sidebar {
     min-height: 0;
     padding: 20px 0;
@@ -904,6 +898,7 @@ footer a:hover {
     background-image: none;
     border-top: solid 1px #ddd;
   }
+  
   aside#sidebar a.button {
     display: none;
   }
