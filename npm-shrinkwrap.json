@@ -5,9 +5,9 @@
 	"requires": true,
 	"dependencies": {
 		"@awspilot/dynamodb-util": {
-			"version": "1.0.3",
-			"resolved": "https://registry.npmjs.org/@awspilot/dynamodb-util/-/dynamodb-util-1.0.3.tgz",
-			"integrity": "sha1-I1j62+AihuegARX7AIUGnzBeK80="
+			"version": "1.0.4",
+			"resolved": "https://registry.npmjs.org/@awspilot/dynamodb-util/-/dynamodb-util-1.0.4.tgz",
+			"integrity": "sha1-4iKaoZC3UfDVA9aC15k8YOrNsMw="
 		},
 		"argparse": {
 			"version": "1.0.10",
