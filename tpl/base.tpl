@@ -90,7 +90,7 @@
 <ul class="tree">
 	<li>
 		<input type="checkbox" id="treemisc" checked />
-		<label class="tree_label sub" for="treemisc"><img src="/images/folder_flat.png"/> @awspilot</label>
+		<label class="tree_label sub" for="treemisc"><img src="/dynamodb-oop/images/folder_flat.png"/> @awspilot</label>
 		<ul>
 			<li>
 				<input type="checkbox" id="treemisc" checked />
