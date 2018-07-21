@@ -96,13 +96,14 @@
 				<input type="checkbox" id="treemisc" checked />
 				<label class="tree_label sub" for="treemisc">dynamodb</label>
 				<ul>
+					<li><span class="tree_label"><a href="/dynamodb-oop/">Home</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/">Install</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span>
+
 				</ul>
 		</ul>
 	</li>
 
-	<li><span class="tree_label"><a href="/dynamodb-oop/">Home</a></span>
-	<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/">Install</a></span>
-	<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span>
 
 
 
