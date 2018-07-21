@@ -89,11 +89,11 @@
 
 <ul class="tree">
 	<li>
-		<input type="checkbox" id="treemisc" />
+		<input type="checkbox" id="treemisc" checked />
 		<label class="tree_label sub" for="treemisc">@awspilot</label>
 		<ul>
 			<li>
-				<input type="checkbox" id="treemisc" />
+				<input type="checkbox" id="treemisc" checked />
 				<label class="tree_label sub" for="treemisc">dynamodb</label>
 				<ul>
 				</ul>
