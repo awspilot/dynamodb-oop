@@ -59,18 +59,6 @@ label.tree_label.sub:before {
   content: "";
   }
 
-.tree_label:after {
-  position: absolute;
-  top: 0;
-  left: -1.5em;
-  display: block;
-  height: 13px;
-  width: 1em;
-  border-bottom: 1px solid #c8c8c8;
-  border-left: 1px solid #c8c8c8;
-  border-radius: 0 0 0 .3em;
-  content: '';
-  }
 
 label.tree_label:after { border-bottom: 0; }
 
