@@ -158,8 +158,8 @@ $(function() {
 			$e.getSession().setMode("ace/mode/javascript")
 		}
 		
-		if ($(this).hasClass('github'))
-			$e.setTheme("ace/theme/github")
+		if ($(this).hasClass('iplastic'))
+			$e.setTheme("ace/theme/iplastic")
 		else
 			$e.setTheme("ace/theme/monokai")
 		
