@@ -31,11 +31,8 @@ label.tree_label:hover { color: #666; }
 */
 label.tree_label.sub:before {
 
-	font: normal normal normal 14px/1 FontAwesome;text-rendering: auto;-webkit-font-smoothing: antialiased;
+	font: normal normal normal 14px/1 FontAwesome;text-rendering: auto;-webkit-font-smoothing: antialiased;color: #666;
 
-
-  background: #f48b00;
-  color: #fff;
   position: relative;
   z-index: 1;
   float: left;
