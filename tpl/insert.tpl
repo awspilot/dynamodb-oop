@@ -130,7 +130,7 @@ If an item with the same key exists, 'ConditionalCheckFailedException' error is 
 	INSERT INTO
 		tbl_name
 	SET
-		partition_key = <VALUE>,
+		partition_key = &lt;VALUE&gt;,
 		sort_key = <VALUE>
 		[, other_key = <VALUE>, ... ]
 
