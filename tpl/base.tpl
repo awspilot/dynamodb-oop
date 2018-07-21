@@ -111,6 +111,19 @@
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
 
+
+
+					<li>
+						<input type="checkbox" id="treemisc" checked />
+						<label class="tree_label sub" for="treemisc">Misc</label>
+						<ul>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
+						</ul>
 				</ul>
 		</ul>
 	</li>
@@ -124,17 +137,6 @@
 
 
 
-	<li>
-		<input type="checkbox" id="treemisc" />
-		<label class="tree_label sub" for="treemisc">Misc</label>
-		<ul>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
-		</ul>
 
 	<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/">Disqus</a></span>
 
