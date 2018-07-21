@@ -125,7 +125,7 @@ If an item with the same key exists, 'ConditionalCheckFailedException' error is 
 
 <br><br>
 
-<div class="code sql light">
+<div class="code sql github">
 
 	INSERT INTO
 		tbl_name
