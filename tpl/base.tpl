@@ -92,6 +92,11 @@
 		<input type="checkbox" id="treemisc" />
 		<label class="tree_label sub" for="treemisc">@awspilot</label>
 		<ul>
+			<li>
+				<input type="checkbox" id="treemisc" />
+				<label class="tree_label sub" for="treemisc">dynamodb</label>
+				<ul>
+				</ul>
 		</ul>
 	</li>
 
