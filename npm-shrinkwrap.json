@@ -42,9 +42,9 @@
 			}
 		},
 		"aws-sdk": {
-			"version": "2.270.1",
-			"resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.270.1.tgz",
-			"integrity": "sha512-8PrzmogkqU/G2/b9u5ktyPMcrL9dIeYVNZu0LW0N2EwIb/V0W8gQ+nNm6A6EEF4T0mkvT38QwNSqlFfNCZYcBg==",
+			"version": "2.279.1",
+			"resolved": "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.279.1.tgz",
+			"integrity": "sha512-2vkvg53XaTmPYW6f7YFUEHfNGzOZqKzUboaEkjz/wblmQmDS7J5DO5KTv52wsNFOICBGXgZPCblwD+oP7iT8iA==",
 			"requires": {
 				"buffer": "4.9.1",
 				"events": "1.1.1",
@@ -54,7 +54,7 @@
 				"sax": "1.2.1",
 				"url": "0.10.3",
 				"uuid": "3.1.0",
-				"xml2js": "0.4.17"
+				"xml2js": "0.4.19"
 			}
 		},
 		"balanced-match": {
@@ -220,7 +220,8 @@
 		"lodash": {
 			"version": "4.17.10",
 			"resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz",
-			"integrity": "sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg=="
+			"integrity": "sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==",
+			"dev": true
 		},
 		"minimatch": {
 			"version": "3.0.4",
@@ -354,21 +355,18 @@
 			"dev": true
 		},
 		"xml2js": {
-			"version": "0.4.17",
-			"resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.17.tgz",
-			"integrity": "sha1-F76T6q4/O3eTWceVtBlwWogX6Gg=",
+			"version": "0.4.19",
+			"resolved": "https://registry.npmjs.org/xml2js/-/xml2js-0.4.19.tgz",
+			"integrity": "sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==",
 			"requires": {
 				"sax": ">=0.6.0",
-				"xmlbuilder": "^4.1.0"
+				"xmlbuilder": "~9.0.1"
 			}
 		},
 		"xmlbuilder": {
-			"version": "4.2.1",
-			"resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-4.2.1.tgz",
-			"integrity": "sha1-qlijBBoGb5DqoWwvU4n/GfP0YaU=",
-			"requires": {
-				"lodash": "^4.0.0"
-			}
+			"version": "9.0.7",
+			"resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz",
+			"integrity": "sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0="
 		}
 	}
 }
