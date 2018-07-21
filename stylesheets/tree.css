@@ -30,6 +30,10 @@ label.tree_label:hover { color: #666; }
   Tree expanded icon
 */
 label.tree_label.sub:before {
+
+	font: normal normal normal 14px/1 FontAwesome;text-rendering: auto;-webkit-font-smoothing: antialiased;
+
+
   background: #f48b00;
   color: #fff;
   position: relative;
@@ -39,12 +43,14 @@ label.tree_label.sub:before {
   width: 12px;
   height: 12px;
   border-radius: 1em;
-  content: '+';
+  content: "\f0de";
   text-align: center;
   line-height: 10px;
   }
 
-:checked ~ label.tree_label:before { content: '–'; }
+:checked ~ label.tree_label:before { content: "\f0dd"; }
+
+
 
 /* ————————————————————–
   Tree branches
