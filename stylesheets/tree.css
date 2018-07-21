@@ -29,21 +29,8 @@ label.tree_label:hover { color: #666; }
 /* ————————————————————–
   Tree expanded icon
 */
-label.tree_label.sub:before {
-
-	font: normal normal normal 14px/1 FontAwesome;text-rendering: auto;-webkit-font-smoothing: antialiased;color: #666;
-
-  position: relative;
-  z-index: 1;
-  float: left;
-  margin: 7px 0px 0 -24px;
-  width: 12px;
-  height: 12px;
-  border-radius: 1em;
-  content: "\f0de";
-  text-align: center;
-  line-height: 10px;
-  }
+label.tree_label.sub:before {position: absolute;top: 4px;left: -12px;width: 12px;height: 12px;line-height: 6px;}
+label.tree_label.sub:before {font: normal normal normal 14px/1 FontAwesome;text-rendering: auto;-webkit-font-smoothing: antialiased;color: #666;content: "\f0de";}
 
 :checked ~ label.tree_label:before { content: "\f0dd"; }
 
