@@ -66,37 +66,11 @@
 
 
 
-
-
-
-
-<ul class="tree">
-<li><span class="tree_label"><a href="/dynamodb-oop/">Home</a></span>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/">Install</a></span>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span>
-
-
-
-
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert ( no update )</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/">Insert or Update</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/">Insert or Replace</a>	
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/">Batch Insert</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update ( existing item )</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
-
-
-
-
 <!--
 <li>
 	<input type="checkbox" id="treeops" />
-	
-	
+
+
 
 	<label class="tree_label sub" for="treeops">Operations</label>
 	<ul>
@@ -111,19 +85,51 @@
 -->
 
 
-<li>
-	<input type="checkbox" id="treemisc" />
-	<label class="tree_label sub" for="treemisc">Misc</label>
-	<ul>
-		<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a>
-		<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
-		<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
-		<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
-		<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
-		<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
-	</ul>
 
-<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/">Disqus</a></span>
+
+<ul class="tree">
+	<li>
+		<input type="checkbox" id="treemisc" />
+		<label class="tree_label sub" for="treemisc">@awspilot</label>
+		<ul>
+		</ul>
+	</li>
+
+	<li><span class="tree_label"><a href="/dynamodb-oop/">Home</a></span>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/">Install</a></span>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span>
+
+
+
+
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert ( no update )</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/">Insert or Update</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/">Insert or Replace</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/">Batch Insert</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update ( existing item )</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
+
+
+
+
+
+	<li>
+		<input type="checkbox" id="treemisc" />
+		<label class="tree_label sub" for="treemisc">Misc</label>
+		<ul>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
+		</ul>
+
+	<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/">Disqus</a></span>
 
 </ul>
 
@@ -149,7 +155,7 @@ $(function() {
 		$(this).attr('id', $newid).height( $(this).height() + 24 )
 		var $e = ace.edit($newid)
 		if ($(this).hasClass('bash')) {
-			
+
 		} else if ($(this).hasClass('sql')) {
 			$e.getSession().setMode("ace/mode/sql")
 		} else if ($(this).hasClass('html')) {
@@ -157,12 +163,12 @@ $(function() {
 		} else {
 			$e.getSession().setMode("ace/mode/javascript")
 		}
-		
+
 		if ($(this).hasClass('iplastic'))
 			$e.setTheme("ace/theme/iplastic")
 		else
 			$e.setTheme("ace/theme/monokai")
-		
+
 
 		$e.setReadOnly(true)
 		$e.setShowPrintMargin(false)
