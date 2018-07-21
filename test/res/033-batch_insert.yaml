@@ -1,0 +1,57 @@
+Prepare:
+    Data: []
+Tests:
+    query:
+        -
+          title: INSERT INTO test_hash_range VALUES ( <JSON> ), ( <JSON> ) 
+          query: INSERT INTO test_hash_range VALUES ({'hash': 'sql-batchinsert', 'range': 1}), ({'hash': 'sql-batchinsert', 'range': 2})
+
+
+        - title: INSERT INTO tbl_name VALUES ( <JSON> ), ( <JSON> )
+          log: true
+          query: 
+            |
+            INSERT INTO 
+                `test_hash_range`
+            VALUES 
+                ( { "hash":  'test-batchinsert-sql', 'range':  1 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  2 } )
+          validations: []
+
+
+        - title: INSERT INTO tbl_name VALUES ( <JSON> ), ( <JSON> )
+          log: false
+          query: 
+            |
+            INSERT INTO 
+                `table_hash_string_range_number`
+            VALUES 
+                ( { "hash":  'test-batchinsert-sql', 'range':  1 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  2 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  3 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  4 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  5 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  6 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  7 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  8 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  9 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  10 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  11 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  12 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  13 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  14 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  15 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  16 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  17 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  18 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  19 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  20 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  21 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  22 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  23 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  24 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  25 } ),
+                ( { "hash":  'test-batchinsert-sql', 'range':  26 } )
+
+          validations: []
+          shouldFail: true
