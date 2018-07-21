@@ -156,7 +156,13 @@ $(function() {
 		} else {
 			$e.getSession().setMode("ace/mode/javascript")
 		}
-		$e.setTheme("ace/theme/monokai")
+		
+		if ($(this).hasClass('light'))
+			$e.setTheme("ace/theme/twilight")
+		else
+			$e.setTheme("ace/theme/monokai")
+		
+
 		$e.setReadOnly(true)
 		$e.setShowPrintMargin(false)
 	})
