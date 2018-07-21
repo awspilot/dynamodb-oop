@@ -94,7 +94,7 @@
 		<ul>
 			<li>
 				<input type="checkbox" id="treemisc" checked />
-				<label class="tree_label sub" for="treemisc">dynamodb</label>
+				<label class="tree_label sub" for="treemisc"><img src="/dynamodb-oop/images/folder_flat.png"/> dynamodb</label>
 				<ul>
 					<li><span class="tree_label"><a href="/dynamodb-oop/">Home</a></span>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/">Install</a></span>
@@ -115,7 +115,7 @@
 
 					<li>
 						<input type="checkbox" id="treemisc" checked />
-						<label class="tree_label sub" for="treemisc">Misc</label>
+						<label class="tree_label sub" for="treemisc"><img src="/dynamodb-oop/images/folder_flat.png"/> Misc</label>
 						<ul>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
