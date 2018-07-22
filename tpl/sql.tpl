@@ -40,3 +40,15 @@
 
 </div>
 
+
+<br><br>
+
+<div class="code html iplastic">
+
+	INSERT INTO 
+		tbl_name 
+	VALUES
+			( &lt;JSON&gt; )
+			[ , ( &lt;JSON&gt; ) ]
+
+</div>
