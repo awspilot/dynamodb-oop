@@ -1,3 +1,4 @@
+;
 (function(){
 
 
@@ -198,3 +199,4 @@
     window.ChromeTabs = ChromeTabs
 
 })()
+;
