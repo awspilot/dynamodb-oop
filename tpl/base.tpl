@@ -127,7 +127,7 @@
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> test</a><span>
 						</ul>
 				</ul>
-			<li><span class="tree_label"> <img src="/dynamodb-oop/images/text.png"/> <a href="/dynamodb-oop/pages/disqus/">Disqus</a></span>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/"> <img src="/dynamodb-oop/images/text.png"/> Disqus</a></span>
 		</ul>
 	</li>
 
