@@ -1,70 +1,101 @@
-<div class="content">
-<a name="query"></a>
-<h1>Query</h1>
+	<div class="chrome-tabs">
+		<div class="chrome-tabs-content">
 
-<div class="code">
+			<div class="chrome-tab chrome-tab-current" tabid="tab1">
+				<div class="chrome-tab-background">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 29"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+				</div>
+				<div class="chrome-tab-favicon"></div>
+				<div class="chrome-tab-title">query.js</div>
+				<div class="chrome-tab-close"></div>
+			</div>
+
+			<div class="chrome-tab" tabid="tab2">
+				<div class="chrome-tab-background" >
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 29"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+				</div>
+				<div class="chrome-tab-favicon"></div>
+				<div class="chrome-tab-title">query_index.js</div>
+				<div class="chrome-tab-close"></div>
+			</div>
+
+			<div class="chrome-tab" tabid="tab3">
+				<div class="chrome-tab-background" >
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 29"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+				</div>
+				<div class="chrome-tab-favicon"></div>
+				<div class="chrome-tab-title">query_filter.js</div>
+				<div class="chrome-tab-close"></div>
+			</div>
+
+			<div class="chrome-tab" tabid="tab4">
+				<div class="chrome-tab-background" >
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 29"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+				</div>
+				<div class="chrome-tab-favicon"></div>
+				<div class="chrome-tab-title">recursive_query.js</div>
+				<div class="chrome-tab-close"></div>
+			</div>
+
+		</div>
+		<div class="chrome-tabs-bottom-bar"></div>
+
+	</div>
+	<script>
+		var el = document.querySelector('.chrome-tabs')
+		var chromeTabs = new ChromeTabs()
+
+		chromeTabs.init(el, { tabOverlapDistance: 14, minWidth: 45, maxWidth: 243 })
+
+		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) { 
+			$('.code').css('z-index', 1)
+			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99)
+		})
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+<div class="code wide textmate" id="tab1" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 
 	// for hash key comparson operator is always eq()
 	// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
 
-	// base query, return 10 records with consistent read
 	DynamoDB
-	    .table('statistics')
-	    .where('domain').eq('mydomain.com')
-	    .limit(10)
-	    .consistent_read()
-	    .query(function(err, data ) {
+		.table('statistics')
+		.select('unique_visitors','unique_pageviews','object.attribute','string_set[0]','array[1]')
+		.where('domain').eq('mydomain.com')
+		.descending()
+		.limit(10)
+		.consistent_read()
+		.query(function(err, data ) {
 
-	    });
-
-</div>
-<br>
-<div class="code">
-
-	// only return specified fields, in descending order
-	DynamoDB
-	    .table('statistics')
-	    .select('unique_visitors','unique_pageviews','object.attribute','string_set[0]','array[1]')
-	    .where('domain').eq('mydomain.com')
-	    .where('day').ge('2013-11-01')
-	    .descending()
-	    .query(function( err, data ) {
-
-	    });
+		});
 
 </div>
 
-<a name="queryindex"></a>
-<h1>Query an Index with index()</h1>
-<br>
-<div class="code">
 
-	// suppose you have an index on messages called starredIndex
-	// and you want to retrieve only the messages that are starred
 
-	DynamoDB
-	    .table('messages')
-	    .index('starredIndex')
-	    .where('to').eq('user1@test.com')
-	    .descending()
-	    .query(function( err, data ) {
+<div class="code wide textmate" id="tab2" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
-	    });
-
-</div>
-<br>
-<div class="code">
-
+	// Query an Index
 	// return all attributes including non-projected ( LSI only )
 	DynamoDB
-	    .table('messages')
-	    .index('starredIndex')
-	    .select( DynamoDB.ALL )
-	    .where('to').eq('user1@test.com')
-	    .descending()
-	    .query(function( err, data ) {
+		.table('messages')
+		.index('starredIndex')
+		.select( DynamoDB.ALL )
+		.where('to').eq('user1@test.com')
+		.descending()
+		.query(function( err, data ) {
 
-	    });
+		});
 
 	// NOTE: specifying non-projected fields in select() will:
 	// * cost you extra reads on a LSI index
@@ -73,10 +104,12 @@
 </div>
 
 
-<a name="queryfilter"></a>
-<h1>Query filtering with .having()</h1>
-<p>.having() is alias of .filter()</p>
-<div class="code">
+
+
+<div class="code wide textmate" id="tab3" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+	
+	// Query filtering with .having()
+	// .having() is alias of .filter()
 
 	// A filter lets you apply conditions to the data after query
 	// Only the items that meet your conditions are returned
@@ -116,11 +149,10 @@
 
 
 
-<a name="querycontinue"></a>
-<h1>Query continue from last item</h1>
-<p></p>
-<div class="code">
 
+<div class="code wide textmate" id="tab4" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+
+	// Query continue from last item
 	// query a table until the end of results :)
 	(function recursive_call( $lastKey ) {
 	    DynamoDB
@@ -143,5 +175,4 @@
 	        })
 	})(null);
 
-</div>
 </div>
