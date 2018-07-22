@@ -117,3 +117,32 @@ REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynam
 		sort_key = &lt;VALUE&gt;
 
 </div>
+
+
+<br><br>
+RANGE_COMPARISON can be:<br>
+<pre>
+	 = &lt;VALUE&gt;
+	&lt; &lt;VALUE&gt;
+	&lt;= &lt;VALUE&gt;
+	 > &lt;VALUE&gt;
+	>= &lt;VALUE&gt;
+	BETWEEN &lt;VALUE&gt; AND &lt;VALUE&gt;
+	LIKE '&lt;STRONG&gt;%'
+</pre>
+<br>
+<div class="code html iplastic">
+
+	SELECT
+		* | attribute [, attribute ]
+	FROM
+		tbl_name
+	WHERE
+		partition_key = &lt;VALUE&gt; AND 
+		sort_key &lt;RANGE_COMPARISON&gt;
+
+	[ DESC ]
+	[ LIMIT &lt;NUMBER&gt; ]
+	[ CONSISTENT_READ ]
+
+</div>
