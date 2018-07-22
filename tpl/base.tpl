@@ -102,6 +102,7 @@
 				<ul>
 					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/text.png"/> README.md</a></span>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/apidef/"> <img src="/dynamodb-oop/images/text.png"/> APIDEF.md</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/sql/"> <img src="/dynamodb-oop/images/text.png"/> SQL.md </a>
 
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> insert.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/"> <img src="/dynamodb-oop/images/code.png"/> insert_or_update.js</a>
@@ -114,7 +115,7 @@
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/"> <img src="/dynamodb-oop/images/code.png"/> query.js </a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/"> <img src="/dynamodb-oop/images/code.png"/> scan.js </a>
 
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/sql/"> <img src="/dynamodb-oop/images/text.png"/> SQL.md </a>
+
 
 
 					<li>
