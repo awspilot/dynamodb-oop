@@ -1,6 +1,6 @@
 
 <a name="update"></a>
-<h1>Update Item</h1>
+<h1>Update Existing Item</h1>
 
 Update is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html" target="_blank">updateItem</a> with an extra condition to make sure item exists.<br>
 <br>
