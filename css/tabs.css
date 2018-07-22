@@ -114,15 +114,8 @@
   max-width: calc(100% - 5em);
   pointer-events: none;
 }
-.chrome-tabs .chrome-tab-close {
-  position: absolute;
-  width: 1.4em;
-  height: 1.4em;
-  border-radius: 50%;
-  z-index: 2;
-  right: 1.4em;
-  top: 0.7em;
-}
+.chrome-tabs .chrome-tab-close {display: none;position: absolute;width: 1.4em;height: 1.4em;border-radius: 50%;z-index: 2;right: 1.4em;top: 0.7em;}
+	
 .chrome-tabs .chrome-tab-close::before {
   content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'><path stroke='#5a5a5a' stroke-linecap='round' stroke-width='1.125' d='M4 4 L10 10 M10 4 L4 10'></path></svg>");
   position: absolute;
