@@ -1,7 +1,7 @@
 <div class="content">
 <a name="get"></a>
-<h1>Get Item</h1>
-<p></p>
+
+<br>
 <div class="code">
 
 	// getting an item with HASH key only
