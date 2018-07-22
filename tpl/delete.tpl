@@ -1,5 +1,6 @@
 <div class="content">
 <a name="deleteitem"></a>
+<h1>Delete Item</h1>
 <br>
 <div class="code">
 
