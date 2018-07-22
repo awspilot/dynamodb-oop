@@ -37,6 +37,10 @@ Update can only update one item specified in WHERE (AWS DynamoDB limitation).<br
 WARNING: update() will do an extra call (describeTable) to get the table schema and prevent item creation,<br>
 If an item with the same key does not exist, 'ConditionalCheckFailedException' error is returned<br>
 
-
+<h1>.replace()</h1>
+Replace Item<br>
+<p>
+	<b>.replace()</b> does not create the item if item does not exist, use <a href='/pages/insert/'><b>insert_or_replace()</b></a> instead
+</p>
 
 </div>
