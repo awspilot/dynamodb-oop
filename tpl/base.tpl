@@ -167,6 +167,10 @@ $(function() {
 
 	$('.code').each(function() {
 		var $newid = 'ace-' + Math.random()
+		
+		if ($(this).attr('id'))
+			$newid = $(this).attr('id')
+		
 		$(this).attr('id', $newid)
 		if (! $(this).hasClass('wide') )
 			$(this).height( $(this).height() + 24 )
