@@ -1,6 +1,6 @@
 .tree img {vertical-align: sub;}
 .tree label { color: #333; }
-.tree label a { color: #333; }
+.tree a { color: #333; }
 
 .tree input {position: absolute;clip: rect(0, 0, 0, 0);}
 
