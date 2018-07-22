@@ -93,7 +93,8 @@ Values for partition_key and sort_key can be of type String  or Number<br>
 </div>
 
 <br><br>
-
+REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynamodb-oop/pages/insert-or-replace/">.insert_or_replace()</a>
+<br>
 <div class="code html iplastic">
 
 	REPLACE INTO

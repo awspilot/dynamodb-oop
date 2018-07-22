@@ -17,6 +17,45 @@ Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReferen
 
 		})
 
+</div>
+
+
+
+<br>
+<div class="code">
+
+	DynamoDB.query(`
+
+		REPLACE INTO 
+			users
+		SET
+			email          =  'test@test.com',
+
+			updated_at     = 1530709469085,
+			last_login_at  = null,
+			active         = true,
+			a_list         = [
+				'a',
+				1,
+				true,
+				null
+			],
+			a_object       = { 
+				'string': 'text',
+				'number': 1,
+				'bool'  : true,
+				'null'  : null, 
+			},
+			ss = new StringSet(['a','b','c']), 
+			ns = new NumberSet([1,2,3]),
+			
+			/* evaluated to String or Number when parsed  */
+			expire_at =  new Date( 1530723266352 ).getTime()
+
+	`, function( err ){
+		
+	});
+
 </div></section> </div> <a href="https://github.com/awspilot/dynamodb-oop"><img style="position: absolute; top: 0; right: 0; border: 0;;" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67"></a> <script>$(function() {
 
 	$('.code').each(function() {
