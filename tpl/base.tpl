@@ -126,8 +126,9 @@
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/"> <img src="/dynamodb-oop/images/text.png"/> error_feed</a>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> test</a><span>
 						</ul>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/"> <img src="/dynamodb-oop/images/text.png"/> Disqus.md</a></span>
 				</ul>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/"> <img src="/dynamodb-oop/images/text.png"/> Disqus.md</a></span>
+			
 		</ul>
 	</li>
 
