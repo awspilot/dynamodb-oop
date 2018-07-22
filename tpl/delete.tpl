@@ -1,12 +1,5 @@
 <div class="content">
 <a name="deleteitem"></a>
-<h1>Delete Item</h1>
-
-Delete is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html" target="_blank">deleteItem</a>.<br>
-<br>
-Does not fail if the item does not exist.<br>
-<br>
-Deletes a single item in a table by primary key.<br>
 <br>
 <div class="code">
 

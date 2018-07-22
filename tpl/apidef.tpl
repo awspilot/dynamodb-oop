@@ -43,4 +43,16 @@ Replace Item<br>
 	<b>.replace()</b> does not create the item if item does not exist, use <a href='/pages/insert/'><b>insert_or_replace()</b></a> instead
 </p>
 
+
+<h1>.delete()</h1>
+Delete Item<br>
+<br>
+Delete is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_DeleteItem.html" target="_blank">deleteItem</a>.<br>
+<br>
+Does not fail if the item does not exist.<br>
+<br>
+Deletes a single item in a table by primary key.<br>
+
+
+
 </div>
