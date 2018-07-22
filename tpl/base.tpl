@@ -98,20 +98,20 @@
 				<input type="checkbox" id="dynamodb" checked />
 				<label class="tree_label sub" for="dynamodb"><img src="/dynamodb-oop/images/folder_flat.png"/> dynamodb</label>
 				<ul>
-					<li><span class="tree_label"><a href="/dynamodb-oop/">Home</a></span>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/">Install</a></span>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/">Include</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/code.png"/> Home</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/"><img src="/dynamodb-oop/images/code.png"/> Install</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/"> <img src="/dynamodb-oop/images/code.png"/> Include</a></span>
 
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/">Insert ( no update )</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/">Insert or Update</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/">Insert or Replace</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/">Batch Insert</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/update/">Update ( existing item )</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/">Replace</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/"><img src="/dynamodb-oop/images/code.png"/> Scan</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> Insert ( no update )</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/"> <img src="/dynamodb-oop/images/code.png"/>Insert or Update</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/"> <img src="/dynamodb-oop/images/code.png"/> Insert or Replace</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/"> <img src="/dynamodb-oop/images/code.png"/>Batch Insert</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/update/"> <img src="/dynamodb-oop/images/code.png"/>Update ( existing item )</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/replace/"> <img src="/dynamodb-oop/images/code.png"/>Replace</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/"> <img src="/dynamodb-oop/images/code.png"/>Delete</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/"> <img src="/dynamodb-oop/images/code.png"/>Get</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/"> <img src="/dynamodb-oop/images/code.png"/>Query</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/"> <img src="/dynamodb-oop/images/code.png"/> Scan</a>
 
 
 
