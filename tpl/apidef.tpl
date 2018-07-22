@@ -18,6 +18,9 @@ Insert on Duplicate Item Update<br>
 Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html" target="_blank">updateItem</a>.<br>
 
 
+<h1>.insert_or_replace()</h1>
+Insert on Duplicate Item Replace<br>
+Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html" target="_blank">putItem</a>.<br>
 
 
 </div>
