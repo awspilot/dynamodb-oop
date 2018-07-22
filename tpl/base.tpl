@@ -29,6 +29,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-html.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-twilight.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-monokai.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-textmate.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-iplastic.js"></script>
 	<!-- <script src="https://rawgit.com/databank/ui-dynamodb/master/public/js/bundle.js"></script> -->
 
@@ -165,7 +166,10 @@ $(function() {
 
 	$('.code').each(function() {
 		var $newid = 'ace-' + Math.random()
-		$(this).attr('id', $newid).height( $(this).height() + 24 )
+		$(this).attr('id', $newid)
+		if (! $(this).hasClass('wide') )
+			$(this).height( $(this).height() + 24 )
+		
 		var $e = ace.edit($newid)
 		if ($(this).hasClass('bash')) {
 
@@ -179,6 +183,8 @@ $(function() {
 
 		if ($(this).hasClass('iplastic'))
 			$e.setTheme("ace/theme/iplastic")
+		else if ($(this).hasClass('textmate'))
+			$e.setTheme("ace/theme/textmate")
 		else
 			$e.setTheme("ace/theme/monokai")
 
