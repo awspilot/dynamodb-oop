@@ -119,12 +119,12 @@
 						<input type="checkbox" id="misc" checked />
 						<label class="tree_label sub" for="misc"><img src="/dynamodb-oop/images/folder_flat.png"/> Misc</label>
 						<ul>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/">Data Types</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/">Raw Calls</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/">Consumed Capacity</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/">Deprecated</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/">Error Feed</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/">Test</a><span>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/"> <img src="/dynamodb-oop/images/text.png"/> Data Types</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/"> <img src="/dynamodb-oop/images/text.png"/> Raw Calls</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/"> <img src="/dynamodb-oop/images/text.png"/> Consumed Capacity</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/"> <img src="/dynamodb-oop/images/text.png"/> Deprecated</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/"> <img src="/dynamodb-oop/images/text.png"/> Error Feed</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> Test</a><span>
 						</ul>
 				</ul>
 		</ul>
