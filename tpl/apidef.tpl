@@ -12,6 +12,11 @@ WARNING: insert() will do an extra call (describeTable) to get the table schema 
 If an item with the same key exists, 'ConditionalCheckFailedException' error is returned<br>
 
 
+<h1>.insert_or_update()</h1>
+
+Insert on Duplicate Item Update<br>
+Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html" target="_blank">updateItem</a>.<br>
+
 
 
 
