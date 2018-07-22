@@ -111,7 +111,7 @@
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/delete/">Delete</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/">Get</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/">Query</a>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/">Scan</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/"><img src="/dynamodb-oop/images/code.png"/> Scan</a>
 
 
 
