@@ -98,9 +98,9 @@
 				<input type="checkbox" id="dynamodb" checked />
 				<label class="tree_label sub" for="dynamodb"><img src="/dynamodb-oop/images/folder_flat.png"/> dynamodb</label>
 				<ul>
-					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/text.png"/> home</a></span>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/"><img src="/dynamodb-oop/images/code.png"/> install</a></span>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/"> <img src="/dynamodb-oop/images/code.png"/> include</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/text.png"/> README.md</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/"><img src="/dynamodb-oop/images/code.png"/> Install.md</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/"> <img src="/dynamodb-oop/images/code.png"/> Include.md</a></span>
 
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> insert.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/"> <img src="/dynamodb-oop/images/code.png"/> insert_or_update.js</a>
@@ -117,7 +117,7 @@
 
 					<li>
 						<input type="checkbox" id="misc" checked />
-						<label class="tree_label sub" for="misc"><img src="/dynamodb-oop/images/folder_flat.png"/> Misc</label>
+						<label class="tree_label sub" for="misc"><img src="/dynamodb-oop/images/folder_flat.png"/> Misc.md</label>
 						<ul>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/"> <img src="/dynamodb-oop/images/text.png"/> data_types</a>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/"> <img src="/dynamodb-oop/images/text.png"/> raw calls</a>
@@ -127,7 +127,7 @@
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> test</a><span>
 						</ul>
 				</ul>
-			<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/"> <img src="/dynamodb-oop/images/text.png"/> Disqus</a></span>
+			<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/"> <img src="/dynamodb-oop/images/text.png"/> Disqus.md</a></span>
 		</ul>
 	</li>
 
