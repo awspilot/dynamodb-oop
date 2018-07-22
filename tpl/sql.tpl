@@ -93,13 +93,27 @@ Values for partition_key and sort_key can be of type String  or Number<br>
 </div>
 
 <br><br>
-REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynamodb-oop/pages/insert-or-replace/">.insert_or_replace()</a>
+REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynamodb-oop/pages/insert-or-replace/">.insert_or_replace()</a><br>
 <br>
 <div class="code html iplastic">
 
 	REPLACE INTO
 		tbl_name
 	SET
-		partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+		partition_key = &lt;VALUE&gt;, 
+		sort_key =&lt;VALUE&gt; 
+		[, other_key = &lt;VALUE&gt; ]
+
+</div>
+
+<br><br>
+
+<div class="code html iplastic">
+
+	DELETE FROM
+		tbl_name
+	WHERE
+		partition_key = &lt;VALUE&gt; AND 
+		sort_key = &lt;VALUE&gt;
 
 </div>
