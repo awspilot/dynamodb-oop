@@ -102,7 +102,7 @@
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/"><img src="/dynamodb-oop/images/code.png"/> Install</a></span>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/"> <img src="/dynamodb-oop/images/code.png"/> Include</a></span>
 
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> insert.js ( no update )</a>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> insert.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/"> <img src="/dynamodb-oop/images/code.png"/> insert_or_update.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/"> <img src="/dynamodb-oop/images/code.png"/> insert_or_replace.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/batch-insert/"> <img src="/dynamodb-oop/images/code.png"/> batch_insert.js</a>

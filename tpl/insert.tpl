@@ -1,6 +1,6 @@
 
 <a name="insert"></a>
-<h1>Insert Item</h1>
+<h1>Insert Item ( no update )</h1>
 
 Insert is handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html" target="_blank">putItem</a> with an extra condition to make sure item does not already exist.<br>
 <br>
