@@ -98,7 +98,7 @@
 				<input type="checkbox" id="dynamodb" checked />
 				<label class="tree_label sub" for="dynamodb"><img src="/dynamodb-oop/images/folder_flat.png"/> dynamodb</label>
 				<ul>
-					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/code.png"/> Home</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/text.png"/> Home</a></span>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/"><img src="/dynamodb-oop/images/code.png"/> Install</a></span>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/"> <img src="/dynamodb-oop/images/code.png"/> Include</a></span>
 
