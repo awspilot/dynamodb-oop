@@ -2,28 +2,27 @@
 
 Notes:<br>
 <br>
- - SQL keywords must be enclosed ex. SET `set` = true <br>
+SQL keywords must be enclosed ex. SET `set` = true <br>
 <br>
- - keys in json that are keywords must be enclosed too:<br>
+Keys in json that are keywords must be enclosed too:<br>
 <pre>
-		SET myobject = { 
-				'number'  : 1,
-				"keyword2": "value",
-				'keyword3': 'value',
-			}
+	SET myobject = { 
+			'number'  : 1,
+			"keyword2": "value",
+			'keyword3': 'value',
+		}
 </pre><br>
 <br>
- - keys in json must be enclosed in the same way as in JavaScript<br>
+Keys in json must be enclosed in the same way as in JavaScript<br>
 <pre>
-		SET `object` = {
-				splitme   : 'value',
-				"split-me": 'value',
-			} 
+	SET `object` = {
+			splitme   : 'value',
+			"split-me": 'value',
+		} 
 </pre><br>
 <br>
- - values for partition_key and sort_key can be of type String  or Number<br>
+Values for partition_key and sort_key can be of type String  or Number<br>
 <br>
-
 
 
 <div class="code html iplastic">
@@ -91,4 +90,15 @@ Notes:<br>
 	  attribute = attribute + value is not supported yet
 
 	*/
+</div>
+
+<br><br>
+
+<div class="code html iplastic">
+
+	REPLACE INTO
+		tbl_name
+	SET
+		partition_key = <VALUE>, sort_key = <VALUE> [, other_key = <VALUE>, ... ]
+
 </div>
