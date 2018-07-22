@@ -98,9 +98,9 @@
 				<input type="checkbox" id="dynamodb" checked />
 				<label class="tree_label sub" for="dynamodb"><img src="/dynamodb-oop/images/folder_flat.png"/> dynamodb</label>
 				<ul>
-					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/text.png"/> Home</a></span>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/"><img src="/dynamodb-oop/images/code.png"/> Install</a></span>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/"> <img src="/dynamodb-oop/images/code.png"/> Include</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/text.png"/> home</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/install/"><img src="/dynamodb-oop/images/code.png"/> install</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/init/"> <img src="/dynamodb-oop/images/code.png"/> include</a></span>
 
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> insert.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/"> <img src="/dynamodb-oop/images/code.png"/> insert_or_update.js</a>
@@ -119,12 +119,12 @@
 						<input type="checkbox" id="misc" checked />
 						<label class="tree_label sub" for="misc"><img src="/dynamodb-oop/images/folder_flat.png"/> Misc</label>
 						<ul>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/"> <img src="/dynamodb-oop/images/text.png"/> Data Types</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/"> <img src="/dynamodb-oop/images/text.png"/> Raw Calls</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/"> <img src="/dynamodb-oop/images/text.png"/> Consumed Capacity</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/"> <img src="/dynamodb-oop/images/text.png"/> Deprecated</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/"> <img src="/dynamodb-oop/images/text.png"/> Error Feed</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> Test</a><span>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/"> <img src="/dynamodb-oop/images/text.png"/> data_types</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/"> <img src="/dynamodb-oop/images/text.png"/> raw calls</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/"> <img src="/dynamodb-oop/images/text.png"/> consumed_capacity</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/"> <img src="/dynamodb-oop/images/text.png"/> deprecated</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/"> <img src="/dynamodb-oop/images/text.png"/> error_feed</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> test</a><span>
 						</ul>
 				</ul>
 		</ul>
