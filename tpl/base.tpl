@@ -119,7 +119,6 @@
 						<label class="tree_label sub" for="misc"><img src="/dynamodb-oop/images/folder_flat.png"/> Misc</label>
 						<ul>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/"> <img src="/dynamodb-oop/images/text.png"/> data_types</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/raw_calls/"> <img src="/dynamodb-oop/images/text.png"/> raw calls</a>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/capacity/"> <img src="/dynamodb-oop/images/text.png"/> capacity</a>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/"> <img src="/dynamodb-oop/images/text.png"/> deprecated</a>
 							<li><span class="tree_label"><a href="/dynamodb-oop/pages/error/"> <img src="/dynamodb-oop/images/text.png"/> error_feed</a>

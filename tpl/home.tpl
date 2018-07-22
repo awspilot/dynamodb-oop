@@ -118,6 +118,9 @@
 		})
 
 </div>
+
+<br><br>
+
 <div class="code">
 
 	DynamoDB
@@ -125,5 +128,17 @@
 		.method(parameters)
 		.then( callback_if_success, callback_if_failed )
 		.catch( callback_if_failed )
+
+</div>
+
+<a name="rawcalls"></a>
+<h1>Raw Calls to aws sdk</h1>
+<br>
+<div class="code">
+
+	DynamoDB.client.listTables(function(err, data) {
+		console.log(data.TableNames);
+	});
+	console.log( DynamoDB.client )
 
 </div>
