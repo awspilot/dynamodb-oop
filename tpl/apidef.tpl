@@ -65,3 +65,8 @@ The Query operation finds items based on primary key values.<br>
 <h1>.scan()</h1>
 The Scan operation returns one or more items and item attributes by accessing every item in a table or a secondary index.<br>
 </div>
+
+<!--
+<h1>Batch Insert</h1>
+Insert with multiple items in "VALUES" is handled as <a href='https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html' target='_blank'>batchWriteItem</a>.<br> 
+-->
