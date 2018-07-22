@@ -103,7 +103,7 @@ REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynam
 		partition_key = &lt;VALUE&gt;, 
 		sort_key =&lt;VALUE&gt; 
 		[, other_key = &lt;VALUE&gt; ]
-	;
+
 </div>
 
 <br><br>
@@ -115,14 +115,14 @@ REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynam
 	WHERE
 		partition_key = &lt;VALUE&gt; AND 
 		sort_key = &lt;VALUE&gt;
-	;
+
 </div>
 
 
 <br><br>
 RANGE_COMPARISON can be:<br>
 <pre>
-	 = <VALUE>
+	 = &lt;VALUE&gt;
 	 &lt; &lt;VALUE&gt;
 	&lt;= &lt;VALUE&gt;
 	 > &lt;VALUE&gt;
