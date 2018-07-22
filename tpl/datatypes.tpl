@@ -1,6 +1,6 @@
 <a name="datatypes"></a>
-<h1>DynamoDB data types supported by aws-dynamodb</h1>
-<p> Please note binary data types BS is not supported yet.</p>
+<h1>DynamoDB data types</h1>
+<p> Please note BS data type is not supported yet.</p>
 <p> Binary data type B is supported only as of 0.1.62</p>
 <div class="code">
 
