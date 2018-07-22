@@ -1,4 +1,4 @@
-
+<div class="content">
 <a name="get"></a>
 <h1>Get Item</h1>
 <p></p>
@@ -39,4 +39,5 @@
 
 	    });
 
+</div>
 </div>

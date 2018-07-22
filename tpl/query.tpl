@@ -1,4 +1,4 @@
-
+<div class="content">
 <a name="query"></a>
 <h1>Query</h1>
 
@@ -143,4 +143,5 @@
 	        })
 	})(null);
 
+</div>
 </div>

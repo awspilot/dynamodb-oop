@@ -1,4 +1,4 @@
-
+<div class="content">
 <a name="deprecated"></a>
 <h1>Deprecated</h1>
 <p> To be removed in aws-dynamodb@0.2</p>
@@ -39,4 +39,5 @@
 			console.log( err, data )
 		})
 
+</div>
 </div>

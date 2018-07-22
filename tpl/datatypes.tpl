@@ -1,3 +1,4 @@
+<div class="content">
 <a name="datatypes"></a>
 <h1>DynamoDB data types</h1>
 <p> Please note BS data type is not supported yet.</p>
@@ -89,4 +90,5 @@
 			// removing elements from a numberSet (NS)
 			number_set: DynamoDB.del(DynamoDB.NS([111,222])),
 		})
+</div>
 </div>

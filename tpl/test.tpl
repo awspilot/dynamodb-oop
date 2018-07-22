@@ -1,4 +1,4 @@
-
+<div class="content">
 <h1>Tests</h1>
 <p>Tests will run in a in-memory implementation of DynamoDB server <a href="https://www.npmjs.com/package/dynalite" target="_blank">dynalite</a>
 <div class="code bash">
@@ -10,4 +10,5 @@
 	source test/credentials
 
 	npm test
+</div>
 </div>

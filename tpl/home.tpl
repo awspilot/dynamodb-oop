@@ -1,3 +1,4 @@
+<div class="content">
 
 <h1>@Awspilot's DynamoDB</h1>
 
@@ -183,4 +184,5 @@
 	});
 	console.log( DynamoDB.client )
 
+</div>
 </div>

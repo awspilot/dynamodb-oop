@@ -1,4 +1,4 @@
-
+<div class="content">
 <a name="update"></a>
 <h1>Update Existing Item</h1>
 
@@ -110,4 +110,5 @@ SQL version does not currently support adding / removing from StringSet or Numbe
 		
 	});
 
+</div>
 </div>

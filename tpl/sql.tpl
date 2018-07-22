@@ -1,3 +1,4 @@
+<div class="content">
 <h1>SQL</h1>
 
 Notes:<br>
@@ -145,4 +146,5 @@ RANGE_COMPARISON can be:<br>
 	[ LIMIT &lt;NUMBER&gt; ]
 	[ CONSISTENT_READ ]
 
+</div>
 </div>

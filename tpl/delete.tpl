@@ -1,4 +1,4 @@
-
+<div class="content">
 <a name="deleteitem"></a>
 <h1>Delete Item</h1>
 
@@ -55,4 +55,5 @@ Deletes a single item in a table by primary key.<br>
 	
 	});
 
+</div>
 </div>

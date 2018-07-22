@@ -1,3 +1,4 @@
+<div class="content">
 <div id="disqus_thread"></div>
 <script>
 
@@ -22,3 +23,4 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 <script id="dsq-count-scr" src="//awspilot-dynamodb.disqus.com/count.js" async></script>
+</div>

@@ -1,3 +1,4 @@
+<div class="content">
 <h1>Batch Insert</h1>
 Insert with multiple items in "VALUES" is handled as <a href='https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_BatchWriteItem.html' target='_blank'>batchWriteItem</a>.<br> 
 
@@ -18,4 +19,5 @@ Insert with multiple items in "VALUES" is handled as <a href='https://docs.aws.a
 			
 		});
 
+</div>
 </div>

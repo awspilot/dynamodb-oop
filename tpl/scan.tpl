@@ -1,4 +1,4 @@
-
+<div class="content">
 <a name="scan"></a>
 <h1>Full table scan</h1>
 <p> </p>
@@ -59,4 +59,4 @@
 
 		});
 </div>
-
+</div>

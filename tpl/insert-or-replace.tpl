@@ -1,4 +1,4 @@
-
+<div class="content">
 <h1>Insert on Duplicate Item Replace</h1>
 Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_PutItem.html" target="_blank">putItem</a>.<br>
 
@@ -55,4 +55,5 @@ Handled as <a href="https://docs.aws.amazon.com/amazondynamodb/latest/APIReferen
 		
 	});
 
+</div>
 </div>

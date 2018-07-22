@@ -1,4 +1,4 @@
-
+<div class="content">
 <a name="insert"></a>
 <h1>Insert Item ( no update )</h1>
 
@@ -122,6 +122,6 @@ If an item with the same key exists, 'ConditionalCheckFailedException' error is 
 		});
 
 </div>
-
+</div>
 
 
