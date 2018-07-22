@@ -131,6 +131,23 @@
 
 </div>
 
+<br><br>
+
+
+<a name="errorfeed"></a>
+<h1>Global error feed</h1>
+<div class="code">
+
+	// every call to Amazon DynamoDB that fails will
+	// call this function before the operation's callback
+	DynamoDB.on('error', function( operation, error, payload ) {
+		// you could use this to log call fails to LogWatch or
+		// insert into SQS and process it later
+	})
+
+</div>
+
+<br>
 <a name="rawcalls"></a>
 <h1>Raw Calls to aws sdk</h1>
 <br>
