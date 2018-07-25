@@ -23,7 +23,7 @@
 	"main": "./lib/dynamodb",
 	"license": "MIT",
 	"dependencies": {
-		"aws-sdk": "~2.279.1",
+		"aws-sdk": "~2.280.1",
 		"@awspilot/dynamodb-util": "1.0.4",
 		"promise": "8.0.1"
 	},
