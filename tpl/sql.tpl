@@ -129,7 +129,7 @@ RANGE_COMPARISON can be:<br>
 	 > &lt;VALUE&gt;
 	>= &lt;VALUE&gt;
 	BETWEEN &lt;VALUE&gt; AND &lt;VALUE&gt;
-	LIKE '&lt;STRONG&gt;%'
+	LIKE '&lt;STRING&gt;%'
 </pre>
 <br>
 <div class="code html iplastic">
