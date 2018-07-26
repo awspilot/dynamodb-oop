@@ -138,6 +138,7 @@ RANGE_COMPARISON can be:<br>
 		* | attribute [, attribute ]
 	FROM
 		tbl_name
+	[ USE INDEX idx_name ]
 	WHERE
 		partition_key = &lt;VALUE&gt; AND 
 		sort_key &lt;RANGE_COMPARISON&gt;
