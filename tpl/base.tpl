@@ -196,6 +196,7 @@ $(function() {
 
 		$e.setReadOnly(true)
 		$e.setShowPrintMargin(false)
+		$e.setOption("highlightActiveLine", false)
 	})
 });
 </script>
