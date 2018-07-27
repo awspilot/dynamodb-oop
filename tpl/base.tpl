@@ -198,6 +198,7 @@ $(function() {
 		$e.setShowPrintMargin(false)
 		$e.setOption("highlightActiveLine", false)
 		$e.setOption("showInvisibles", false)
+		$e.setOption("displayIndentGuides", false)
 	})
 });
 </script>
