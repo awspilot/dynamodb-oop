@@ -199,6 +199,7 @@ $(function() {
 		$e.setOption("highlightActiveLine", false)
 		$e.setOption("showInvisibles", false)
 		$e.setOption("displayIndentGuides", false)
+		$e.getSession().setUseWorker(false)
 	})
 });
 </script>
