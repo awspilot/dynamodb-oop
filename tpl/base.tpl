@@ -21,7 +21,7 @@
 	<script src="https://cdn.rawgit.com/awspilot/dynamodb-oop/785f4265/dist/dynamodbjs.js"></script>
 
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="/dynamodb-oop/js/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="/dynamodb-oop/js/tabs.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/mode-javascript.js"></script>
@@ -33,10 +33,6 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/theme-iplastic.js"></script>
 	<!-- <script src="https://rawgit.com/databank/ui-dynamodb/master/public/js/bundle.js"></script> -->
 
-
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
 
 	<title>AWSPilot DynamoDB module for nodejs</title>
 
@@ -129,7 +125,7 @@
 						</ul>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/"> <img src="/dynamodb-oop/images/text.png"/> Disqus.md</a></span>
 				</ul>
-			
+
 		</ul>
 	</li>
 
@@ -143,7 +139,7 @@
 
 
 
-	
+
 
 </ul>
 
@@ -165,16 +161,19 @@
 <script>
 $(function() {
 
+
+
+
 	$('.code').each(function() {
 		var $newid = 'ace-' + Math.random()
-		
+
 		if ($(this).attr('id'))
 			$newid = $(this).attr('id')
-		
+
 		$(this).attr('id', $newid)
 		if (! $(this).hasClass('wide') )
 			$(this).height( $(this).height() + 24 )
-		
+
 		var $e = ace.edit($newid)
 		if ($(this).hasClass('bash')) {
 
