@@ -481,42 +481,16 @@ a:hover {
   color: #2268b2;
 }
 
-header {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
-  background-color: #edf0eb;
-  border-bottom: 1px solid #c8c8c8;
-}
+header {padding-top: 10px;padding-bottom: 10px;font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;background-color: #edf0eb;border-bottom: 1px solid #c8c8c8;}
+header h1 {margin: 0 0 0 30px;font-size: 26px;font-weight: 100;line-height: 1;color: #f48b00;letter-spacing: -1px;}
+#content-wrapper {position: absolute;top: 47px;left: 0px;right: 0px;bottom: 0px;overflow: auto;}
 
-header h1 {
-  width: 540px;
-  margin-top: 0;
-  margin-bottom: 0.2em;
-  font-size: 32px;
-  font-weight: 100;
-  line-height: 1;
-  color: #f48b00;
-  letter-spacing: -1px;
-}
-
-header h2 {
-  width: 540px;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 26px;
-  font-weight: normal;
-  line-height: 1.3;
-  color: #9ddcff;
-  letter-spacing: 0;
-}
 
 .inner {
   position: relative;
   margin-left: 50px;
 }
 
-#content-wrapper {position: absolute;top: 60px;left: 0px;right: 0px;bottom: 0px;overflow: auto;}
 
 #main-content {position: absolute;top: 0px;right: 0px;left: 260px;bottom: 0px;overflow: auto;}
 #main-content > .content {padding: 40px;}

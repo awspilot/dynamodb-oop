@@ -46,13 +46,13 @@
 
 <body>
 	<header>
-		<div class="inner">
+
 			<h1><b>@AwsPilot</b>'s DynamoDB</h1>
 
 			<!--
 				<a href="https://www.npmjs.com/package/@awspilot/dynamodb" class="button"><img src="https://nodei.co/npm/@awspilot/dynamodb.png?downloads=true" alt="npm page"></a>
 			-->
-		</div>
+
 	</header>
 
     <div id="content-wrapper">
