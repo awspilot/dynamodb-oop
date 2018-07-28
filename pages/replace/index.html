@@ -42,8 +42,8 @@
         maxWidth: 243
       })
 
-		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) { 
-			console.log('Active tab changed', event.detail.tabEl ) 
+		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) {
+			console.log('Active tab changed', event.detail.tabEl )
 		} )
       document.querySelector('.chrome-tabs').addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
       document.querySelector('.chrome-tabs').addEventListener('tabRemove', ({ detail }) => console.log('Tab removed', detail.tabEl))
@@ -67,7 +67,7 @@
 
 
 
-<div class="code wide textmate" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;">
+<div class="code wide textmate" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;">
 
 	// completely replaces the item, new item will only contain specified attributes
 	DynamoDB
@@ -78,15 +78,15 @@
 			password: 'qwert',
 
 			// inserted as datatype SS
-			string_set1: DynamoDB.SS(['sss','bbb','ccc']), 
-			string_set2: new Set(['sss','bbb','ccc']), 
+			string_set1: DynamoDB.SS(['sss','bbb','ccc']),
+			string_set2: new Set(['sss','bbb','ccc']),
 
 			// inserted as datatype NS
-			number_set1: DynamoDB.NS([111,222,333]), 
+			number_set1: DynamoDB.NS([111,222,333]),
 			number_set2: new Set([[111,222,333]]),
 
 			// inserted as datatype L
-			list1: [7,9,15], 
+			list1: [7,9,15],
 			list2: new Set([]),
 			list3: new Set([ 'a', 1 ]),
 
@@ -96,8 +96,6 @@
 		});
 
 </div>
-
-
 </section> </div> <script>$(function() {
 
 
