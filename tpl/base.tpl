@@ -7,7 +7,6 @@
 	<link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/stylesheet.css" media="screen">
-	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/pygment_trac.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/print.css" media="print">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/tree.css">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/css/tabs.css">
@@ -34,12 +33,12 @@
 	<!-- <script src="https://rawgit.com/databank/ui-dynamodb/master/public/js/bundle.js"></script> -->
 
 
-	<title>AWSPilot DynamoDB module for nodejs</title>
+	<title>Amazon DynamoDB npm module for nodejs - AWSPilot </title>
 
 
 
 	<style>
-	.code {font-size: 13px;line-height: 22px;white-space: pre;}
+	
 	</style>
 
   </head>
