@@ -15,20 +15,20 @@
 		<div class="chrome-tabs-bottom-bar"></div>
 
 	</div>
-<div class="code wide textmate" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;">
+<div class="code wide textmate" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;">
 
-	// if there are multiple items in VALUES then batchWriteItem is performed 
+	// if there are multiple items in VALUES then batchWriteItem is performed
 	// insert using VALUES does not currently support StringSet or NumberSet
 	DynamoDB.query(`
 
-		INSERT INTO users VALUES 
+		INSERT INTO users VALUES
 			({ email         : 'user1@test.com', active: false }),
 			({ email         : 'user2@test.com', active: false }),
 			({ email         : 'user2@test.com', active: true  })
 
-		`, 
+		`,
 		function( err, data ) {
-			
+
 		});
 
 </div>
