@@ -17,7 +17,10 @@
 
 
 	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.247.1.min.js"></script>
+	<!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>-->
 	<script src="https://cdn.rawgit.com/awspilot/dynamodb-oop/785f4265/dist/dynamodbjs.js"></script>
+
+
 
 
 	<script src="/dynamodb-oop/js/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -25,8 +28,8 @@
 	<script src="/dynamodb-oop/js/libs/ace/1.2.6/ace.js"></script>
 	<script src="/dynamodb-oop/js/libs/ace/1.2.6/mode-javascript.js"></script>
 	<script src="/dynamodb-oop/js/libs/ace/1.2.6/mode-sql.js"></script>
-	<script src="/dynamodb-oop/js/libs/libs/ace/1.2.6/mode-html.js"></script>
-	<script src="/dynamodb-oop/js/libs/libs/ace/1.2.6/theme-twilight.js"></script>
+	<script src="/dynamodb-oop/js/libs/ace/1.2.6/mode-html.js"></script>
+	<script src="/dynamodb-oop/js/libs/ace/1.2.6/theme-twilight.js"></script>
 	<script src="/dynamodb-oop/js/libs/ace/1.2.6/theme-monokai.js"></script>
 	<script src="/dynamodb-oop/js/libs/ace/1.2.6/theme-textmate.js"></script>
 	<script src="/dynamodb-oop/js/libs/ace/1.2.6/theme-iplastic.js"></script>
@@ -34,13 +37,6 @@
 
 
 	<title>Amazon DynamoDB npm module for nodejs - AWSPilot </title>
-
-
-
-	<style>
-	
-	</style>
-
   </head>
 
 <body>
@@ -199,8 +195,59 @@ $(function() {
 		$e.setOption("displayIndentGuides", false)
 		$e.getSession().setUseWorker(false)
 	})
+	$('.btn-describe').on('click', function() {
+		if ($(this).hasClass('disabled'))
+			return;
+		describe_code(ace.edit($('.activeTab').attr('id')).getValue())
+	})
 });
 </script>
+
+
+<script>
+
+
+describe_code = function(code) {
+	var editor = ace.edit('result-out')
+	editor.setValue('')
+	setTimeout(function() {
+
+		(function(code) {
+
+			var fakedynamo = {
+				config: {dynamoDbCrc32: true,},
+
+				putItem: function( params ,callback) {
+					editor.setValue("\n\tputItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"))
+				},
+				updateItem: function( params ,callback) {
+					editor.setValue("\n\tupdateItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"))
+				},
+				query: function( params ,callback) {
+					editor.setValue("\n\tquery\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"))
+				},
+			}
+			DynamoDB = new window['@awspilot/dynamodb'](fakedynamo)
+			eval(code)
+
+		})(code)
+
+	}, 500)
+
+}
+
+// describe_code(ace.edit($('.activeTab').attr('id')).getValue())
+</script>
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

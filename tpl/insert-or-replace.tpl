@@ -32,8 +32,8 @@
 		chromeTabs.init(el, { tabOverlapDistance: 14, minWidth: 45, maxWidth: 243 })
 
 		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) {
-			$('.code').css('z-index', 1)
-			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99)
+			$('.code').css('z-index', 1).removeClass('activeTab')
+			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99).addClass('activeTab')
 		})
 
 		//document.querySelector('.chrome-tabs').addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
@@ -45,7 +45,7 @@
 	</script>
 
 
-<div class="code wide textmate" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
+<div class="code wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 
 	// Insert on Duplicate Item Replace
 
@@ -105,10 +105,10 @@
 
 <div class="split-result">
 	<div class="" style="position: absolute;top: 0px;left: 0px;right: 0px;height: 40px;background-color: #f0f0f0;padding: 0px 50px;">
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Describe </a>
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Execute </a>
+		<a class='btn btn-describe'> Describe </a>
+		<a class='btn disabled'> Execute </a>
 	</div>
 	<div class="" style="position: absolute;top: 40px;left: 0px;right: 0px;bottom: 0px;border-top: 1px solid #ccc;">
-		<div class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
+		<div id="result-out" class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
 	</div>
 </div>

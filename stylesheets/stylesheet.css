@@ -2,6 +2,16 @@
 
 .code {font-size: 13px;line-height: 22px;white-space: pre;}
 
+.split-result .btn {display: inline-block;width: 100px;height: 27px;line-height: 27px;margin-top: 5px;margin-right: 10px;text-align: center;border-radius: 2px;cursor: pointer;}
+.split-result .btn {
+
+	box-shadow:inset 0px 1px 0px 0px #f9eca0;
+	background-color:#f0c911;
+	border:1px solid #e65f44;
+	color:#c92200;
+	text-shadow:0px 1px 0px #ded17c;
+}
+.split-result .btn.disabled {border: 1px solid #dfdfdf;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;cursor: default;}
 
 
 #sidebar ul {list-style-type: none;margin: 0px;padding: 0px;}
