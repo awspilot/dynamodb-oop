@@ -47,7 +47,7 @@
 
 		chromeTabs.init(el, { tabOverlapDistance: 14, minWidth: 45, maxWidth: 243 })
 
-		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) { 
+		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) {
 			$('.code').css('z-index', 1)
 			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99)
 		})
@@ -63,7 +63,7 @@
 
 
 
-<div class="code wide textmate" id="tab1" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
+<div class="code wide textmate" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 
 	// for hash key comparson operator is always eq()
 	// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
@@ -83,7 +83,7 @@
 
 
 
-<div class="code wide textmate" id="tab2" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+<div class="code wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// Query an Index
 	// return all attributes including non-projected ( LSI only )
@@ -106,8 +106,8 @@
 
 
 
-<div class="code wide textmate" id="tab3" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
-	
+<div class="code wide textmate" id="tab3" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+
 	// Query filtering with .having()
 	// .having() is alias of .filter()
 
@@ -150,7 +150,7 @@
 
 
 
-<div class="code wide textmate" id="tab4" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+<div class="code wide textmate" id="tab4" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// Query continue from last item
 	// query a table until the end of results :)
