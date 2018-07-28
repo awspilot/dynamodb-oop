@@ -31,7 +31,7 @@
 
 		chromeTabs.init(el, { tabOverlapDistance: 14, minWidth: 45, maxWidth: 243 })
 
-		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) { 
+		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) {
 			$('.code').css('z-index', 1)
 			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99)
 		})
@@ -42,7 +42,7 @@
 
 
 
-<div class="code wide textmate" id="tab1" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
+<div class="code wide textmate" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 
 	// getting an item from a HASH-RANGE table, with consistent read
 	DynamoDB
@@ -56,7 +56,7 @@
 
 </div>
 
-<div class="code wide textmate" id="tab2" style="position: absolute;top: 42px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+<div class="code wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// specifying what attributes to return
 	DynamoDB
