@@ -521,11 +521,15 @@ header h2 {
 #main-content {position: absolute;top: 0px;right: 0px;left: 260px;bottom: 0px;overflow: auto;}
 #main-content > .content {padding: 40px;}
 #main-content > .editor  {}
- 
+
 
 #main-content img {
   max-width: 100%;
 }
+
+#main-content > .split-code {position: absolute;top: 0px;left: 0px;right: 0px;height: 50%;}
+#main-content > .split-result {position: absolute;top: 50%;left: 0px;right: 0px;height: 50%;}
+
 
 #sidebar {box-sizing: border-box;position: absolute;top: 0px;left: 0px;bottom: 0px;width: 260px;padding: 40px;min-height: 504px;font-size: 12px;line-height: 1.3;background-color: #fbfbfb;border-right: 1px solid #dedede; overflow: auto;}
 
