@@ -1,4 +1,4 @@
-
+<div class="split-code">
 
 
 	<div class="chrome-tabs">
@@ -94,4 +94,5 @@
 
 		});
 
+</div>
 </div>
