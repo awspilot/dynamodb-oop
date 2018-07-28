@@ -14,7 +14,16 @@ dynaliteServer.listen(8000, function(err) {
 */
 
 var AWS = require('aws-sdk')
-DynamoDB = require('../../lib/dynamodb')( new AWS.DynamoDB({endpoint: 'http://localhost:8000', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
+
+const DynamodbFactory = require('../../lib/dynamodb')
+
+DynamodbFactory.config( { 
+	stringset_parse_as_set: true,
+	numberset_parse_as_set: true,
+	empty_string_replace_as: "\0" 
+} );
+
+DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'http://localhost:8000', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
 
 DynamoDB.on('error', function(op, error, payload ) {
 	//console.log(op,error,JSON.stringify(payload))
