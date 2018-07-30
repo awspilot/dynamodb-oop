@@ -16,9 +16,8 @@
 
 
 
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.247.1.min.js"></script>
-	<!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>-->
-	<script src="https://cdn.rawgit.com/awspilot/dynamodb-oop/785f4265/dist/dynamodbjs.js"></script>
+	<script src="/dynamodb-oop/js/libs/aws-sdk-2.282.1.min.js"></script>
+	<script src="/dynamodb-oop/js/libs/dynamodbjs.js"></script>
 
 
 
