@@ -64,9 +64,10 @@
 
 
 
-<div class="code wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+<div class="code rw wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// Insert on Duplicate Item Replace
+	// new Date() is evaluated to String or Number when parsed
 	DynamoDB.query(`
 
 		REPLACE INTO
@@ -92,7 +93,7 @@
 			ss = new StringSet(['a','b','c']),
 			ns = new NumberSet([1,2,3]),
 
-			/* evaluated to String or Number when parsed  */
+
 			expire_at =  new Date( 1530723266352 ).getTime()
 
 	`, function( err ){
