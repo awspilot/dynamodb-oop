@@ -240,6 +240,9 @@ describe_code = function(code) {
 				batchWriteItem: function( params ,callback) {
 					editor.setValue(editor.getValue() + "\n\tbatchWriteItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
+				deleteItem: function( params ,callback) {
+					editor.setValue(editor.getValue() + "\n\tdeleteItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
+				},
 				getItem: function( params ,callback) {
 					editor.setValue(editor.getValue() + "\n\tgetItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
