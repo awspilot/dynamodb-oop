@@ -66,14 +66,16 @@
 
 
 
-<div class="code wide textmate" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;">
+<div class="code rw wide textmate activeTab" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;">
 
 	// completely replaces the item, new item will only contain specified attributes
 	DynamoDB
-		.table('users')
+		.table('tbl_name')
 		.return(DynamoDB.UPDATED_OLD)
 		.replace({
-			email: 'test@test.com',
+			partition_key: 'test.com',
+			sort_key: 'test@test.com',
+
 			password: 'qwert',
 
 			// inserted as datatype SS
@@ -98,13 +100,12 @@
 </div>
 
 
-
 <div class="split-result">
 	<div class="" style="position: absolute;top: 0px;left: 0px;right: 0px;height: 40px;background-color: #f0f0f0;padding: 0px 50px;">
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Describe </a>
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Execute </a>
+		<a class='btn btn-describe'> Describe </a>
+		<a class='btn disabled'> Execute </a>
 	</div>
 	<div class="" style="position: absolute;top: 40px;left: 0px;right: 0px;bottom: 0px;border-top: 1px solid #ccc;">
-		<div class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
+		<div id="result-out" class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
 	</div>
 </div>
