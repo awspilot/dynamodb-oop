@@ -107,6 +107,9 @@ describe_code = function(code) {
 				updateItem: function( params ,callback) {
 					editor.setValue("\n\tupdateItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
+				batchWriteItem: function( params ,callback) {
+					editor.setValue("\n\tbatchWriteItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
+				},
 				query: function( params ,callback) {
 					editor.setValue("\n\tquery\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
