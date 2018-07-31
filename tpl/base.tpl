@@ -186,8 +186,11 @@ $(function() {
 		else
 			$e.setTheme("ace/theme/monokai")
 
+		if ($(this).hasClass('rw'))
+			$e.setReadOnly(false)
+		else
+			$e.setReadOnly(true)
 
-		$e.setReadOnly(true)
 		$e.setShowPrintMargin(false)
 		$e.setOption("highlightActiveLine", false)
 		$e.setOption("showInvisibles", false)

@@ -45,7 +45,7 @@
 	</script>
 
 
-<div class="code wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
+<div class="code rw wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 
 	// Insert on Duplicate Item Replace
 
