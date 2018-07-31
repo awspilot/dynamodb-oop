@@ -70,7 +70,7 @@
 	DynamoDB.query(`
 
 		REPLACE INTO
-			users
+			tbl_name
 		SET
 			email          =  'test@test.com',
 
