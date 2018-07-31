@@ -159,6 +159,9 @@ describe_code = function(code) {
 				query: function( params ,callback) {
 					editor.setValue(editor.getValue() + "\n\tquery\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
+				scan: function( params ,callback) {
+					editor.setValue(editor.getValue() + "\n\tscan\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
+				},
 			}
 			DynamoDB = new window['@awspilot/dynamodb'](fakedynamo)
 			eval(code)
