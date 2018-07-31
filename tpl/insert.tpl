@@ -39,8 +39,8 @@
 		chromeTabs.init(el, { tabOverlapDistance: 14, minWidth: 45, maxWidth: 243 })
 
 		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) {
-			$('.code').css('z-index', 1)
-			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99)
+			$('.code').css('z-index', 1).removeClass('activeTab')
+			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99).addClass('activeTab')
 		})
 
 
@@ -50,24 +50,26 @@
 
 
 
-<div class="code wide textmate" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
+<div class="code rw wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 
 
 	// Insert Item ( no update )
 	DynamoDB
-		.table('users')
+		.table('tbl_name')
 		.insert({
 
 			// carefull though as foo.bar domain actually exists :)
-			domain: 'foo.bar',
-			email: 'baz@foo.bar',
+			partition_key: 'foo.bar',
+			sort_key: 'baz@foo.bar',
 
 			password: 'qwert',
 			boolean: true,
 			number: 1,
 			created_at: new Date().getTime(),
 			updated_at: null,
-			buffer: new Buffer("test"),
+
+			// server side only
+			// buffer: new Buffer("test"),
 			array_empty: [],
 
 			// inserted as datatype L
@@ -94,7 +96,7 @@
 				false,
 				{ key: "value"},
 				["nested","array"],
-				new Buffer("test")
+				//new Buffer("test")
 			],
 
 			nested_object: {
@@ -115,25 +117,26 @@
 
 
 
-<div class="code wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+<div class="code rw wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// SQL keywords must be enclosed in "`", keywords inside json must be enclosed in quotes
 	// if no callback supplied, promise is returned
-
+	// new Date() is evaluated to String or Number when parsed
 	DynamoDB.query(`
 
-		INSERT INTO users SET
-			email         = 'test@test.com',
+		INSERT INTO tbl_name SET
+			partition_key = 'test.com',
+			sort_key      = 'test@test.com',
 			password      = 'qwert',
 			bool          = true,
 			one           = 1,
 			updated_at    = null,
 			a_list        = [ 'alpha', 'beta', 'gamma', 1, null, true ],
 			a_map         = { 'string': 's', 'number': 1 },
-			ss            =  new StringSet( 'sss','bbb','ccc' ),
-			ns            =  new NumberSet( 111, 222, 333 ),
+			ss            =  new StringSet( [ 'sss','bbb','ccc' ] ),
+			ns            =  new NumberSet( [  111 , 222 , 333  ] ),
 
-			/* evaluated to String or Number when parsed  */
+
 			expire_at     =  new Date( 1530723266352 ).getTime()
 
 		`,
@@ -148,12 +151,15 @@
 
 
 
-<div class="code wide textmate" id="tab3" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+<div class="code rw wide textmate" id="tab3" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// insert using VALUES does not currently support StringSet or NumberSet
 	DynamoDB.query(`
 
-			INSERT INTO users VALUES ({
+			INSERT INTO tbl_name VALUES ({
+				primary_key   : 'domain.com',
+				sort_key      : 'test@domain.com',
+
 				email         : 'test@test.com',
 				password      : 'qwert',
 				bool          : true,
@@ -174,10 +180,10 @@
 
 <div class="split-result">
 	<div class="" style="position: absolute;top: 0px;left: 0px;right: 0px;height: 40px;background-color: #f0f0f0;padding: 0px 50px;">
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Describe </a>
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Execute </a>
+		<a class='btn btn-describe'> Describe </a>
+		<a class='btn disabled'> Execute </a>
 	</div>
 	<div class="" style="position: absolute;top: 40px;left: 0px;right: 0px;bottom: 0px;border-top: 1px solid #ccc;">
-		<div class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
+		<div id="result-out" class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
 	</div>
 </div>
