@@ -32,8 +32,8 @@
 		chromeTabs.init(el, { tabOverlapDistance: 14, minWidth: 45, maxWidth: 243 })
 
 		document.querySelector('.chrome-tabs').addEventListener('activeTabChange', function ( event ) {
-			$('.code').css('z-index', 1)
-			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99)
+			$('.code').css('z-index', 1).removeClass('activeTab')
+			$('#'  +  $( event.detail.tabEl ).attr('tabid') ).css('z-index', 99).addClass('activeTab')
 		})
 
 		//document.querySelector('.chrome-tabs').addEventListener('tabAdd', ({ detail }) => console.log('Tab added', detail.tabEl))
@@ -44,12 +44,13 @@
 
 	</script>
 
-<div class="code wide textmate" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
+<div class="code rw wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 	// Update Existing Item
 	// update multiple attributes in a HASH table
 	DynamoDB
-		.table('users')
-		.where('email').eq('test@test.com')
+		.table('tbl_name')
+		.where('partition_key').eq('test@test.com')
+		.where('sort_key').eq( 1234 )
 		.return(DynamoDB.ALL_OLD)
 		.update({
 			password: 'qwert',
@@ -103,38 +104,36 @@
 
 	// Update Existing Item
 	// SQL version does not currently support adding / removing from StringSet or NumberSet. (Awspilot limitation).
+	// set value to undefined to delete an attribute
+	// new Date() is evaluated to String or Number when parsed
 	DynamoDB.query(`
 
 		UPDATE
-			users
+			tbl_name
 		SET
 			active          = true,
 			nulled          = null,
 			updated_at      = 1468137844,
 
-			/* delete attribute */
 			activation_code = undefined,
 
-			/* increment attribute */
 			login_count    += 1,
 
-			/* decrement attribute */
-			days_left    += -1,
+			days_left      += -1,
 
-			list            = ['a',1,true, null, {}, [] ],
-			map             = {
-				nonkeyword = 'value1',
-				"sqlkeyword1" = 'value2',
-				'sqlkeyword2' = 'value3'
+			the_list        = ['a',1,true, null, {}, [] ],
+			the_map         = {
+				nonkeyword    : 'value1',
+				"sqlkeyword1" : 'value2',
+				'sqlkeyword2' : 'value3'
 			},
 			tags            = new StringSet(['dev','nodejs']),
 			lucky_numbers   = new NumberSet([ 12, 23 ]),
 
-			/* evaluated to String or Number when parsed  */
 			expire_at       =  new Date( 1530723266352 ).getTime()
 
 		WHERE
-			domain = 'test.com' AND user = 'testuser'
+			partition_key = 'test.com' AND sort_key = 1234
 
 	`, function(err) {
 
@@ -147,10 +146,10 @@
 
 <div class="split-result">
 	<div class="" style="position: absolute;top: 0px;left: 0px;right: 0px;height: 40px;background-color: #f0f0f0;padding: 0px 50px;">
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Describe </a>
-		<a style='display: inline-block;width: 100px;height: 27px;border: 1px solid #dfdfdf;line-height: 27px;margin-top: 5px;margin-right: 10px;color: #ddd;text-shadow: 1px 1px 1px #fff;background-color: #f2f2f2;text-align: center;border-radius: 2px;'> Execute </a>
+		<a class='btn btn-describe'> Describe </a>
+		<a class='btn disabled'> Execute </a>
 	</div>
 	<div class="" style="position: absolute;top: 40px;left: 0px;right: 0px;bottom: 0px;border-top: 1px solid #ccc;">
-		<div class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
+		<div id="result-out" class="code wide textmate" style="position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;"></div>
 	</div>
 </div>
