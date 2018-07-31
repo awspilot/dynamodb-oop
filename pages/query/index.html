@@ -251,13 +251,13 @@ describe_code = function(code) {
 				config: {dynamoDbCrc32: true,},
 
 				putItem: function( params ,callback) {
-					editor.setValue("\n\tputItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"))
+					editor.setValue("\n\tputItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
 				updateItem: function( params ,callback) {
-					editor.setValue("\n\tupdateItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"))
+					editor.setValue("\n\tupdateItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
 				query: function( params ,callback) {
-					editor.setValue("\n\tquery\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"))
+					editor.setValue("\n\tquery\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
 			}
 			DynamoDB = new window['@awspilot/dynamodb'](fakedynamo)
