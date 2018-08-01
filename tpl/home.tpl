@@ -24,7 +24,7 @@
 
 <p>
 	@awspilot/dynamodb is a NodeJS and Browser utility to access Amazon DynamoDB databases<br>
-	
+
 	Main library goals are:<br>
 	<li> Compatible with all NodeJS versions ( no ES6+ )
 	<li> Backword compatible with all previous versions
@@ -51,7 +51,7 @@
 
 <h1>Install in Browser</h1>
 
-<p> 
+<p>
 	Please use <a href="https://rawgit.com/ ">rawgit</a> CDN, to get the latest version paste the url:<br>
 	https://github.com/awspilot/dynamodb-oop/blob/master/dist/dynamodbjs.js
 </p>
@@ -79,12 +79,16 @@
 		"secretAccessKey": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ",
 		"region": "eu-west-1"
 	}
-	var DynamoDB = require('@awspilot/dynamodb')(credentials)
+
+	const DynamodbFactory = require('@awspilot/dynamodb')
+	var DynamoDB = new DynamodbFactory(credentials)
+
 
 	// Alternatively, use an existing instance of AWS.DynamoDB.
 	var AWS = require('aws-sdk');
 	var $db = new AWS.DynamoDB();
-	var DynamoDB = require('@awspilot/dynamodb')($db);
+	const DynamodbFactory = require('@awspilot/dynamodb')
+	var DynamoDB = new DynamodbFactory($db);
 
 </div>
 
