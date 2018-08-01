@@ -189,6 +189,60 @@ describe('insert_or_update()', function () {
 			})
 	})
 
+
+
+	it('insert new item with empty string', function(done) {
+		var $obj = {
+			hash: 'insert_or_update_empty_string',
+			range: 1,
+			empty_string: '',
+		}
+		DynamoDB
+			.table($tableName)
+			.insert_or_update($obj, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('insert_or_update_empty_string')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						assert.deepEqual(item, $obj )
+						done()
+					})
+			})
+	})
+	it('update new item with empty string', function(done) {
+		var $obj = {
+			hash: 'insert_or_update_empty_string',
+			range: 1,
+			empty_string: DynamoDB.del(),
+			empty_string2: '',
+		}
+		DynamoDB
+			.table($tableName)
+			.insert_or_update($obj, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('insert_or_update_empty_string')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						assert.deepEqual(item.empty_string2, $obj.empty_string2 )
+						done()
+					})
+			})
+	})
+
 	it('should return nothing by default', function(done) {
 		DynamoDB
 			.table($tableName)
