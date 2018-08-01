@@ -12,7 +12,6 @@
 	<a href='https://badge.fury.io/js/%40awspilot%2Fdynamodb' target="_blank"><img src='https://badge.fury.io/js/%40awspilot%2Fdynamodb.svg' /></a>
 
 	<a href='https://www.npmjs.com/package/@awspilot/dynamodb' target="_blank"><img src='https://img.shields.io/npm/dm/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
-	<a href='https://www.npmjs.com/package/@awspilot/dynamodb' target="_blank"><img src='https://img.shields.io/npm/dy/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
 	<a href='https://www.npmjs.com/package/@awspilot/dynamodb' target="_blank"><img src='https://img.shields.io/npm/dt/@awspilot/dynamodb.svg?maxAge=2592000' /></a>
 
 	<a href='https://github.com/awspilot/dynamodb-oop' target="_blank"><img src='https://img.shields.io/github/license/awspilot/dynamodb-oop.svg' /></a>
