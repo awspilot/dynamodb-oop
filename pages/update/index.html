@@ -100,7 +100,7 @@
 </div>
 
 
-<div class="code wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+<div class="code rw wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// Update Existing Item
 	// SQL version does not currently support adding / removing from StringSet or NumberSet. (Awspilot limitation).
@@ -135,8 +135,8 @@
 		WHERE
 			partition_key = 'test.com' AND sort_key = 1234
 
-	`, function(err) {
-
+	`, function( err, data ) {
+		console.log( err, data )
 	});
 
 </div>
