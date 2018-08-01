@@ -141,7 +141,7 @@
 
 		`,
 		function( err, data ) {
-
+			console.log( err, data )
 		});
 </div>
 
@@ -171,7 +171,7 @@
 
 		`,
 		function( err, data ) {
-
+			console.log( err, data )
 		});
 
 </div>
