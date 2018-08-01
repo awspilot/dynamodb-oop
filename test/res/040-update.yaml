@@ -6,7 +6,7 @@ Tests:
         - title: UPDATE inexistent item should throw 'ConditionalCheckFailedException'
           query: UPDATE `test_hash_range` SET  x = 1234 WHERE `hash` = 'inexistent' and `range` = 1
           shouldFail: true
-          validations: 
+          validations:
               - key: err.code
                 value: "'ConditionalCheckFailedException'"
 
@@ -14,35 +14,35 @@ Tests:
 
 
         -
-          title: "" 
+          title: ""
           query: INSERT INTO test_hash_range SET `hash` = 'sql-test-update', `range` = 1
 
         # test update string, number , boolean, array, object, null
         - title: "UPDATE tbl_name SET `string` = <STRING>, `number` = <NUMBER>, `boolean` = <BOOL>, `null` = null, `array` = <LIST>, `object` = <MAP> "
-          query: 
+          query:
               |
-              UPDATE 
-                `test_hash_range` 
-              SET  
-                `string`  = 'text', 
+              UPDATE
+                `test_hash_range`
+              SET
+                `string`  = 'text',
                 `number`  = 1,
                 `boolean` = true,
                 `null`    = null,
                 `array`   = ['a',1,true,null],
-                `object`  = { 
+                `object`  = {
                     'string': 'text',
                     'number': 1,
                     'bool'  : true,
-                    'null'  : null, 
+                    'null'  : null,
                 }
-               
+
               WHERE
-                `hash` = 'sql-test-update' AND 
+                `hash` = 'sql-test-update' AND
                 `range` = 1
-          dataItem: 
+          dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-update',  range: 1 }
-          validations: 
+          validations:
                - key: dataItem.string
                  value: "'text'"
                - key: dataItem.number
@@ -56,62 +56,72 @@ Tests:
                - key: dataItem.object
                  value: {  string: 'text', number: 1, bool  : true, null  : null,  }
 
-        
+
         # test increment number
         - query: "UPDATE test_hash_range SET `number` += 10 WHERE `hash` = 'sql-test-update' AND `range` = 1 "
-          dataItem: 
+          dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-update',  range: 1 }
-          validations: 
+          validations:
                - key: dataItem.number
                  value: 11
 
         - query: "UPDATE test_hash_range SET `number` += -10 WHERE `hash` = 'sql-test-update' AND `range` = 1 "
-          dataItem: 
+          dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-update',  range: 1 }
-          validations: 
+          validations:
                - key: dataItem.number
                  value: 1
-        
+
         # test delete item
         - query: "UPDATE test_hash_range SET `number` = undefined WHERE `hash` = 'sql-test-update' AND `range` = 1 "
-          dataItem: 
+          dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-update',  range: 1 }
-          validations: 
+          validations:
                - key: Object.keys(dataItem).length
                  value: 7
 
         # test stringset, numberset
         - query: "UPDATE test_hash_range SET ss = new StringSet(['a','b','c']), ns = new NumberSet([1,2,3]) WHERE `hash` = 'sql-test-update' AND `range` = 1 "
-          dataItem: 
+          dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-update',  range: 1 }
-        
-          validations: 
+
+          validations:
                - key: dataItem.ss
                  value: ['a','b','c']
                - key: dataItem.ns
                  value: [1,2,3]
 
         # test date
-        
+
         - title: "UPDATE test_hash_range SET d = new Date('2018-07-05T07:50:15.416Z').getTime() WHERE `hash` = <STRING> AND `range` = <NUMBER> "
-          query: "UPDATE test_hash_range SET d = new Date('2018-07-05T07:50:15.416Z').getTime() WHERE `hash` = 'sql-test-update' AND `range` = 1 "
-          dataItem: 
+          query:
+              |
+              UPDATE
+                test_hash_range
+              SET
+                d = new Date('2018-07-05T07:50:15.416Z').getTime(),
+                m = Math.round( 7.4 + 2.7 )
+              WHERE
+                `hash` = 'sql-test-update' AND
+                `range` = Math.round( 3.4 - 2 )
+          dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-update',  range: 1 }
           validations:
               - key: dataItem.d
                 value: 1530777015416
+              - key: dataItem.m
+                value: 10
           log: false
 
         # test add to stringset
-        
-        # test remove from stringset
-        
-        # test add to numberset
-        
-        # test remove from numberset
 
+        # test remove from stringset
+
+        # test add to numberset
+
+        # test remove from numberset
