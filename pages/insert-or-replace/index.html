@@ -96,8 +96,8 @@
 
 			expire_at =  new Date( 1530723266352 ).getTime()
 
-	`, function( err ){
-
+	`, function( err, data ){
+		console.log( err, data )
 	});
 
 </div>
