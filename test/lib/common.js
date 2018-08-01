@@ -17,10 +17,10 @@ var AWS = require('aws-sdk')
 
 const DynamodbFactory = require('../../lib/dynamodb')
 
-DynamodbFactory.config( { 
-	stringset_parse_as_set: true,
-	numberset_parse_as_set: true,
-	empty_string_replace_as: "\0" 
+DynamodbFactory.config( {
+	stringset_parse_as_set: false,
+	numberset_parse_as_set: false,
+	empty_string_replace_as: "\0"
 } );
 
 DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'http://localhost:8000', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
@@ -58,10 +58,10 @@ query_handler = function( idx, yml ) {
 						dataItem = new_data
 						cb()
 					})
-					
+
 				},
 			], function() {
-				
+
 				if (yml.Tests.query[idx].shouldFail) {
 					if (err) {
 						if (!(yml.Tests.query[idx].validations || []).length)
@@ -113,7 +113,7 @@ before_test = function(data) {
 }
 
 run_test = function(test_name, yml_file ) {
-	
+
 	describe(test_name, function () {
 		var yml = yaml.safeLoad(fs.readFileSync(yml_file, 'utf8'))
 		before(before_test(yml.Prepare.Data))
@@ -121,7 +121,7 @@ run_test = function(test_name, yml_file ) {
 
 		yml.Tests.query.forEach(function(v,k) {
 			it(yml.Tests.query[k].title || yml.Tests.query[k].query, query_handler(k, yml ) )
-			
+
 		})
 	})
 }
