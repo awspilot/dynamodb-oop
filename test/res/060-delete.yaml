@@ -3,8 +3,15 @@ Prepare:
         - INSERT INTO test_hash_range SET `hash` = 'sql-test-delete', `range` = 1
 Tests:
     query:
-        - query: delete from `test_hash_range` where `hash` = 'sql-test-delete' and `range` = 1
-          dataItem: 
+        - title: delete from `test_hash_range` where `hash` = 'sql-test-delete' and `range` = 1
+          query:
+              |
+              DELETE FROM
+                `test_hash_range`
+              WHERE
+                `hash` = 'sql-test-delete' AND
+                `range` = Math.round( 3.4 - 2 )
+          dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-delete',  range: 1 }
           validations:
