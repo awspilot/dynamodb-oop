@@ -195,7 +195,7 @@
 
 	// for partition_key the comparison operator is always equal sign
 	// for sort_key you can use =, <, <=, >, >=, BETWEEN x AND y, LIKE
-	// SELECT does not yet support HAVING ( filtering )
+	// SELECT stattement does not currently support HAVING ( FilterExpression )
 	DynamoDB.query(`
 
 			SELECT
