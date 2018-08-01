@@ -320,6 +320,32 @@ describe('insert()', function () {
 					})
 			})
 	})
+
+	it('insert empty string', function(done) {
+		var $obj = {
+			hash: 'hash_empty_string',
+			range: 1,
+			empty_string: '',
+		}
+		DynamoDB
+			.table($tableName)
+			.insert($obj, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('hash_empty_string')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						assert.deepEqual(item, $obj )
+						done()
+					})
+			})
+	})
 	it('should fail when item already exists', function(done) {
 		DynamoDB
 			.table($tableName)
