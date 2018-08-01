@@ -65,8 +65,8 @@
 		WHERE
 			\`to\`   = 'user1@test.com' AND
 			\`date\` =  1375538399
-	`, function(err) {
-
+	`, function( err, data ) {
+		console.log( err, data )
 	});
 
 </div>

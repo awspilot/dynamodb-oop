@@ -110,7 +110,7 @@ describe_code = function(code) {
 			var origainal_cl = console.log;
 			console.log = function() {
 				[].slice.apply(arguments).map(function(argument) {
-					editor.setValue(editor.getValue() + argument ,-1) + ' '
+					editor.setValue(editor.getValue() + argument + ' ',-1) 
 				})
 				editor.setValue(editor.getValue() + "\n" ,-1)
 			}
