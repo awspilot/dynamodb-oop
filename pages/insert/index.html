@@ -137,7 +137,10 @@
 			ns            =  new NumberSet( [  111 , 222 , 333  ] ),
 
 
-			expire_at     =  new Date( 1530723266352 ).getTime()
+
+			created_at    = new Date().getTime(),
+			expire_at     = Math.round( (new Date().getTime() / 1000) + 60*60*24  )
+
 
 		`,
 		function( err, data ) {

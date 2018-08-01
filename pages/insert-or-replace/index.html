@@ -93,8 +93,9 @@
 			ss = new StringSet(['a','b','c']),
 			ns = new NumberSet([1,2,3]),
 
+			updated_at    = new Date().getTime(),
+			expire_at     = Math.round( (new Date().getTime() / 1000) + 60*60*24  )
 
-			expire_at =  new Date( 1530723266352 ).getTime()
 
 	`, function( err, data ){
 		console.log( err, data )

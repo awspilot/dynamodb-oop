@@ -105,7 +105,7 @@
 	// Update Existing Item
 	// SQL version does not currently support adding / removing from StringSet or NumberSet. (Awspilot limitation).
 	// set value to undefined to delete an attribute
-	// new Date() is evaluated to String or Number when parsed
+	// new Date() and Math is evaluated to String or Number when parsed
 	DynamoDB.query(`
 
 		UPDATE
@@ -130,10 +130,12 @@
 			tags            = new StringSet(['dev','nodejs']),
 			lucky_numbers   = new NumberSet([ 12, 23 ]),
 
-			expire_at       =  new Date( 1530723266352 ).getTime()
+			updated_at    = new Date().getTime(),
+			expire_at     = Math.round( (new Date().getTime() / 1000) + 60*60*24  )
 
 		WHERE
-			partition_key = 'test.com' AND sort_key = 1234
+			partition_key = 'test.com' AND
+			sort_key = Math.round( 5.5 + 7.2 )
 
 	`, function( err, data ) {
 		console.log( err, data )
