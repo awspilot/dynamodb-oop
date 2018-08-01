@@ -1,10 +1,15 @@
+1.2.4
+- support for basic expressions that ca be resolved in place, eg. new Date().getTime() - 1000*60*60*24
+1.2.3
+- parse / stringify - configurable handling for empty strings, StringSet and NumberSet
+- support for Math javascript object in SQL statements
 1.2.2
 - support for SELECT ( without HAVING )
 1.2.1
 - basic support for SCAN sql
-1.2.0 
+1.2.0
 - dynalite removed from dev dependencies
-1.1.8 
+1.1.8
 - RawFilterExpression, RawProjectionExpression
 - tests for new Set()
 1.1.7
