@@ -38,6 +38,15 @@
 				<div class="chrome-tab-close"></div>
 			</div>
 
+			<div class="chrome-tab" tabid="tab5">
+				<div class="chrome-tab-background" >
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><symbol id="chrome-tab-geometry-left" viewBox="0 0 214 29" ><path d="M14.3 0.1L214 0.1 214 29 0 29C0 29 12.2 2.6 13.2 1.1 14.3-0.4 14.3 0.1 14.3 0.1Z"/></symbol><symbol id="chrome-tab-geometry-right" viewBox="0 0 214 29"><use xlink:href="#chrome-tab-geometry-left"/></symbol><clipPath id="crop"><rect class="mask" width="100%" height="100%" x="0"/></clipPath></defs><svg width="50%" height="100%"><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-left" width="214" height="29" class="chrome-tab-shadow"/></svg><g transform="scale(-1, 1)"><svg width="50%" height="100%" x="-100%" y="0"><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-background"/><use xlink:href="#chrome-tab-geometry-right" width="214" height="29" class="chrome-tab-shadow"/></svg></g></svg>
+				</div>
+				<div class="chrome-tab-favicon"></div>
+				<div class="chrome-tab-title">select_sql.js</div>
+				<div class="chrome-tab-close"></div>
+			</div>
+
 		</div>
 		<div class="chrome-tabs-bottom-bar"></div>
 
@@ -177,6 +186,43 @@
 	})(null);
 
 </div>
+
+
+
+
+
+<div class="code rw wide textmate" id="tab5" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
+
+	// for partition_key the comparison operator is always equal sign
+	// for sort_key you can use =, <, <=, >, >=, BETWEEN x AND y, LIKE
+	// SELECT does not yet support HAVING ( filtering )
+	DynamoDB.query(`
+
+			SELECT
+				unique_visitors,
+				unique_pageviews
+			FROM
+				tbl_name
+			USE INDEX
+				idx_name
+			WHERE
+				partition_key = 'test.com' AND
+				sort_key      LIKE 'contact@%'
+
+			DESC
+			LIMIT 10
+			CONSISTENT_READ
+
+			`,
+
+			function( err, data ) {
+
+			});
+
+
+</div>
+
+
 </div>
 
 
