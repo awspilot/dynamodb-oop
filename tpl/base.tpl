@@ -15,7 +15,6 @@
 
 
 
-
 	<script src="/dynamodb-oop/js/libs/aws-sdk-2.282.1.min.js"></script>
 	<script src="/dynamodb-oop/js/libs/dynamodbjs.js"></script>
 
@@ -43,6 +42,16 @@
 
 			<h1><b>@AwsPilot</b>'s DynamoDB</h1>
 
+			<div class="gh" style="position: absolute;top: 15px;right: 40px;">
+
+				<a class="github-button" href="https://github.com/awspilot/dynamodb-oop/issues" data-icon="octicon-issue-opened" data-show-count="true" aria-label="Issue awspilot/dynamodb-oop on GitHub">Issue</a>
+
+				<a class="github-button" href="https://github.com/awspilot/dynamodb-oop" data-icon="octicon-star" data-show-count="true" aria-label="Star awspilot/dynamodb-oop on GitHub">Star</a>
+
+				<a class="github-button" href="https://github.com/awspilot/dynamodb-oop/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork awspilot/dynamodb-oop on GitHub">Fork</a>
+
+
+			</div>
 			<!--
 				<a href="https://www.npmjs.com/package/@awspilot/dynamodb" class="button"><img src="https://nodei.co/npm/@awspilot/dynamodb.png?downloads=true" alt="npm page"></a>
 			-->
@@ -294,5 +303,6 @@ describe_code = function(code) {
   gtag('config', 'UA-119179002-1');
 </script>
 
-  </body>
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</body>
 </html>
