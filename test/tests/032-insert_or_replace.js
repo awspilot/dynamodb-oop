@@ -176,6 +176,70 @@ describe('insert_or_replace( new_item )', function () {
 
 
 
+	it('insert_or_replace() insert new item with empty string', function(done) {
+		var $obj = {
+			hash: 'insert_or_replace_empty_string',
+			range: 1,
+			empty_string: '',
+		}
+		DynamoDB
+			.table($tableName)
+			.insert_or_replace($obj, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('insert_or_replace_empty_string')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						assert.deepEqual(item, $obj )
+						done()
+					})
+			})
+	})
+	it('insert_or_replace() replace existing item with empty string attribute', function(done) {
+		var $obj = {
+			hash: 'insert_or_replace_empty_string',
+			range: 1,
+			empty_string2: '',
+		}
+		DynamoDB
+			.table($tableName)
+			.insert_or_replace($obj, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('insert_or_replace_empty_string')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						assert.deepEqual(item.empty_string2, $obj.empty_string2 )
+						assert.deepEqual(item.hasOwnProperty('empty_string'), false )
+						done()
+					})
+			})
+	})
+
+
+
+
+
+
+
+
+
+
+
+
+
 	it('.insert_or_replace().then()', function(done) {
 		DynamoDB
 			.table($tableName)
