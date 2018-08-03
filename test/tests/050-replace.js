@@ -116,6 +116,40 @@ describe('replace()', function () {
 				done()
 			})
 	})
+
+
+
+
+	it('replace() test empty string', function(done) {
+		var $obj = {
+			hash: 'hash1',
+			range: 1,
+			empty_string: '',
+		}
+		DynamoDB
+			.table($tableName)
+			.replace($obj, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('hash1')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						assert.deepEqual(item.empty_string, '', {strict: true } )
+
+						done()
+					})
+			})
+	})
+
+
+
+
 	it('.replace().then()', function(done) {
 		DynamoDB
 			.table($tableName)
