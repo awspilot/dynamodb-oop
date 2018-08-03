@@ -25,6 +25,7 @@ describe('scan()', function () {
 						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
 						string_set: DynamoDB.stringSet(['aaa','bbb','ccc']),
 						number_set: DynamoDB.numberSet([111,222,333]),
+						empty_string: '',
 					}, function(err) {
 						cb(err)
 					})
@@ -71,6 +72,19 @@ describe('scan()', function () {
 					throw err
 
 				// @todo: check returned data
+				done()
+			})
+	})
+	it('.scan() test empty string', function(done) {
+		DynamoDB
+			.table($tableName)
+			.having('hash').contains('scan1')
+			.scan( function(err, items, raw ) {
+				if (err)
+					throw err
+
+				//console.log(JSON.stringify(raw, null, "\t"))
+				assert.deepEqual(items[0].empty_string, '', {strict: true } )
 				done()
 			})
 	})
