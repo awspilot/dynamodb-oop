@@ -14,6 +14,7 @@ describe('query()', function () {
 						object: {aaa:1,bbb:2, ccc:3, ddd: {ddd1: 1}, eee: [1,'eee1']},
 						string_set: DynamoDB.stringSet(['aaa','bbb','ccc','ddd1']),
 						number_set: DynamoDB.numberSet([111,222,333]),
+						empty_string: '',
 					}, function(err, data) {cb(err)})
 			},
 			function(cb) {
@@ -51,6 +52,22 @@ describe('query()', function () {
 			done()
 		})
 	})
+
+	it('.query() test empty string', function(done) {
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('query')
+			.where('range').eq(1)
+			.query( function(err, items, raw ) {
+				if (err)
+					throw err
+
+				//console.log(JSON.stringify(raw, null, "\t"))
+				assert.deepEqual(items[0].empty_string, '', {strict: true } )
+				done()
+			})
+	})
+
 	it('.where(RANGE).le()', function(done) {
 		DynamoDB
 			.table($tableName)
