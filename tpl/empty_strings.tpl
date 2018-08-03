@@ -3,7 +3,7 @@
 	<h1>Handling Empty Strings</h1>
 	<br>
 		AWS DynamoDB does not currently support empty strings,
-		trying to insert / update attributes with empty an string value will fail
+		trying to insert / update attributes with an empty string value will fail
 		<pre>
 			One or more parameter values were invalid: An AttributeValue may not contain an empty string
 		</pre>
