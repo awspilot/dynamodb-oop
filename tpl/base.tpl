@@ -113,9 +113,10 @@
 						<input type="checkbox" id="misc" checked />
 						<label class="tree_label sub" for="misc"><img src="/dynamodb-oop/images/folder_flat.png"/> Misc</label>
 						<ul>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/"> <img src="/dynamodb-oop/images/text.png"/> data_types</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/"> <img src="/dynamodb-oop/images/text.png"/> deprecated</a>
-							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> test</a><span>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/empty-strings/"> <img src="/dynamodb-oop/images/text.png"/> empty_strings.md</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/datatypes/"> <img src="/dynamodb-oop/images/text.png"/> data_types.md</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/deprecated/"> <img src="/dynamodb-oop/images/text.png"/> deprecated.md</a>
+							<li><span class="tree_label"><a href="/dynamodb-oop/pages/test/"> <img src="/dynamodb-oop/images/text.png"/> test.md</a><span>
 						</ul>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/disqus/"> <img src="/dynamodb-oop/images/text.png"/> Disqus.md</a></span>
 				</ul>
