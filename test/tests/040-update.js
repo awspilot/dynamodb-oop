@@ -104,7 +104,7 @@ describe('update()', function () {
 			}, function(err, data) {
 				if (err)
 					throw err
-	
+
 				DynamoDB
 					.table($tableName)
 					.where('hash').eq('test-updated-old')
@@ -112,7 +112,7 @@ describe('update()', function () {
 					.get(function(err, item, raw ) {
 						if (err)
 							throw err
-	
+
 						assert.deepEqual(raw.Item.set.NS, [ 111, 222, 333 ], {strict: true })
 						done()
 					})
@@ -129,8 +129,8 @@ describe('update()', function () {
 			}, function(err, data ) {
 				if (err)
 					throw err
-	
-	
+
+
 				DynamoDB
 					.table($tableName)
 					.where('hash').eq('test-updated-old')
@@ -138,8 +138,8 @@ describe('update()', function () {
 					.get(function(err, item, raw ) {
 						if (err)
 							throw err
-	
-						
+
+
 						assert.deepEqual(raw.Item.set.SS, [ 'aaa', 'bbb', 'ccc'  ], {strict: true })
 						done()
 					})
@@ -157,8 +157,8 @@ describe('update()', function () {
 			}, function(err, data ) {
 				if (err)
 					throw err
-	
-	
+
+
 				DynamoDB
 					.table($tableName)
 					.where('hash').eq('test-updated-old')
@@ -166,16 +166,46 @@ describe('update()', function () {
 					.get(function(err, item, raw ) {
 						if (err)
 							throw err
-	
+
 						//console.log(JSON.stringify(raw, null, "\t"))
 						assert.deepEqual(raw.Item.set1.L, [], {strict: true })
 						assert.deepEqual(raw.Item.set2.L, [ { "S": "a" }, { "N": "1" }, { "M": {} }  ], {strict: true })
-	
+
 						done()
 					})
 			})
 	})
-	
+
+
+
+
+	it('update() test empty string', function(done) {
+		var $obj = {
+			empty_string: '',
+		}
+		DynamoDB
+			.table($tableName)
+			.where('hash').eq('test-updated-old')
+			.where('range').eq(1)
+			.update($obj, function(err, data) {
+				if (err)
+					throw err
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('test-updated-old')
+					.where('range').eq(1)
+					.get(function(err, item) {
+						if (err)
+							throw err
+
+						assert.deepEqual(item.empty_string, '' )
+						done()
+					})
+			})
+	})
+
+
 
 
 	it('.update().then()', function(done) {
