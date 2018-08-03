@@ -1,5 +1,7 @@
-1.2.4
+1.2.5
 - support for basic expressions that ca be resolved in place, eg. new Date().getTime() - 1000*60*60*24
+1.2.4
+- tests for empty strings + fix .query() and .scan()
 1.2.3
 - parse / stringify - configurable handling for empty strings, StringSet and NumberSet
 - support for Math javascript object in SQL statements
