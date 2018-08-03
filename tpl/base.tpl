@@ -92,7 +92,7 @@
 				<label class="tree_label sub" for="dynamodb"><img src="/dynamodb-oop/images/folder_flat.png"/> dynamodb</label>
 				<ul>
 					<li><span class="tree_label"><a href="/dynamodb-oop/"> <img src="/dynamodb-oop/images/text.png"/> README.md</a></span>
-					<li><span class="tree_label"><a href="/dynamodb-oop/pages/apidef/"> <img src="/dynamodb-oop/images/text.png"/> APIDEF.md</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/apidef/"> <img src="/dynamodb-oop/images/text.png"/> API_REF.md</a></span>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/sql/"> <img src="/dynamodb-oop/images/text.png"/> SQL.md </a>
 
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> insert.js</a>
@@ -257,7 +257,7 @@ describe_code = function(code) {
 			var origainal_cl = console.log;
 			console.log = function() {
 				[].slice.apply(arguments).map(function(argument) {
-					editor.setValue(editor.getValue() + argument + ' ',-1) 
+					editor.setValue(editor.getValue() + argument + ' ',-1)
 				})
 				editor.setValue(editor.getValue() + "\n" ,-1)
 			}

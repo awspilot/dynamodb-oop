@@ -263,17 +263,19 @@ hr {
 #main-content h2 {
   margin-bottom: 8px;
   font-family: 'Raleway', 'Helvetica Neue', Helvetica, Arial, serif;
-  font-size: 22px;
-  font-weight: bold;
-  color: #474747;
+  font-size: 30px;
+  font-weight: 100;
+  color: #f48b00;
   text-indent: 4px;
 }
+
 #main-content h2:before {
   padding-right: 0.3em;
   margin-left: -1.5em;
   content: "//";
   color: #9ddcff;
 }
+
 
 #main-content h3 {
   margin-top: 24px;
