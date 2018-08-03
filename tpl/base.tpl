@@ -116,6 +116,7 @@
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/"> <img src="/dynamodb-oop/images/code.png"/> scan.js </a>
 
 
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/changelog/"> <img src="/dynamodb-oop/images/text.png"/> ChangeLog.md</a>
 
 
 					<li>
