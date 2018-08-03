@@ -196,7 +196,7 @@ describe('insert_or_replace( new_item )', function () {
 						if (err)
 							throw err
 
-						assert.deepEqual(item, $obj )
+						assert.deepEqual(item.empty_string, '', {strict: true } )
 						done()
 					})
 			})
@@ -221,7 +221,7 @@ describe('insert_or_replace( new_item )', function () {
 						if (err)
 							throw err
 
-						assert.deepEqual(item.empty_string2, $obj.empty_string2 )
+						assert.deepEqual(item.empty_string2, $obj.empty_string2, {strict: true } )
 						assert.deepEqual(item.hasOwnProperty('empty_string'), false )
 						done()
 					})

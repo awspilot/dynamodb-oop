@@ -211,7 +211,7 @@ describe('insert_or_update()', function () {
 						if (err)
 							throw err
 
-						assert.deepEqual(item, $obj )
+						assert.deepEqual(item, $obj, {strict: true } )
 						done()
 					})
 			})
@@ -237,7 +237,7 @@ describe('insert_or_update()', function () {
 						if (err)
 							throw err
 
-						assert.deepEqual(item.empty_string2, $obj.empty_string2 )
+						assert.deepEqual(item.empty_string2, $obj.empty_string2, {strict: true } )
 						done()
 					})
 			})

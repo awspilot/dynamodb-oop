@@ -199,7 +199,7 @@ describe('update()', function () {
 						if (err)
 							throw err
 
-						assert.deepEqual(item.empty_string, '' )
+						assert.deepEqual(item.empty_string, '', {strict: true } )
 						done()
 					})
 			})

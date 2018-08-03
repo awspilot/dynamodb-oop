@@ -341,7 +341,7 @@ describe('insert()', function () {
 						if (err)
 							throw err
 
-						assert.deepEqual(item, $obj )
+						assert.deepEqual(item, $obj, {strict: true } )
 						done()
 					})
 			})
