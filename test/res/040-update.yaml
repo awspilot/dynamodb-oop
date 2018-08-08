@@ -96,7 +96,6 @@ Tests:
                  value: [1,2,3]
 
         # test date
-
         - title: "UPDATE test_hash_range SET d = new Date('2018-07-05T07:50:15.416Z').getTime() WHERE `hash` = <STRING> AND `range` = <NUMBER> "
           query:
               |
@@ -116,6 +115,27 @@ Tests:
                 value: 1530777015416
               - key: dataItem.m
                 value: 10
+          log: false
+
+        # test uuid()
+        - title: "UPDATE test_hash_range SET uniqid = uuid('acct-###########') WHERE `hash` = <STRING> AND `range` = <NUMBER> "
+          query:
+              |
+              UPDATE
+                test_hash_range
+              SET
+                uniqid = uuid('acct-###########')
+              WHERE
+                `hash` = 'sql-test-update' AND
+                `range` = 3 - 2
+          dataItem:
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+          validations:
+              - key: dataItem.uniqid.length
+                value: 16
+              - key: "dataItem.uniqid.substr(0,5)"
+                value: "'acct-'"
           log: false
 
         # test add to stringset
