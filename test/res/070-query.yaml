@@ -100,7 +100,7 @@ Tests:
         #   results: 3
         #   log: true
 
-        - query: SELECT * FROM test_hash_range WHERE `hash` = 'test-sql-query' AND `range` > Math.round( 3.4 - 2 )
+        - query: SELECT * FROM test_hash_range WHERE `hash` = 'test-sql-query' AND `range` > 3 - 2
           results: 2
 
         # HAVING not supported yet
