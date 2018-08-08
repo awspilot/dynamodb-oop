@@ -4,7 +4,7 @@ Tests:
     query:
         -
           title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>
-          query: INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 1
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test', `range` = 3 - 2
           log: false
         -
           title: INSERT INTO tbl_name SET ... existing item ( should fail )...
@@ -13,7 +13,7 @@ Tests:
 
         -
           title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, bool = true
-          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-bool', `range` = 1, bool = true
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-bool', `range` = 2/2 , bool = true
           dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-bool',  range: 1 }
@@ -23,7 +23,7 @@ Tests:
 
         -
           title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, `null` = null,
-          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-null', `range` = 1, `null` = null
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-null', `range` = 3 * 1 - 2, `null` = null
           dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-null',  range: 1 }
@@ -117,3 +117,28 @@ Tests:
                 value: 1530777015416
               - key: dataItem.m
                 value: 10
+
+        -
+          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, uuid = uuid('acct-###########')
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-uuid', `range` = 1, uuid = uuid('acct-###########')
+          dataItem:
+              table: test_hash_range
+              item: { hash: 'sql-test-uuid',  range: 1 }
+          validations:
+              - key: dataItem.uuid.length
+                value: 16
+          validations:
+              - key: dataItem.uuid.substr(0,5)
+                value: 'acct-'
+
+
+        # -
+        #   title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, empty_string = ''
+        #   query: INSERT INTO test_hash_range SET `hash` = 'sql-test-empty-string', `range` = 1, empty_string = ''
+        #   dataItem:
+        #       table: test_hash_range
+        #       item: { hash: 'sql-test-empty-stringl',  range: 1 }
+        #   validations:
+        #       - key: dataItem.bool
+        #         value: true
+        #   log: true
