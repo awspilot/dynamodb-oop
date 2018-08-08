@@ -127,7 +127,6 @@ Tests:
           validations:
               - key: dataItem.uuid.length
                 value: 16
-          validations:
               - key: dataItem.uuid.substr(0,5)
                 value: 'acct-'
 
