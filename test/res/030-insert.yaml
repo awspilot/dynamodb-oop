@@ -119,7 +119,7 @@ Tests:
                 value: 10
 
         -
-          title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, uniqid = uuid('acct-###########')
+          title: "INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, uniqid = uuid('acct-###########')"
           query: "INSERT INTO test_hash_range SET `hash` = 'sql-test-uuid', `range` = 1, uniqid = uuid('acct-###########')"
           dataItem:
               table: test_hash_range
