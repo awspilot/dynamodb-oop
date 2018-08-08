@@ -90,3 +90,25 @@ Tests:
                - key: dataItem.m
                  value: 10
           log: false
+
+
+        - title: "REPLACE INTO tbl_name SET `hash` = <STRING>, uniqid = uuid('acct-###########') "
+          query:
+              |
+              REPLACE INTO
+                  test_hash_range
+              SET
+                  `hash` = 'replace-inexistent-hash',
+                  `range` = 3 - 2,
+                  uniqid = uuid('acct-###########')
+
+
+          dataItem:
+              table: test_hash_range
+              item: { hash: 'replace-inexistent-hash',  range: 1 }
+          validations:
+              - key: dataItem.uniqid.length
+                value: 16
+              - key: "dataItem.uniqid.substr(0,5)"
+                value: "'acct-'"
+          log: false
