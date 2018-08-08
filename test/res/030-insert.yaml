@@ -127,8 +127,8 @@ Tests:
           validations:
               - key: dataItem.uniqid.length
                 value: 16
-              - key: dataItem.uniqid.substr(0,5)
-                value: 'acct-'
+              - key: "dataItem.uniqid.substr(0,5)"
+                value: "'acct-'"
 
 
         # -
