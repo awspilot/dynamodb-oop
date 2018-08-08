@@ -120,14 +120,14 @@ Tests:
 
         -
           title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, uuid = uuid('acct-###########')
-          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-uuid', `range` = 1, uuid = uuid('acct-###########')
+          query: INSERT INTO test_hash_range SET `hash` = 'sql-test-uuid', `range` = 1, uniqid = uuid('acct-###########')
           dataItem:
               table: test_hash_range
               item: { hash: 'sql-test-uuid',  range: 1 }
           validations:
-              - key: dataItem.uuid.length
+              - key: dataItem.uniqid.length
                 value: 16
-              - key: dataItem.uuid.substr(0,5)
+              - key: dataItem.uniqid.substr(0,5)
                 value: 'acct-'
 
 
