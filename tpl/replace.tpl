@@ -75,7 +75,8 @@
 		.replace({
 			partition_key: 'test.com',
 			sort_key: 'test@test.com',
-
+			nine: 5 + 4,
+			width: ( 100 + 20 ) + 'px',
 			password: 'qwert',
 
 			// inserted as datatype SS
