@@ -73,7 +73,7 @@
 		REPLACE INTO
 			tbl_name
 		SET
-			partition_key: uuid('account-######-######'),
+			partition_key  = uuid('account-######-######'),
 			email          = 'test@test.com',
 			five           = 3 + 2,
 
