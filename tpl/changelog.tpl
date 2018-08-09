@@ -1,5 +1,12 @@
 <div class="content">
 
+<h1>@1.2.5</h1>
+basic arithmetic operations supported anywhere in SQL, instead of Number or String<br>
+uuid() function in SQL<br>
+Eg.:<br>
+  UPDATE tbl SET width = 100 + 20 WHERE `hash` = 'foo' + 'bar' AND `range` = ... ;<br>
+  INSERT INTO tbl SET accountId = uuid('acct-############'), created_at = new Date().getTime()<br>
+
 <h1>@1.2.4</h1>
 @awspilot/dynamodb can now replace empty strings with custom values and convert back to empty strings when fetching data.
 
