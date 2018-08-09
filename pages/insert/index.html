@@ -125,7 +125,7 @@
 	DynamoDB.query(`
 
 		INSERT INTO tbl_name SET
-			partition_key = uuid(),
+			partition_key = uuid('account-######-######'),
 			sort_key      = 'test@test.com',
 			password      = 'qwert',
 			bool          = true,
