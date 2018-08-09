@@ -1,8 +1,8 @@
 <div class="content">
 
 <h1>@1.2.5</h1>
-basic arithmetic operations can be used instead of String or Number anywhere in SQL, <br>
-uuid() function in SQL<br>
+basic arithmetic operations can be used instead of String or Number, anywhere in SQL, <br>
+new function in SQL: uuid()<br>
 Eg.:<br>
   UPDATE tbl SET width = 100 + 20 WHERE `hash` = 'foo' + 'bar' AND `range` = ... ;<br>
   INSERT INTO tbl SET accountId = uuid('acct-############'), created_at = new Date().getTime()<br>
