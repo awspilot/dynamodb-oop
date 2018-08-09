@@ -206,7 +206,7 @@
 			USE INDEX
 				idx_name
 			WHERE
-				partition_key = 'test.com' AND
+				partition_key = 'test' + '@' + 'test.com' AND
 				sort_key      LIKE 'contact@%'
 
 			DESC

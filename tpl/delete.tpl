@@ -63,7 +63,7 @@
 		DELETE FROM
 			messages
 		WHERE
-			\`to\`   = 'user1@test.com' AND
+			\`to\`   = 'user' + '@' + 'domain.com' AND
 			\`date\` =  new Date("2018-08-01T13:49:58.043Z").getTime()
 	`, function( err, data ) {
 		console.log( err, data )

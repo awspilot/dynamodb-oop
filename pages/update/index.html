@@ -113,11 +113,11 @@
 		SET
 			active          = true,
 			nulled          = null,
-			updated_at      = 1468137844,
+			nine            = 5 + 4,
 
 			activation_code = undefined,
 
-			login_count    += 1,
+			login_count    += 3 - 2,
 
 			days_left      += -1,
 

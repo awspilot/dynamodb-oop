@@ -73,9 +73,10 @@
 		REPLACE INTO
 			tbl_name
 		SET
-			email          =  'test@test.com',
+			partition_key: uuid('account-######-######'),
+			email          = 'test@test.com',
+			five           = 3 + 2,
 
-			updated_at     = 1530709469085,
 			last_login_at  = null,
 			active         = true,
 			a_list         = [

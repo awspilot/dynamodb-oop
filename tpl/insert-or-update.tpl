@@ -25,12 +25,12 @@
 		.table('tbl_name')
 		.return(DynamoDB.UPDATED_OLD)
 		.insert_or_update({
-			partition_key: 'test.com',
+			partition_key: uuid('account-######-######'),
 			sort_key: 'test@test.com',
 
 			password: 'qwert',
 			firstname: 'Smith',
-			number: 5,
+			five: 3 + 2,
 
 			// increment by 5
 			page_views: DynamoDB.add(5),
