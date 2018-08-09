@@ -117,7 +117,7 @@
 
 			activation_code = undefined,
 
-			login_count    += 3 - 2,
+			login_count    += 1,
 
 			days_left      += -1,
 
