@@ -125,11 +125,11 @@
 	DynamoDB.query(`
 
 		INSERT INTO tbl_name SET
-			partition_key = 'test.com',
+			partition_key = uuid(),
 			sort_key      = 'test@test.com',
 			password      = 'qwert',
 			bool          = true,
-			one           = 1,
+			one           = Math.round( 3.14 ) - 2,
 			updated_at    = null,
 			a_list        = [ 'alpha', 'beta', 'gamma', 1, null, true ],
 			a_map         = { 'string': 's', 'number': 1 },
