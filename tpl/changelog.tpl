@@ -1,7 +1,7 @@
 <div class="content">
 
 <h1>@1.2.5</h1>
-basic arithmetic operations supported anywhere in SQL, instead of Number or String<br>
+basic arithmetic operations can be used instead of String or Number anywhere in SQL, <br>
 uuid() function in SQL<br>
 Eg.:<br>
   UPDATE tbl SET width = 100 + 20 WHERE `hash` = 'foo' + 'bar' AND `range` = ... ;<br>
