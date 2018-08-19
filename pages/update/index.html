@@ -46,7 +46,7 @@
 
 <div class="code rw wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
 	// Update Existing Item
-	// update multiple attributes in a HASH table
+	// WARN: use schema() to prevent describeTable call
 	DynamoDB
 		.table('tbl_name')
 		.where('partition_key').eq('test@test.com')
@@ -106,6 +106,7 @@
 	// SQL version does not currently support adding / removing from StringSet or NumberSet. (Awspilot limitation).
 	// set value to undefined to delete an attribute
 	// new Date() and Math is evaluated to String or Number when parsed
+	// WARN: use schema() to prevent describeTable call
 	DynamoDB.query(`
 
 		UPDATE
