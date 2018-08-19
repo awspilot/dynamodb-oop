@@ -123,6 +123,7 @@
 	// SQL keywords must be enclosed in "`", keywords inside json must be enclosed in quotes
 	// if no callback supplied, promise is returned
 	// new Date() is evaluated to String or Number when parsed
+	// WARN: use schema() to prevent describeTable call
 	DynamoDB.query(`
 
 		INSERT INTO tbl_name SET
@@ -158,6 +159,7 @@
 <div class="code rw wide textmate" id="tab3" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
 
 	// insert using VALUES does not currently support StringSet or NumberSet
+	// WARN: use schema() to prevent describeTable call
 	DynamoDB.query(`
 
 			INSERT INTO tbl_name VALUES ({
