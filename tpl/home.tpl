@@ -112,11 +112,11 @@
 
 <h1>Define table schema</h1>
 Some operations like insert (putItem) need to add KeyConditions<br>
-to the request and prevent item replacing<br>
+to the request and prevent item replacing.<br>
 <br>
-Normally an insert operation would do an extra describeTable.<br>
-Using schema ( 1.2.6+ ) describeTable calls can be skipped.<br>
- 
+Normally an insert operation would do an extra describeTable call<br>
+By providing key definitions ( 1.2.6+ ), describeTable calls can be skipped.<br>
+<br>
 <div class="code">
 	DynamoDB.schema([
 		{
