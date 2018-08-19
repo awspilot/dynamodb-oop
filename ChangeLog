@@ -1,3 +1,5 @@
+1.2.6
+- schema() : new method to supply primary key definitions for tables to avoid unnecesary describeTable calls
 1.2.5
 - support for basic expressions that ca be resolved in place, eg. new Date().getTime() - 1000*60*60*24
 1.2.4
