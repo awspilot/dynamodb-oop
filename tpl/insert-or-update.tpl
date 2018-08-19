@@ -21,6 +21,7 @@
 <div class="code rw wide textmate activeTab" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;">
 
 	// Insert on Duplicate Item Update
+	// WARN: use schema() to prevent describeTable call
 	DynamoDB
 		.table('tbl_name')
 		.return(DynamoDB.UPDATED_OLD)
