@@ -25,6 +25,30 @@ DynamodbFactory.config( {
 
 DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'http://localhost:8000', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
 
+DynamoDB.schema({
+	TableName: 'test_hash',
+	KeySchema: [
+		{
+			AttributeName: "hash", 
+			KeyType: "HASH"
+		}
+	]
+})
+DynamoDB.schema([{
+	TableName: 'test_hash_range',
+	KeySchema: [
+		{
+			AttributeName: "hash", 
+			KeyType: "HASH"
+		}, 
+		{
+			AttributeName: "range", 
+			KeyType: "RANGE"
+		}
+	]
+}])
+
+
 DynamoDB.on('error', function(op, error, payload ) {
 	//console.log(op,error,JSON.stringify(payload))
 })
