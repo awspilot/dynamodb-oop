@@ -54,6 +54,7 @@
 
 
 	// Insert Item ( no update )
+	// WARN: use schema() to prevent describeTable call
 	DynamoDB
 		.table('tbl_name')
 		.insert({
