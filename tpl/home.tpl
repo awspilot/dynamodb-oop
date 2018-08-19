@@ -109,6 +109,42 @@
 </div>
 
 
+
+<h1>Define table schema</h1>
+Some operations like insert (putItem) need to add KeyConditions<br>
+to the request and prevent item replacing<br>
+<br>
+Normally an insert operation would do an extra describeTable.<br>
+Using schema ( 1.2.6+ ) describeTable calls can be skipped.<br>
+ 
+<div class="code">
+	DynamoDB.schema([
+		{
+			TableName: 'tbl_name',
+			KeySchema: [
+				{
+					AttributeName: "partition_key", 
+					KeyType: "HASH"
+				},
+				{
+					AttributeName: "sort_key", 
+					KeyType: "RANGE"
+				}
+			]
+		},
+		{
+			TableName: 'users',
+			KeySchema: [
+				{
+					AttributeName: "email", 
+					KeyType: "HASH"
+				}
+			]
+		},
+	])
+
+</div>
+
 <h1>Response</h1>
 <p>If a callback function is supplied, the response will be returned as callback(error, data)</p>
 <p>If no callback function is supplied, <a href="https://www.npmjs.com/package/promise" target="_blank">Promise</a> will be returned </p>
