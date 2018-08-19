@@ -68,7 +68,10 @@
 
 <div class="code rw wide textmate activeTab" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;">
 
-	// completely replaces the item, new item will only contain specified attributes
+	// Replaces existing item with new item
+	// Operation will fail if an item with the same key does not exist
+	// see also .insert_or_replace()
+	// WARN: use schema() to prevent describeTable call
 	DynamoDB
 		.table('tbl_name')
 		.return(DynamoDB.UPDATED_OLD)
