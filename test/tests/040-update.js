@@ -67,7 +67,7 @@ describe('update()', function () {
 				range: 1,
 
 				number: 10,
-				number2: 10,
+				number2: 10.5,
 				boolean: true,
 			}, function(err) {
 				if (err) throw err
@@ -87,7 +87,7 @@ describe('update()', function () {
 					}, function(err, data ) {
 
 						if (err) throw err
-						assert.deepEqual(data, { number: 10, number2: 10, boolean: true })
+						assert.deepEqual(data, { number: 10, number2: 10.5, boolean: true })
 						done()
 					})
 			})
