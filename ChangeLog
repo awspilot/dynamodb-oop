@@ -1,3 +1,5 @@
+1.2.7
+- fixes a HUGE bug where float numbers may lose decimals in OOP .query(), SQL .query() do not have this bug
 1.2.6
 - schema() : new method to supply primary key definitions for tables to avoid unnecesary describeTable calls
 1.2.5
