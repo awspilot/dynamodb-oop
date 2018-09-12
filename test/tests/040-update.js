@@ -1,6 +1,30 @@
 
 describe('update()', function () {
 
+	it('.explain().update', function(done) {
+		DynamoDB
+			.explain()
+			.table($tableName)
+			.where('hash').eq('h')
+			.where('range').eq('r')
+			.update({
+				string: 'newstring',
+				boolean: false,
+				increment: DynamoDB.add(9),
+				decrement: DynamoDB.add(-2),
+				null: null,
+				ss: new Set(['a','b','c']),
+				ns: new Set([1,2,3]),
+				ssadd: DynamoDB.add( new Set(['d','e']) )),
+				nsadd: DynamoDB.add( new Set([4,5]) )),
+				ssdel: DynamoDB.add( new Set(['f','g']) )),
+				nsdel: DynamoDB.add( new Set([6,7]) )),
+			}, function(err, data) {
+				console.log("explain", err, JSON.stringify(data,null,"\t"))
+				done()
+			})
+	})
+
 	// dynalite: "ADD action is not supported for the type L", UpdateExpression
 	it('.update( existing_item )', function(done) {
 		// insert
