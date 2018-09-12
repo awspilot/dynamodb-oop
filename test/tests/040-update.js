@@ -2,6 +2,7 @@
 describe('update()', function () {
 
 	it('.explain().update', function(done) {
+
 		DynamoDB
 			.explain()
 			.table($tableName)
@@ -20,9 +21,32 @@ describe('update()', function () {
 				ssdel: DynamoDB.add( DynamoDB.SS(['f','g']) ),
 				nsdel: DynamoDB.add( DynamoDB.NS([6,7]) ),
 			}, function(err, data) {
-				console.log("explain", err, JSON.stringify(data,null,"\t"))
+				assert.deepEqual(data,{
+					"method":"updateItem",
+					"payload":{
+						"TableName":"test_hash_range",
+						"Key":{"hash":{"S":"h"},
+						"range":{"S":"r"}},
+						"Expected":{"hash":{"Exists":true,"Value":{"S":"h"}},"range":{"Exists":true,"Value":{"S":"r"}}},
+						"AttributeUpdates":{
+							"string":{"Action":"PUT","Value":{"S":"newstring"}},
+							"boolean":{"Action":"PUT","Value":{"BOOL":false}},
+							"increment":{"Action":"ADD","Value":{"N":"9"}},
+							"decrement":{"Action":"ADD","Value":{"N":"-2"}},
+							"null":{"Action":"PUT","Value":{"NULL":true}},
+							"ss":{"Action":"PUT","Value":{"SS":["a","b","c"]}},
+							"ns":{"Action":"PUT","Value":{"NS":["1","2","3"]}},
+							"ssadd":{"Action":"ADD","Value":{"SS":["d","e"]}},
+							"nsadd":{"Action":"ADD","Value":{"NS":["4","5"]}},
+							"ssdel":{"Action":"ADD","Value":{"SS":["f","g"]}},
+							"nsdel":{"Action":"ADD","Value":{"NS":["6","7"]}}
+						},
+						"ReturnConsumedCapacity":"TOTAL"
+					}
+				})
 				done()
 			})
+
 	})
 
 	// dynalite: "ADD action is not supported for the type L", UpdateExpression
