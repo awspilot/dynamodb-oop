@@ -24,7 +24,7 @@ Tests:
 
         -
           query: SHOW TABLES
-          log: true
+          log: false
 
         - title: EXPLAIN SHOW TABLES
           query: SHOW TABLES
