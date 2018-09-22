@@ -15,7 +15,13 @@ Tests:
           log: false
           # validate!
 
+        -
+          title: EXPLAIN DESCRIBE TABLE test_hash_range
+          query: DESCRIBE TABLE test_hash_range
+          explain: true
+          log: false
+          # validate!
 
         -
           query: SHOW TABLES
-          log: true
+          log: false
