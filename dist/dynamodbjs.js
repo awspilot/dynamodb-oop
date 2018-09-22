@@ -1739,7 +1739,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 							if (err)
 								return reject(err)
 
-							fullfill(data.TableNames)
+							fullfill(DynamodbFactory.util.normalizeItem(data.TableNames || {}))
 						})
 
 						break;
@@ -1853,7 +1853,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 					if (err)
 						return typeof callback !== "function" ? null : callback.apply( this, [ err, false ] )
 
-					typeof callback !== "function" ? null : callback.apply( this, [ err, data.TableNames, data ])
+					typeof callback !== "function" ? null : callback.apply( this, [ err, DynamodbFactory.util.normalizeItem(data.TableNames || {}) , data ])
 				})
 				break;
 			case 'BATCHINSERT':
