@@ -587,7 +587,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 		}
 		this.describeTables = {}
 		this.return_explain = false
-		
+
 		// $config will not be an instance of DynamoDB becanse we have a different instance of AWS sdk loaded
 		// aws had similar issues in the past: https://github.com/awslabs/dynamodb-document-js-sdk/issues/16
 
@@ -794,14 +794,14 @@ window['@awspilot/dynamodb'] = DynamoDB
 		var $this = this;
 		if (typeof $schemas !== "object")
 			throw new Error("[AWSPILOT] Invalid parameter, schema must be Array or Object");
-		
-		if (Array.isArray($schemas)) 
+
+		if (Array.isArray($schemas))
 			$schemas.map(function(s) {
 				$this.addTableSchema(s)
 			})
 		else
 			this.addTableSchema($schemas)
-		
+
 		return this;
 	}
 
@@ -912,7 +912,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 				case 'putItem':
 				case 'updateItem':
 				case 'deleteItem':
-					var explain = { 
+					var explain = {
 						Attributes: DynamodbFactory.util.anormalizeItem({
 							method: method,
 							payload: params,
@@ -920,7 +920,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 					}
 					break;
 				case 'getItem':
-					var explain = { 
+					var explain = {
 						Item: DynamodbFactory.util.anormalizeItem({
 							method: method,
 							payload: params,
@@ -929,7 +929,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 					break;
 				case 'query':
 				case 'scan':
-					var explain = { 
+					var explain = {
 						Items: DynamodbFactory.util.anormalizeItem({
 							method: method,
 							payload: params,
@@ -962,7 +962,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 		if (this.describeTables.hasOwnProperty(table)) {
 			return callback.apply( this, [ null, { Table: this.describeTables[table] } ] )
 		}
-		
+
 		this.routeCall('describeTable', { TableName: table }, false, function(err,data) {
 			return callback.apply( this, [ err, data ] )
 		})
@@ -1721,6 +1721,20 @@ window['@awspilot/dynamodb'] = DynamoDB
 		if (typeof callback !== "function") {
 			return new Promise(function(fullfill, reject) {
 				switch (sqp.statement) {
+
+					case 'SHOW_TABLES':
+
+						if (typeof $this.local_events['beforeRequest'] === "function" )
+							$this.local_events['beforeRequest'](sqp.operation, sqp.dynamodb)
+
+						$this.routeCall( sqp.operation, sqp.dynamodb ,true, function(err,data) {
+							if (err)
+								return reject(err)
+
+							fullfill(data.TableNames)
+						})
+
+						break;
 					case 'BATCHINSERT':
 
 						if (typeof $this.local_events['beforeRequest'] === "function" )
@@ -1823,6 +1837,17 @@ window['@awspilot/dynamodb'] = DynamoDB
 
 
 		switch (sqp.statement) {
+			case 'SHOW_TABLES':
+				if (typeof this.local_events['beforeRequest'] === "function" )
+					this.local_events['beforeRequest'](sqp.operation, sqp.dynamodb)
+
+				this.routeCall(sqp.operation, sqp.dynamodb ,true, function(err,data) {
+					if (err)
+						return typeof callback !== "function" ? null : callback.apply( this, [ err, false ] )
+
+					typeof callback !== "function" ? null : callback.apply( this, [ err, data.TableNames, data ])
+				})
+				break;
 			case 'BATCHINSERT':
 				if (typeof this.local_events['beforeRequest'] === "function" )
 					this.local_events['beforeRequest'](sqp.operation, sqp.dynamodb)
@@ -5746,5 +5771,5 @@ DynamoUtil.normalizeValue  = DynamoUtil.parse;
 
 module.exports = DynamoUtil
 
-}).call(this,{"isBuffer":require("../../../../../../../../.nvm/versions/node/v4.3.0/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../.nvm/versions/node/v4.3.0/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js":2}]},{},[5]);
+}).call(this,{"isBuffer":require("../../../../../../../../.nvm/versions/node/v10.8.0/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"../../../../../../../../.nvm/versions/node/v10.8.0/lib/node_modules/browserify/node_modules/is-buffer/index.js":2}]},{},[5]);
