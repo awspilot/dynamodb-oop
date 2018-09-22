@@ -936,6 +936,14 @@ window['@awspilot/dynamodb'] = DynamoDB
 						})
 					}
 					break;
+				case 'listTables':
+					var explain = {
+						TableNames: DynamodbFactory.util.anormalizeItem({
+							method: method,
+							payload: params,
+						})
+					}
+					break;
 			}
 
 
