@@ -29,7 +29,7 @@ DynamoDB.schema({
 	TableName: 'test_hash',
 	KeySchema: [
 		{
-			AttributeName: "hash", 
+			AttributeName: "hash",
 			KeyType: "HASH"
 		}
 	]
@@ -38,11 +38,11 @@ DynamoDB.schema([{
 	TableName: 'test_hash_range',
 	KeySchema: [
 		{
-			AttributeName: "hash", 
+			AttributeName: "hash",
 			KeyType: "HASH"
-		}, 
+		},
 		{
-			AttributeName: "range", 
+			AttributeName: "range",
 			KeyType: "RANGE"
 		}
 	]
@@ -64,7 +64,11 @@ query_handler = function( idx, yml ) {
 		else
 			global.DDBSQL = false
 
-		DynamoDB.query( yml.Tests.query[idx].query, function(err, data ) {
+		var ddb = DynamoDB
+		if (yml.Tests.query[idx].explain === true)
+			ddb = ddb.explain()
+
+		ddb.query( yml.Tests.query[idx].query, function(err, data ) {
 			var dataItem;
 			async.waterfall([
 				function(cb) {
