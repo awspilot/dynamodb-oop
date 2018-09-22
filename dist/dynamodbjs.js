@@ -930,18 +930,26 @@ window['@awspilot/dynamodb'] = DynamoDB
 				case 'query':
 				case 'scan':
 					var explain = {
-						Items: DynamodbFactory.util.anormalizeItem({
+						Explain: {
 							method: method,
 							payload: params,
-						})
+						}
 					}
 					break;
 				case 'listTables':
 					var explain = {
-						TableNames: DynamodbFactory.util.anormalizeItem({
+						TableNames: {
 							method: method,
 							payload: params,
-						})
+						}
+					}
+					break;
+				case 'describeTable':
+					var explain = {
+						Table: {
+							method: method,
+							payload: params,
+						}
 					}
 					break;
 			}
@@ -1730,6 +1738,20 @@ window['@awspilot/dynamodb'] = DynamoDB
 			return new Promise(function(fullfill, reject) {
 				switch (sqp.statement) {
 
+					case 'DESCRIBE_TABLE':
+
+						if (typeof $this.local_events['beforeRequest'] === "function" )
+							$this.local_events['beforeRequest'](sqp.operation, sqp.dynamodb)
+
+						$this.routeCall( sqp.operation, sqp.dynamodb ,true, function(err,data) {
+							if (err)
+								return reject(err)
+
+							fullfill(DynamodbFactory.util.normalizeItem(data.Table || {}))
+						})
+
+						break;
+
 					case 'SHOW_TABLES':
 
 						if (typeof $this.local_events['beforeRequest'] === "function" )
@@ -1739,10 +1761,11 @@ window['@awspilot/dynamodb'] = DynamoDB
 							if (err)
 								return reject(err)
 
-							fullfill(DynamodbFactory.util.normalizeItem(data.TableNames || {}))
+							fullfill(data.TableNames || [])
 						})
 
 						break;
+
 					case 'BATCHINSERT':
 
 						if (typeof $this.local_events['beforeRequest'] === "function" )
@@ -1845,6 +1868,18 @@ window['@awspilot/dynamodb'] = DynamoDB
 
 
 		switch (sqp.statement) {
+			case 'DESCRIBE_TABLE':
+				if (typeof this.local_events['beforeRequest'] === "function" )
+					this.local_events['beforeRequest'](sqp.operation, sqp.dynamodb)
+
+				this.routeCall(sqp.operation, sqp.dynamodb ,true, function(err,data) {
+					if (err)
+						return typeof callback !== "function" ? null : callback.apply( this, [ err, false ] )
+
+					typeof callback !== "function" ? null : callback.apply( this, [ err, data.Table , data ])
+				})
+				break;
+
 			case 'SHOW_TABLES':
 				if (typeof this.local_events['beforeRequest'] === "function" )
 					this.local_events['beforeRequest'](sqp.operation, sqp.dynamodb)
@@ -1853,7 +1888,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 					if (err)
 						return typeof callback !== "function" ? null : callback.apply( this, [ err, false ] )
 
-					typeof callback !== "function" ? null : callback.apply( this, [ err, DynamodbFactory.util.normalizeItem(data.TableNames || {}) , data ])
+					typeof callback !== "function" ? null : callback.apply( this, [ err, data.TableNames , data ])
 				})
 				break;
 			case 'BATCHINSERT':
@@ -1945,9 +1980,10 @@ window['@awspilot/dynamodb'] = DynamoDB
 					this.LastEvaluatedKey = data.LastEvaluatedKey === undefined ? null : data.LastEvaluatedKey
 
 					typeof callback !== "function" ? null : callback.apply( this, [ err,
-						DynamodbFactory.util.parse({ L:
-							(data.Items || []).map(function(item) { return {'M': item } })
-						} )
+						data.Explain ? data.Explain :
+							DynamodbFactory.util.parse({ L:
+								(data.Items || []).map(function(item) { return {'M': item } })
+							} )
 					, data ])
 
 				})
