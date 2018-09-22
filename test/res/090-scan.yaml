@@ -1,7 +1,7 @@
 Prepare:
     Data: []
 Tests:
-    query: 
+    query:
         - query: SCAN * FROM test_hash_range
           results: 9
 
@@ -20,3 +20,9 @@ Tests:
         - query: SCAN * FROM test_hash_range USE INDEX gsi_index
           results: 4
 
+
+
+        - title: EXPLAIN SCAN * FROM test_hash_range
+          query: SCAN * FROM test_hash_range
+          explain: true
+          log: true
