@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
 /*!
@@ -25,6 +25,9 @@ function isSlowBuffer (obj) {
 
 },{}],3:[function(require,module,exports){
 (function (process){
+// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
+
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -75,14 +78,6 @@ function normalizeArray(parts, allowAboveRoot) {
 
   return parts;
 }
-
-// Split a filename into [root, dir, basename, ext], unix version
-// 'root' is just a slash, or nothing.
-var splitPathRe =
-    /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/;
-var splitPath = function(filename) {
-  return splitPathRe.exec(filename).slice(1);
-};
 
 // path.resolve([from ...], to)
 // posix version
@@ -199,37 +194,120 @@ exports.relative = function(from, to) {
 exports.sep = '/';
 exports.delimiter = ':';
 
-exports.dirname = function(path) {
-  var result = splitPath(path),
-      root = result[0],
-      dir = result[1];
-
-  if (!root && !dir) {
-    // No dirname whatsoever
-    return '.';
+exports.dirname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  if (path.length === 0) return '.';
+  var code = path.charCodeAt(0);
+  var hasRoot = code === 47 /*/*/;
+  var end = -1;
+  var matchedSlash = true;
+  for (var i = path.length - 1; i >= 1; --i) {
+    code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        if (!matchedSlash) {
+          end = i;
+          break;
+        }
+      } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
   }
 
-  if (dir) {
-    // It has a dirname, strip trailing slash
-    dir = dir.substr(0, dir.length - 1);
+  if (end === -1) return hasRoot ? '/' : '.';
+  if (hasRoot && end === 1) {
+    // return '//';
+    // Backwards-compat fix:
+    return '/';
   }
-
-  return root + dir;
+  return path.slice(0, end);
 };
 
+function basename(path) {
+  if (typeof path !== 'string') path = path + '';
 
-exports.basename = function(path, ext) {
-  var f = splitPath(path)[2];
-  // TODO: make this comparison case-insensitive on windows?
+  var start = 0;
+  var end = -1;
+  var matchedSlash = true;
+  var i;
+
+  for (i = path.length - 1; i >= 0; --i) {
+    if (path.charCodeAt(i) === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          start = i + 1;
+          break;
+        }
+      } else if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // path component
+      matchedSlash = false;
+      end = i + 1;
+    }
+  }
+
+  if (end === -1) return '';
+  return path.slice(start, end);
+}
+
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
+exports.basename = function (path, ext) {
+  var f = basename(path);
   if (ext && f.substr(-1 * ext.length) === ext) {
     f = f.substr(0, f.length - ext.length);
   }
   return f;
 };
 
+exports.extname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  var startDot = -1;
+  var startPart = 0;
+  var end = -1;
+  var matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  var preDotState = 0;
+  for (var i = path.length - 1; i >= 0; --i) {
+    var code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1;
+          break;
+        }
+        continue;
+      }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1)
+          startDot = i;
+        else if (preDotState !== 1)
+          preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
 
-exports.extname = function(path) {
-  return splitPath(path)[3];
+  if (startDot === -1 || end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+    return '';
+  }
+  return path.slice(startDot, end);
 };
 
 function filter (xs, f) {
@@ -508,6 +586,7 @@ window['@awspilot/dynamodb'] = DynamoDB
 			beforeRequest: function() {}
 		}
 		this.describeTables = {}
+		this.return_explain = false
 		
 		// $config will not be an instance of DynamoDB becanse we have a different instance of AWS sdk loaded
 		// aws had similar issues in the past: https://github.com/awslabs/dynamodb-document-js-sdk/issues/16
@@ -726,13 +805,20 @@ window['@awspilot/dynamodb'] = DynamoDB
 		return this;
 	}
 
+	DynamoDB.prototype.explain = function() {
+		this.return_explain = true
+		return this
+	}
+
 	DynamoDB.prototype.table = function($tableName) {
-		return new Request( this.client, { events: this.events, describeTables: this.describeTables } ).table($tableName)
+		var re = this.return_explain; this.return_explain = false;
+		return new Request( this.client, { events: this.events, describeTables: this.describeTables, return_explain: re, } ).table($tableName)
 	}
 
 
 	DynamoDB.prototype.query = function() {
-		var r = new Request( this.client, { events: this.events, describeTables: this.describeTables } )
+		var re = this.return_explain; this.return_explain = false;
+		var r = new Request( this.client, { events: this.events, describeTables: this.describeTables, return_explain: re, } )
 		return r.sql(arguments[0],arguments[1]);
 	}
 
@@ -764,8 +850,11 @@ window['@awspilot/dynamodb'] = DynamoDB
 	DynamoDB.prototype.INDEXES = 'INDEXES'
 
 	function Request( $client, config ) {
+
+
 		this.events = config.events // global events
 		this.describeTables = config.describeTables
+		this.return_explain = config.return_explain
 		this.local_events = {}
 		this.client = $client
 
@@ -814,6 +903,46 @@ window['@awspilot/dynamodb'] = DynamoDB
 	Request.prototype.routeCall = function(method, params, reset ,callback ) {
 		var $this = this
 		this.events.beforeRequest.apply( this, [ method, params ])
+
+		if ( this.return_explain ) {
+			if ( reset === true )
+				$this.reset()
+
+			switch (method) {
+				case 'putItem':
+				case 'updateItem':
+				case 'deleteItem':
+					var explain = { 
+						Attributes: DynamodbFactory.util.anormalizeItem({
+							method: method,
+							payload: params,
+						})
+					}
+					break;
+				case 'getItem':
+					var explain = { 
+						Item: DynamodbFactory.util.anormalizeItem({
+							method: method,
+							payload: params,
+						})
+					}
+					break;
+				case 'query':
+				case 'scan':
+					var explain = { 
+						Items: DynamodbFactory.util.anormalizeItem({
+							method: method,
+							payload: params,
+						})
+					}
+					break;
+			}
+
+
+			callback.apply( $this, [ null, explain ] )
+			return
+		}
+
 
 		this.client[method]( params, function( err, data ) {
 
@@ -5258,7 +5387,7 @@ var array_from_set = function(s) {
 	var r = []
 	s.forEach(function(n){ r.push(n) })
 	return r
-} 
+}
 DynamoUtil.Raw = function(data) {
 	this.data = data
 }
@@ -5270,7 +5399,7 @@ DynamoUtil.anormalizeList = function(list) {
 	}
 	return $ret;
 }
-
+/* possible that is no longer needed, replaced by stringify() */
 DynamoUtil.anormalizeItem = function(item) {
 	var anormal = {}
 	for (var key in item) {
@@ -5326,14 +5455,14 @@ DynamoUtil.stringify = function( $value ) {
 		if ($value instanceof Set) {
 			var is_ss = true;
 			var is_ns = true;
-			
+
 			// count elements in Set
 			if ($value.size === 0) {
 				is_ss = false;
 				is_ns = false;
 			}
-			
-			$value.forEach(function (v) { 
+
+			$value.forEach(function (v) {
 				if ( typeof v === "string" ) {
 					is_ns = false;
 				} else if ( typeof v === "number" ) {
@@ -5347,11 +5476,11 @@ DynamoUtil.stringify = function( $value ) {
 				return { 'SS': array_from_set($value) }
 
 			if (is_ns)
-				return { 
-					'NS': array_from_set($value).map(function(item) { return item.toString() }) 
+				return {
+					'NS': array_from_set($value).map(function(item) { return item.toString() })
 				}
-			
-			return { 
+
+			return {
 				'L': array_from_set($value).map(function(item) { return DynamoUtil.stringify(item) })
 			}
 		}
@@ -5360,7 +5489,7 @@ DynamoUtil.stringify = function( $value ) {
 		for (var i in $value) {
 			if ($value.hasOwnProperty(i)) {
 					var val = DynamoUtil.stringify($value[i] )
-					
+
 					if (val !== undefined ) // when empty string is replaced with undefined
 						to_ret.M[i] = val
 				}
@@ -5391,6 +5520,7 @@ DynamoUtil.anormalizeType = function( $value ) {
 	// @todo: support other types
 }
 
+/*
 DynamoUtil.normalizeList = function($items) {
 	var $list = []
 	for (var i in $items) {
@@ -5398,6 +5528,7 @@ DynamoUtil.normalizeList = function($items) {
 	}
 	return $list;
 }
+*/
 
 DynamoUtil.parse = function(v) {
 	if (typeof v !== 'object')
@@ -5414,7 +5545,7 @@ DynamoUtil.parse = function(v) {
 	}
 
 	if (v.hasOwnProperty('N'))
-		return parseInt(v.N)
+		return parseFloat(v.N)
 
 	if (v.hasOwnProperty('BOOL'))
 		return v.BOOL
@@ -5615,5 +5746,5 @@ DynamoUtil.normalizeValue  = DynamoUtil.parse;
 
 module.exports = DynamoUtil
 
-}).call(this,{"isBuffer":require("../../../../../../../../.npm/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../.npm/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js":2}]},{},[5]);
+}).call(this,{"isBuffer":require("../../../../../../../../.nvm/versions/node/v4.3.0/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js")})
+},{"../../../../../../../../.nvm/versions/node/v4.3.0/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js":2}]},{},[5]);
