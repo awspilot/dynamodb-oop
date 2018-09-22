@@ -24,4 +24,10 @@ Tests:
 
         -
           query: SHOW TABLES
+          log: true
+
+        - title: EXPLAIN SHOW TABLES
+          query: SHOW TABLES
+          explain: true
           log: false
+          # validate!
