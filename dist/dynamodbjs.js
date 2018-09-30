@@ -5815,5 +5815,5 @@ DynamoUtil.normalizeValue  = DynamoUtil.parse;
 
 module.exports = DynamoUtil
 
-}).call(this,{"isBuffer":require("../../../../../../../../.nvm/versions/node/v10.8.0/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../.nvm/versions/node/v10.8.0/lib/node_modules/browserify/node_modules/is-buffer/index.js":2}]},{},[5]);
+}).call(this,{"isBuffer":require("../../../../../../../../.nvm/versions/node/v4.3.0/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js")})
+},{"../../../../../../../../.nvm/versions/node/v4.3.0/lib/node_modules/browserify/node_modules/insert-module-globals/node_modules/is-buffer/index.js":2}]},{},[5]);
