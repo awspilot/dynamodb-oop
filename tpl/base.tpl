@@ -136,6 +136,7 @@
 				<label class="tree_label sub" for="dynamodbui"><img src="/dynamodb-oop/images/folder_flat.png"/> dynamodb-ui</label>
 				<ul>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/ui-readme/"> <img src="/dynamodb-oop/images/text.png"/> README.md</a></span>
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/ui-demo/"> <img src="/dynamodb-oop/images/text.png"/> DEMO.md</a></span>
 
 		</ul>
 	</li>
