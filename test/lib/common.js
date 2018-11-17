@@ -23,7 +23,7 @@ DynamodbFactory.config( {
 	empty_string_replace_as: "\0"
 } );
 
-DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'http://localhost:8000', "accessKeyId": "akid", "secretAccessKey": "secret", "region": "us-east-1" }))
+DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'http://localhost:8000', "accessKeyId": "myKeyId", "secretAccessKey": "secret", "region": "us-east-1" }))
 
 DynamoDB.schema({
 	TableName: 'test_hash',
