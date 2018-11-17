@@ -84,7 +84,7 @@ def_update_onecolumn
 	| name EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
 
-	| name PLUSEQ javascript_raw_expr
+	| name PLUSEQ dynamodb_raw_number
 		{ $$ = [ $1, $3, '+=' ]; }
 	| name EQ dynamodb_data_undefined
 		{ $$ = [ $1, undefined, 'delete' ]; }
