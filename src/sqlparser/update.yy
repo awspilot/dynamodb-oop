@@ -56,37 +56,27 @@ def_update_columns
 		{ $$ = [$1]; }
 	;
 def_update_onecolumn
-	: name EQ javascript_raw_expr
-		{ $$ = [ $1, $3 ]; }
-/*
-	: name EQ dynamodb_raw_string
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_number
+	: dynamodb_attribute_name_or_keyword EQ javascript_raw_expr
 		{ $$ = [ $1, $3 ]; }
 
-	// javascript objects
-	| name EQ javascript_raw_obj_date
+	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
+
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_boolean
 		{ $$ = [ $1, $3 ]; }
-	| name EQ javascript_raw_obj_math
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_null
+		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_json
+		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_array
+		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_stringset
+		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
 
-*/
-	| name EQ dynamodb_raw_boolean
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_null
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_json
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_array
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_stringset
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_numberset
-		{ $$ = [ $1, $3 ]; }
-
-	| name PLUSEQ javascript_raw_expr
+	| dynamodb_attribute_name_or_keyword PLUSEQ javascript_raw_expr
 		{ $$ = [ $1, $3, '+=' ]; }
-	| name EQ dynamodb_data_undefined
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_data_undefined
 		{ $$ = [ $1, undefined, 'delete' ]; }
 	;
 
