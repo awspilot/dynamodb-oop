@@ -871,8 +871,10 @@ dynamodb_index_name_or_keyword
 	: name_or_keyword
 		{ $$ = $1; }
 	;
-
-
+dynamodb_attribute_name_or_keyword
+	: name_or_keyword
+		{ $$ = $1; }
+	;
 
 
 
