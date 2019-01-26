@@ -2,20 +2,20 @@ scan_stmt
 	: def_scan def_scan_limit_clause def_scan_consistent_read
 		{
 			$$ = {
-				statement: 'SCAN', 
+				statement: 'SCAN',
 				operation: 'scan',
 				dynamodb: $1.dynamodb,
 			};
 
 			$$.columns = $1.columns
 			$$.having  = Object.keys($1.having).length ? $1.having : undefined;
-			
+
 			yy.extend($$.dynamodb, $2);
 			yy.extend($$.dynamodb, $3);
 		}
 	;
 def_scan
-	: SCAN def_scan_columns FROM dynamodb_table_name def_scan_use_index def_scan_having
+	: SCAN def_scan_columns FROM dynamodb_table_name_or_keyword def_scan_use_index def_scan_having
 		{
 			$$ = {
 				dynamodb: {
@@ -24,7 +24,7 @@ def_scan
 				},
 				columns:$2,
 				having: {},
-			}; 
+			};
 			yy.extend($$,$6); // filter
 
 
@@ -37,17 +37,17 @@ def_scan
 				var ProjectionExpression = []
 				$$.columns.map(function(c) {
 					if (c.type === "column") {
-						var replaced_name = '#projection_' + c.column.split('-').join('_minus_').split('.').join('_dot_') 
+						var replaced_name = '#projection_' + c.column.split('-').join('_minus_').split('.').join('_dot_')
 						ExpressionAttributeNames_from_projection[replaced_name] = c.column;
 						ProjectionExpression.push(replaced_name)
-					}	
+					}
 				})
-				
+
 				yy.extend($$.dynamodb.ExpressionAttributeNames,ExpressionAttributeNames_from_projection);
-				
+
 				if (ProjectionExpression.length)
 					$$.dynamodb.ProjectionExpression = ProjectionExpression.join(' , ')
-			
+
 			}
 
 
