@@ -93,10 +93,9 @@ def_scan_onecolumn
 def_scan_use_index
 	:
 		{ $$ = undefined; }
-	| USE INDEX name
+	| USE INDEX dynamodb_index_name_or_keyword
 		{ $$ = $3; }
 	;
-
 
 def_scan_having
 	: HAVING def_scan_having_expr
