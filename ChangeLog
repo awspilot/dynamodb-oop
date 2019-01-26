@@ -1,3 +1,9 @@
+1.2.9
+- SQL support for DROP TABLE
+- SQL support for DROP INDEX index_name ON tbl_name
+- updated SQL parser to support keywords in attribute names, table names and index names (eg: WHERE where = 5)
+1.2.8
+
 1.2.7
 - fixes a HUGE bug where float numbers may lose decimals in OOP .query(), SQL .query() do not have this bug
 1.2.6
