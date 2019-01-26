@@ -843,6 +843,14 @@ name
 	| BRALITERAL
 		{ $$ = $1.substr(1,$1.length-2); }
 	;
+name_or_keyword
+	: LITERAL
+		{ $$ = $1; }
+	| BRALITERAL
+		{ $$ = $1.substr(1,$1.length-2); }
+	| KEYWORD
+		{ $$ = $1 }
+	;
 
 database_table_name
 	: name DOT name
@@ -855,6 +863,14 @@ dynamodb_table_name
 	: name
 		{ $$ = $1; }
 	;
+dynamodb_table_name_or_keyword
+	: name_or_keyword
+		{ $$ = $1; }
+	;
+
+
+
+
 
 
 database_index_name
