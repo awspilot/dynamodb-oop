@@ -77,7 +77,7 @@ def_select_use_index
 
 
 
-def_where
+def_select_where
 	: WHERE select_where_hash
 		{
 			$$ = {
@@ -151,7 +151,7 @@ def_having
 
 
 def_select
-	: SELECT distinct_all def_select_columns def_select_from def_select_use_index def_where def_having
+	: SELECT distinct_all def_select_columns def_select_from def_select_use_index def_select_where def_having
 		{
 			$$ = {
 				dynamodb: {
