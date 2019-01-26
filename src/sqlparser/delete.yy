@@ -1,6 +1,6 @@
 
 delete_stmt
-	: DELETE FROM dynamodb_table_name WHERE def_delete_where
+	: DELETE FROM dynamodb_table_name_or_keyword WHERE def_delete_where
 		{
 			var $kv = {}
 			$5.map(function(v) { $kv[v.k] = v.v })
