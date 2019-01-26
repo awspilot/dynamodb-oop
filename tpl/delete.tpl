@@ -58,13 +58,13 @@
 
 
 <div class="code rw wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
-	// to and date are both wrapped because they are keywords
+	// as of 1.2.9 , "to" and "date" attributes no longer need to be wrapped as `keyword` even though they are keywords
 	DynamoDB.query(`
 		DELETE FROM
 			messages
 		WHERE
-			\`to\`   = 'user' + '@' + 'domain.com' AND
-			\`date\` =  new Date("2018-08-01T13:49:58.043Z").getTime()
+			to   = 'user' + '@' + 'domain.com' AND
+			date =  new Date("2018-08-01T13:49:58.043Z").getTime()
 	`, function( err, data ) {
 		console.log( err, data )
 	});
