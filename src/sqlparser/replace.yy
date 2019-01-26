@@ -1,6 +1,6 @@
 
 replace_stmt
-	: REPLACE INTO dynamodb_table_name SET def_replace_columns
+	: REPLACE INTO dynamodb_table_name_or_keyword SET def_replace_columns
 		{
 			var $kv = {}
 			$5.map(function(v) {
