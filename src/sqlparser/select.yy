@@ -223,7 +223,7 @@ where_expr
 	;
 
 select_where_hash
-	: name EQ select_where_hash_value
+	: dynamodb_attribute_name_or_keyword EQ select_where_hash_value
 		{
 			$$ = {
 				partition: {
@@ -251,7 +251,7 @@ select_where_hash_value
 
 
 select_where_range
-	: name EQ select_where_range_value
+	: dynamodb_attribute_name_or_keyword EQ select_where_range_value
 		{
 			$$ = {
 				sort: {
@@ -262,7 +262,7 @@ select_where_range
 			}
 		}
 
-	| name GT select_where_range_value
+	| dynamodb_attribute_name_or_keyword GT select_where_range_value
 		{
 			$$ = {
 				sort: {
@@ -272,7 +272,7 @@ select_where_range
 				}
 			}
 		}
-	| name GE select_where_range_value
+	| dynamodb_attribute_name_or_keyword GE select_where_range_value
 		{
 			$$ = {
 				sort: {
@@ -282,7 +282,7 @@ select_where_range
 				}
 			}
 		}
-	| name LT select_where_range_value
+	| dynamodb_attribute_name_or_keyword LT select_where_range_value
 		{
 			$$ = {
 				sort: {
@@ -292,7 +292,7 @@ select_where_range
 				}
 			}
 		}
-	| name LE select_where_range_value
+	| dynamodb_attribute_name_or_keyword LE select_where_range_value
 		{
 			$$ = {
 				sort: {
@@ -304,7 +304,7 @@ select_where_range
 		}
 
 
-	| name BETWEEN select_where_between
+	| dynamodb_attribute_name_or_keyword BETWEEN select_where_between
 		{
 			$$ = {
 				sort: {
@@ -315,7 +315,7 @@ select_where_range
 				}
 			}
 		}
-	| name LIKE dynamodb_raw_string
+	| dynamodb_attribute_name_or_keyword LIKE dynamodb_raw_string
 		{
 			$$ = {
 				sort: {
@@ -329,17 +329,7 @@ select_where_range
 select_where_range_value
 	: javascript_raw_expr
 		{ $$ = $1 }
-/*
-	: dynamodb_raw_number
-		{ $$ = $1 }
-	| dynamodb_raw_string
-		{ $$ = $1 }
-
-	| javascript_raw_obj_date
-		{ $$ = $1; }
-	| javascript_raw_obj_math
-		{ $$ = $1; }
-*/
+	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
 	;
 
 select_where_between
