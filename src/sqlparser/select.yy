@@ -71,7 +71,7 @@ def_select_from
 def_select_use_index
 	:
 		{ $$ = undefined; }
-	| USE INDEX name
+	| USE INDEX dynamodb_index_name_or_keyword
 		{ $$ = $3; }
 	;
 
