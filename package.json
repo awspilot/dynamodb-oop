@@ -25,7 +25,7 @@
 	"dependencies": {
 		"aws-sdk": "~2.395.0",
 		"@awspilot/dynamodb-util": "1.0.5",
-		"promise": "8.0.1"
+		"promise": "8.0.2"
 	},
 	"devDependencies": {
 		"assert": "1.4.1",
