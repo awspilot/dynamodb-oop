@@ -64,7 +64,7 @@ def_select_onecolumn
 
 
 def_select_from
-	: FROM dynamodb_table_name
+	: FROM dynamodb_table_name_or_keyword
 		{ $$ = $2; }
 	;
 
