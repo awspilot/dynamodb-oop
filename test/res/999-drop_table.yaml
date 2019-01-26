@@ -1,0 +1,8 @@
+Prepare:
+    Data: []
+Tests:
+    query:
+        - title: DROP TABLE table
+          query: DROP TABLE table
+          #explain: true
+          log: true
