@@ -1,6 +1,6 @@
 {
 	"name": "@awspilot/dynamodb",
-	"version": "1.2.8",
+	"version": "1.2.9",
 	"lockfileVersion": 1,
 	"requires": true,
 	"dependencies": {
@@ -124,7 +124,7 @@
 		},
 		"colors": {
 			"version": "0.5.1",
-			"resolved": "http://registry.npmjs.org/colors/-/colors-0.5.1.tgz",
+			"resolved": "https://registry.npmjs.org/colors/-/colors-0.5.1.tgz",
 			"integrity": "sha1-fQAj6usVTo7p/Oddy5I9DtFmd3Q=",
 			"dev": true
 		},
@@ -177,20 +177,12 @@
 				"estraverse": "~1.5.0",
 				"esutils": "~1.0.0",
 				"source-map": "~0.1.33"
-			},
-			"dependencies": {
-				"esprima": {
-					"version": "1.1.1",
-					"resolved": "https://registry.npmjs.org/esprima/-/esprima-1.1.1.tgz",
-					"integrity": "sha1-W28VR/TRAuZw4UDFCb5ncdautUk=",
-					"dev": true
-				}
 			}
 		},
 		"esprima": {
-			"version": "4.0.1",
-			"resolved": "https://registry.npmjs.org/esprima/-/esprima-4.0.1.tgz",
-			"integrity": "sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==",
+			"version": "1.1.1",
+			"resolved": "https://registry.npmjs.org/esprima/-/esprima-1.1.1.tgz",
+			"integrity": "sha1-W28VR/TRAuZw4UDFCb5ncdautUk=",
 			"dev": true
 		},
 		"estraverse": {
@@ -288,14 +280,6 @@
 				"jison-lex": "0.3.x",
 				"lex-parser": "~0.1.3",
 				"nomnom": "1.5.2"
-			},
-			"dependencies": {
-				"esprima": {
-					"version": "1.1.1",
-					"resolved": "https://registry.npmjs.org/esprima/-/esprima-1.1.1.tgz",
-					"integrity": "sha1-W28VR/TRAuZw4UDFCb5ncdautUk=",
-					"dev": true
-				}
 			}
 		},
 		"jison-lex": {
@@ -321,6 +305,14 @@
 			"requires": {
 				"argparse": "^1.0.7",
 				"esprima": "^4.0.0"
+			},
+			"dependencies": {
+				"esprima": {
+					"version": "4.0.1",
+					"resolved": "https://registry.npmjs.org/esprima/-/esprima-4.0.1.tgz",
+					"integrity": "sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==",
+					"dev": true
+				}
 			}
 		},
 		"jsonlint": {
@@ -340,9 +332,9 @@
 			"dev": true
 		},
 		"lodash": {
-			"version": "4.17.10",
-			"resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.10.tgz",
-			"integrity": "sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==",
+			"version": "4.17.11",
+			"resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz",
+			"integrity": "sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==",
 			"dev": true
 		},
 		"minimatch": {
@@ -444,7 +436,7 @@
 		},
 		"source-map": {
 			"version": "0.1.43",
-			"resolved": "http://registry.npmjs.org/source-map/-/source-map-0.1.43.tgz",
+			"resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.43.tgz",
 			"integrity": "sha1-wkvBRspRfBRx9drL4lcbK3+eM0Y=",
 			"dev": true,
 			"optional": true,
