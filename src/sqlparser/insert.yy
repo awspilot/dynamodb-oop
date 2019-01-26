@@ -1,6 +1,6 @@
 
 insert_stmt
-	: INSERT def_insert_ignore INTO dynamodb_table_name SET def_insert_columns
+	: INSERT def_insert_ignore INTO dynamodb_table_name_or_keyword SET def_insert_columns
 		{
 			var $kv = {}
 			$6.map(function(v) { $kv[v[0]] = v[1] })
@@ -18,7 +18,7 @@ insert_stmt
 			};
 
 		}
-	| INSERT def_insert_ignore INTO dynamodb_table_name VALUES def_insert_items
+	| INSERT def_insert_ignore INTO dynamodb_table_name_or_keyword VALUES def_insert_items
 		{
 			if ($6.length == 1) {
 				$$ = {
