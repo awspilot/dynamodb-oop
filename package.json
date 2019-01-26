@@ -13,7 +13,7 @@
 		"promise",
 		"nosql"
 	],
-	"version": "1.2.8",
+	"version": "1.2.9",
 	"homepage": "https://awspilot.github.io/dynamodb-oop/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
@@ -31,7 +31,7 @@
 		"assert": "1.4.1",
 		"async": "2.6.1",
 		"jison": "^0.4.18",
-		"js-yaml": "3.12.0",
+		"js-yaml": "^3.12.1",
 		"mocha": "5.2.0"
 	},
 	"browserify": {
