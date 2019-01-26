@@ -11,6 +11,14 @@ Tests:
                 value: "'ResourceNotFoundException'"
 
         -
+          query: DESCRIBE TABLE tablE
+          log: false
+          shouldFail: true
+          validations:
+              - key: err.code
+                value: "'ResourceNotFoundException'"
+
+        -
           query: DESCRIBE TABLE test_hash_range
           log: false
           # validate!
