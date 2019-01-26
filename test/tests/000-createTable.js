@@ -306,6 +306,32 @@ describe('client.createTable()', function () {
 						AttributeType: "N"
 					}
 				],
+				GlobalSecondaryIndexes: [
+					{
+						IndexName: "index",
+						KeySchema: [
+							{
+								AttributeName: "hash",
+								KeyType: "HASH"
+							},
+							{
+								AttributeName: "range",
+								KeyType: "RANGE"
+							}
+						],
+
+						Projection: {
+						//	"NonKeyAttributes": [
+						//		"string"
+						//	],
+							ProjectionType: "ALL"
+						},
+						ProvisionedThroughput: {
+							ReadCapacityUnits: 1,
+							WriteCapacityUnits: 1
+						}
+					}
+				],
 			}, function(err, data) {
 				if (err) {
 					throw err

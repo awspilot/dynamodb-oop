@@ -2,7 +2,7 @@ Prepare:
     Data: []
 Tests:
     query:
-        - title: DROP TABLE table
-          query: DROP TABLE table
+        - title: DROP INDEX index ON table
+          query: DROP INDEX index ON table
           #explain: true
           log: false
