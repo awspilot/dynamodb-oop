@@ -49,7 +49,7 @@
 		.where('date').eq( 1375538399 )
 		.return(DynamoDB.ALL_OLD)
 		.delete(function( err, data ) {
-
+			console.log( err, data )
 		});
 
 </div>
@@ -58,7 +58,8 @@
 
 
 <div class="code rw wide textmate" id="tab2" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 1;">
-	// as of 1.2.9 , "to" and "date" attributes no longer need to be wrapped as `keyword` even though they are keywords
+	// as of 1.2.9 , "to" and "date" attributes no longer need to be
+	// wrapped as `keyword` even though they are keywords
 	DynamoDB.query(`
 		DELETE FROM
 			messages
