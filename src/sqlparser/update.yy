@@ -1,6 +1,6 @@
 
 update_stmt
-	: UPDATE dynamodb_table_name SET def_update_columns WHERE def_update_where
+	: UPDATE dynamodb_table_name_or_keyword SET def_update_columns WHERE def_update_where
 		{
 
 			var Key = {}
@@ -84,7 +84,7 @@ def_update_onecolumn
 	| name EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
 
-	| name PLUSEQ dynamodb_raw_number
+	| name PLUSEQ javascript_raw_expr
 		{ $$ = [ $1, $3, '+=' ]; }
 	| name EQ dynamodb_data_undefined
 		{ $$ = [ $1, undefined, 'delete' ]; }
