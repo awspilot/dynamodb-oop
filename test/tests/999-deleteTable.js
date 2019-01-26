@@ -1,6 +1,6 @@
 
-describe('client.deleteTable (test_hash_range)', function () {
-    it('should not exist after deletion', function(done) {
+describe('client.deleteTable', function () {
+	it('delete table ' + $tableName, function(done) {
 		DynamoDB
 			.client
 			.describeTable({
@@ -24,10 +24,8 @@ describe('client.deleteTable (test_hash_range)', function () {
 						})
 				}
 			})
-    });
-})
-describe('waiting for table to delete', function () {
-	it('should delete within 25 seconds', function(done) {
+	});
+	it('waiting for table to delete', function(done) {
 		var $existInterval = setInterval(function() {
 			DynamoDB
 				.client
@@ -44,8 +42,60 @@ describe('waiting for table to delete', function () {
 						throw err
 					}
 
-					if (data.TableStatus === 'DELETING')
-						process.stdout.write('.')
+				})
+		}, 1000)
+	})
+
+
+
+
+
+
+
+
+
+	it('delete table `table` ', function(done) {
+		DynamoDB
+			.client
+			.describeTable({
+				TableName: 'table'
+			}, function(err, data) {
+				if (err) {
+					if (err.code === 'ResourceNotFoundException')
+						done()
+					else
+						throw 'could not describe table'
+				} else {
+					DynamoDB
+						.client
+						.deleteTable({
+							TableName: 'table'
+						}, function(err, data) {
+							if (err)
+								throw 'delete failed'
+							else
+								done()
+						})
+				}
+			})
+	});
+	it('waiting for table `table` to delete', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: 'table'
+				}, function(err, data) {
+
+					if (err && err.code === 'ResourceNotFoundException') {
+						clearInterval($existInterval)
+						return done()
+					}
+					if (err) {
+						clearInterval($existInterval)
+						throw err
+					}
+
 				})
 		}, 1000)
 	})

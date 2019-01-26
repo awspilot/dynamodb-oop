@@ -18,3 +18,19 @@ Tests:
                - key: Object.keys(dataItem).length
                  value: 0
           log: false
+
+        - title: DELETE FROM table WHERE `hash` = 'sql-test-delete' and `range` = 1
+          query:
+              |
+              DELETE FROM
+                table
+              WHERE
+                `hash` = 'sql-test-delete' AND
+                `range` = 3 - 2
+          dataItem:
+              table: test_hash_range
+              item: { hash: 'sql-test-delete',  range: 1 }
+          validations:
+               - key: Object.keys(dataItem).length
+                 value: 0
+          log: true

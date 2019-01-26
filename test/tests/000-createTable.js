@@ -202,4 +202,139 @@ describe('client.createTable()', function () {
 		}, 3000)
 	})
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	it('deleting `table` table if exists', function(done) {
+		DynamoDB
+			.client
+			.describeTable({
+				TableName: 'table'
+			}, function(err, data) {
+				if (err) {
+					if (err.code === 'ResourceNotFoundException')
+						done()
+					else
+						throw 'could not describe table'
+				} else {
+					DynamoDB
+						.client
+						.deleteTable({
+							TableName: 'table'
+						}, function(err, data) {
+							if (err)
+								throw 'delete failed'
+							else
+								done()
+						})
+				}
+			})
+	});
+	it('waiting for `table` to delete (within 25 seconds)', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: 'table'
+				}, function(err, data) {
+
+					if (err && err.code === 'ResourceNotFoundException') {
+						clearInterval($existInterval)
+						return done()
+					}
+					if (err) {
+						clearInterval($existInterval)
+						throw err
+					}
+
+					if (data.TableStatus === 'DELETING')
+						process.stdout.write('.')
+				})
+		}, 1000)
+	})
+	it('creating the table `table` ', function(done) {
+		DynamoDB
+			.client
+			.createTable({
+				TableName: 'table',
+				ProvisionedThroughput: {
+					ReadCapacityUnits: 1,
+					WriteCapacityUnits: 1
+				},
+				KeySchema: [
+					{
+						AttributeName: "hash",
+						KeyType: "HASH"
+					},
+					{
+						AttributeName: "range",
+						KeyType: "RANGE"
+					}
+				],
+				AttributeDefinitions: [
+					{
+						AttributeName: "hash",
+						AttributeType: "S"
+					},
+					{
+						AttributeName: "range",
+						AttributeType: "N"
+					}
+				],
+			}, function(err, data) {
+				if (err) {
+					throw err
+				} else {
+					if (data.TableDescription.TableStatus === 'CREATING' || data.TableDescription.TableStatus === 'ACTIVE' )
+						done()
+					else
+						throw 'unknown table status after create: ' + data.TableDescription.TableStatus
+				}
+			})
+	})
+	it('waiting for table `table` to become ACTIVE', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: 'table'
+				}, function(err, data) {
+					if (err) {
+						throw err
+					} else {
+						//process.stdout.write(".");
+						//console.log(data.Table)
+						if (data.Table.TableStatus === 'ACTIVE') {
+							clearInterval($existInterval)
+							done()
+						}
+					}
+				})
+		}, 3000)
+	})
 })
