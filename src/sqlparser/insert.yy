@@ -86,30 +86,20 @@ def_insert_columns
 		{ $$ = [$1]; }
 	;
 def_insert_onecolumn
-	: name EQ javascript_raw_expr
+	: dynamodb_attribute_name_or_keyword EQ javascript_raw_expr
 		{ $$ = [ $1, $3 ]; }
-/*
-	: name EQ dynamodb_raw_string
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_number
-		{ $$ = [ $1, $3 ]; }
+	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
 
-	 javascript objects
-	| name EQ javascript_raw_obj_date
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_boolean
 		{ $$ = [ $1, $3 ]; }
-	| name EQ javascript_raw_obj_math
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_null
 		{ $$ = [ $1, $3 ]; }
-*/
-	| name EQ dynamodb_raw_boolean
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_json
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_null
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_array
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_json
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_stringset
 		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_array
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_stringset
-		{ $$ = [ $1, $3 ]; }
-	| name EQ dynamodb_raw_numberset
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
 	;
