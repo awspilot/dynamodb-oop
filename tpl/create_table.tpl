@@ -33,7 +33,7 @@
 
 
 <div class="code rw wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
-	// LSI does not support THROUGHPUT, it uses table's THROUGHPUT
+	// LSI does not support THROUGHPUT, it consumes throughput from the main table
 	// for BillingMode you can use either PROVISIONED or PAY_PER_REQUEST
 	// THROUGHPUT is optional, defaults to 1 1
 	// if PAY_PER_REQUEST is used, THROUGHPUT is ignored by AWS
