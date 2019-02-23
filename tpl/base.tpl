@@ -117,7 +117,7 @@
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/get/"> <img src="/dynamodb-oop/images/code.png"/> get.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/query/"> <img src="/dynamodb-oop/images/code.png"/> query.js </a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/scan/"> <img src="/dynamodb-oop/images/code.png"/> scan.js </a>
-
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/drop-table/"> <img src="/dynamodb-oop/images/code.png"/> drop_table.js </a>
 
 
 
@@ -250,7 +250,7 @@ describe_code = function(code) {
 				},
 
 				createTable: function( params ,callback) {
-					editor.setValue(editor.getValue() + "\n\createTable\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
+					editor.setValue(editor.getValue() + "\n\tcreateTable\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
 				putItem: function( params ,callback) {
 					editor.setValue(editor.getValue() + "\n\tputItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
@@ -273,6 +273,10 @@ describe_code = function(code) {
 				scan: function( params ,callback) {
 					editor.setValue(editor.getValue() + "\n\tscan\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
+				deleteTable: function( params ,callback) {
+					editor.setValue(editor.getValue() + "\n\tdeleteTable\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
+				},
+
 			}
 			DynamoDB = new window['@awspilot/dynamodb'](fakedynamo)
 			var origainal_cl = console.log;
