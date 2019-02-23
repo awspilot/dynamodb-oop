@@ -33,6 +33,7 @@
 
 
 <div class="code rw wide textmate activeTab" id="tab1" style="position: absolute;top: 49px;left: 0px;right: 0px;bottom: 0px;z-index: 100;">
+	// LocalSecondaryIndexes can not be deleted atm ( AWS limitation )
 	DynamoDB.query(
 		"DROP INDEX `me-no-need-index` ON tbl_name"
 	, function(err,data) {
