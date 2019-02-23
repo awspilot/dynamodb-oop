@@ -7,7 +7,7 @@ SQL keywords must be enclosed ex. SET `set` = true <br>
 <br>
 Keys in json that are keywords must be enclosed too:<br>
 <pre>
-	SET myobject = { 
+	SET myobject = {
 			'number'  : 1,
 			"keyword2": "value",
 			'keyword3': 'value',
@@ -19,9 +19,41 @@ Keys in json must be enclosed in the same way as in JavaScript<br>
 	SET `object` = {
 			splitme   : 'value',
 			"split-me": 'value',
-		} 
+		}
 </pre><br>
 <br>
+
+
+
+<div class="code html iplastic">
+CREATE [ PROVISIONED |  PAY_PER_REQUEST ] TABLE tbl_name (
+	partition_key DATA_TYPE,
+	[ sort_key DATA_TYPE, ]
+	[ gsi_partition_key DATA_TYPE [ , gsi_sort_key DATA_TYPE ] ,]
+	[ lsi_sort_key DATA_TYPE, ]
+	PRIMARY KEY ( partition_key [, sort_key ] ) [ THROUGHPUT number number ] ,
+	[ ,
+		INDEX indexname GSI ( gsi_partition_key [, gsi_sort_key ] )
+		[ PROJECTION ALL | KEYS_ONLY | INCLUDE ( attr1, attr2 [, attr3 ] ) ]
+		[ THROUGHPUT NUMBER NUMBER ]
+	]
+	[ ,
+		INDEX indexname LSI ( partition_key , lsi_sort_key )
+		[ PROJECTION ALL | KEYS_ONLY | INCLUDE ( attr1, attr2 [, attr3 ] ) ]
+	]
+	[ , more index defintions ]
+)
+</div>
+
+
+
+
+
+
+
+
+
+
 Values for partition_key and sort_key can be of type String  or Number<br>
 <br>
 
@@ -41,12 +73,12 @@ Values for partition_key and sort_key can be of type String  or Number<br>
 				string: "foo", 'bar'
 				number: 3.14, -1
 				boolean: true or false
-				null	
+				null
 				list: ["string", 1, true, null, [ 1,2,3], {} ]
 				map: { 'number': 1, "string": "text", 'bool': true, arr: [] }
 				stringset: new Set(['a','b','c'])
 				numberset: new Set([ 1 , 2 , 3 ])
-				expression (currently only JavaScript Date supported): 
+				expression (currently only JavaScript Date supported):
 					new Date( string_or_number_parameter ).getTime()
 	*/
 
@@ -57,8 +89,8 @@ Values for partition_key and sort_key can be of type String  or Number<br>
 
 <div class="code html iplastic">
 
-	INSERT INTO 
-		tbl_name 
+	INSERT INTO
+		tbl_name
 	VALUES
 			( &lt;JSON&gt; )
 			[ , ( &lt;JSON&gt; ) ]
@@ -87,7 +119,7 @@ Values for partition_key and sort_key can be of type String  or Number<br>
 
 	- OP can be "=" or "+="
 
-	- Increment an item's value by using attribute += value, 
+	- Increment an item's value by using attribute += value,
 	  attribute = attribute + value is not supported yet
 
 	*/
@@ -101,8 +133,8 @@ REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynam
 	REPLACE INTO
 		tbl_name
 	SET
-		partition_key = &lt;VALUE&gt;, 
-		sort_key =&lt;VALUE&gt; 
+		partition_key = &lt;VALUE&gt;,
+		sort_key =&lt;VALUE&gt;
 		[, other_key = &lt;VALUE&gt; ]
 
 </div>
@@ -114,7 +146,7 @@ REPLACE statement inserts or replace the Item, the equivalent of <a href="/dynam
 	DELETE FROM
 		tbl_name
 	WHERE
-		partition_key = &lt;VALUE&gt; AND 
+		partition_key = &lt;VALUE&gt; AND
 		sort_key = &lt;VALUE&gt;
 
 </div>
@@ -140,7 +172,7 @@ RANGE_COMPARISON can be:<br>
 		tbl_name
 	[ USE INDEX idx_name ]
 	WHERE
-		partition_key = &lt;VALUE&gt; AND 
+		partition_key = &lt;VALUE&gt; AND
 		sort_key &lt;RANGE_COMPARISON&gt;
 
 	[ DESC ]
@@ -148,7 +180,8 @@ RANGE_COMPARISON can be:<br>
 	[ CONSISTENT_READ ]
 
 </div>
-</div></section> </div> <script>$(function() {
+</div>
+</section> </div> <script>$(function() {
 
 
 
