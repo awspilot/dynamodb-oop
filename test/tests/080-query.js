@@ -252,6 +252,41 @@ describe('query()', function () {
 
 
 
+	it('.select( array )', function(done) {
+		DynamoDB
+			.table($tableName)
+			.select([
+				'number',
+				'array[0]',
+				'array[2]',
+
+				'object.ccc',
+				'object.ddd',
+				'object.eee',
+				'string_set[0]',
+				'number_set[0]'
+
+			])
+			.where('hash').eq('query')
+			.where('range').gt(0)
+			.limit(1)
+			.query( function(err, data) {
+				if (err)
+					throw err
+
+				assert.deepEqual(data[0].number, 1, {strict: true })
+				assert.deepEqual(data[0].array, [1,3], {strict: true })
+
+				assert.deepEqual(Object.keys(data[0].object).length, 3, {strict: true })
+				assert.deepEqual(data[0].object.ccc, 3, {strict: true })
+				assert.deepEqual(data[0].object.ddd, {"ddd1": 1}, {strict: true })
+				assert.deepEqual(data[0].object.eee, [ 1, "eee1" ], {strict: true })
+
+				// @todo: check returned value
+				done()
+			})
+	})
+
 
 	it('.query().then()', function(done) {
 		DynamoDB
