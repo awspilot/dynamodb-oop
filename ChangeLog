@@ -1,3 +1,6 @@
+1.2.10
+- SQL support for CREATE TABLE
+- pass an Array as parameter to select eg. .select(['attr1','attr2'])
 1.2.9
 - SQL support for DROP TABLE
 - SQL support for DROP INDEX index_name ON tbl_name
