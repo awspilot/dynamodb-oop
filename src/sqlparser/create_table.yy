@@ -1,6 +1,6 @@
 
 create_table_stmt
-	: CREATE TABLE dynamodb_table_name LPAR def_ct_typedef_list COMMA def_ct_pk def_ct_indexes RPAR
+	: CREATE TABLE dynamodb_table_name_or_keyword LPAR def_ct_typedef_list COMMA def_ct_pk def_ct_indexes RPAR
 		{
 			$$ = {
 				statement: 'CREATE_TABLE',
@@ -44,7 +44,7 @@ def_ct_index_list
 	;
 
 def_ct_index
-	: INDEX name LSI LPAR name RPAR def_ct_projection
+	: INDEX dynamodb_index_name_or_keyword LSI LPAR name RPAR def_ct_projection
 		{
 			$$ = {}
 			$$[$3] = {
@@ -53,7 +53,7 @@ def_ct_index
 				Projection: $7,
 			}
 		}
-	| INDEX name GSI LPAR name RPAR def_ct_projection def_ct_throughput
+	| INDEX dynamodb_index_name_or_keyword GSI LPAR name RPAR def_ct_projection def_ct_throughput
 		{
 			$$ = {}
 			$$[$3] = {
@@ -64,7 +64,7 @@ def_ct_index
 			}
 		}
 
-	| INDEX name LSI LPAR name COMMA name RPAR def_ct_projection
+	| INDEX dynamodb_index_name_or_keyword LSI LPAR name COMMA name RPAR def_ct_projection
 		{
 			$$ = {}
 			$$[$3] = {
@@ -73,7 +73,7 @@ def_ct_index
 				Projection: $9,
 			}
 		}
-	| INDEX name GSI LPAR name COMMA name RPAR def_ct_projection def_ct_throughput
+	| INDEX dynamodb_index_name_or_keyword GSI LPAR name COMMA name RPAR def_ct_projection def_ct_throughput
 		{
 			$$ = {}
 			$$[$3] = {
@@ -110,9 +110,9 @@ def_ct_projection
 	;
 
 def_ct_projection_list
-	: def_ct_projection_list COMMA name
+	: def_ct_projection_list COMMA dynamodb_attribute_name_or_keyword
 		{ $$ = $1; $$.push($3); }
-	| name
+	| dynamodb_attribute_name_or_keyword
 		{ $$ = [$1]; }
 	;
 
@@ -125,8 +125,10 @@ def_ct_typedef_list
 	;
 
 def_ct_typedef
-	: name STRING
+	: dynamodb_attribute_name_or_keyword STRING
 		{ $$ = { AttributeName: $1, AttributeType: 'S'}; }
-	| name NUMBER
+	| dynamodb_attribute_name_or_keyword NUMBER
 		{ $$ = { AttributeName: $1, AttributeType: 'N'}; }
+	| dynamodb_attribute_name_or_keyword BINARY
+		{ $$ = { AttributeName: $1, AttributeType: 'B'}; }
 	;
