@@ -33,4 +33,4 @@ Tests:
           validations:
                - key: Object.keys(dataItem).length
                  value: 0
-          log: true
+          log: false

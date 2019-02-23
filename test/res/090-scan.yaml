@@ -25,4 +25,4 @@ Tests:
         - title: EXPLAIN SCAN * FROM test_hash_range
           query: SCAN * FROM test_hash_range
           explain: true
-          log: true
+          log: false
