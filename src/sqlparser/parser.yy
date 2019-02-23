@@ -157,6 +157,7 @@ X(['](\\.|[^']|\\\')*?['])+                     return 'XSTRING'
 'PROJECTION'	return 'PROJECTION'
 'ALL'			return 'ALL'
 'KEYS_ONLY'		return 'KEYS_ONLY'
+'INCLUDE'		return 'INCLUDE'
 'NEW'			return 'NEW'
 'DEBUG'			return 'DEBUG'
 

@@ -45,6 +45,8 @@ SQLKEYWORD
 		{ $$ = yytext; }
 	| KEYS_ONLY
 		{ $$ = yytext; }
+	| INCLUDE
+		{ $$ = yytext; }
 	| DEBUG
 		{ $$ = yytext; }
 	;

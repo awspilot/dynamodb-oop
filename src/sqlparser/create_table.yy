@@ -9,7 +9,7 @@ create_table_stmt
 					TableName: $3,
 					AttributeDefinitions: $5,
 				}
-				
+
 			};
 			yy.extend($$.dynamodb,$7); // extend with pk
 			yy.extend($$.dynamodb,$8); // extend with indexes
@@ -26,7 +26,7 @@ def_ct_indexes
 				LocalSecondaryIndexes: [],
 				GlobalSecondaryIndexes: []
 			}
-			
+
 			$2.map(function(idx) {
 				if (idx.hasOwnProperty('LSI'))
 					indexes.LocalSecondaryIndexes.push(idx.LSI)
@@ -47,40 +47,40 @@ def_ct_index
 	: INDEX name LSI LPAR name RPAR def_ct_projection
 		{
 			$$ = {}
-			$$[$3] = { 
-				IndexName: $2, 
-				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' } ], 
+			$$[$3] = {
+				IndexName: $2,
+				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' } ],
 				Projection: $7,
 			}
 		}
 	| INDEX name GSI LPAR name RPAR def_ct_projection def_ct_throughput
 		{
 			$$ = {}
-			$$[$3] = { 
-				IndexName: $2, 
-				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' } ], 
+			$$[$3] = {
+				IndexName: $2,
+				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' } ],
 				Projection: $7,
-				ProvisionedThroughput: $8 
+				ProvisionedThroughput: $8
 			}
 		}
 
 	| INDEX name LSI LPAR name COMMA name RPAR def_ct_projection
 		{
 			$$ = {}
-			$$[$3] = { 
-				IndexName: $2, 
-				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' }, { AttributeName: $7, KeyType: 'RANGE' } ], 
+			$$[$3] = {
+				IndexName: $2,
+				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' }, { AttributeName: $7, KeyType: 'RANGE' } ],
 				Projection: $9,
 			}
 		}
 	| INDEX name GSI LPAR name COMMA name RPAR def_ct_projection def_ct_throughput
 		{
 			$$ = {}
-			$$[$3] = { 
-				IndexName: $2, 
-				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' }, { AttributeName: $7, KeyType: 'RANGE' } ], 
+			$$[$3] = {
+				IndexName: $2,
+				KeySchema: [ { AttributeName: $5, KeyType: 'HASH' }, { AttributeName: $7, KeyType: 'RANGE' } ],
 				Projection: $9,
-				ProvisionedThroughput: $10 
+				ProvisionedThroughput: $10
 			}
 		}
 	;
@@ -105,8 +105,8 @@ def_ct_projection
 		{ $$ = { ProjectionType: 'ALL' }; }
 	| PROJECTION KEYS_ONLY
 		{ $$ = { ProjectionType: 'KEYS_ONLY' } }
-	| PROJECTION LPAR def_ct_projection_list RPAR
-		{ $$ = { ProjectionType: 'INCLUDE', NonKeyAttributes: $3 } }
+	| PROJECTION INCLUDE LPAR def_ct_projection_list RPAR
+		{ $$ = { ProjectionType: 'INCLUDE', NonKeyAttributes: $4 } }
 	;
 
 def_ct_projection_list
