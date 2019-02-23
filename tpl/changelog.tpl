@@ -1,5 +1,21 @@
 <div class="content">
 
+<h1>@1.2.10</h1>
+SQL support for CREATE TABLE<br>
+pass an Array as parameter to select eg. .select(['attr1','attr2'])<br>
+
+<h1>@1.2.9</h1>
+SQL support for DROP TABLE<br>
+SQL support for DROP INDEX index_name ON tbl_name<br>
+updated SQL parser to support keywords in attribute names, table names and index names (eg: WHERE where = 5)<br>
+<h1>@1.2.8</h1>
+
+<h1>@1.2.7</h1>
+fixes a HUGE bug where float numbers may lose decimals in OOP .query(), SQL .query() do not have this bug<br>
+<h1>@1.2.6</h1>
+schema() : new method to supply primary key definitions for tables to avoid unnecesary describeTable calls<br>
+
+
 <h1>@1.2.5</h1>
 basic arithmetic operations can be used instead of String or Number, anywhere in SQL, <br>
 new function in SQL: uuid()<br>
