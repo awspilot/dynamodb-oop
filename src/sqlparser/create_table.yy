@@ -1,20 +1,31 @@
 
 create_table_stmt
-	: CREATE TABLE dynamodb_table_name_or_keyword LPAR def_ct_typedef_list COMMA def_ct_pk def_ct_indexes RPAR
+	: CREATE def_billing_mode TABLE dynamodb_table_name_or_keyword LPAR def_ct_typedef_list COMMA def_ct_pk def_ct_indexes RPAR
 		{
 			$$ = {
 				statement: 'CREATE_TABLE',
 				operation: 'createTable',
 				dynamodb: {
-					TableName: $3,
-					AttributeDefinitions: $5,
+					TableName: $4,
+					BillingMode: $2,
+					AttributeDefinitions: $6,
 				}
 
 			};
-			yy.extend($$.dynamodb,$7); // extend with pk
-			yy.extend($$.dynamodb,$8); // extend with indexes
+			yy.extend($$.dynamodb,$8); // extend with pk
+			yy.extend($$.dynamodb,$9); // extend with indexes
 		}
 	;
+
+def_billing_mode
+	:
+		{ $$ = undefined; }
+	| PROVISIONED
+		{ $$ = $1; }
+	| PAY_PER_REQUEST
+		{ $$ = $1; }
+	;
+
 
 
 def_ct_indexes

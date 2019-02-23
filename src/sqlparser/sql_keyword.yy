@@ -47,6 +47,10 @@ SQLKEYWORD
 		{ $$ = yytext; }
 	| INCLUDE
 		{ $$ = yytext; }
+	| PROVISIONED
+		{ $$ = yytext; }
+	| PAY_PER_REQUEST
+		{ $$ = yytext; }
 	| DEBUG
 		{ $$ = yytext; }
 	;

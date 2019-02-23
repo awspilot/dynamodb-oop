@@ -159,6 +159,8 @@ X(['](\\.|[^']|\\\')*?['])+                     return 'XSTRING'
 'KEYS_ONLY'		return 'KEYS_ONLY'
 'INCLUDE'		return 'INCLUDE'
 'NEW'			return 'NEW'
+'PROVISIONED'	return 'PROVISIONED'
+'PAY_PER_REQUEST'	return 'PAY_PER_REQUEST'
 'DEBUG'			return 'DEBUG'
 
 /* dynamodb reserved keywords taken from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html */
