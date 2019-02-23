@@ -192,7 +192,9 @@ describe_code = function(code) {
 					})
 				},
 
-
+				createTable: function( params ,callback) {
+					editor.setValue(editor.getValue() + "\n\createTable\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
+				},
 				putItem: function( params ,callback) {
 					editor.setValue(editor.getValue() + "\n\tputItem\n" + JSON.stringify(params, null, "\t" ).split("\n").map(function(l) { return "\t"+l}).join("\n"),-1)
 				},
