@@ -77,10 +77,12 @@
 
 	// for hash key comparson operator is always eq()
 	// for range key you can specify: le() , lt() , ge() , gt() , begins_with() , between(a,b)
-
+	// you can pass an Array to .select( ['attr1', 'attr2'] )
+	// or multiple arguments .select( 'attr1' , 'attr2' )
 	DynamoDB
 		.table('statistics')
-		.select('unique_visitors','unique_pageviews','object.attribute','string_set[0]','array[1]')
+		.select(['unique_visitors','unique_pageviews','object.attribute','array[0]','array[3]','object.attribute'])
+		.addSelect('forgotten')
 		.where('domain').eq('mydomain.com')
 		.descending()
 		.limit(10)
