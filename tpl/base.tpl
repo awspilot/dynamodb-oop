@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/stylesheet.css" media="screen">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/print.css" media="print">
 	<link rel="stylesheet" type="text/css" href="/dynamodb-oop/stylesheets/tree.css">
