@@ -40,7 +40,7 @@
 <body>
 	<header>
 
-			<h1><b>@AwsPilot</b>'s DynamoDB</h1>
+			<h1><b>@awspilot</b>/dynamodb</h1>
 
 			<div class="gh" style="position: absolute;top: 15px;right: 40px;">
 
@@ -106,6 +106,7 @@
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/changelog/"> <img src="/dynamodb-oop/images/text.png"/> ChangeLog.md</a>
 
 
+					<li><span class="tree_label"><a href="/dynamodb-oop/pages/create-table/"> <img src="/dynamodb-oop/images/code.png"/> create_table.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert/"> <img src="/dynamodb-oop/images/code.png"/> insert.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-update/"> <img src="/dynamodb-oop/images/code.png"/> insert_or_update.js</a>
 					<li><span class="tree_label"><a href="/dynamodb-oop/pages/insert-or-replace/"> <img src="/dynamodb-oop/images/code.png"/> insert_or_replace.js</a>
