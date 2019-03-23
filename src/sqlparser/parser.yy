@@ -161,6 +161,7 @@ X(['](\\.|[^']|\\\')*?['])+                     return 'XSTRING'
 'NEW'			return 'NEW'
 'PROVISIONED'	return 'PROVISIONED'
 'PAY_PER_REQUEST'	return 'PAY_PER_REQUEST'
+'BUFFER'		return 'BUFFER'
 'DEBUG'			return 'DEBUG'
 
 /* dynamodb reserved keywords taken from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html */

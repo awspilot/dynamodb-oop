@@ -51,6 +51,8 @@ SQLKEYWORD
 		{ $$ = yytext; }
 	| PAY_PER_REQUEST
 		{ $$ = yytext; }
+	| BUFFER
+		{ $$ = yytext; }
 	| DEBUG
 		{ $$ = yytext; }
 	;
