@@ -3,6 +3,10 @@
 javascript_raw_expr
 	: def_resolvable_expr
 		{
+			if (Buffer.isBuffer($1) ) {
+				$$ = { B: Buffer.from( $1 ).toString('base64') }
+				return;
+			}
 			if (typeof $1 === "object") {
 				$$ = { S: $1.toString() }
 			}
@@ -49,6 +53,8 @@ dev_resolvable_value
 	| javascript_data_obj_math
 		{ $$ = $1 }
 	| javascript_data_func_uuid
+		{ $$ = $1 }
+	| javascript_data_func_buffer
 		{ $$ = $1 }
 	| dynamodb_data_number
 		{ $$ = $1 }
