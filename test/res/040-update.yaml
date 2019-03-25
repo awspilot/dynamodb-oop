@@ -138,6 +138,25 @@ Tests:
                 value: "'acct-'"
           log: false
 
+        # test buffer
+        - title: "UPDATE test_hash_range SET uniqid = uuid('acct-###########') WHERE `hash` = <STRING> AND `range` = <NUMBER> "
+          query:
+              |
+              UPDATE
+                test_hash_range
+              SET
+                buffer = Buffer.from( "4oyb77iPIGhvdXJnbGFzcy4g8J+VkCBjbG9jay4g4oyaIHdhdGNoLg==", 'base64' )
+              WHERE
+                `hash` = 'sql-test-update' AND
+                `range` = 3 - 2
+          dataItem:
+              table: test_hash_range
+              item: { hash: 'sql-test-update',  range: 1 }
+          validations:
+              - key: "dataItem.buffer.toString('utf-8')"
+                value: "'⌛️ hourglass. 🕐 clock. ⌚ watch.'"
+          log: false
+
         # test add to stringset
 
         # test remove from stringset
