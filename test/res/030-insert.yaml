@@ -131,6 +131,23 @@ Tests:
                 value: "'acct-'"
 
 
+        - title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, buffer = Buffer.from( <STRING> ,'base64')
+          query:
+            |
+            INSERT INTO
+                test_hash_range
+            SET
+                hash     =  'sql-test-insert-buffer',
+                range    =  1,
+                buffer   = Buffer.from( "4oyb77iPIGhvdXJnbGFzcy4g8J+VkCBjbG9jay4g4oyaIHdhdGNoLg==", 'base64' )
+          dataItem:
+              table: test_hash_range
+              item: { hash: 'sql-test-insert-buffer',  range: 1 }
+          validations:
+              - key: "dataItem.buffer.toString('utf-8')"
+                value: "'⌛️ hourglass. 🕐 clock. ⌚ watch.'"
+          log: false
+
         # -
         #   title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, empty_string = ''
         #   query: INSERT INTO test_hash_range SET `hash` = 'sql-test-empty-string', `range` = 1, empty_string = ''
