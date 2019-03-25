@@ -4,7 +4,7 @@ javascript_raw_expr
 	: def_resolvable_expr
 		{
 			if (Buffer.isBuffer($1) ) {
-				$$ = { B: Buffer.from( $1 ).toString('base64') }
+				$$ = { B: $1 }
 				return;
 			}
 			if (typeof $1 === "object") {
