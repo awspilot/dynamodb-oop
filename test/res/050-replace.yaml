@@ -112,3 +112,22 @@ Tests:
               - key: "dataItem.uniqid.substr(0,5)"
                 value: "'acct-'"
           log: false
+
+
+
+        - title: REPLACE INTO tbl_name SET buffer = Buffer.from( <STRING> ,'base64')
+          query:
+            |
+            REPLACE INTO
+                `test_hash_range`
+            SET
+                hash     =  'replace-buffer',
+                range    =  1,
+                buffer   = Buffer.from( "4oyb77iPIGhvdXJnbGFzcy4g8J+VkCBjbG9jay4g4oyaIHdhdGNoLg==", 'base64' )
+          dataItem:
+              table: test_hash_range
+              item: { hash: 'replace-buffer',  range: 1 }
+          validations:
+              - key: "dataItem.buffer.toString('utf-8')"
+                value: "'⌛️ hourglass. 🕐 clock. ⌚ watch.'"
+          log: false
