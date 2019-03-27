@@ -57,3 +57,4 @@ Tests:
           shouldFail: true
 
         # @todo test insert buffer, it works its just not covered in the tests
+        # @todo: test new BinarySet

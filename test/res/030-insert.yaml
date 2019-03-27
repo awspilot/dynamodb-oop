@@ -148,6 +148,8 @@ Tests:
                 value: "'⌛️ hourglass. 🕐 clock. ⌚ watch.'"
           log: false
 
+          # @todo: test new BinarySet
+
         # -
         #   title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, empty_string = ''
         #   query: INSERT INTO test_hash_range SET `hash` = 'sql-test-empty-string', `range` = 1, empty_string = ''

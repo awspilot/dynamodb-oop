@@ -131,3 +131,5 @@ Tests:
               - key: "dataItem.buffer.toString('utf-8')"
                 value: "'⌛️ hourglass. 🕐 clock. ⌚ watch.'"
           log: false
+
+          # @todo: test new BinarySet

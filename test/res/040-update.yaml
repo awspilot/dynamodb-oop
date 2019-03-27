@@ -157,6 +157,9 @@ Tests:
                 value: "'⌛️ hourglass. 🕐 clock. ⌚ watch.'"
           log: false
 
+          # @todo: test new BinarySet
+
+
         # test add to stringset
 
         # test remove from stringset
