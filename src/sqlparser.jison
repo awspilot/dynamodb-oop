@@ -3612,7 +3612,7 @@ scan_stmt
 	: def_scan def_scan_limit_clause def_scan_consistent_read
 		{
 			$$ = {
-				statement: 'SCAN',
+				statement: $1.statement,
 				operation: 'scan',
 				dynamodb: $1.dynamodb,
 			};
@@ -3625,18 +3625,21 @@ scan_stmt
 		}
 	;
 def_scan
-	: SCAN def_scan_columns FROM dynamodb_table_name_or_keyword def_scan_use_index def_scan_having
+	: SCAN def_scan_columns FROM dynamodb_table_name_or_keyword def_scan_use_index def_scan_having def_scan_into
 		{
 			$$ = {
 				dynamodb: {
 					TableName: $4,
 					IndexName: $5,
 				},
+				statement: 'SCAN',
 				columns:$2,
 				having: {},
 			};
 			yy.extend($$,$6); // filter
 
+			if ($7 && $7.type === 'stream')
+				$$.statement = 'SCAN_DUMP_STREAM'
 
 			// if we have star, then the rest does not matter
 			if ($$.columns.filter(function(c) { return c.type === 'star'}).length === 0) {
@@ -3752,6 +3755,15 @@ def_scan_having_expr
 		{ $$ = {op: 'CONTAINS', left:$1, right: { type: 'number', number: $3 } }; }
 	| def_scan_having_expr CONTAINS boolean_value
 		{ $$ = {op: 'CONTAINS', left:$1, right: { type: 'boolean', value: $3 } }; }
+	;
+
+
+def_scan_into
+	: INTO STREAM
+		{
+			$$ = { type: 'stream' };
+		}
+	|
 	;
 
 debug_stmt
