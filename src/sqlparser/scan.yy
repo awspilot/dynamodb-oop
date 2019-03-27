@@ -2,7 +2,7 @@ scan_stmt
 	: def_scan def_scan_limit_clause def_scan_consistent_read
 		{
 			$$ = {
-				statement: 'SCAN',
+				statement: $1.statement,
 				operation: 'scan',
 				dynamodb: $1.dynamodb,
 			};
@@ -22,6 +22,7 @@ def_scan
 					TableName: $4,
 					IndexName: $5,
 				},
+				statement: 'SCAN',
 				columns:$2,
 				having: {},
 			};
