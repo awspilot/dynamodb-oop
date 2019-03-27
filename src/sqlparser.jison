@@ -2433,6 +2433,24 @@ numberset_list
 		{ $$ = [ ($1).toString() ]; }
 	;
 
+dynamodb_raw_binaryset
+	: NEW BINARYSET LPAR ARRAYLPAR binaryset_list ARRAYRPAR RPAR
+		{
+			$$ = { 'BS': $5 }
+		}
+	;
+
+
+binaryset_list
+	: binaryset_list COMMA javascript_data_func_buffer
+		{
+			$$ = $1 
+			$$.push($3); 
+		}
+	| javascript_data_func_buffer
+		{ $$ = [ $1 ]; }
+	;
+
 
 javascript_data_obj_date
 	: NEW DATE LPAR  javascript_raw_date_parameter  RPAR
@@ -2795,6 +2813,8 @@ def_insert_onecolumn
 		{ $$ = [ $1, $3 ]; }
 	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_binaryset
+		{ $$ = [ $1, $3 ]; }
 	;
 
 update_stmt
@@ -2871,6 +2891,8 @@ def_update_onecolumn
 		{ $$ = [ $1, $3 ]; }
 	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_binaryset
+		{ $$ = [ $1, $3 ]; }
 
 	| dynamodb_attribute_name_or_keyword PLUSEQ javascript_raw_expr
 		{ $$ = [ $1, $3, '+=' ]; }
@@ -2946,6 +2968,8 @@ def_replace_onecolumn
 	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_stringset
 		{ $$ = [ $1, $3 ]; }
 	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_numberset
+		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_binaryset
 		{ $$ = [ $1, $3 ]; }
 	;
 

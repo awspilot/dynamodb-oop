@@ -41,4 +41,6 @@ def_replace_onecolumn
 		{ $$ = [ $1, $3 ]; }
 	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_numberset
 		{ $$ = [ $1, $3 ]; }
+	| dynamodb_attribute_name_or_keyword EQ dynamodb_raw_binaryset
+		{ $$ = [ $1, $3 ]; }
 	;
