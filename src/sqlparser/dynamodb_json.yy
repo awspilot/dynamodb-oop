@@ -120,19 +120,6 @@ dynamodb_raw_json_kv
 		{ $$ = [$1, $3 ] }
 
 
-/*
-	| dynamodb_raw_json_kv_key COLON dynamodb_raw_number
-		{ $$ = [$1, $3 ] }
-
-	| dynamodb_raw_json_kv_key COLON dynamodb_raw_string
-		{ $$ = [$1, $3 ] }
-*/
-
-
-
-
-
-
 	| dynamodb_raw_json_kv_key COLON dynamodb_raw_boolean
 		{ $$ = [$1, $3 ] }
 
