@@ -57,6 +57,7 @@
 			name: 'Smith',
 			active: true,
 			subscription: null,
+			mybuff: Buffer.from('WWV5IQ==','base64'),
 
 			// increment
 			page_views: DynamoDB.add(5),
