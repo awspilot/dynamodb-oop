@@ -1,5 +1,10 @@
 <div class="content">
 
+<h1>@1.2.11</h1>
+SQL LIST and MAP support nested StringSet, NumberSet, BinarySet and Binary<br>
+SQL support insert/update BinarySet data type (BS) using Buffer.from( &lt;STRING>, 'base64')<br>
+SQL support insert/update binary data type (B) using Buffer.from( &lt;STRING>, 'base64')<br>
+
 <h1>@1.2.10</h1>
 SQL support for CREATE TABLE<br>
 pass an Array as parameter to select eg. .select(['attr1','attr2'])<br>
