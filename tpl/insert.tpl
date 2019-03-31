@@ -137,7 +137,7 @@
 			a_map         = { 'string': 's', 'number': 1 },
 			ss            =  new StringSet( [ 'sss','bbb','ccc' ] ),
 			ns            =  new NumberSet( [  111 , 222 , 333  ] ),
-
+			bs            =  new BinarySet( [ Buffer.from('aXRlbTE=','base64') ]),
 
 
 			created_at    = new Date().getTime(),
