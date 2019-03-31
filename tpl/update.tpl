@@ -116,6 +116,7 @@
 			active          = true,
 			nulled          = null,
 			nine            = 5 + 4,
+			binary          = Buffer.from('4oya', 'base64'),
 
 			activation_code = undefined,
 
@@ -129,8 +130,11 @@
 				"sqlkeyword1" : 'value2',
 				'sqlkeyword2' : 'value3'
 			},
+
+
 			tags            = new StringSet(['dev','nodejs']),
 			lucky_numbers   = new NumberSet([ 12, 23 ]),
+			bins            = new BinarySet([ Buffer.from('aXRlbTE=','base64') ]),
 
 			updated_at    = new Date().getTime(),
 			expire_at     = Math.round( (new Date().getTime() / 1000) + 60*60*24  )
