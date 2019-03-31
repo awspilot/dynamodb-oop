@@ -174,6 +174,8 @@
 				bool          : true,
 				one           : 1,
 				updated_at    : null,
+				bin           : Buffer.from('4oya', 'base64'),
+
 				a_list        : [ 'alpha', 'beta', 'gamma', 1, null, true ],
 				a_map         : { 'string': 's', 'number': 1 },
 
