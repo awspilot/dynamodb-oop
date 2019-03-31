@@ -5963,6 +5963,7 @@ function config (name) {
 var DynamoDB = require('./lib/dynamodb')
 
 window['@awspilot/dynamodb'] = DynamoDB
+window['Buffer'] = AWS.util.Buffer
 
 },{"./lib/dynamodb":33}],33:[function(require,module,exports){
 (function (global){
