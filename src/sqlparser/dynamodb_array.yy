@@ -62,9 +62,9 @@ array_list_raw
 array_value_raw
 	:
 		{ $$ = "\0" }
-	| dynamodb_raw_number
-		{ $$ = $1 }
-	| dynamodb_raw_string
+
+	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
+	| javascript_raw_expr
 		{ $$ = $1 }
 	| dynamodb_raw_boolean
 		{ $$ = $1 }
@@ -73,5 +73,11 @@ array_value_raw
 	| dynamodb_raw_array
 		{ $$ = $1 }
 	| dynamodb_raw_json
+		{ $$ = $1 }
+	| dynamodb_raw_numberset
+		{ $$ = $1 }
+	| dynamodb_raw_stringset
+		{ $$ = $1 }
+	| dynamodb_raw_binaryset
 		{ $$ = $1 }
 	;
