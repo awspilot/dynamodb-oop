@@ -2124,17 +2124,18 @@ DYNAMODBKEYWORD
 
 dynamodb_data_string
 	: SINGLE_QUOTED_STRING
-		{ $$ = eval($1); }
+		{ $$ = eval($1.split("\n").join("\\n"));}
 	| DOUBLE_QUOTED_STRING
-		{ $$ = eval($1); }
+		{ $$ = eval($1.split("\n").join("\\n"));}
 	;
 
 dynamodb_raw_string
 	: SINGLE_QUOTED_STRING
-		{ $$ = { 'S': eval($1).toString() } }
+		{ $$ = { 'S': eval($1.split("\n").join("\\n")).toString() } }
 	| DOUBLE_QUOTED_STRING
-		{ $$ = { 'S': eval($1).toString() } }
-	;dynamodb_data_number
+		{ $$ = { 'S': eval($1.split("\n").join("\\n")).toString() } }
+	;
+dynamodb_data_number
 	: NUMBER
 		{ $$ = eval($1); }
 	;
@@ -2235,13 +2236,6 @@ array_value_raw
 	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
 	| javascript_raw_expr
 		{ $$ = $1 }
-
-/*
-	| dynamodb_raw_number
-		{ $$ = $1 }
-	| dynamodb_raw_string
-		{ $$ = $1 }
-*/
 	| dynamodb_raw_boolean
 		{ $$ = $1 }
 	| dynamodb_raw_null
@@ -2425,18 +2419,11 @@ dynamodb_raw_numberset
 		}
 	;
 
-dynamodb_data_numberset
-	: NEW NUMBERSET LPAR ARRAYLPAR  ARRAYRPAR RPAR
-		{
-			$$ = undefined
-		}
-	;
-
 numberset_list
 	: numberset_list COMMA dynamodb_data_number
 		{
-			$$ = $1
-			$$.push( ($3).toString() );
+			$$ = $1 
+			$$.push( ($3).toString() ); 
 		}
 	| dynamodb_data_number
 		{ $$ = [ ($1).toString() ]; }
