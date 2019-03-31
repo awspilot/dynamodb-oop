@@ -176,6 +176,11 @@
 				updated_at    : null,
 				a_list        : [ 'alpha', 'beta', 'gamma', 1, null, true ],
 				a_map         : { 'string': 's', 'number': 1 },
+
+				ss            :  new StringSet( [ 'sss','bbb','ccc' ] ),
+				ns            :  new NumberSet( [  111 , 222 , 333  ] ),
+				bs            :  new BinarySet( [ Buffer.from('aXRlbTE=','base64') ]),
+
 			})
 
 		`,
