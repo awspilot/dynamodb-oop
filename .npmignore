@@ -3,3 +3,4 @@ browserify.js
 browserify.sh
 dist/
 test/
+experiments/
