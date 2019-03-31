@@ -80,18 +80,15 @@
 			last_login_at  = null,
 			active         = true,
 			binary         = Buffer.from('4oya', 'base64'),
-			a_list         = [
-				'a',
-				1,
-				true,
-				null
-			],
-			a_object       = {
+
+			array          = [ 'a', 1, true, null ],
+			object         = {
 				'string': 'text',
 				'number': 1,
 				'bool'  : true,
 				'null'  : null,
 			},
+
 			ss = new StringSet(['a','b','c']),
 			ns = new NumberSet([1,2,3]),
 			bs = new BinarySet( [ Buffer.from('aXRlbTE=','base64') ]),
