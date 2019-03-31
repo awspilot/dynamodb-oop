@@ -24,7 +24,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"aws-sdk": "~2.409.0",
-		"@awspilot/dynamodb-util": "1.0.8",
+		"@awspilot/dynamodb-util": "1.0.9",
 		"promise": "8.0.2"
 	},
 	"devDependencies": {
