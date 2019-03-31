@@ -115,7 +115,7 @@ dynamodb_raw_json_kv
 	:
 		{ $$ = undefined; }
 
-
+	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
 	| dynamodb_raw_json_kv_key COLON javascript_raw_expr
 		{ $$ = [$1, $3 ] }
 
@@ -127,5 +127,11 @@ dynamodb_raw_json_kv
 	| dynamodb_raw_json_kv_key COLON dynamodb_raw_array
 		{ $$ = [$1, $3 ] }
 	| dynamodb_raw_json_kv_key COLON dynamodb_raw_json
+		{ $$ = [$1, $3 ] }
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_numberset
+		{ $$ = [$1, $3 ] }
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_stringset
+		{ $$ = [$1, $3 ] }
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_binaryset
 		{ $$ = [$1, $3 ] }
 	;
