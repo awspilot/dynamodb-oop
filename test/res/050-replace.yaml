@@ -133,3 +133,7 @@ Tests:
           log: false
 
           # @todo: test new BinarySet
+          # @todo: test ss,ns,bs,b nested in LIST
+          # @todo: test ss,ns,bs,b nested in MAP
+          # @todo: test multiline string in values
+          # @todo: test multiline string json key names

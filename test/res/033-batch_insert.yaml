@@ -3,17 +3,17 @@ Prepare:
 Tests:
     query:
         -
-          title: INSERT INTO test_hash_range VALUES ( <JSON> ), ( <JSON> ) 
+          title: INSERT INTO test_hash_range VALUES ( <JSON> ), ( <JSON> )
           query: INSERT INTO test_hash_range VALUES ({'hash': 'sql-batchinsert', 'range': 1}), ({'hash': 'sql-batchinsert', 'range': 2})
 
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> ), ( <JSON> )
           log: true
-          query: 
+          query:
             |
-            INSERT INTO 
+            INSERT INTO
                 `test_hash_range`
-            VALUES 
+            VALUES
                 ( { "hash":  'test-batchinsert-sql', 'range':  1 } ),
                 ( { "hash":  'test-batchinsert-sql', 'range':  2 } )
           validations: []
@@ -21,11 +21,11 @@ Tests:
 
         - title: INSERT INTO tbl_name VALUES ( <JSON> ), ( <JSON> )
           log: false
-          query: 
+          query:
             |
-            INSERT INTO 
+            INSERT INTO
                 `table_hash_string_range_number`
-            VALUES 
+            VALUES
                 ( { "hash":  'test-batchinsert-sql', 'range':  1 } ),
                 ( { "hash":  'test-batchinsert-sql', 'range':  2 } ),
                 ( { "hash":  'test-batchinsert-sql', 'range':  3 } ),
@@ -58,3 +58,7 @@ Tests:
 
         # @todo test insert buffer, it works its just not covered in the tests
         # @todo: test new BinarySet
+        # @todo: test ss,ns,bs,b nested in LIST
+        # @todo: test ss,ns,bs,b nested in MAP
+        # @todo: test multiline string in values
+        # @todo: test multiline string json key names

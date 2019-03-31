@@ -149,8 +149,12 @@ Tests:
           log: false
 
           # @todo: test new BinarySet
+          # @todo: test ss,ns,bs,b nested in LIST
+          # @todo: test ss,ns,bs,b nested in MAP
+          # @todo: test multiline string in values
+          # @todo: test multiline string json key names
 
-        # -
+    # -
         #   title: INSERT INTO tbl_name SET `hash` = <STRING>, `range` = <NUMBER>, empty_string = ''
         #   query: INSERT INTO test_hash_range SET `hash` = 'sql-test-empty-string', `range` = 1, empty_string = ''
         #   dataItem:
