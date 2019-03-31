@@ -2231,10 +2231,17 @@ array_list_raw
 array_value_raw
 	:
 		{ $$ = "\0" }
+
+	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
+	| javascript_raw_expr
+		{ $$ = $1 }
+
+/*
 	| dynamodb_raw_number
 		{ $$ = $1 }
 	| dynamodb_raw_string
 		{ $$ = $1 }
+*/
 	| dynamodb_raw_boolean
 		{ $$ = $1 }
 	| dynamodb_raw_null
@@ -2242,6 +2249,12 @@ array_value_raw
 	| dynamodb_raw_array
 		{ $$ = $1 }
 	| dynamodb_raw_json
+		{ $$ = $1 }
+	| dynamodb_raw_numberset
+		{ $$ = $1 }
+	| dynamodb_raw_stringset
+		{ $$ = $1 }
+	| dynamodb_raw_binaryset
 		{ $$ = $1 }
 	;
 
@@ -2361,35 +2374,24 @@ dynamodb_raw_json_kv
 	:
 		{ $$ = undefined; }
 
-
+	/* javascript_raw_expr replaces dynamodb_raw_string, dynamodb_raw_number, javascript_raw_obj_date, javascript_raw_obj_math */
 	| dynamodb_raw_json_kv_key COLON javascript_raw_expr
 		{ $$ = [$1, $3 ] }
 
 
-/*
-	| dynamodb_raw_json_kv_key COLON dynamodb_raw_number
-		{ $$ = [$1, $3 ] }
-
-	| dynamodb_raw_json_kv_key COLON dynamodb_raw_string
-		{ $$ = [$1, $3 ] }
-*/
-
-
-
-
-
-
 	| dynamodb_raw_json_kv_key COLON dynamodb_raw_boolean
 		{ $$ = [$1, $3 ] }
-
-
 	| dynamodb_raw_json_kv_key COLON dynamodb_raw_null
 		{ $$ = [$1, $3 ] }
-
 	| dynamodb_raw_json_kv_key COLON dynamodb_raw_array
 		{ $$ = [$1, $3 ] }
-
 	| dynamodb_raw_json_kv_key COLON dynamodb_raw_json
+		{ $$ = [$1, $3 ] }
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_numberset
+		{ $$ = [$1, $3 ] }
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_stringset
+		{ $$ = [$1, $3 ] }
+	| dynamodb_raw_json_kv_key COLON dynamodb_raw_binaryset
 		{ $$ = [$1, $3 ] }
 	;
 
@@ -2423,11 +2425,18 @@ dynamodb_raw_numberset
 		}
 	;
 
+dynamodb_data_numberset
+	: NEW NUMBERSET LPAR ARRAYLPAR  ARRAYRPAR RPAR
+		{
+			$$ = undefined
+		}
+	;
+
 numberset_list
 	: numberset_list COMMA dynamodb_data_number
 		{
-			$$ = $1 
-			$$.push( ($3).toString() ); 
+			$$ = $1
+			$$.push( ($3).toString() );
 		}
 	| dynamodb_data_number
 		{ $$ = [ ($1).toString() ]; }
