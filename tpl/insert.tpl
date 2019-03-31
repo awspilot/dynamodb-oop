@@ -133,8 +133,11 @@
 			bool          = true,
 			one           = Math.round( 3.14 ) - 2,
 			updated_at    = null,
+			binary        = Buffer.from('4oya', 'base64'),
+
 			list          = [ 'alpha', 'beta', 'gamma', 1, null, true ],
 			map           = { 'string': 's', 'number': 1 },
+
 			ss            =  new StringSet( [ 'sss','bbb','ccc' ] ),
 			ns            =  new NumberSet( [  111 , 222 , 333  ] ),
 			bs            =  new BinarySet( [ Buffer.from('aXRlbTE=','base64') ]),
