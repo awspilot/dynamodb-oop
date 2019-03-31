@@ -8332,18 +8332,21 @@ case 728:
 			if ( $$[$0-1] !== 'base64')
 				throw ('TypeError: Buffer.from - only base64 supported')
 
+			var Buf = (typeof window === "object") && window.AWS && window.AWS.util && window.AWS.util.Buffer ? window.AWS.util.Buffer : Buffer;
+
 			var buf;
-			if (typeof Buffer.from === "function") { // Node 5.10+
-				buf = Buffer.from( $$[$0-3], $$[$0-1] );
+			if (typeof Buf.from === "function") { // Node 5.10+
+				buf = Buf.from( $$[$0-3], $$[$0-1] );
 			} else { // older Node versions, now deprecated
-				buf = new Buffer( $$[$0-3], $$[$0-1] );
+				buf = new Buf( $$[$0-3], $$[$0-1] );
 			}
 			this.$ = buf;
 
 break;
 case 729:
 
-			if (Buffer.isBuffer($$[$0]) ) {
+			var Buf = (typeof window === "object") && window.AWS && window.AWS.util && window.AWS.util.Buffer ? window.AWS.util.Buffer : Buffer;
+			if (Buf.isBuffer($$[$0]) ) {
 				this.$ = { B: $$[$0] }
 				return;
 			}
