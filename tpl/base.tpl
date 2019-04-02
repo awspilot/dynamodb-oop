@@ -162,7 +162,9 @@
 
 
 
-        <section id="main-content">{{{content}}}</section>
+        <section id="main-content">
+			Moved to <a href="https://awspilot.dev/">https://awspilot.dev/</a>
+		</section>
 		<!-- sidebar -->
 
 
