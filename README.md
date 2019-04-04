@@ -18,7 +18,7 @@
 ```
  
  
-#### [ Documentation and Examples ](https://awspilot.github.io/dynamodb-oop)  
+#### [ Documentation and Examples ](https://awspilot.dev/)  
 
 
 If you are using aws-dynamodb, you can safely update to @awspilot/dynamodb , there are no breaking changes.
