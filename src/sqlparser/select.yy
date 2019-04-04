@@ -37,14 +37,6 @@ def_consistent_read
 
 
 
-distinct_all
-	:
-		{ $$ = undefined; }
-	| DISTINCT
-		{ $$ = {distinct:true}; }
-	| ALL
-		{ $$ = {all:true}; }
-	;
 def_select_columns
 	: def_select_columns COMMA def_select_onecolumn
 		{ $$ = $1; $$.push($3); }
@@ -151,18 +143,18 @@ def_having
 
 
 def_select
-	: SELECT distinct_all def_select_columns def_select_from def_select_use_index def_select_where def_having
+	: SELECT def_select_columns def_select_from def_select_use_index def_select_where def_having 
 		{
 			$$ = {
 				dynamodb: {
-					TableName: $4,
-					IndexName: $5,
+					TableName: $3,
+					IndexName: $4,
 				},
-				columns:$3
+				columns:$2
 			};
-			yy.extend($$.dynamodb,$2);
+
+			yy.extend($$.dynamodb,$5);
 			yy.extend($$.dynamodb,$6);
-			yy.extend($$.dynamodb,$7);
 
 			// if we have star, then the rest does not matter
 			if ($$.columns.filter(function(c) { return c.type === 'star'}).length === 0) {
