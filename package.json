@@ -2,7 +2,7 @@
 	"author": {
 		"name": "Adrian Praja",
 		"email": "adrian@databank.ro",
-		"url": "https://awspilot.com"
+		"url": "https://awspilot.dev"
 	},
 	"name": "@awspilot/dynamodb",
 	"description": "Speak fluent DynamoDB, write code with fashion, I Promise() 😃 ",
