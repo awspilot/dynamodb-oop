@@ -2273,14 +2273,6 @@ dynamodb_data_json_list
 		{ $$ = [$1]; }
 	;
 
-dynamodb_data_json_kv_key
-	: name
-		{ $$ = $1 }
-	| SINGLE_QUOTED_STRING
-		{ $$ = $1 }
-	| DOUBLE_QUOTED_STRING
-		{ $$ = $1 }
-	;
 
 dynamodb_data_json_kv
 	:
@@ -2356,12 +2348,12 @@ dynamodb_data_json_list_raw
 	;
 
 dynamodb_raw_json_kv_key
-	: name
-		{ $$ = $1 }
-	| SINGLE_QUOTED_STRING
+	: SINGLE_QUOTED_STRING
 		{ $$ = eval($1) }
 	| DOUBLE_QUOTED_STRING
 		{ $$ = eval($1) }
+	| dynamodb_attribute_name_or_keyword /* includes name(LITERAL | BRALITERAL) | KEYWORD */
+		{ $$ = $1 }
 	;
 
 dynamodb_raw_json_kv
