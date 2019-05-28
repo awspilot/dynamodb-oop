@@ -179,4 +179,41 @@ describe('batch().write()', function () {
 			})
 	})
 
+	it('.put();.put();.write()', function(done) {
+		var item = {
+			hash: 'batch-write1',
+			range: 1,
+		}
+		var ddb = DynamoDB.batch()
+		ddb.table($tableName)
+		ddb.put({hash: 'batch-write2', range: 1,})
+		ddb.put({hash: 'batch-write2', range: 2,})
+		ddb.put({hash: 'batch-write2', range: 3,})
+		ddb.put({hash: 'batch-write2', range: 4,})
+		ddb.put({hash: 'batch-write2', range: 5,})
+		ddb.put({hash: 'batch-write2', range: 6,})
+		ddb.put({hash: 'batch-write2', range: 7,})
+		ddb.put({hash: 'batch-write2', range: 8,})
+		ddb.put({hash: 'batch-write2', range: 9,})
+		ddb.put({hash: 'batch-write2', range: 10,})
+		ddb.write(function( err, data ) {
+			if (err)
+				throw err;
+
+
+			DynamoDB
+				.table($tableName)
+				.where('hash').eq('batch-write2')
+				.query(function( err, data ) {
+					if (err)
+						throw err
+
+					assert.deepEqual(data.length, 10 )
+
+					done()
+				})
+
+		})
+	})
+
 })
