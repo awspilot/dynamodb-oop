@@ -102,10 +102,7 @@ describe('batch().write()', function () {
 							if (err)
 								throw err
 
-							console.log(JSON.stringify(data,null,"\t"))
-
 							assert.deepEqual(data.hello, 'world2' )
-							//assert.deepEqual(data.hello, 'world2' )
 
 							done()
 						})
@@ -122,6 +119,37 @@ describe('batch().write()', function () {
 
 
 	it('.batch().del().write()', function(done) {
+		var item = {
+			hash: 'batch-write1',
+			range: 1,
+		}
+		DynamoDB
+			.batch()
+			.table($tableName)
+			.del(item)
+			.write(function( err, data ) {
+				if (err)
+					throw err;
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('batch-write1')
+					.where('range').eq(1)
+					.consistentRead()
+					.get(function( err, data ) {
+						if (err)
+							throw err
+
+						assert.deepEqual(data, {} )
+
+						done()
+					})
+
+			})
+	})
+
+
+	it('.batch().del().write() - inexisting item', function(done) {
 		var item = {
 			hash: 'batch-write1',
 			range: 1,
