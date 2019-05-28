@@ -13,7 +13,7 @@
 		"promise",
 		"nosql"
 	],
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"homepage": "https://awspilot.github.io/dynamodb-oop/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
