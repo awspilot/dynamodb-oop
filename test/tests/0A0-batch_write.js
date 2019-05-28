@@ -1,59 +1,25 @@
-describe('batch() .write()', function () {
-	it('prepare', function(done) {
-
-		DynamoDB
-			.table($tableName)
-			.insert({
-				hash: 'batch-write1',
-				range: 1,
-				hello: 'world1',
-			}, function(err, data) {
-				if (err)
-					throw err
-
-				done()
-
-			})
-
-
-	})
-
-
-	it('.batch().put().write() - existing item', function(done) {
-		var item = {
-			hash: 'batch-write1',
-			range: 1,
-			hello: 'world2',
-		}
-		DynamoDB
-			.batch()
-			.table($tableName)
-			.put(item)
-			.write(function( err, data ) {
-				if (err)
-					throw err;
-
-				DynamoDB
-					.table($tableName)
-					.where('hash').eq('batch-write1')
-					.where('range').eq(1)
-					.consistentRead()
-					.get(function( err, data ) {
-						if (err)
-							throw err
-
-						console.log(JSON.stringify(data,null,"\t"))
-
-						assert.deepEqual(data.hello, 'world2' )
-
-						done()
-					})
-
-			})
-	})
+describe('batch().write()', function () {
+	// it('prepare', function(done) {
+	//
+	// 	DynamoDB
+	// 		.table($tableName)
+	// 		.insert({
+	// 			hash: 'batch-write1',
+	// 			range: 1,
+	// 			hello: 'world1',
+	// 		}, function(err, data) {
+	// 			if (err)
+	// 				throw err
+	//
+	// 			done()
+	//
+	// 		})
+	//
+	//
+	// })
 
 
-	it('.batch().put() .write()', function(done) {
+	it('.batch().put().write()', function(done) {
 		var item = {
 			hash: 'batch-write1',
 			range: 1,
@@ -92,7 +58,7 @@ describe('batch() .write()', function () {
 						if (err)
 							throw err
 
-						console.log(JSON.stringify(data,null,"\t"))
+						//console.log(JSON.stringify(data,null,"\t"))
 
 						assert.deepEqual(data.hash, item.hash )
 						assert.deepEqual(data.range, item.range )
@@ -103,6 +69,81 @@ describe('batch() .write()', function () {
 						assert.deepEqual(data.object, { number: 1, string: 'string', })
 
 						// @todo: check ss1, ss2, ns1, ns2, bs1, bs2
+
+						done()
+					})
+
+			})
+	})
+
+
+
+
+		it('.batch().put().write() - existing item', function(done) {
+			var item = {
+				hash: 'batch-write1',
+				range: 1,
+				hello: 'world2',
+			}
+			DynamoDB
+				.batch()
+				.table($tableName)
+				.put(item)
+				.write(function( err, data ) {
+					if (err)
+						throw err;
+
+					DynamoDB
+						.table($tableName)
+						.where('hash').eq('batch-write1')
+						.where('range').eq(1)
+						.consistentRead()
+						.get(function( err, data ) {
+							if (err)
+								throw err
+
+							console.log(JSON.stringify(data,null,"\t"))
+
+							assert.deepEqual(data.hello, 'world2' )
+							//assert.deepEqual(data.hello, 'world2' )
+
+							done()
+						})
+
+				})
+		})
+
+
+
+
+
+
+
+
+
+	it('.batch().del().write()', function(done) {
+		var item = {
+			hash: 'batch-write1',
+			range: 1,
+		}
+		DynamoDB
+			.batch()
+			.table($tableName)
+			.del(item)
+			.write(function( err, data ) {
+				if (err)
+					throw err;
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('batch-write1')
+					.where('range').eq(1)
+					.consistentRead()
+					.get(function( err, data ) {
+						if (err)
+							throw err
+
+						assert.deepEqual(data, {} )
 
 						done()
 					})
