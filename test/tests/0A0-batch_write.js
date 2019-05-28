@@ -180,10 +180,7 @@ describe('batch().write()', function () {
 	})
 
 	it('.put();.put();.write()', function(done) {
-		var item = {
-			hash: 'batch-write1',
-			range: 1,
-		}
+
 		var ddb = DynamoDB.batch()
 		ddb.table($tableName)
 		ddb.put({hash: 'batch-write2', range: 1,})
