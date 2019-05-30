@@ -5,10 +5,259 @@ var DynamoDB = require('./lib/dynamodb')
 window['@awspilot/dynamodb'] = DynamoDB
 window['Buffer'] = AWS.util.Buffer
 
-},{"./lib/dynamodb":2}],2:[function(require,module,exports){
+},{"./lib/dynamodb":3}],2:[function(require,module,exports){
+
+	var util = require('@awspilot/dynamodb-util')
+
+	//util.config.empty_string_replace_as = o.empty_string_replace_as;
+
+	util.config.stringset_parse_as_set = true;
+	util.config.numberset_parse_as_set = true;
+	util.config.binaryset_parse_as_set = true;
+
+
+	function Batch( $client, config ) {
+
+		this.events = config.events // global events
+		this.describeTables = config.describeTables
+		this.return_explain = config.return_explain
+		this.local_events = {}
+		this.client = $client
+
+		this.current_table = undefined;
+		this.err = undefined;
+		this.payload = {
+			RequestItems: {}
+		}
+	}
+
+
+	Batch.prototype.routeCall = function(method, params, reset ,callback ) {
+		var $this = this
+		this.events.beforeRequest.apply( this, [ method, params ])
+
+		this.client[method]( params, function( err, data ) {
+
+			if (err)
+				$this.events.error.apply( $this, [ method, err , params ] )
+
+		// 	if ((data || {}).hasOwnProperty('ConsumedCapacity') )
+		// 		$this.ConsumedCapacity = data.ConsumedCapacity
+
+		// 	if ( reset === true )
+		// 		$this.reset()
+
+			callback.apply( $this, [ err, data ] )
+		})
+	}
+
+
+
+
+	Batch.prototype.resume = function() {}
+	Batch.prototype.table = function( tbl_name ) {
+		if (this.err)
+			return this;
+
+		this.current_table = tbl_name
+		return this;
+	}
+
+
+	Batch.prototype.item = function() {}
+
+
+	Batch.prototype.put = function( item ) {
+		if (this.err)
+			return this;
+
+		if (!this.current_table) {
+			this.err = { code: 'INVALID_TABLE', message: 'use .table( tbl_name ) before .put()'}
+			return this;
+		}
+
+		if (typeof item !== 'object') {
+			this.err = { code: 'INVALID_ITEM', message: '.put( item ) - must pass in an Object'}
+			return this;
+		}
+
+		if (!this.payload.RequestItems.hasOwnProperty( this.current_table ))
+			this.payload.RequestItems[ this.current_table ] = []
+
+		this.payload.RequestItems[ this.current_table ].push({
+			PutRequest: {
+				Item: util.stringify( item ).M
+			}
+		})
+
+		return this;
+	}
+
+	Batch.prototype.delete = function( item ) {
+		if (this.err)
+			return this;
+
+		if (!this.current_table) {
+			this.err = { code: 'INVALID_TABLE', message: 'use .table( tbl_name ) before .delete()'}
+			return this;
+		}
+
+		if (typeof item !== 'object') {
+			this.err = { code: 'INVALID_ITEM', message: '.del( item ) must pass in an Object'}
+			return this;
+		}
+
+		if (!this.payload.RequestItems.hasOwnProperty( this.current_table ))
+			this.payload.RequestItems[ this.current_table ] = []
+
+		this.payload.RequestItems[ this.current_table ].push({
+			DeleteRequest: {
+				Key: util.stringify( item ).M
+			}
+		})
+
+		return this;
+	}
+	Batch.prototype.del = Batch.prototype.delete;
+
+
+
+
+	Batch.prototype.get = function( item ) {
+		if (this.err)
+			return this;
+
+		if (!this.current_table) {
+			this.err = { code: 'INVALID_TABLE', message: 'use .table( tbl_name ) before .get()'}
+			return this;
+		}
+
+		if (typeof item !== 'object') {
+			this.err = { code: 'INVALID_ITEM', message: '.get( item ) - must pass in an Object'}
+			return this;
+		}
+
+		if (!this.payload.RequestItems.hasOwnProperty( this.current_table ))
+			this.payload.RequestItems[ this.current_table ] = {
+				Keys: [],
+				// ExpressionAttributeNames
+				// ProjectionExpression: ""
+				// AttributesToGet: []
+				ConsistentRead: false,
+			}
+
+		this.payload.RequestItems[ this.current_table ].Keys.push( util.stringify( item ).M )
+
+		return this;
+	}
+
+
+
+	Batch.prototype.consistent_read = function( $value ) {
+		if (this.err)
+			return this;
+
+		if (!this.current_table) {
+			this.err = { code: 'INVALID_TABLE', message: 'use .table( tbl_name ) before .consistent_read()'}
+			return this;
+		}
+
+		if ( value === undefined ) {
+			value = true
+		} else {
+			var value = JSON.parse(JSON.stringify($value))
+		}
+
+		if (!this.payload.RequestItems.hasOwnProperty( this.current_table )) {
+			this.payload.RequestItems[ this.current_table ] = {
+				Keys: [],
+				// ExpressionAttributeNames
+				// ProjectionExpression: ""
+				// AttributesToGet: []
+				ConsistentRead: value,
+			}
+		} else {
+			this.payload.RequestItems[ this.current_table ].ConsistentRead = value
+		}
+
+		return this
+	}
+
+
+
+
+
+	Batch.prototype.read = function( cb ) {
+		if (this.err)
+			return cb(this.err);
+
+		var $this = this
+
+		var $thisQuery = this.payload;
+
+		if (typeof this.local_events['beforeRequest'] === "function" )
+			this.local_events['beforeRequest']('batchWriteItem', $thisQuery)
+
+		// @todo: implement promise
+
+		this.routeCall('batchGetItem', $thisQuery , true , function(err,data) {
+			if (err)
+				return typeof cb !== "function" ? null : cb.apply( this, [ err, false ] )
+
+			var ret = {}
+
+			Object.keys(data.Responses).map(function( tbl_name ) {
+				if (!ret.hasOwnProperty(tbl_name))
+					ret[tbl_name] = []
+
+				ret[tbl_name] = util.parse({ L :
+					(data.Responses[tbl_name] || []).map(function(item) { return {'M': item } })
+				})
+
+			})
+
+			this.rawUnprocessedKeys = data.UnprocessedKeys;
+
+			typeof cb !== "function" ? null : cb.apply( this, [ err, ret, data ])
+
+		})
+
+	}
+	Batch.prototype.write = function( cb ) {
+
+		if (this.err)
+			return cb(this.err);
+
+		var $this = this
+
+		var $thisQuery = this.payload;
+
+		if (typeof this.local_events['beforeRequest'] === "function" )
+			this.local_events['beforeRequest']('batchWriteItem', $thisQuery)
+
+		// @todo: implement promise
+
+		//console.log(JSON.stringify($thisQuery, null, "\t"))
+
+		this.routeCall('batchWriteItem', $thisQuery , true , function(err,data) {
+			if (err)
+				return typeof cb !== "function" ? null : cb.apply( this, [ err, false ] )
+
+			typeof cb !== "function" ? null : cb.apply( this, [ err, data, data ])
+
+		})
+
+
+	}
+
+
+
+module.exports = Batch;
+
+},{"@awspilot/dynamodb-util":5}],3:[function(require,module,exports){
 (function (global){
 'use strict';
-
+	var Batch = require('./batch')
 	var DynamodbFactory = function ( $config ) {
 		return new DynamoDB($config)
 	}
@@ -124,6 +373,13 @@ window['Buffer'] = AWS.util.Buffer
 		throw new Error('SS: argument should be a array')
 	}
 	DynamoDB.prototype.stringSet = DynamoDB.prototype.SS
+
+	DynamoDB.prototype.BS = function(data) {
+		if (Array.isArray(data))
+			return new DynamodbFactory.util.Raw({'BS': data })
+		throw new Error('BS: argument should be a array')
+	}
+	DynamoDB.prototype.binarySet = DynamoDB.prototype.BS
 
 
 	DynamoDB.prototype.N = function(data) {
@@ -307,6 +563,11 @@ window['Buffer'] = AWS.util.Buffer
 		var re = this.return_explain; this.return_explain = false;
 		var r = new Request( this.client, { events: this.events, describeTables: this.describeTables, return_explain: re, } )
 		return r.sql(arguments[0],arguments[1]);
+	}
+
+	DynamoDB.prototype.batch = function( ) {
+		var re = this.return_explain; this.return_explain = false;
+		return new Batch( this.client, { events: this.events, describeTables: this.describeTables, return_explain: re, } )
 	}
 
 	DynamoDB.prototype.getClient = function() {
@@ -1961,7 +2222,7 @@ DynamoDB.Raw.prototype.getRawData = function() {
 module.exports = DynamodbFactory;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./sqlparser.js":3,"@awspilot/dynamodb-util":4,"stream":34}],3:[function(require,module,exports){
+},{"./batch":2,"./sqlparser.js":4,"@awspilot/dynamodb-util":5,"stream":35}],4:[function(require,module,exports){
 (function (process,Buffer){
 /* parser generated by jison 0.4.18 */
 /*
@@ -5095,7 +5356,7 @@ if (typeof module !== 'undefined' && require.main === module) {
 }
 }
 }).call(this,require('_process'),require("buffer").Buffer)
-},{"_process":17,"buffer":8,"fs":7,"path":15}],4:[function(require,module,exports){
+},{"_process":18,"buffer":9,"fs":8,"path":16}],5:[function(require,module,exports){
 (function (Buffer){
 
 var DynamoUtil = function() {};
@@ -5540,7 +5801,7 @@ DynamoUtil.normalizeValue  = DynamoUtil.parse;
 module.exports = DynamoUtil
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":8}],5:[function(require,module,exports){
+},{"buffer":9}],6:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -5693,11 +5954,11 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],6:[function(require,module,exports){
-
 },{}],7:[function(require,module,exports){
-arguments[4][6][0].apply(exports,arguments)
-},{"dup":6}],8:[function(require,module,exports){
+
+},{}],8:[function(require,module,exports){
+arguments[4][7][0].apply(exports,arguments)
+},{"dup":7}],9:[function(require,module,exports){
 (function (Buffer){
 /*!
  * The buffer module from node.js, for the browser.
@@ -7478,7 +7739,7 @@ function numberIsNaN (obj) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"base64-js":5,"buffer":8,"ieee754":11}],9:[function(require,module,exports){
+},{"base64-js":6,"buffer":9,"ieee754":12}],10:[function(require,module,exports){
 (function (Buffer){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -7589,7 +7850,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":13}],10:[function(require,module,exports){
+},{"../../is-buffer/index.js":14}],11:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -7893,7 +8154,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -7979,7 +8240,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -8004,7 +8265,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -8027,14 +8288,14 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 var toString = {}.toString;
 
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -8340,7 +8601,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":17}],16:[function(require,module,exports){
+},{"_process":18}],17:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -8388,7 +8649,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 
 
 }).call(this,require('_process'))
-},{"_process":17}],17:[function(require,module,exports){
+},{"_process":18}],18:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -8574,10 +8835,10 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":19}],19:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":20}],20:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -8709,7 +8970,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
   pna.nextTick(cb, err);
 };
-},{"./_stream_readable":21,"./_stream_writable":23,"core-util-is":9,"inherits":27,"process-nextick-args":16}],20:[function(require,module,exports){
+},{"./_stream_readable":22,"./_stream_writable":24,"core-util-is":10,"inherits":28,"process-nextick-args":17}],21:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -8757,7 +9018,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":22,"core-util-is":9,"inherits":27}],21:[function(require,module,exports){
+},{"./_stream_transform":23,"core-util-is":10,"inherits":28}],22:[function(require,module,exports){
 (function (process,global){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -9779,7 +10040,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./_stream_duplex":19,"./internal/streams/BufferList":24,"./internal/streams/destroy":25,"./internal/streams/stream":26,"_process":17,"core-util-is":9,"events":10,"inherits":27,"isarray":14,"process-nextick-args":16,"safe-buffer":33,"string_decoder/":28,"util":6}],22:[function(require,module,exports){
+},{"./_stream_duplex":20,"./internal/streams/BufferList":25,"./internal/streams/destroy":26,"./internal/streams/stream":27,"_process":18,"core-util-is":10,"events":11,"inherits":28,"isarray":15,"process-nextick-args":17,"safe-buffer":34,"string_decoder/":29,"util":7}],23:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -9994,7 +10255,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":19,"core-util-is":9,"inherits":27}],23:[function(require,module,exports){
+},{"./_stream_duplex":20,"core-util-is":10,"inherits":28}],24:[function(require,module,exports){
 (function (process,global,setImmediate){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -10684,7 +10945,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"./_stream_duplex":19,"./internal/streams/destroy":25,"./internal/streams/stream":26,"_process":17,"core-util-is":9,"inherits":27,"process-nextick-args":16,"safe-buffer":33,"timers":35,"util-deprecate":36}],24:[function(require,module,exports){
+},{"./_stream_duplex":20,"./internal/streams/destroy":26,"./internal/streams/stream":27,"_process":18,"core-util-is":10,"inherits":28,"process-nextick-args":17,"safe-buffer":34,"timers":36,"util-deprecate":37}],25:[function(require,module,exports){
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10764,7 +11025,7 @@ if (util && util.inspect && util.inspect.custom) {
     return this.constructor.name + ' ' + obj;
   };
 }
-},{"safe-buffer":33,"util":6}],25:[function(require,module,exports){
+},{"safe-buffer":34,"util":7}],26:[function(require,module,exports){
 'use strict';
 
 /*<replacement>*/
@@ -10839,12 +11100,12 @@ module.exports = {
   destroy: destroy,
   undestroy: undestroy
 };
-},{"process-nextick-args":16}],26:[function(require,module,exports){
+},{"process-nextick-args":17}],27:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":10}],27:[function(require,module,exports){
-arguments[4][12][0].apply(exports,arguments)
-},{"dup":12}],28:[function(require,module,exports){
+},{"events":11}],28:[function(require,module,exports){
+arguments[4][13][0].apply(exports,arguments)
+},{"dup":13}],29:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11141,10 +11402,10 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":33}],29:[function(require,module,exports){
+},{"safe-buffer":34}],30:[function(require,module,exports){
 module.exports = require('./readable').PassThrough
 
-},{"./readable":30}],30:[function(require,module,exports){
+},{"./readable":31}],31:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -11153,13 +11414,13 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_duplex.js":19,"./lib/_stream_passthrough.js":20,"./lib/_stream_readable.js":21,"./lib/_stream_transform.js":22,"./lib/_stream_writable.js":23}],31:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":20,"./lib/_stream_passthrough.js":21,"./lib/_stream_readable.js":22,"./lib/_stream_transform.js":23,"./lib/_stream_writable.js":24}],32:[function(require,module,exports){
 module.exports = require('./readable').Transform
 
-},{"./readable":30}],32:[function(require,module,exports){
+},{"./readable":31}],33:[function(require,module,exports){
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":23}],33:[function(require,module,exports){
+},{"./lib/_stream_writable.js":24}],34:[function(require,module,exports){
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
 var Buffer = buffer.Buffer
@@ -11223,7 +11484,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":8}],34:[function(require,module,exports){
+},{"buffer":9}],35:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11352,7 +11613,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":10,"inherits":12,"readable-stream/duplex.js":18,"readable-stream/passthrough.js":29,"readable-stream/readable.js":30,"readable-stream/transform.js":31,"readable-stream/writable.js":32}],35:[function(require,module,exports){
+},{"events":11,"inherits":13,"readable-stream/duplex.js":19,"readable-stream/passthrough.js":30,"readable-stream/readable.js":31,"readable-stream/transform.js":32,"readable-stream/writable.js":33}],36:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -11431,7 +11692,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":17,"timers":35}],36:[function(require,module,exports){
+},{"process/browser.js":18,"timers":36}],37:[function(require,module,exports){
 (function (global){
 
 /**
