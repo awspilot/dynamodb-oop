@@ -1,5 +1,7 @@
+1.5.0
+- wrap around batchGetItem - .batch().table().get().get().read()
 1.4.0
-- OOP support for batchWriteItem - .batch().table().put().put().del().write()
+- wrap around batchWriteItem - .batch().table().put().put().del().write()
 1.3.0
 - 1.2.0+ will follow SemVer (major.minor.patch) and increment "minor" for new features
 - JSON keys in SQL can now be keywords without the need of wrapping: eg. { "keyword": 1 } can now be just { keyword: 1 }
