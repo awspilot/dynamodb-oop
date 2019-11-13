@@ -5,9 +5,9 @@
 	"requires": true,
 	"dependencies": {
 		"@awspilot/dynamodb-util": {
-			"version": "1.0.11",
-			"resolved": "https://registry.npmjs.org/@awspilot/dynamodb-util/-/dynamodb-util-1.0.11.tgz",
-			"integrity": "sha512-O/lgeoBUBeib0OAswZ3Uk0xZE8SqyqAE+TY5VY6O3ALb32aKAq6o2+Ms1lr3Wtt8vTTRJnCHeEFFIG30b12sxw=="
+			"version": "1.0.12",
+			"resolved": "https://registry.npmjs.org/@awspilot/dynamodb-util/-/dynamodb-util-1.0.12.tgz",
+			"integrity": "sha512-yXply/qPg1lS6FnYmzJLlON09ql12xtFtSSEBYojEyy+sEYi7tsMyEUVedsxynRyZVWrVHzLDUbP0cuCw52IYg=="
 		},
 		"JSONSelect": {
 			"version": "0.4.0",
