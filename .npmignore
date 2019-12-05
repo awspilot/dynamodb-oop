@@ -4,3 +4,4 @@ browserify.sh
 dist/
 test/
 experiments/
+.nvmrc
