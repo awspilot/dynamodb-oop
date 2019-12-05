@@ -25,7 +25,15 @@ DynamodbFactory.config( {
 	empty_string_replace_as: "\0"
 } );
 
+
+
+// test against local version
 DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'http://localhost:8000', "accessKeyId": "myKeyId", "secretAccessKey": "secret", "region": "us-east-1" }))
+
+// test against online demo version
+// DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'https://djaorxfotj9hr.cloudfront.net/v1/dynamodb', "accessKeyId": "myKeyId", "secretAccessKey": "secret", "region": "eu-central-1" }))
+// DynamoDB = new DynamodbFactory({ endpoint: 'https://djaorxfotj9hr.cloudfront.net/v1/dynamodb', accessKeyId: "myKeyId", secretAccessKey: "secret", region: "eu-central-1" })
+
 
 DynamoDB.schema({
 	TableName: 'test_hash',
