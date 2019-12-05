@@ -13,7 +13,7 @@
 		"promise",
 		"nosql"
 	],
-	"version": "1.5.0",
+	"version": "1.5.1",
 	"homepage": "https://awspilot.github.io/dynamodb-oop/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
@@ -23,8 +23,8 @@
 	"main": "./lib/dynamodb",
 	"license": "MIT",
 	"dependencies": {
-		"aws-sdk": "^2.432.0",
 		"@awspilot/dynamodb-util": "1.0.12",
+		"aws-sdk": "^2.432.0",
 		"promise": "8.0.2"
 	},
 	"devDependencies": {
