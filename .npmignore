@@ -3,5 +3,6 @@ browserify.js
 browserify.sh
 dist/
 test/
+src/
 experiments/
 .nvmrc
