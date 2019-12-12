@@ -14,7 +14,7 @@
 		"nosql"
 	],
 	"version": "1.5.1",
-	"homepage": "https://awspilot.github.io/dynamodb-oop/",
+	"homepage": "https://awspilot.dev/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
 		"type": "git",
