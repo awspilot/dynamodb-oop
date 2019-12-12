@@ -1,8 +1,14 @@
 node_modules
-browserify.js
-browserify.sh
+
 dist/
 test/
 src/
 experiments/
+
+package-lock.json
+browserify.js
+browserify.sh
+
+
+webpack.config.js
 .nvmrc
