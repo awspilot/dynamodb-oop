@@ -13,11 +13,11 @@ dynaliteServer.listen(8000, function(err) {
 })
 */
 
-var AWS = require('aws-sdk/global')
-var Dynamo = require('aws-sdk/clients/dynamodb')
-AWS.DynamoDB = Dynamo;
+var AWS = require('aws-sdk')
 
 const DynamodbFactory = require('../../lib/dynamodb')
+//const DynamodbFactory = require('../../dist/dynamodb-node.js')
+//import { DynamodbFactory } from '../../dist/dynamodb-node.min.js'
 
 DynamodbFactory.config( {
 	stringset_parse_as_set: false,
