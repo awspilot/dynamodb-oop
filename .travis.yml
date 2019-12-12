@@ -25,6 +25,7 @@ env:
     - AWS_REGION=us-east-1
 
 before_script:
+  - npm install -g aws-sdk
   - wget http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz -O /tmp/dynamodb_local_latest.tar.gz
   - tar -xzf /tmp/dynamodb_local_latest.tar.gz -C /tmp
   - java -Djava.library.path=/tmp/DynamoDBLocal_lib -jar /tmp/DynamoDBLocal.jar -inMemory &
