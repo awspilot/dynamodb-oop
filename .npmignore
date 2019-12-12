@@ -8,7 +8,11 @@ experiments/
 package-lock.json
 browserify.js
 browserify.sh
+build-parser.sh
 
+
+.nvmrc
+.babelrc
+.travis.yml
 
 webpack.config.js
-.nvmrc
