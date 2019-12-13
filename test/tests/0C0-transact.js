@@ -23,6 +23,7 @@ describe('.transact()', function () {
 			.transact()
 			.table($tableName).insert({hash: 'insert', range: 1, number: 1})
 			.table($tableName).insert({hash: 'insert', range: 2, bool: true})
+			.table($tableName).insert({hash: 'insert', range: 3, null: null})
 			.write(function( err, data ) {
 				if (err)
 					throw err;
@@ -54,6 +55,12 @@ describe('.transact()', function () {
 							"hash": "insert"
 						})
 
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 3 })[0] , {
+							"null": null,
+							"range": 3,
+							"hash": "insert"
+						})
+
 						done()
 
 					})
@@ -69,6 +76,7 @@ describe('.transact()', function () {
 			.transact()
 			.table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 1, number: 1})
 			.table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 2, bool: true})
+			.table($tableName).insert_or_replace({hash: 'insert', range: 3,  bool: true})
 			.write(function( err, data ) {
 				//console.log(err,data)
 				if (err)
@@ -79,7 +87,7 @@ describe('.transact()', function () {
 					.table($tableName)
 					.get({hash: 'insert_or_replace', range: 1,})
 					.get({hash: 'insert_or_replace', range: 2,})
-					.get({hash: 'insert_or_replace', range: 3,})
+					.get({hash: 'insert', range: 3,})
 					.consistent_read()
 					.read(function( err, data ) {
 						if (err)
@@ -96,6 +104,12 @@ describe('.transact()', function () {
 							"bool": true,
 							"range": 2,
 							"hash": "insert_or_replace"
+						})
+
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 3 })[0] , {
+							"bool": true,
+							"range": 3,
+							"hash": "insert"
 						})
 
 						done()
