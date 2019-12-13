@@ -122,6 +122,58 @@ describe('.transact()', function () {
 	})
 
 
+	it('.transact().replace()', function(done) {
+
+		DynamoDB
+			.transact()
+			.table($tableName).replace({hash: 'insert', range: 1, status: 'replaced' })
+			.table($tableName).replace({hash: 'insert', range: 2, status: 'replaced' })
+			.table($tableName).replace({hash: 'insert', range: 3, status: 'replaced' })
+			.write(function( err, data ) {
+				// console.log(err,data)
+
+				if (err)
+					throw err;
+
+				DynamoDB
+					.batch()
+					.table($tableName)
+					.get({hash: 'insert', range: 1,})
+					.get({hash: 'insert', range: 2,})
+					.get({hash: 'insert', range: 3,})
+					.consistent_read()
+					.read(function( err, data ) {
+						if (err)
+							throw err;
+
+						//console.log(JSON.stringify(data,null,"\t"))
+
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 1 })[0] , {
+							hash: "insert",
+							range: 1,
+							status: 'replaced'
+
+						})
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
+							hash: "insert",
+							range: 2,
+							status: 'replaced'
+
+
+						})
+
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 3 })[0] , {
+							hash: "insert",
+							range: 3,
+							status: 'replaced'
+						})
+
+						done()
+
+					})
+
+			})
+	})
 
 
 })
