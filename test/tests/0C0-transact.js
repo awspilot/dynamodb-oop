@@ -237,9 +237,15 @@ describe('.transact()', function () {
 
 		DynamoDB
 			.transact()
-			.table($tableName).update({hash: 'insert_or_update', range: 1, status: 'updated',  })
-			.table($tableName).update({hash: 'insert_or_update', range: 2, status: 'updated',  })
-			//.table($tableName).update({hash: 'insert_or_update', range: 3, status: 'updated',  })
+			.table($tableName)
+				.where('hash').eq('insert_or_update')
+				.where('range').eq(1)
+				.update({ status: 'updated', })
+			.table($tableName)
+				.where('hash').eq('insert_or_update')
+				.where('range').eq(2)
+				.update({ status: 'updated', })
+
 			.write(function( err, data ) {
 
 				if (err)
