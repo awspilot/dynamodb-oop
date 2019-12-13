@@ -233,4 +233,51 @@ describe('.transact()', function () {
 			})
 	})
 
+	it('.transact().update()', function(done) {
+
+		DynamoDB
+			.transact()
+			.table($tableName).update({hash: 'insert_or_update', range: 1, status: 'updated',  })
+			.table($tableName).update({hash: 'insert_or_update', range: 2, status: 'updated',  })
+			//.table($tableName).update({hash: 'insert_or_update', range: 3, status: 'updated',  })
+			.write(function( err, data ) {
+
+				if (err)
+					throw err;
+
+				DynamoDB
+					.batch()
+					.table($tableName)
+					.get({hash: 'insert_or_update', range: 1,})
+					.get({hash: 'insert_or_update', range: 2,})
+					//.get({hash: 'insert',           range: 3,})
+					.consistent_read()
+					.read(function( err, data ) {
+						if (err)
+							throw err;
+
+						//console.log(JSON.stringify(data,null,"\t"))
+
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 1 })[0] , {
+							hash: "insert_or_update",
+							range: 1,
+							list: [1],
+							map: {b: true},
+							status: "updated"
+						})
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
+							hash: "insert_or_update",
+							range: 2,
+							list: [2],
+							map: {b: true},
+							status: "updated"
+						})
+
+						done()
+
+					})
+
+			})
+	})
+
 })
