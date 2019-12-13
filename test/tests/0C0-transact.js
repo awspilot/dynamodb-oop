@@ -280,4 +280,40 @@ describe('.transact()', function () {
 			})
 	})
 
+
+	it('.transact().delete()', function(done) {
+
+		DynamoDB
+			.transact()
+			.table($tableName)
+				.where('hash').eq('insert_or_update')
+				.where('range').eq(1)
+				.delete()
+			.write(function( err, data ) {
+
+
+				if (err)
+					throw err;
+
+				DynamoDB
+					.table($tableName)
+					.where('hash').eq('insert_or_update')
+					.where('range').eq(1)
+					.consistent_read()
+					.get(function( err, data ) {
+						if (err)
+							throw err;
+
+						// console.log(JSON.stringify(data,null,"\t"))
+
+						assert.deepEqual( data, {})
+
+
+						done()
+
+					})
+
+			})
+	})
+
 })
