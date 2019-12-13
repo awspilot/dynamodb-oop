@@ -128,7 +128,7 @@ describe('.transact()', function () {
 			.transact()
 			.table($tableName).replace({hash: 'insert', range: 1, status: 'replaced' })
 			.table($tableName).replace({hash: 'insert', range: 2, status: 'replaced' })
-			.table($tableName).replace({hash: 'insert', range: 3, status: 'replaced' })
+			.table($tableName).replace({hash: 'insert', range: 3, status: 'replaced', insert_number: 99 })
 			.write(function( err, data ) {
 				// console.log(err,data)
 
@@ -165,7 +165,8 @@ describe('.transact()', function () {
 						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 3 })[0] , {
 							hash: "insert",
 							range: 3,
-							status: 'replaced'
+							status: 'replaced',
+							insert_number: 99
 						})
 
 						done()
@@ -175,5 +176,61 @@ describe('.transact()', function () {
 			})
 	})
 
+
+	it('.transact().insert_or_update()', function(done) {
+
+		DynamoDB
+			.transact()
+			.table($tableName).insert_or_update({hash: 'insert_or_update', range: 1, status: 'inserted', list: [1], map: { b: true } })
+			.table($tableName).insert_or_update({hash: 'insert_or_update', range: 2, status: 'inserted', list: [2], map: { b: true } })
+			.table($tableName).insert_or_update({hash: 'insert',           range: 3, status: 'updated' , list: [3], map: { b: true } })
+			.write(function( err, data ) {
+
+				if (err)
+					throw err;
+
+				DynamoDB
+					.batch()
+					.table($tableName)
+					.get({hash: 'insert_or_update', range: 1,})
+					.get({hash: 'insert_or_update', range: 2,})
+					.get({hash: 'insert',           range: 3,})
+					.consistent_read()
+					.read(function( err, data ) {
+						if (err)
+							throw err;
+
+						//console.log(JSON.stringify(data,null,"\t"))
+
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 1 })[0] , {
+							hash: "insert_or_update",
+							range: 1,
+							list: [1],
+							map: {b: true},
+							status: "inserted"
+						})
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
+							hash: "insert_or_update",
+							range: 2,
+							list: [2],
+							map: {b: true},
+							status: "inserted"
+						})
+
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 3 })[0] , {
+							hash: "insert",
+							range: 3,
+							list: [3],
+							map: {b: true},
+							status: "updated",
+							insert_number: 99
+						})
+
+						done()
+
+					})
+
+			})
+	})
 
 })
