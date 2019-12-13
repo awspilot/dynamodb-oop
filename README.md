@@ -16,13 +16,14 @@
 	npm install @awspilot/dynamodb
 
 ```
- 
- 
+
+
 #### [ Documentation and Examples ](https://awspilot.dev/)  
 
+WARN: version 2.x moved aws-sdk to peer dependencies.
+You should add aws-sdk as dependency in your project.
 
-If you are using aws-dynamodb, you can safely update to @awspilot/dynamodb , there are no breaking changes.
-
+#### [ Lambda Layers available ](https://awspilot.dev/pages/layer/)  
 
 ---
 Note:  
