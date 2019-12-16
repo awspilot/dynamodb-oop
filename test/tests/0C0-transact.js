@@ -395,6 +395,121 @@ describe('.transact()', function () {
 			})
 	})
 
+	it('.transact().if().insert_or_update()', function(done) {
 
+		DynamoDB
+			.transact()
+			.table($tableName)
+				//.if('status').eq('updated')
+				//.insert_or_update({hash: 'insert_or_update', range: 1, status: 'if_insert_or_update', list: [1], map: { b: true } })
+
+			.table($tableName)
+				.if('status').eq('updated')
+				.insert_or_update({hash: 'insert_or_update', range: 2, status: 'if_insert_or_update', list: [2], map: { b: true } })
+
+			//.table($tableName).insert_or_update({hash: 'insert',           range: 3, status: 'updated' , list: [3], map: { b: true } })
+			.write(function( err, data ) {
+
+				if (err)
+					throw err;
+
+				DynamoDB
+					.batch()
+					.table($tableName)
+					.get({hash: 'insert_or_update', range: 1,})
+					.get({hash: 'insert_or_update', range: 2,})
+					.get({hash: 'insert',           range: 3,})
+					.consistent_read()
+					.read(function( err, data ) {
+						if (err)
+							throw err;
+
+						// console.log(JSON.stringify(data,null,"\t"))
+
+				// 		assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 1 })[0] , {
+				// 			hash: "insert_or_update",
+				// 			range: 1,
+				// 			list: [1],
+				// 			map: {b: true},
+				// 			status: "inserted"
+				// 		})
+				// 		assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
+				// 			hash: "insert_or_update",
+				// 			range: 2,
+				// 			list: [2],
+				// 			map: {b: true},
+				// 			status: "inserted"
+				// 		})
+				//
+				// 		assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 3 })[0] , {
+				// 			hash: "insert",
+				// 			range: 3,
+				// 			list: [3],
+				// 			map: {b: true},
+				// 			status: "updated",
+				// 			insert_number: 99
+				// 		})
+
+						done()
+
+					})
+
+			})
+	})
+
+
+	it('.transact().if().update()', function(done) {
+
+		DynamoDB
+			.transact()
+			// .table($tableName)
+			// 	.where('hash').eq('insert_or_update')
+			// 	.where('range').eq(1)
+			// 	.update({ status: 'updated', })
+			.table($tableName)
+				.if('status').eq('if_insert_or_update')
+				.where('hash').eq('insert_or_update')
+				.where('range').eq(2)
+				.update({ status: 'if_updated', })
+
+			.write(function( err, data ) {
+
+				if (err)
+					throw err;
+
+				DynamoDB
+					.batch()
+					.table($tableName)
+					.get({hash: 'insert_or_update', range: 1,})
+					.get({hash: 'insert_or_update', range: 2,})
+					//.get({hash: 'insert',           range: 3,})
+					.consistent_read()
+					.read(function( err, data ) {
+						if (err)
+							throw err;
+
+						//console.log(JSON.stringify(data,null,"\t"))
+
+				// 		assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 1 })[0] , {
+				// 			hash: "insert_or_update",
+				// 			range: 1,
+				// 			list: [1],
+				// 			map: {b: true},
+				// 			status: "updated"
+				// 		})
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
+							hash: "insert_or_update",
+							range: 2,
+							list: [2],
+							map: {b: true},
+							status: "if_updated"
+						})
+
+						done()
+
+					})
+
+			})
+	})
 
 })
