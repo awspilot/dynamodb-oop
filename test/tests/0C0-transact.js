@@ -319,13 +319,35 @@ describe('.transact()', function () {
 	})
 
 
-	it('.transact().insert_or_update()', function(done) {
+	it('.transact().if().insert_or_update()', function(done) {
 
 		DynamoDB
 			.transact()
-			.table($tableName).insert_or_update({hash: 'insert_or_update', range: 1, status: 'inserted', list: [1], map: { b: true } })
-			.table($tableName).insert_or_update({hash: 'insert_or_update', range: 2, status: 'inserted', list: [2], map: { b: true } })
-			.table($tableName).insert_or_update({hash: 'insert',           range: 3, status: 'updated' , list: [3], map: { b: true } })
+			.table($tableName)
+					.insert_or_update({hash: 'insert_or_update', range: 1, status: 'inserted', list: [1], map: { b: true } })
+			.table($tableName)
+					.insert_or_update({hash: 'insert_or_update', range: 2, status: 'inserted', list: [2], map: { b: true } })
+			.table($tableName)
+
+					.if('inexisintg_attribute').not().exists()
+					.if('status').exists()
+					// .if('status').eq('replaced')
+					.if('range').eq(3)
+					.if('range').ge(3)
+					.if('range').gt(2.9)
+					.if('range').le(4)
+					.if('range').lt(3.1)
+					// .if('number').ne('z')
+					.if('range').ne(null)
+					.if('range').between(2.9,3.1)
+					.if('range').not().between(4,7)
+					.if('range').in( [ 0.9,3,1.1, "a", "Z" ] )
+					.if('range').not().in( [ 0.9,1.1, "a", "Z" ] )
+					.if('hash').contains('ins')
+					.if('hash').not().contains('Z')
+					.if('hash').begins_with('ins')
+					.if('hash').not().begins_with('nsert')
+					.insert_or_update({hash: 'insert',           range: 3, status: 'updated' , list: [3], map: { b: true } })
 			.write(function( err, data ) {
 
 				if (err)
