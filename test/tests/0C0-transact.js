@@ -74,7 +74,7 @@ describe('.transact()', function () {
 
 		DynamoDB
 			.transact()
-			.table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 1, number: 1})
+			.table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 1, number: 1, object: { attribute: 99  }, pi: 3.14, "searchme": "Hello World", arr: [true, { number: 99 }]  })
 			.table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 2, bool: true})
 			.table($tableName).insert_or_replace({hash: 'insert', range: 3,  bool: true})
 			.write(function( err, data ) {
@@ -96,9 +96,13 @@ describe('.transact()', function () {
 						//console.log(JSON.stringify(data,null,"\t"))
 
 						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 1 })[0] , {
-							"range": 1,
-							"number": 1,
-							"hash": "insert_or_replace"
+							hash: "insert_or_replace",
+							range: 1,
+							number: 1,
+							object: { attribute: 99  },
+							pi: 3.14,
+							searchme: "Hello World",
+							arr: [true, { number: 99 }]
 						})
 						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
 							"bool": true,
@@ -127,21 +131,31 @@ describe('.transact()', function () {
 		DynamoDB
 			.transact()
 			.table($tableName)
-				.if('number').eq(1)
-				.if('number').ge(1)
-				.if('number').gt(0.9)
-				.if('number').le(1)
-				.if('number').lt(1.1)
+				.if('pi').eq(3.14)
+				.if('number').eq(1) // number is keyword and will go to ExpressionAttributeNames
+
+				.if('pi').ge(3.14)
+				.if('pi').gt(3)
+				.if('pi').le(3.14)
+				.if('pi').lt(3.15)
 				//.if('number').ne('z')
-				.if('number').ne(null)
-				.if('number').between(0.9,1.1)
-				.if('number').not().between(2,7)
-				.if('number').in( [ 0.9,1,1.1, "a", "Z" ] )
-				.if('number').not().in( [ 0.9,1.1, "a", "Z" ] )
-				.if('hash').contains('_or_')
-				.if('hash').not().contains('range')
-				.if('hash').begins_with('insert_or')
-				.if('hash').not().begins_with('somestring')
+				.if('pi').ne(null)
+				.if('pi').between(3.1,3.2)
+				.if('pi').not().between(5,7)
+				.if('pi').in( [ 0.9,1.1,3.14, "a", "Z" ] )
+				.if('pi').not().in( [ 0.9,1.1, "a", "Z" ] )
+
+				.if('searchme').contains('ello')
+				.if('searchme').not().contains('I-no-exist')
+				.if('searchme').begins_with('Hello')
+				.if('searchme').not().begins_with('World')
+
+				.if('searchme').exists()
+				.if('me-no-exist').not().exists()
+
+				.if('object.attribute').eq(99)
+				.if('arr[1].number').between(98,100)
+				//.debug()
 				.insert_or_replace({hash: 'insert_or_replace', range: 1, number: 1})
 			// .table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 2, bool: true})
 			// .table($tableName).insert_or_replace({hash: 'insert', range: 3,  bool: true})
