@@ -477,6 +477,25 @@ describe('.transact()', function () {
 			.table($tableName)
 				.where('hash').eq('insert_or_update')
 				.where('range').eq(1)
+
+					.if('inexisintg_attribute').not().exists()
+					.if('status').exists()
+					.if('status').eq('updated')
+					.if('range').eq(1)
+					.if('range').ge(1)
+					.if('range').gt(0.9)
+					.if('range').le(1)
+					.if('range').lt(1.1)
+					.if('range').ne(null)
+					.if('range').between(0.9,1.1)
+					.if('range').not().between(2,7)
+					.if('range').in( [ 0.9,1,1.1, "a", "Z" ] )
+					.if('range').not().in( [ 0.9,1.1, "a", "Z" ] )
+					.if('hash').contains('ins')
+					.if('hash').not().contains('Z')
+					.if('hash').begins_with('ins')
+					.if('hash').not().begins_with('update')
+
 				.delete()
 			.write(function( err, data ) {
 
