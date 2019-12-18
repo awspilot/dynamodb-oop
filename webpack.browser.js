@@ -21,8 +21,8 @@ const browserConfig = {
 	plugins: [
 	],
 	entry: {
-		'dynamodb-browser': path.resolve(__dirname, './lib/dynamodb.js'),
-		'dynamodb-browser.min': path.resolve(__dirname, './lib/dynamodb.js')
+		'dynamodbjs': path.resolve(__dirname, './lib/dynamodb.js'),
+		'dynamodbjs.min': path.resolve(__dirname, './lib/dynamodb.js')
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
@@ -53,7 +53,8 @@ const browserConfig = {
 						loader: "ifdef-loader",
 						options: {
 							BROWSER: true,
-							BUILD_WITH_SQL: false,
+							//BUNDLE_AWS_SDK: false,
+							BUILD_WITH_SQL: true,
 						}
 					},
 					{loader: 'babel-loader'},
