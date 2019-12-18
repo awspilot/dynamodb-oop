@@ -53,6 +53,7 @@ const browserConfig = {
 						loader: "ifdef-loader",
 						options: {
 							BROWSER: true,
+							BUILD_WITH_SQL: false,
 						}
 					},
 					{loader: 'babel-loader'},
