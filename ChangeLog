@@ -1,3 +1,7 @@
+2.0.0
+- removed npm-shrinkwrap, was causing npm install to also install dev dependencies ( npm bug ?)
+- aws-sdk as peer dependency ( shrinks deply size for environments with embedded aws-sdk eg. Lambda )
+- experimental transactWrite support
 1.5.1
 - import only dynamodb from aws-sdk
 1.5.0
