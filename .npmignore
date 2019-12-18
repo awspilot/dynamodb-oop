@@ -15,4 +15,4 @@ build-parser.sh
 .babelrc
 .travis.yml
 
-webpack.config.js
+webpack.browser.js
