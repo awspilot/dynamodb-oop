@@ -1,4 +1,5 @@
 {
+	"version": "2.0.0-beta.2",
 	"author": {
 		"name": "Adrian Praja",
 		"email": "adrian@databank.ro",
@@ -13,7 +14,6 @@
 		"promise",
 		"nosql"
 	],
-	"version": "2.0.0-beta",
 	"homepage": "https://awspilot.dev/",
 	"bugs": "https://github.com/awspilot/dynamodb-oop/issues",
 	"repository": {
