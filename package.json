@@ -1,5 +1,5 @@
 {
-	"version": "2.0.0",
+	"version": "2.0.0-beta.3",
 	"author": {
 		"name": "Adrian Praja",
 		"email": "adrian@databank.ro",
@@ -21,6 +21,7 @@
 		"url": "https://github.com/awspilot/dynamodb-oop"
 	},
 	"main": "./lib/dynamodb",
+	"browser": "./dist/dynamodbjs",
 	"license": "MIT",
 	"dependencies": {
 		"@awspilot/dynamodb-util": "1.0.12",
