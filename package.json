@@ -24,7 +24,7 @@
 	"browser": "./dist/dynamodbjs",
 	"license": "MIT",
 	"dependencies": {
-		"@awspilot/dynamodb-util": "1.1.0",
+		"@awspilot/dynamodb-util": "1.1.1",
 		"promise": "8.0.3"
 	},
 	"peerDependencies": {
@@ -64,7 +64,10 @@
 	},
 	"scripts": {
 		"test": "mocha --timeout 100000 -S -R spec --exit",
-		"start": "webpack  --config webpack.browser.js -w & node_modules/node-static/bin/cli.js -p 8888",
+
+		"build:browser": "webpack  --config webpack.browser.js",
+
+		"start": "webpack  --config webpack.browser.js -w ",
 		"buildsqlparser": "jison src/sqlparser.jison -o lib/sqlparser.js"
 	},
 	"engines": {
