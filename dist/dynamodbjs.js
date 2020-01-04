@@ -7,7 +7,7 @@
 		exports["@awspilot/dynamodb"] = factory(require("AWS"));
 	else
 		root["@awspilot/dynamodb"] = factory(root["AWS"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE__33__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE__31__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -155,7 +155,7 @@ module.exports = g;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(8);
+var pna = __webpack_require__(7);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -264,7 +264,7 @@ Duplex.prototype._destroy = function (err, cb) {
 "use strict";
 
 
-var asap = __webpack_require__(14);
+var asap = __webpack_require__(13);
 
 function noop() {}
 
@@ -779,7 +779,7 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(9).Buffer))
 
 /***/ }),
 /* 5 */
@@ -818,11 +818,11 @@ if (typeof Object.create === 'function') {
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, Buffer) {(function webpackUniversalModuleDefinition(root, factory) {
+(function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
 		module.exports = factory();
 	else {}
-})(global, function() {
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -972,9 +972,13 @@ DynamoUtil.stringify = function ($value) {
 		return { 'S': $value };
 	}
 
-	if ($value === null) return { 'NULL': true };
+	if ($value === null) return { 'NULL': true
 
-	if (Buffer.isBuffer($value)) return { 'B': $value
+/////////////////
+	};if ($value instanceof Uint8Array) return { 'B': $value
+///////////
+////////////////////////////////////////////////////
+////////////
 
 		// stringSet, numberSet
 	};if (typeof $value == 'object' && $value instanceof DynamoUtil.Raw) {
@@ -1085,13 +1089,18 @@ DynamoUtil.parse = function (v) {
 	if (v.hasOwnProperty('NULL')) return null;
 
 	if (v.hasOwnProperty('B')) {
-		if (typeof Buffer.from === "function") {
-			// Node 5.10+
-			return Buffer.from(v.B, 'base64');
-		} else {
-			// older Node versions, now deprecated
-			return new Buffer(v.B, 'base64');
-		}
+
+/////////////////
+		return Uint8Array.from(v.B);
+///////////
+//////////////////////////////////////////
+////////////////
+/////////////////////////////////////
+//////////
+/////////////////////////////////////////
+////////////////////////////////////
+///
+////////////
 	}
 
 	if (v.hasOwnProperty('SS')) {
@@ -1285,16 +1294,30 @@ DynamoUtil.toSQLJSON = function (o, is_list) {
 		return "[" + o.map(function (l) {
 			if (l.hasOwnProperty('S')) return JSON.stringify(l.S);
 			if (l.hasOwnProperty('N')) return l.N;
-			if (l.hasOwnProperty('B')) return "Buffer.from('" + l.B.toString('base64') + "', 'base64')";
+			if (l.hasOwnProperty('B')) {
+///////////////////
+				return "Buffer.from('" + l.B.toString('base64') + "', 'base64')";
+/////////////
+/////////////////////////////////////////////////////////////////////
+//////////////
+			}
 			if (l.hasOwnProperty('BOOL')) return l.BOOL;
 			if (l.hasOwnProperty('NULL')) return 'null';
 			if (l.hasOwnProperty('SS')) return "new StringSet(" + JSON.stringify(l.SS) + ")";
 			if (l.hasOwnProperty('NS')) return "new NumberSet(" + JSON.stringify(l.NS.map(function (n) {
 				return parseFloat(n);
 			})) + ")";
-			if (l.hasOwnProperty('BS')) return "new BinarySet([" + l.BS.map(function (b) {
-				return "Buffer.from('" + b.toString('base64') + "', 'base64')";
-			}).join(',') + "])";
+			if (l.hasOwnProperty('BS')) {
+///////////////////
+				return "new BinarySet([" + l.BS.map(function (b) {
+					return "Buffer.from('" + b.toString('base64') + "', 'base64')";
+				}).join(',') + "])";
+/////////////
+//////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+////////////////////////
+//////////////
+			}
 			if (l.hasOwnProperty('M')) return DynamoUtil.toSQLJSON(l.M);
 			if (l.hasOwnProperty('L')) return DynamoUtil.toSQLJSON(l.L, true);
 
@@ -1306,16 +1329,30 @@ DynamoUtil.toSQLJSON = function (o, is_list) {
 	Object.keys(o).map(function (k) {
 		if (o[k].hasOwnProperty('S')) oeach.push("'" + k + "':" + JSON.stringify(o[k].S));
 		if (o[k].hasOwnProperty('N')) oeach.push("'" + k + "':" + o[k].N);
-		if (o[k].hasOwnProperty('B')) oeach.push("'" + k + "':" + "Buffer.from('" + o[k].B.toString('base64') + "', 'base64')");
+		if (o[k].hasOwnProperty('B')) {
+//////////////////
+			oeach.push("'" + k + "':" + "Buffer.from('" + o[k].B.toString('base64') + "', 'base64')");
+////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+/////////////
+		}
 		if (o[k].hasOwnProperty('BOOL')) oeach.push("'" + k + "':" + o[k].BOOL);
 		if (o[k].hasOwnProperty('NULL')) oeach.push("'" + k + "':" + 'null');
 		if (o[k].hasOwnProperty('SS')) oeach.push("'" + k + "':" + "new StringSet(" + JSON.stringify(o[k].SS) + ")");
 		if (o[k].hasOwnProperty('NS')) oeach.push("'" + k + "':" + "new NumberSet(" + JSON.stringify(o[k].NS.map(function (n) {
 			return parseFloat(n);
 		})) + ")");
-		if (o[k].hasOwnProperty('BS')) oeach.push("'" + k + "':" + "new BinarySet([" + o[k].BS.map(function (b) {
-			return "Buffer.from('" + b.toString('base64') + "', 'base64')";
-		}).join(',') + "])");
+		if (o[k].hasOwnProperty('BS')) {
+//////////////////
+			oeach.push("'" + k + "':" + "new BinarySet([" + o[k].BS.map(function (b) {
+				return "Buffer.from('" + b.toString('base64') + "', 'base64')";
+			}).join(',') + "])");
+////////////
+/////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+////////////////////////
+/////////////
+		}
 		if (o[k].hasOwnProperty('M')) oeach.push("'" + k + "':" + DynamoUtil.toSQLJSON(o[k].M));
 		if (o[k].hasOwnProperty('L')) oeach.push("'" + k + "':" + DynamoUtil.toSQLJSON(o[k].L, true));
 	});
@@ -1332,10 +1369,130 @@ DynamoUtil.normalizeValue = DynamoUtil.parse;
 /***/ })
 /******/ ])["default"];
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(7).Buffer))
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+if (typeof process === 'undefined' ||
+    !process.version ||
+    process.version.indexOf('v0.') === 0 ||
+    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
+  module.exports = { nextTick: nextTick };
+} else {
+  module.exports = process
+}
+
+function nextTick(fn, arg1, arg2, arg3) {
+  if (typeof fn !== 'function') {
+    throw new TypeError('"callback" argument must be a function');
+  }
+  var len = arguments.length;
+  var args, i;
+  switch (len) {
+  case 0:
+  case 1:
+    return process.nextTick(fn);
+  case 2:
+    return process.nextTick(function afterTickOne() {
+      fn.call(null, arg1);
+    });
+  case 3:
+    return process.nextTick(function afterTickTwo() {
+      fn.call(null, arg1, arg2);
+    });
+  case 4:
+    return process.nextTick(function afterTickThree() {
+      fn.call(null, arg1, arg2, arg3);
+    });
+  default:
+    args = new Array(len - 1);
+    i = 0;
+    while (i < args.length) {
+      args[i++] = arguments[i];
+    }
+    return process.nextTick(function afterTick() {
+      fn.apply(null, args);
+    });
+  }
+}
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* eslint-disable node/no-deprecated-api */
+var buffer = __webpack_require__(9)
+var Buffer = buffer.Buffer
+
+// alternative to using Object.keys for old browsers
+function copyProps (src, dst) {
+  for (var key in src) {
+    dst[key] = src[key]
+  }
+}
+if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
+  module.exports = buffer
+} else {
+  // Copy properties from require('buffer')
+  copyProps(buffer, exports)
+  exports.Buffer = SafeBuffer
+}
+
+function SafeBuffer (arg, encodingOrOffset, length) {
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+// Copy static methods from Buffer
+copyProps(Buffer, SafeBuffer)
+
+SafeBuffer.from = function (arg, encodingOrOffset, length) {
+  if (typeof arg === 'number') {
+    throw new TypeError('Argument must not be a number')
+  }
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+SafeBuffer.alloc = function (size, fill, encoding) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  var buf = Buffer(size)
+  if (fill !== undefined) {
+    if (typeof encoding === 'string') {
+      buf.fill(fill, encoding)
+    } else {
+      buf.fill(fill)
+    }
+  } else {
+    buf.fill(0)
+  }
+  return buf
+}
+
+SafeBuffer.allocUnsafe = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return Buffer(size)
+}
+
+SafeBuffer.allocUnsafeSlow = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return buffer.SlowBuffer(size)
+}
+
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1349,9 +1506,9 @@ DynamoUtil.normalizeValue = DynamoUtil.parse;
 
 
 
-var base64 = __webpack_require__(22)
-var ieee754 = __webpack_require__(23)
-var isArray = __webpack_require__(13)
+var base64 = __webpack_require__(33)
+var ieee754 = __webpack_require__(34)
+var isArray = __webpack_require__(14)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -3132,127 +3289,6 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-if (typeof process === 'undefined' ||
-    !process.version ||
-    process.version.indexOf('v0.') === 0 ||
-    process.version.indexOf('v1.') === 0 && process.version.indexOf('v1.8.') !== 0) {
-  module.exports = { nextTick: nextTick };
-} else {
-  module.exports = process
-}
-
-function nextTick(fn, arg1, arg2, arg3) {
-  if (typeof fn !== 'function') {
-    throw new TypeError('"callback" argument must be a function');
-  }
-  var len = arguments.length;
-  var args, i;
-  switch (len) {
-  case 0:
-  case 1:
-    return process.nextTick(fn);
-  case 2:
-    return process.nextTick(function afterTickOne() {
-      fn.call(null, arg1);
-    });
-  case 3:
-    return process.nextTick(function afterTickTwo() {
-      fn.call(null, arg1, arg2);
-    });
-  case 4:
-    return process.nextTick(function afterTickThree() {
-      fn.call(null, arg1, arg2, arg3);
-    });
-  default:
-    args = new Array(len - 1);
-    i = 0;
-    while (i < args.length) {
-      args[i++] = arguments[i];
-    }
-    return process.nextTick(function afterTick() {
-      fn.apply(null, args);
-    });
-  }
-}
-
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* eslint-disable node/no-deprecated-api */
-var buffer = __webpack_require__(7)
-var Buffer = buffer.Buffer
-
-// alternative to using Object.keys for old browsers
-function copyProps (src, dst) {
-  for (var key in src) {
-    dst[key] = src[key]
-  }
-}
-if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
-  module.exports = buffer
-} else {
-  // Copy properties from require('buffer')
-  copyProps(buffer, exports)
-  exports.Buffer = SafeBuffer
-}
-
-function SafeBuffer (arg, encodingOrOffset, length) {
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-// Copy static methods from Buffer
-copyProps(Buffer, SafeBuffer)
-
-SafeBuffer.from = function (arg, encodingOrOffset, length) {
-  if (typeof arg === 'number') {
-    throw new TypeError('Argument must not be a number')
-  }
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-SafeBuffer.alloc = function (size, fill, encoding) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  var buf = Buffer(size)
-  if (fill !== undefined) {
-    if (typeof encoding === 'string') {
-      buf.fill(fill, encoding)
-    } else {
-      buf.fill(fill)
-    }
-  } else {
-    buf.fill(0)
-  }
-  return buf
-}
-
-SafeBuffer.allocUnsafe = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return Buffer(size)
-}
-
-SafeBuffer.allocUnsafeSlow = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return buffer.SlowBuffer(size)
-}
-
-
-/***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3754,7 +3790,7 @@ exports.PassThrough = __webpack_require__(46);
 
 /*<replacement>*/
 
-var pna = __webpack_require__(8);
+var pna = __webpack_require__(7);
 /*</replacement>*/
 
 module.exports = Writable;
@@ -3807,7 +3843,7 @@ var Stream = __webpack_require__(16);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(9).Buffer;
+var Buffer = __webpack_require__(8).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -4416,17 +4452,6 @@ Writable.prototype._destroy = function (err, cb) {
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4657,6 +4682,17 @@ rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4686,13 +4722,13 @@ rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(8);
+var pna = __webpack_require__(7);
 /*</replacement>*/
 
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(13);
+var isArray = __webpack_require__(14);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -4715,7 +4751,7 @@ var Stream = __webpack_require__(16);
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(9).Buffer;
+var Buffer = __webpack_require__(8).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -5698,7 +5734,7 @@ module.exports = __webpack_require__(10).EventEmitter;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(8);
+var pna = __webpack_require__(7);
 /*</replacement>*/
 
 // undocumented cb() API, needed for core, not for public API
@@ -5799,7 +5835,7 @@ module.exports = {
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(9).Buffer;
+var Buffer = __webpack_require__(8).Buffer;
 /*</replacement>*/
 
 var isEncoding = Buffer.isEncoding || function (encoding) {
@@ -6301,7 +6337,7 @@ function done(stream, er, data) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var Batch = __webpack_require__(21);
-var Transact = __webpack_require__(24);
+var Transact = __webpack_require__(22);
 
 var DynamodbFactory = function DynamodbFactory($config) {
 	return new DynamoDB($config);
@@ -6321,12 +6357,12 @@ DynamodbFactory.config = function (o) {
 	if (o.hasOwnProperty('binaryset_parse_as_set')) DynamodbFactory.util.config.binaryset_parse_as_set = o.binaryset_parse_as_set;
 };
 
-var Promise = __webpack_require__(25);
+var Promise = __webpack_require__(23);
 var util = __webpack_require__(6);
 
 ///////////////
 if (typeof window !== 'undefined') {
-	var AWS = __webpack_require__(33);
+	var AWS = __webpack_require__(31);
 }
 /////////
 /////////////////////////////////////////////////
@@ -6335,7 +6371,7 @@ if (typeof window !== 'undefined') {
 
 
 //////////////////////
-var sqlparser = __webpack_require__(34);
+var sqlparser = __webpack_require__(32);
 sqlparser.parser.yy.extend = function (a, b) {
 	if (typeof a == 'undefined') a = {};
 	for (var key in b) {
@@ -8328,255 +8364,6 @@ module.exports = Batch;
 "use strict";
 
 
-exports.byteLength = byteLength
-exports.toByteArray = toByteArray
-exports.fromByteArray = fromByteArray
-
-var lookup = []
-var revLookup = []
-var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
-
-var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-for (var i = 0, len = code.length; i < len; ++i) {
-  lookup[i] = code[i]
-  revLookup[code.charCodeAt(i)] = i
-}
-
-// Support decoding URL-safe base64 strings, as Node.js does.
-// See: https://en.wikipedia.org/wiki/Base64#URL_applications
-revLookup['-'.charCodeAt(0)] = 62
-revLookup['_'.charCodeAt(0)] = 63
-
-function getLens (b64) {
-  var len = b64.length
-
-  if (len % 4 > 0) {
-    throw new Error('Invalid string. Length must be a multiple of 4')
-  }
-
-  // Trim off extra bytes after placeholder bytes are found
-  // See: https://github.com/beatgammit/base64-js/issues/42
-  var validLen = b64.indexOf('=')
-  if (validLen === -1) validLen = len
-
-  var placeHoldersLen = validLen === len
-    ? 0
-    : 4 - (validLen % 4)
-
-  return [validLen, placeHoldersLen]
-}
-
-// base64 is 4/3 + up to two characters of the original data
-function byteLength (b64) {
-  var lens = getLens(b64)
-  var validLen = lens[0]
-  var placeHoldersLen = lens[1]
-  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
-}
-
-function _byteLength (b64, validLen, placeHoldersLen) {
-  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
-}
-
-function toByteArray (b64) {
-  var tmp
-  var lens = getLens(b64)
-  var validLen = lens[0]
-  var placeHoldersLen = lens[1]
-
-  var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
-
-  var curByte = 0
-
-  // if there are placeholders, only get up to the last complete 4 chars
-  var len = placeHoldersLen > 0
-    ? validLen - 4
-    : validLen
-
-  var i
-  for (i = 0; i < len; i += 4) {
-    tmp =
-      (revLookup[b64.charCodeAt(i)] << 18) |
-      (revLookup[b64.charCodeAt(i + 1)] << 12) |
-      (revLookup[b64.charCodeAt(i + 2)] << 6) |
-      revLookup[b64.charCodeAt(i + 3)]
-    arr[curByte++] = (tmp >> 16) & 0xFF
-    arr[curByte++] = (tmp >> 8) & 0xFF
-    arr[curByte++] = tmp & 0xFF
-  }
-
-  if (placeHoldersLen === 2) {
-    tmp =
-      (revLookup[b64.charCodeAt(i)] << 2) |
-      (revLookup[b64.charCodeAt(i + 1)] >> 4)
-    arr[curByte++] = tmp & 0xFF
-  }
-
-  if (placeHoldersLen === 1) {
-    tmp =
-      (revLookup[b64.charCodeAt(i)] << 10) |
-      (revLookup[b64.charCodeAt(i + 1)] << 4) |
-      (revLookup[b64.charCodeAt(i + 2)] >> 2)
-    arr[curByte++] = (tmp >> 8) & 0xFF
-    arr[curByte++] = tmp & 0xFF
-  }
-
-  return arr
-}
-
-function tripletToBase64 (num) {
-  return lookup[num >> 18 & 0x3F] +
-    lookup[num >> 12 & 0x3F] +
-    lookup[num >> 6 & 0x3F] +
-    lookup[num & 0x3F]
-}
-
-function encodeChunk (uint8, start, end) {
-  var tmp
-  var output = []
-  for (var i = start; i < end; i += 3) {
-    tmp =
-      ((uint8[i] << 16) & 0xFF0000) +
-      ((uint8[i + 1] << 8) & 0xFF00) +
-      (uint8[i + 2] & 0xFF)
-    output.push(tripletToBase64(tmp))
-  }
-  return output.join('')
-}
-
-function fromByteArray (uint8) {
-  var tmp
-  var len = uint8.length
-  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
-  var parts = []
-  var maxChunkLength = 16383 // must be multiple of 3
-
-  // go through the array every three bytes, we'll deal with trailing stuff later
-  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(
-      uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)
-    ))
-  }
-
-  // pad the end with zeros, but make sure to not forget the extra bytes
-  if (extraBytes === 1) {
-    tmp = uint8[len - 1]
-    parts.push(
-      lookup[tmp >> 2] +
-      lookup[(tmp << 4) & 0x3F] +
-      '=='
-    )
-  } else if (extraBytes === 2) {
-    tmp = (uint8[len - 2] << 8) + uint8[len - 1]
-    parts.push(
-      lookup[tmp >> 10] +
-      lookup[(tmp >> 4) & 0x3F] +
-      lookup[(tmp << 2) & 0x3F] +
-      '='
-    )
-  }
-
-  return parts.join('')
-}
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-exports.read = function (buffer, offset, isLE, mLen, nBytes) {
-  var e, m
-  var eLen = (nBytes * 8) - mLen - 1
-  var eMax = (1 << eLen) - 1
-  var eBias = eMax >> 1
-  var nBits = -7
-  var i = isLE ? (nBytes - 1) : 0
-  var d = isLE ? -1 : 1
-  var s = buffer[offset + i]
-
-  i += d
-
-  e = s & ((1 << (-nBits)) - 1)
-  s >>= (-nBits)
-  nBits += eLen
-  for (; nBits > 0; e = (e * 256) + buffer[offset + i], i += d, nBits -= 8) {}
-
-  m = e & ((1 << (-nBits)) - 1)
-  e >>= (-nBits)
-  nBits += mLen
-  for (; nBits > 0; m = (m * 256) + buffer[offset + i], i += d, nBits -= 8) {}
-
-  if (e === 0) {
-    e = 1 - eBias
-  } else if (e === eMax) {
-    return m ? NaN : ((s ? -1 : 1) * Infinity)
-  } else {
-    m = m + Math.pow(2, mLen)
-    e = e - eBias
-  }
-  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
-}
-
-exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
-  var e, m, c
-  var eLen = (nBytes * 8) - mLen - 1
-  var eMax = (1 << eLen) - 1
-  var eBias = eMax >> 1
-  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
-  var i = isLE ? 0 : (nBytes - 1)
-  var d = isLE ? 1 : -1
-  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
-
-  value = Math.abs(value)
-
-  if (isNaN(value) || value === Infinity) {
-    m = isNaN(value) ? 1 : 0
-    e = eMax
-  } else {
-    e = Math.floor(Math.log(value) / Math.LN2)
-    if (value * (c = Math.pow(2, -e)) < 1) {
-      e--
-      c *= 2
-    }
-    if (e + eBias >= 1) {
-      value += rt / c
-    } else {
-      value += rt * Math.pow(2, 1 - eBias)
-    }
-    if (value * c >= 2) {
-      e++
-      c /= 2
-    }
-
-    if (e + eBias >= eMax) {
-      m = 0
-      e = eMax
-    } else if (e + eBias >= 1) {
-      m = ((value * c) - 1) * Math.pow(2, mLen)
-      e = e + eBias
-    } else {
-      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
-      e = 0
-    }
-  }
-
-  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-  e = (e << mLen) | m
-  eLen += mLen
-  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-  buffer[offset + i - d] |= s * 128
-}
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var keywords = ["abort", "absolute", "action", "add", "after", "agent", "aggregate", "all", "allocate", "alter", "analyze", "and", "any", "archive", "are", "array", "as", "asc", "ascii", "asensitive", "assertion", "asymmetric", "at", "atomic", "attach", "attribute", "auth", "authorization", "authorize", "auto", "avg", "back", "backup", "base", "batch", "before", "begin", "between", "bigint", "binary", "bit", "blob", "block", "boolean", "both", "breadth", "bucket", "bulk", "by", "byte", "call", "called", "calling", "capacity", "cascade", "cascaded", "case", "cast", "catalog", "char", "character", "check", "class", "clob", "close", "cluster", "clustered", "clustering", "clusters", "coalesce", "collate", "collation", "collection", "column", "columns", "combine", "comment", "commit", "compact", "compile", "compress", "condition", "conflict", "connect", "connection", "consistency", "consistent", "constraint", "constraints", "constructor", "consumed", "continue", "convert", "copy", "corresponding", "count", "counter", "create", "cross", "cube", "current", "cursor", "cycle", "data", "database", "date", "datetime", "day", "deallocate", "dec", "decimal", "declare", "default", "deferrable", "deferred", "define", "defined", "definition", "delete", "delimited", "depth", "deref", "desc", "describe", "descriptor", "detach", "deterministic", "diagnostics", "directories", "disable", "disconnect", "distinct", "distribute", "do", "domain", "double", "drop", "dump", "duration", "dynamic", "each", "element", "else", "elseif", "empty", "enable", "end", "equal", "equals", "error", "escape", "escaped", "eval", "evaluate", "exceeded", "except", "exception", "exceptions", "exclusive", "exec", "execute", "exists", "exit", "explain", "explode", "export", "expression", "extended", "external", "extract", "fail", "false", "family", "fetch", "fields", "file", "filter", "filtering", "final", "finish", "first", "fixed", "flattern", "float", "for", "force", "foreign", "format", "forward", "found", "free", "from", "full", "function", "functions", "general", "generate", "get", "glob", "global", "go", "goto", "grant", "greater", "group", "grouping", "handler", "hash", "have", "having", "heap", "hidden", "hold", "hour", "identified", "identity", "if", "ignore", "immediate", "import", "in", "including", "inclusive", "increment", "incremental", "index", "indexed", "indexes", "indicator", "infinite", "initially", "inline", "inner", "innter", "inout", "input", "insensitive", "insert", "instead", "int", "integer", "intersect", "interval", "into", "invalidate", "is", "isolation", "item", "items", "iterate", "join", "key", "keys", "lag", "language", "large", "last", "lateral", "lead", "leading", "leave", "left", "length", "less", "level", "like", "limit", "limited", "lines", "list", "load", "local", "localtime", "localtimestamp", "location", "locator", "lock", "locks", "log", "loged", "long", "loop", "lower", "map", "match", "materialized", "max", "maxlen", "member", "merge", "method", "metrics", "min", "minus", "minute", "missing", "mod", "mode", "modifies", "modify", "module", "month", "multi", "multiset", "name", "names", "national", "natural", "nchar", "nclob", "new", "next", "no", "none", "not", "null", "nullif", "number", "numeric", "object", "of", "offline", "offset", "old", "on", "online", "only", "opaque", "open", "operator", "option", "or", "order", "ordinality", "other", "others", "out", "outer", "output", "over", "overlaps", "override", "owner", "pad", "parallel", "parameter", "parameters", "partial", "partition", "partitioned", "partitions", "path", "percent", "percentile", "permission", "permissions", "pipe", "pipelined", "plan", "pool", "position", "precision", "prepare", "preserve", "primary", "prior", "private", "privileges", "procedure", "processed", "project", "projection", "property", "provisioning", "public", "put", "query", "quit", "quorum", "raise", "random", "range", "rank", "raw", "read", "reads", "real", "rebuild", "record", "recursive", "reduce", "ref", "reference", "references", "referencing", "regexp", "region", "reindex", "relative", "release", "remainder", "rename", "repeat", "replace", "request", "reset", "resignal", "resource", "response", "restore", "restrict", "result", "return", "returning", "returns", "reverse", "revoke", "right", "role", "roles", "rollback", "rollup", "routine", "row", "rows", "rule", "rules", "sample", "satisfies", "save", "savepoint", "scan", "schema", "scope", "scroll", "search", "second", "section", "segment", "segments", "select", "self", "semi", "sensitive", "separate", "sequence", "serializable", "session", "set", "sets", "shard", "share", "shared", "short", "show", "signal", "similar", "size", "skewed", "smallint", "snapshot", "some", "source", "space", "spaces", "sparse", "specific", "specifictype", "split", "sql", "sqlcode", "sqlerror", "sqlexception", "sqlstate", "sqlwarning", "start", "state", "static", "status", "storage", "store", "stored", "stream", "string", "struct", "style", "sub", "submultiset", "subpartition", "substring", "subtype", "sum", "super", "symmetric", "synonym", "system", "table", "tablesample", "temp", "temporary", "terminated", "text", "than", "then", "throughput", "time", "timestamp", "timezone", "tinyint", "to", "token", "total", "touch", "trailing", "transaction", "transform", "translate", "translation", "treat", "trigger", "trim", "true", "truncate", "ttl", "tuple", "type", "under", "undo", "union", "unique", "unit", "unknown", "unlogged", "unnest", "unprocessed", "unsigned", "until", "update", "upper", "url", "usage", "use", "user", "users", "using", "uuid", "vacuum", "value", "valued", "values", "varchar", "variable", "variance", "varint", "varying", "view", "views", "virtual", "void", "wait", "when", "whenever", "where", "while", "window", "with", "within", "without", "work", "wrapped", "write", "year", "zone"];
 
 var _expr_attribute = function _expr_attribute(attr) {
@@ -9128,32 +8915,32 @@ Transact.prototype.routeCall = function (method, params, reset, callback) {
 module.exports = Transact;
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(26)
+module.exports = __webpack_require__(24)
 
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = __webpack_require__(2);
+__webpack_require__(25);
+__webpack_require__(26);
 __webpack_require__(27);
 __webpack_require__(28);
-__webpack_require__(29);
 __webpack_require__(30);
-__webpack_require__(32);
 
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9173,7 +8960,7 @@ Promise.prototype.done = function (onFulfilled, onRejected) {
 
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9196,7 +8983,7 @@ Promise.prototype.finally = function (f) {
 
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9310,7 +9097,7 @@ Promise.prototype['catch'] = function (onRejected) {
 
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9320,7 +9107,7 @@ Promise.prototype['catch'] = function (onRejected) {
 // for node.js interop
 
 var Promise = __webpack_require__(2);
-var asap = __webpack_require__(31);
+var asap = __webpack_require__(29);
 
 module.exports = Promise;
 
@@ -9447,14 +9234,14 @@ Promise.prototype.nodeify = function (callback, ctx) {
 
 
 /***/ }),
-/* 31 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 // rawAsap provides everything we need except exception management.
-var rawAsap = __webpack_require__(14);
+var rawAsap = __webpack_require__(13);
 // RawTasks are recycled to reduce GC churn.
 var freeTasks = [];
 // We queue errors to ensure they are thrown in right order (FIFO).
@@ -9520,7 +9307,7 @@ RawTask.prototype.call = function () {
 
 
 /***/ }),
-/* 32 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9589,13 +9376,13 @@ Promise.disableSynchronous = function() {
 
 
 /***/ }),
-/* 33 */
+/* 31 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE__33__;
+module.exports = __WEBPACK_EXTERNAL_MODULE__31__;
 
 /***/ }),
-/* 34 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14144,7 +13931,256 @@ if (true) {
 		exports.main(process.argv.slice(1));
 	}
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7).Buffer, __webpack_require__(3), __webpack_require__(35)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(9).Buffer, __webpack_require__(3), __webpack_require__(35)(module)))
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.byteLength = byteLength
+exports.toByteArray = toByteArray
+exports.fromByteArray = fromByteArray
+
+var lookup = []
+var revLookup = []
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
+
+var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+for (var i = 0, len = code.length; i < len; ++i) {
+  lookup[i] = code[i]
+  revLookup[code.charCodeAt(i)] = i
+}
+
+// Support decoding URL-safe base64 strings, as Node.js does.
+// See: https://en.wikipedia.org/wiki/Base64#URL_applications
+revLookup['-'.charCodeAt(0)] = 62
+revLookup['_'.charCodeAt(0)] = 63
+
+function getLens (b64) {
+  var len = b64.length
+
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4')
+  }
+
+  // Trim off extra bytes after placeholder bytes are found
+  // See: https://github.com/beatgammit/base64-js/issues/42
+  var validLen = b64.indexOf('=')
+  if (validLen === -1) validLen = len
+
+  var placeHoldersLen = validLen === len
+    ? 0
+    : 4 - (validLen % 4)
+
+  return [validLen, placeHoldersLen]
+}
+
+// base64 is 4/3 + up to two characters of the original data
+function byteLength (b64) {
+  var lens = getLens(b64)
+  var validLen = lens[0]
+  var placeHoldersLen = lens[1]
+  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
+}
+
+function _byteLength (b64, validLen, placeHoldersLen) {
+  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
+}
+
+function toByteArray (b64) {
+  var tmp
+  var lens = getLens(b64)
+  var validLen = lens[0]
+  var placeHoldersLen = lens[1]
+
+  var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
+
+  var curByte = 0
+
+  // if there are placeholders, only get up to the last complete 4 chars
+  var len = placeHoldersLen > 0
+    ? validLen - 4
+    : validLen
+
+  var i
+  for (i = 0; i < len; i += 4) {
+    tmp =
+      (revLookup[b64.charCodeAt(i)] << 18) |
+      (revLookup[b64.charCodeAt(i + 1)] << 12) |
+      (revLookup[b64.charCodeAt(i + 2)] << 6) |
+      revLookup[b64.charCodeAt(i + 3)]
+    arr[curByte++] = (tmp >> 16) & 0xFF
+    arr[curByte++] = (tmp >> 8) & 0xFF
+    arr[curByte++] = tmp & 0xFF
+  }
+
+  if (placeHoldersLen === 2) {
+    tmp =
+      (revLookup[b64.charCodeAt(i)] << 2) |
+      (revLookup[b64.charCodeAt(i + 1)] >> 4)
+    arr[curByte++] = tmp & 0xFF
+  }
+
+  if (placeHoldersLen === 1) {
+    tmp =
+      (revLookup[b64.charCodeAt(i)] << 10) |
+      (revLookup[b64.charCodeAt(i + 1)] << 4) |
+      (revLookup[b64.charCodeAt(i + 2)] >> 2)
+    arr[curByte++] = (tmp >> 8) & 0xFF
+    arr[curByte++] = tmp & 0xFF
+  }
+
+  return arr
+}
+
+function tripletToBase64 (num) {
+  return lookup[num >> 18 & 0x3F] +
+    lookup[num >> 12 & 0x3F] +
+    lookup[num >> 6 & 0x3F] +
+    lookup[num & 0x3F]
+}
+
+function encodeChunk (uint8, start, end) {
+  var tmp
+  var output = []
+  for (var i = start; i < end; i += 3) {
+    tmp =
+      ((uint8[i] << 16) & 0xFF0000) +
+      ((uint8[i + 1] << 8) & 0xFF00) +
+      (uint8[i + 2] & 0xFF)
+    output.push(tripletToBase64(tmp))
+  }
+  return output.join('')
+}
+
+function fromByteArray (uint8) {
+  var tmp
+  var len = uint8.length
+  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
+  var parts = []
+  var maxChunkLength = 16383 // must be multiple of 3
+
+  // go through the array every three bytes, we'll deal with trailing stuff later
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(
+      uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)
+    ))
+  }
+
+  // pad the end with zeros, but make sure to not forget the extra bytes
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1]
+    parts.push(
+      lookup[tmp >> 2] +
+      lookup[(tmp << 4) & 0x3F] +
+      '=='
+    )
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + uint8[len - 1]
+    parts.push(
+      lookup[tmp >> 10] +
+      lookup[(tmp >> 4) & 0x3F] +
+      lookup[(tmp << 2) & 0x3F] +
+      '='
+    )
+  }
+
+  return parts.join('')
+}
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+exports.read = function (buffer, offset, isLE, mLen, nBytes) {
+  var e, m
+  var eLen = (nBytes * 8) - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var nBits = -7
+  var i = isLE ? (nBytes - 1) : 0
+  var d = isLE ? -1 : 1
+  var s = buffer[offset + i]
+
+  i += d
+
+  e = s & ((1 << (-nBits)) - 1)
+  s >>= (-nBits)
+  nBits += eLen
+  for (; nBits > 0; e = (e * 256) + buffer[offset + i], i += d, nBits -= 8) {}
+
+  m = e & ((1 << (-nBits)) - 1)
+  e >>= (-nBits)
+  nBits += mLen
+  for (; nBits > 0; m = (m * 256) + buffer[offset + i], i += d, nBits -= 8) {}
+
+  if (e === 0) {
+    e = 1 - eBias
+  } else if (e === eMax) {
+    return m ? NaN : ((s ? -1 : 1) * Infinity)
+  } else {
+    m = m + Math.pow(2, mLen)
+    e = e - eBias
+  }
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+}
+
+exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c
+  var eLen = (nBytes * 8) - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
+  var i = isLE ? 0 : (nBytes - 1)
+  var d = isLE ? 1 : -1
+  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
+
+  value = Math.abs(value)
+
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0
+    e = eMax
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2)
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--
+      c *= 2
+    }
+    if (e + eBias >= 1) {
+      value += rt / c
+    } else {
+      value += rt * Math.pow(2, 1 - eBias)
+    }
+    if (value * c >= 2) {
+      e++
+      c /= 2
+    }
+
+    if (e + eBias >= eMax) {
+      m = 0
+      e = eMax
+    } else if (e + eBias >= 1) {
+      m = ((value * c) - 1) * Math.pow(2, mLen)
+      e = e + eBias
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
+      e = 0
+    }
+  }
+
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+  e = (e << mLen) | m
+  eLen += mLen
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+  buffer[offset + i - d] |= s * 128
+}
+
 
 /***/ }),
 /* 35 */
@@ -14666,7 +14702,7 @@ if (typeof Object.create === 'function') {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Buffer = __webpack_require__(9).Buffer;
+var Buffer = __webpack_require__(8).Buffer;
 var util = __webpack_require__(42);
 
 function copyBuffer(src, target, offset) {
