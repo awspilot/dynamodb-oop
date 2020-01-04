@@ -2,3 +2,4 @@ node_modules/*
 experiments/
 .DS_Store
 browserify.sh
+package-lock.json
