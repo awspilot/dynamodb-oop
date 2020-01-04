@@ -65,10 +65,7 @@
 	"scripts": {
 		"test": "mocha --timeout 100000 -S -R spec --exit",
 
-		"build:browser": "webpack  --config webpack.browser.js",
-
-		"start": "webpack  --config webpack.browser.js -w ",
-		"buildsqlparser": "jison src/sqlparser.jison -o lib/sqlparser.js"
+		"build:browser": "webpack  --config webpack.browser.js"
 	},
 	"engines": {
 		"node": "*"
