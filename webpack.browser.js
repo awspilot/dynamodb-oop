@@ -9,7 +9,10 @@ const browserConfig = {
 	mode: 'production',
 	target: 'web',
 
-	node: {fs: "empty"},
+	node: {
+		fs: "empty",
+		Buffer: false, // still embeds Buffer
+	},
 
 	context: path.resolve(__dirname, 'src'),
 	optimization: {
