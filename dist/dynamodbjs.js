@@ -7,7 +7,7 @@
 		exports["@awspilot/dynamodb"] = factory(require("AWS"));
 	else
 		root["@awspilot/dynamodb"] = factory(root["AWS"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE__30__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE__20__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -91,37 +91,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -155,7 +129,7 @@ module.exports = g;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(7);
+var pna = __webpack_require__(6);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -170,12 +144,12 @@ var objectKeys = Object.keys || function (obj) {
 module.exports = Duplex;
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
-var Readable = __webpack_require__(13);
-var Writable = __webpack_require__(11);
+var Readable = __webpack_require__(11);
+var Writable = __webpack_require__(10);
 
 util.inherits(Duplex, Readable);
 
@@ -258,227 +232,7 @@ Duplex.prototype._destroy = function (err, cb) {
 };
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var asap = __webpack_require__(12);
-
-function noop() {}
-
-// States:
-//
-// 0 - pending
-// 1 - fulfilled with _value
-// 2 - rejected with _value
-// 3 - adopted the state of another promise, _value
-//
-// once the state is no longer pending (0) it is immutable
-
-// All `_` prefixed properties will be reduced to `_{random number}`
-// at build time to obfuscate them and discourage their use.
-// We don't use symbols or Object.defineProperty to fully hide them
-// because the performance isn't good enough.
-
-
-// to avoid using try/catch inside critical functions, we
-// extract them to here.
-var LAST_ERROR = null;
-var IS_ERROR = {};
-function getThen(obj) {
-  try {
-    return obj.then;
-  } catch (ex) {
-    LAST_ERROR = ex;
-    return IS_ERROR;
-  }
-}
-
-function tryCallOne(fn, a) {
-  try {
-    return fn(a);
-  } catch (ex) {
-    LAST_ERROR = ex;
-    return IS_ERROR;
-  }
-}
-function tryCallTwo(fn, a, b) {
-  try {
-    fn(a, b);
-  } catch (ex) {
-    LAST_ERROR = ex;
-    return IS_ERROR;
-  }
-}
-
-module.exports = Promise;
-
-function Promise(fn) {
-  if (typeof this !== 'object') {
-    throw new TypeError('Promises must be constructed via new');
-  }
-  if (typeof fn !== 'function') {
-    throw new TypeError('Promise constructor\'s argument is not a function');
-  }
-  this._h = 0;
-  this._i = 0;
-  this._j = null;
-  this._k = null;
-  if (fn === noop) return;
-  doResolve(fn, this);
-}
-Promise._l = null;
-Promise._m = null;
-Promise._n = noop;
-
-Promise.prototype.then = function(onFulfilled, onRejected) {
-  if (this.constructor !== Promise) {
-    return safeThen(this, onFulfilled, onRejected);
-  }
-  var res = new Promise(noop);
-  handle(this, new Handler(onFulfilled, onRejected, res));
-  return res;
-};
-
-function safeThen(self, onFulfilled, onRejected) {
-  return new self.constructor(function (resolve, reject) {
-    var res = new Promise(noop);
-    res.then(resolve, reject);
-    handle(self, new Handler(onFulfilled, onRejected, res));
-  });
-}
-function handle(self, deferred) {
-  while (self._i === 3) {
-    self = self._j;
-  }
-  if (Promise._l) {
-    Promise._l(self);
-  }
-  if (self._i === 0) {
-    if (self._h === 0) {
-      self._h = 1;
-      self._k = deferred;
-      return;
-    }
-    if (self._h === 1) {
-      self._h = 2;
-      self._k = [self._k, deferred];
-      return;
-    }
-    self._k.push(deferred);
-    return;
-  }
-  handleResolved(self, deferred);
-}
-
-function handleResolved(self, deferred) {
-  asap(function() {
-    var cb = self._i === 1 ? deferred.onFulfilled : deferred.onRejected;
-    if (cb === null) {
-      if (self._i === 1) {
-        resolve(deferred.promise, self._j);
-      } else {
-        reject(deferred.promise, self._j);
-      }
-      return;
-    }
-    var ret = tryCallOne(cb, self._j);
-    if (ret === IS_ERROR) {
-      reject(deferred.promise, LAST_ERROR);
-    } else {
-      resolve(deferred.promise, ret);
-    }
-  });
-}
-function resolve(self, newValue) {
-  // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
-  if (newValue === self) {
-    return reject(
-      self,
-      new TypeError('A promise cannot be resolved with itself.')
-    );
-  }
-  if (
-    newValue &&
-    (typeof newValue === 'object' || typeof newValue === 'function')
-  ) {
-    var then = getThen(newValue);
-    if (then === IS_ERROR) {
-      return reject(self, LAST_ERROR);
-    }
-    if (
-      then === self.then &&
-      newValue instanceof Promise
-    ) {
-      self._i = 3;
-      self._j = newValue;
-      finale(self);
-      return;
-    } else if (typeof then === 'function') {
-      doResolve(then.bind(newValue), self);
-      return;
-    }
-  }
-  self._i = 1;
-  self._j = newValue;
-  finale(self);
-}
-
-function reject(self, newValue) {
-  self._i = 2;
-  self._j = newValue;
-  if (Promise._m) {
-    Promise._m(self, newValue);
-  }
-  finale(self);
-}
-function finale(self) {
-  if (self._h === 1) {
-    handle(self, self._k);
-    self._k = null;
-  }
-  if (self._h === 2) {
-    for (var i = 0; i < self._k.length; i++) {
-      handle(self, self._k[i]);
-    }
-    self._k = null;
-  }
-}
-
-function Handler(onFulfilled, onRejected, promise){
-  this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
-  this.onRejected = typeof onRejected === 'function' ? onRejected : null;
-  this.promise = promise;
-}
-
-/**
- * Take a potentially misbehaving resolver function and make sure
- * onFulfilled and onRejected are only called once.
- *
- * Makes no guarantees about asynchrony.
- */
-function doResolve(fn, promise) {
-  var done = false;
-  var res = tryCallTwo(fn, function (value) {
-    if (done) return;
-    done = true;
-    resolve(promise, value);
-  }, function (reason) {
-    if (done) return;
-    done = true;
-    reject(promise, reason);
-  });
-  if (!done && res === IS_ERROR) {
-    done = true;
-    reject(promise, LAST_ERROR);
-  }
-}
-
-
-/***/ }),
-/* 3 */
+/* 1 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -668,7 +422,33 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 4 */
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -781,7 +561,7 @@ function objectToString(o) {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -814,13 +594,13 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(r,e){ true?module.exports=e():undefined}(window,function(){return(n={},o.m=t=[function(r,e,t){"use strict";t.r(e);function i(){}i.config={stringset_parse_as_set:!1,numberset_parse_as_set:!1,binaryset_parse_as_set:!1,empty_string_replace_as:""};function s(r){var e=[];return r.forEach(function(r){e.push(r)}),e}i.Raw=function(r){this.data=r},i.anormalizeList=function(r){var e=[];for(var t in r)e.push(i.anormalizeItem(r[t]));return e},i.anormalizeItem=function(r){var e={};for(var t in r)r.hasOwnProperty(t)&&(e[t]=i.stringify(r[t]));return e},i.stringify=function(r){if("boolean"==typeof r)return{BOOL:r};if("number"==typeof r)return{N:r.toString()};if("string"==typeof r){if(0!==r.length)return{S:r};if(""===i.config.empty_string_replace_as)return{S:r};if(void 0===i.config.empty_string_replace_as)return;return i.stringify(i.config.empty_string_replace_as)}if(null===r)return{NULL:!0};if(r instanceof Uint8Array)return{B:r};if("object"==typeof r&&r instanceof i.Raw)return r.data;if("object"==typeof r){if(Array.isArray(r)){var e={L:[]};for(var t in r)r.hasOwnProperty(t)&&(e.L[t]=i.stringify(r[t]));return e}if(r instanceof Set){var n=!0,o=!0;return 0===r.size&&(o=n=!1),r.forEach(function(r){"string"==typeof r?o=!1:"number"==typeof r?n=!1:o=n=!1}),n?{SS:s(r)}:o?{NS:s(r).map(function(r){return r.toString()})}:{L:s(r).map(function(r){return i.stringify(r)})}}e={M:{}};for(var t in r)if(r.hasOwnProperty(t)){var a=i.stringify(r[t]);void 0!==a&&(e.M[t]=a)}return e}},i.anormalizeType=function(r){return"boolean"==typeof r?"BOOL":"number"==typeof r?"N":"string"==typeof r?"S":Array.isArray(r)?"L":null===r?"NULL":void 0},i.parse=function(r){if("object"!=typeof r)throw"expecting object";if(1!==Object.keys(r).length)throw"expecting only one property in object: S, N, BOOL, NULL, L, M, etc ";if(r.hasOwnProperty("S"))return r.S===i.config.empty_string_replace_as?"":r.S;if(r.hasOwnProperty("N"))return parseFloat(r.N);if(r.hasOwnProperty("BOOL"))return r.BOOL;if(r.hasOwnProperty("NULL"))return null;if(r.hasOwnProperty("B"))return Uint8Array.from(r.B);if(r.hasOwnProperty("SS"))return i.config.stringset_parse_as_set?new Set(r.SS):r.SS;if(r.hasOwnProperty("NS"))return i.config.numberset_parse_as_set?new Set(r.NS.map(function(r){return parseFloat(r)})):r.NS.map(function(r){return parseFloat(r)});if(r.hasOwnProperty("BS"))return i.config.binaryset_parse_as_set?new Set(r.BS.map(function(r){return r})):r.BS.map(function(r){return r});if(r.hasOwnProperty("L")){var e=[];for(var t in r.L)r.L.hasOwnProperty(t)&&(e[t]=i.parse(r.L[t]));return e}if(r.hasOwnProperty("M")){e={};for(var t in r.M)r.M.hasOwnProperty(t)&&(e[t]=i.parse(r.M[t]));return e}},i.normalizeItem=function(r){var t={};for(var n in r)if(r.hasOwnProperty(n)){if(r[n].hasOwnProperty("S")&&(t[n]=r[n].S),r[n].hasOwnProperty("N")&&(t[n]=+r[n].N),r[n].hasOwnProperty("BOOL")&&(t[n]=r[n].BOOL),r[n].hasOwnProperty("NULL")&&(t[n]=null),r[n].hasOwnProperty("B")&&(t[n]=r[n].B),r[n].hasOwnProperty("SS")&&(t[n]=r[n].SS),r[n].hasOwnProperty("NS")&&(t[n]=[],r[n].NS.forEach(function(r,e){t[n].push(parseFloat(r))})),r[n].hasOwnProperty("L"))for(var e in t[n]=[],r[n].L)r[n].L.hasOwnProperty(e)&&(t[n][e]=i.normalizeItem({key:r[n].L[e]}).key);if(r[n].hasOwnProperty("M"))for(var e in t[n]={},r[n].M)r[n].M.hasOwnProperty(e)&&(t[n][e]=i.normalizeItem({key:r[n].M[e]}).key)}return t},i.buildExpected=function(r){var e={};for(var t in r)if(r.hasOwnProperty(t)){"object"==typeof r[t]&&r[t]instanceof i.Raw?e[t]=r[t].data:r[t].hasOwnProperty("value2")&&void 0!==r[t].value2?e[t]={ComparisonOperator:r[t].operator,AttributeValueList:[i.stringify(r[t].value),i.stringify(r[t].value2)]}:e[t]={ComparisonOperator:r[t].operator,AttributeValueList:[i.stringify(r[t].value)]}}return e},i.expression_name_split=function(r){for(var e=[],t="",n=!1,o=0;o<r.length;o++)n?'"'==r[o]?(n=!1,e.push(t),t=""):t+=r[o]:'"'==r[o]?n=!0:"."==r[o]?(e.push(t),t=""):t+=r[o];return e.push(t),e.filter(function(r){return""!==r.trim()})},i.clone=function(r){for(var e,t,n=Object({}),o=0;o<arguments.length;o++){for(var a in e=Object(arguments[o]))Object.prototype.hasOwnProperty.call(e,a)&&(n[a]=e[a]);if(Object.getOwnPropertySymbols){t=Object.getOwnPropertySymbols(e);for(var i=0;i<t.length;i++)Object.prototype.propertyIsEnumerable.call(e,t[i])&&(n[t[i]]=e[t[i]])}}return n},i.toSQLJSON=function(e,r){if(r)return"["+e.map(function(r){return r.hasOwnProperty("S")?JSON.stringify(r.S):r.hasOwnProperty("N")?r.N:r.hasOwnProperty("B")?"Buffer.from('"+r.B.toString("base64")+"', 'base64')":r.hasOwnProperty("BOOL")?r.BOOL:r.hasOwnProperty("NULL")?"null":r.hasOwnProperty("SS")?"new StringSet("+JSON.stringify(r.SS)+")":r.hasOwnProperty("NS")?"new NumberSet("+JSON.stringify(r.NS.map(function(r){return parseFloat(r)}))+")":r.hasOwnProperty("BS")?"new BinarySet(["+r.BS.map(function(r){return"Buffer.from('"+r.toString("base64")+"', 'base64')"}).join(",")+"])":r.hasOwnProperty("M")?i.toSQLJSON(r.M):r.hasOwnProperty("L")?i.toSQLJSON(r.L,!0):JSON.stringify(r)}).join(",")+"]";var t=[];return Object.keys(e).map(function(r){e[r].hasOwnProperty("S")&&t.push("'"+r+"':"+JSON.stringify(e[r].S)),e[r].hasOwnProperty("N")&&t.push("'"+r+"':"+e[r].N),e[r].hasOwnProperty("B")&&t.push("'"+r+"':Buffer.from('"+e[r].B.toString("base64")+"', 'base64')"),e[r].hasOwnProperty("BOOL")&&t.push("'"+r+"':"+e[r].BOOL),e[r].hasOwnProperty("NULL")&&t.push("'"+r+"':null"),e[r].hasOwnProperty("SS")&&t.push("'"+r+"':new StringSet("+JSON.stringify(e[r].SS)+")"),e[r].hasOwnProperty("NS")&&t.push("'"+r+"':new NumberSet("+JSON.stringify(e[r].NS.map(function(r){return parseFloat(r)}))+")"),e[r].hasOwnProperty("BS")&&t.push("'"+r+"':new BinarySet(["+e[r].BS.map(function(r){return"Buffer.from('"+r.toString("base64")+"', 'base64')"}).join(",")+"])"),e[r].hasOwnProperty("M")&&t.push("'"+r+"':"+i.toSQLJSON(e[r].M)),e[r].hasOwnProperty("L")&&t.push("'"+r+"':"+i.toSQLJSON(e[r].L,!0))}),"{"+t.join(",")+"}"},i.anormalizeValue=i.stringify,i.normalizeValue=i.parse,e.default=i}],o.c=n,o.d=function(r,e,t){o.o(r,e)||Object.defineProperty(r,e,{enumerable:!0,get:t})},o.r=function(r){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(r,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(r,"__esModule",{value:!0})},o.t=function(e,r){if(1&r&&(e=o(e)),8&r)return e;if(4&r&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(o.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&r&&"string"!=typeof e)for(var n in e)o.d(t,n,function(r){return e[r]}.bind(null,n));return t},o.n=function(r){var e=r&&r.__esModule?function(){return r.default}:function(){return r};return o.d(e,"a",e),e},o.o=function(r,e){return Object.prototype.hasOwnProperty.call(r,e)},o.p="",o(o.s=0)).default;function o(r){if(n[r])return n[r].exports;var e=n[r]={i:r,l:!1,exports:{}};return t[r].call(e.exports,e,e.exports,o),e.l=!0,e.exports}var t,n});
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -870,14 +650,14 @@ function nextTick(fn, arg1, arg2, arg3) {
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable node/no-deprecated-api */
-var buffer = __webpack_require__(37)
+var buffer = __webpack_require__(27)
 var Buffer = buffer.Buffer
 
 // alternative to using Object.keys for old browsers
@@ -941,7 +721,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1396,20 +1176,20 @@ function unwrapListeners(arr) {
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(13);
+exports = module.exports = __webpack_require__(11);
 exports.Stream = exports;
 exports.Readable = exports;
-exports.Writable = __webpack_require__(11);
-exports.Duplex = __webpack_require__(1);
-exports.Transform = __webpack_require__(18);
-exports.PassThrough = __webpack_require__(46);
+exports.Writable = __webpack_require__(10);
+exports.Duplex = __webpack_require__(0);
+exports.Transform = __webpack_require__(16);
+exports.PassThrough = __webpack_require__(36);
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1442,7 +1222,7 @@ exports.PassThrough = __webpack_require__(46);
 
 /*<replacement>*/
 
-var pna = __webpack_require__(7);
+var pna = __webpack_require__(6);
 /*</replacement>*/
 
 module.exports = Writable;
@@ -1479,23 +1259,23 @@ var Duplex;
 Writable.WritableState = WritableState;
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 /*<replacement>*/
 var internalUtil = {
-  deprecate: __webpack_require__(45)
+  deprecate: __webpack_require__(35)
 };
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(15);
+var Stream = __webpack_require__(13);
 /*</replacement>*/
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(8).Buffer;
+var Buffer = __webpack_require__(7).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -1506,14 +1286,14 @@ function _isUint8Array(obj) {
 
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(16);
+var destroyImpl = __webpack_require__(14);
 
 util.inherits(Writable, Stream);
 
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   options = options || {};
 
@@ -1663,7 +1443,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -2100,241 +1880,10 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(43).setImmediate, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(33).setImmediate, __webpack_require__(2)))
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-// Use the fastest means possible to execute a task in its own turn, with
-// priority over other events including IO, animation, reflow, and redraw
-// events in browsers.
-//
-// An exception thrown by a task will permanently interrupt the processing of
-// subsequent tasks. The higher level `asap` function ensures that if an
-// exception is thrown by a task, that the task queue will continue flushing as
-// soon as possible, but if you use `rawAsap` directly, you are responsible to
-// either ensure that no exceptions are thrown from your task, or to manually
-// call `rawAsap.requestFlush` if an exception is thrown.
-module.exports = rawAsap;
-function rawAsap(task) {
-    if (!queue.length) {
-        requestFlush();
-        flushing = true;
-    }
-    // Equivalent to push, but avoids a function call.
-    queue[queue.length] = task;
-}
-
-var queue = [];
-// Once a flush has been requested, no further calls to `requestFlush` are
-// necessary until the next `flush` completes.
-var flushing = false;
-// `requestFlush` is an implementation-specific method that attempts to kick
-// off a `flush` event as quickly as possible. `flush` will attempt to exhaust
-// the event queue before yielding to the browser's own event loop.
-var requestFlush;
-// The position of the next task to execute in the task queue. This is
-// preserved between calls to `flush` so that it can be resumed if
-// a task throws an exception.
-var index = 0;
-// If a task schedules additional tasks recursively, the task queue can grow
-// unbounded. To prevent memory exhaustion, the task queue will periodically
-// truncate already-completed tasks.
-var capacity = 1024;
-
-// The flush function processes all tasks that have been scheduled with
-// `rawAsap` unless and until one of those tasks throws an exception.
-// If a task throws an exception, `flush` ensures that its state will remain
-// consistent and will resume where it left off when called again.
-// However, `flush` does not make any arrangements to be called again if an
-// exception is thrown.
-function flush() {
-    while (index < queue.length) {
-        var currentIndex = index;
-        // Advance the index before calling the task. This ensures that we will
-        // begin flushing on the next task the task throws an error.
-        index = index + 1;
-        queue[currentIndex].call();
-        // Prevent leaking memory for long chains of recursive calls to `asap`.
-        // If we call `asap` within tasks scheduled by `asap`, the queue will
-        // grow, but to avoid an O(n) walk for every task we execute, we don't
-        // shift tasks off the queue after they have been executed.
-        // Instead, we periodically shift 1024 tasks off the queue.
-        if (index > capacity) {
-            // Manually shift all values starting at the index back to the
-            // beginning of the queue.
-            for (var scan = 0, newLength = queue.length - index; scan < newLength; scan++) {
-                queue[scan] = queue[scan + index];
-            }
-            queue.length -= index;
-            index = 0;
-        }
-    }
-    queue.length = 0;
-    index = 0;
-    flushing = false;
-}
-
-// `requestFlush` is implemented using a strategy based on data collected from
-// every available SauceLabs Selenium web driver worker at time of writing.
-// https://docs.google.com/spreadsheets/d/1mG-5UYGup5qxGdEMWkhP6BWCz053NUb2E1QoUTU16uA/edit#gid=783724593
-
-// Safari 6 and 6.1 for desktop, iPad, and iPhone are the only browsers that
-// have WebKitMutationObserver but not un-prefixed MutationObserver.
-// Must use `global` or `self` instead of `window` to work in both frames and web
-// workers. `global` is a provision of Browserify, Mr, Mrs, or Mop.
-
-/* globals self */
-var scope = typeof global !== "undefined" ? global : self;
-var BrowserMutationObserver = scope.MutationObserver || scope.WebKitMutationObserver;
-
-// MutationObservers are desirable because they have high priority and work
-// reliably everywhere they are implemented.
-// They are implemented in all modern browsers.
-//
-// - Android 4-4.3
-// - Chrome 26-34
-// - Firefox 14-29
-// - Internet Explorer 11
-// - iPad Safari 6-7.1
-// - iPhone Safari 7-7.1
-// - Safari 6-7
-if (typeof BrowserMutationObserver === "function") {
-    requestFlush = makeRequestCallFromMutationObserver(flush);
-
-// MessageChannels are desirable because they give direct access to the HTML
-// task queue, are implemented in Internet Explorer 10, Safari 5.0-1, and Opera
-// 11-12, and in web workers in many engines.
-// Although message channels yield to any queued rendering and IO tasks, they
-// would be better than imposing the 4ms delay of timers.
-// However, they do not work reliably in Internet Explorer or Safari.
-
-// Internet Explorer 10 is the only browser that has setImmediate but does
-// not have MutationObservers.
-// Although setImmediate yields to the browser's renderer, it would be
-// preferrable to falling back to setTimeout since it does not have
-// the minimum 4ms penalty.
-// Unfortunately there appears to be a bug in Internet Explorer 10 Mobile (and
-// Desktop to a lesser extent) that renders both setImmediate and
-// MessageChannel useless for the purposes of ASAP.
-// https://github.com/kriskowal/q/issues/396
-
-// Timers are implemented universally.
-// We fall back to timers in workers in most engines, and in foreground
-// contexts in the following browsers.
-// However, note that even this simple case requires nuances to operate in a
-// broad spectrum of browsers.
-//
-// - Firefox 3-13
-// - Internet Explorer 6-9
-// - iPad Safari 4.3
-// - Lynx 2.8.7
-} else {
-    requestFlush = makeRequestCallFromTimer(flush);
-}
-
-// `requestFlush` requests that the high priority event queue be flushed as
-// soon as possible.
-// This is useful to prevent an error thrown in a task from stalling the event
-// queue if the exception handled by Node.js’s
-// `process.on("uncaughtException")` or by a domain.
-rawAsap.requestFlush = requestFlush;
-
-// To request a high priority event, we induce a mutation observer by toggling
-// the text of a text node between "1" and "-1".
-function makeRequestCallFromMutationObserver(callback) {
-    var toggle = 1;
-    var observer = new BrowserMutationObserver(callback);
-    var node = document.createTextNode("");
-    observer.observe(node, {characterData: true});
-    return function requestCall() {
-        toggle = -toggle;
-        node.data = toggle;
-    };
-}
-
-// The message channel technique was discovered by Malte Ubl and was the
-// original foundation for this library.
-// http://www.nonblocking.io/2011/06/windownexttick.html
-
-// Safari 6.0.5 (at least) intermittently fails to create message ports on a
-// page's first load. Thankfully, this version of Safari supports
-// MutationObservers, so we don't need to fall back in that case.
-
-// function makeRequestCallFromMessageChannel(callback) {
-//     var channel = new MessageChannel();
-//     channel.port1.onmessage = callback;
-//     return function requestCall() {
-//         channel.port2.postMessage(0);
-//     };
-// }
-
-// For reasons explained above, we are also unable to use `setImmediate`
-// under any circumstances.
-// Even if we were, there is another bug in Internet Explorer 10.
-// It is not sufficient to assign `setImmediate` to `requestFlush` because
-// `setImmediate` must be called *by name* and therefore must be wrapped in a
-// closure.
-// Never forget.
-
-// function makeRequestCallFromSetImmediate(callback) {
-//     return function requestCall() {
-//         setImmediate(callback);
-//     };
-// }
-
-// Safari 6.0 has a problem where timers will get lost while the user is
-// scrolling. This problem does not impact ASAP because Safari 6.0 supports
-// mutation observers, so that implementation is used instead.
-// However, if we ever elect to use timers in Safari, the prevalent work-around
-// is to add a scroll event listener that calls for a flush.
-
-// `setTimeout` does not call the passed callback if the delay is less than
-// approximately 7 in web workers in Firefox 8 through 18, and sometimes not
-// even then.
-
-function makeRequestCallFromTimer(callback) {
-    return function requestCall() {
-        // We dispatch a timeout with a specified delay of 0 for engines that
-        // can reliably accommodate that request. This will usually be snapped
-        // to a 4 milisecond delay, but once we're flushing, there's no delay
-        // between events.
-        var timeoutHandle = setTimeout(handleTimer, 0);
-        // However, since this timer gets frequently dropped in Firefox
-        // workers, we enlist an interval handle that will try to fire
-        // an event 20 times per second until it succeeds.
-        var intervalHandle = setInterval(handleTimer, 50);
-
-        function handleTimer() {
-            // Whichever timer succeeds will cancel both timers and
-            // execute the callback.
-            clearTimeout(timeoutHandle);
-            clearInterval(intervalHandle);
-            callback();
-        }
-    };
-}
-
-// This is for `asap.js` only.
-// Its name will be periodically randomized to break any code that depends on
-// its existence.
-rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
-
-// ASAP was originally a nextTick shim included in Q. This was factored out
-// into this ASAP package. It was later adapted to RSVP which made further
-// amendments. These decisions, particularly to marginalize MessageChannel and
-// to capture the MutationObserver implementation in a closure, were integrated
-// back into ASAP proper.
-// https://github.com/tildeio/rsvp.js/blob/cddf7232546a9cf858524b75cde6f9edf72620a7/lib/rsvp/asap.js
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
-
-/***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2363,13 +1912,13 @@ rawAsap.makeRequestCallFromTimer = makeRequestCallFromTimer;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(7);
+var pna = __webpack_require__(6);
 /*</replacement>*/
 
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(14);
+var isArray = __webpack_require__(12);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -2379,7 +1928,7 @@ var Duplex;
 Readable.ReadableState = ReadableState;
 
 /*<replacement>*/
-var EE = __webpack_require__(9).EventEmitter;
+var EE = __webpack_require__(8).EventEmitter;
 
 var EElistenerCount = function (emitter, type) {
   return emitter.listeners(type).length;
@@ -2387,12 +1936,12 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(15);
+var Stream = __webpack_require__(13);
 /*</replacement>*/
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(8).Buffer;
+var Buffer = __webpack_require__(7).Buffer;
 var OurUint8Array = global.Uint8Array || function () {};
 function _uint8ArrayToBuffer(chunk) {
   return Buffer.from(chunk);
@@ -2404,12 +1953,12 @@ function _isUint8Array(obj) {
 /*</replacement>*/
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(40);
+var debugUtil = __webpack_require__(30);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -2418,8 +1967,8 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__(41);
-var destroyImpl = __webpack_require__(16);
+var BufferList = __webpack_require__(31);
+var destroyImpl = __webpack_require__(14);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -2439,7 +1988,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   options = options || {};
 
@@ -2509,14 +2058,14 @@ function ReadableState(options, stream) {
   this.decoder = null;
   this.encoding = null;
   if (options.encoding) {
-    if (!StringDecoder) StringDecoder = __webpack_require__(17).StringDecoder;
+    if (!StringDecoder) StringDecoder = __webpack_require__(15).StringDecoder;
     this.decoder = new StringDecoder(options.encoding);
     this.encoding = options.encoding;
   }
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(1);
+  Duplex = Duplex || __webpack_require__(0);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -2665,7 +2214,7 @@ Readable.prototype.isPaused = function () {
 
 // backwards compatibility.
 Readable.prototype.setEncoding = function (enc) {
-  if (!StringDecoder) StringDecoder = __webpack_require__(17).StringDecoder;
+  if (!StringDecoder) StringDecoder = __webpack_require__(15).StringDecoder;
   this._readableState.decoder = new StringDecoder(enc);
   this._readableState.encoding = enc;
   return this;
@@ -3357,10 +2906,10 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -3371,14 +2920,14 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(9).EventEmitter;
+module.exports = __webpack_require__(8).EventEmitter;
 
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3386,7 +2935,7 @@ module.exports = __webpack_require__(9).EventEmitter;
 
 /*<replacement>*/
 
-var pna = __webpack_require__(7);
+var pna = __webpack_require__(6);
 /*</replacement>*/
 
 // undocumented cb() API, needed for core, not for public API
@@ -3458,7 +3007,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3487,7 +3036,7 @@ module.exports = {
 
 /*<replacement>*/
 
-var Buffer = __webpack_require__(8).Buffer;
+var Buffer = __webpack_require__(7).Buffer;
 /*</replacement>*/
 
 var isEncoding = Buffer.isEncoding || function (encoding) {
@@ -3760,7 +3309,7 @@ function simpleEnd(buf) {
 }
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3831,11 +3380,11 @@ function simpleEnd(buf) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(1);
+var Duplex = __webpack_require__(0);
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 util.inherits(Transform, Duplex);
@@ -3980,7 +3529,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3988,13 +3537,13 @@ function done(stream, er, data) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var Batch = __webpack_require__(20);
-var Transact = __webpack_require__(21);
+var Batch = __webpack_require__(18);
+var Transact = __webpack_require__(19);
 
 var DynamodbFactory = function DynamodbFactory($config) {
 	return new DynamoDB($config);
 };
-DynamodbFactory.util = __webpack_require__(6);
+DynamodbFactory.util = __webpack_require__(5);
 
 DynamodbFactory.config = function (o) {
 	if (o.hasOwnProperty('empty_string_replace_as')) {
@@ -4009,12 +3558,12 @@ DynamodbFactory.config = function (o) {
 	if (o.hasOwnProperty('binaryset_parse_as_set')) DynamodbFactory.util.config.binaryset_parse_as_set = o.binaryset_parse_as_set;
 };
 
-var Promise = __webpack_require__(22);
-var util = __webpack_require__(6);
+//var Promise = require('promise')
+var util = __webpack_require__(5);
 
 ///////////////
 if (typeof window !== 'undefined') {
-	var AWS = __webpack_require__(30);
+	var AWS = __webpack_require__(20);
 }
 /////////
 /////////////////////////////////////////////////
@@ -4023,7 +3572,7 @@ if (typeof window !== 'undefined') {
 
 
 //////////////////////
-var sqlparser = __webpack_require__(31);
+var sqlparser = __webpack_require__(21);
 sqlparser.parser.yy.extend = function (a, b) {
 	if (typeof a == 'undefined') a = {};
 	for (var key in b) {
@@ -5405,7 +4954,7 @@ Request.prototype.sql = function (sql, callback) {
 			break;
 		case 'SCAN_DUMP_STREAM':
 
-			var Readable = __webpack_require__(35).Readable;
+			var Readable = __webpack_require__(25).Readable;
 			var inStream = new Readable({
 				//objectMode: true,
 				read: function read(size) {}
@@ -5793,7 +5342,7 @@ DynamoDB.Raw.prototype.getRawData = function () {
 module.exports = DynamodbFactory;
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5801,7 +5350,7 @@ module.exports = DynamodbFactory;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var util = __webpack_require__(6);
+var util = __webpack_require__(5);
 
 //util.config.empty_string_replace_as = o.empty_string_replace_as;
 
@@ -6010,7 +5559,7 @@ Batch.prototype.write = function (cb) {
 module.exports = Batch;
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6022,7 +5571,7 @@ var _expr_attribute = function _expr_attribute(attr) {
 	return attr.split('.').join("_dot_").split('-').join("_minus_");
 };
 
-var util = __webpack_require__(6);
+var util = __webpack_require__(5);
 
 //util.config.empty_string_replace_as = o.empty_string_replace_as;
 
@@ -6567,474 +6116,13 @@ Transact.prototype.routeCall = function (method, params, reset, callback) {
 module.exports = Transact;
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(23)
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(2);
-__webpack_require__(24);
-__webpack_require__(25);
-__webpack_require__(26);
-__webpack_require__(27);
-__webpack_require__(29);
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Promise = __webpack_require__(2);
-
-module.exports = Promise;
-Promise.prototype.done = function (onFulfilled, onRejected) {
-  var self = arguments.length ? this.then.apply(this, arguments) : this;
-  self.then(null, function (err) {
-    setTimeout(function () {
-      throw err;
-    }, 0);
-  });
-};
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Promise = __webpack_require__(2);
-
-module.exports = Promise;
-Promise.prototype.finally = function (f) {
-  return this.then(function (value) {
-    return Promise.resolve(f()).then(function () {
-      return value;
-    });
-  }, function (err) {
-    return Promise.resolve(f()).then(function () {
-      throw err;
-    });
-  });
-};
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-//This file contains the ES6 extensions to the core Promises/A+ API
-
-var Promise = __webpack_require__(2);
-
-module.exports = Promise;
-
-/* Static Functions */
-
-var TRUE = valuePromise(true);
-var FALSE = valuePromise(false);
-var NULL = valuePromise(null);
-var UNDEFINED = valuePromise(undefined);
-var ZERO = valuePromise(0);
-var EMPTYSTRING = valuePromise('');
-
-function valuePromise(value) {
-  var p = new Promise(Promise._n);
-  p._i = 1;
-  p._j = value;
-  return p;
-}
-Promise.resolve = function (value) {
-  if (value instanceof Promise) return value;
-
-  if (value === null) return NULL;
-  if (value === undefined) return UNDEFINED;
-  if (value === true) return TRUE;
-  if (value === false) return FALSE;
-  if (value === 0) return ZERO;
-  if (value === '') return EMPTYSTRING;
-
-  if (typeof value === 'object' || typeof value === 'function') {
-    try {
-      var then = value.then;
-      if (typeof then === 'function') {
-        return new Promise(then.bind(value));
-      }
-    } catch (ex) {
-      return new Promise(function (resolve, reject) {
-        reject(ex);
-      });
-    }
-  }
-  return valuePromise(value);
-};
-
-Promise.all = function (arr) {
-  var args = Array.prototype.slice.call(arr);
-
-  return new Promise(function (resolve, reject) {
-    if (args.length === 0) return resolve([]);
-    var remaining = args.length;
-    function res(i, val) {
-      if (val && (typeof val === 'object' || typeof val === 'function')) {
-        if (val instanceof Promise && val.then === Promise.prototype.then) {
-          while (val._i === 3) {
-            val = val._j;
-          }
-          if (val._i === 1) return res(i, val._j);
-          if (val._i === 2) reject(val._j);
-          val.then(function (val) {
-            res(i, val);
-          }, reject);
-          return;
-        } else {
-          var then = val.then;
-          if (typeof then === 'function') {
-            var p = new Promise(then.bind(val));
-            p.then(function (val) {
-              res(i, val);
-            }, reject);
-            return;
-          }
-        }
-      }
-      args[i] = val;
-      if (--remaining === 0) {
-        resolve(args);
-      }
-    }
-    for (var i = 0; i < args.length; i++) {
-      res(i, args[i]);
-    }
-  });
-};
-
-Promise.reject = function (value) {
-  return new Promise(function (resolve, reject) {
-    reject(value);
-  });
-};
-
-Promise.race = function (values) {
-  return new Promise(function (resolve, reject) {
-    values.forEach(function(value){
-      Promise.resolve(value).then(resolve, reject);
-    });
-  });
-};
-
-/* Prototype Methods */
-
-Promise.prototype['catch'] = function (onRejected) {
-  return this.then(null, onRejected);
-};
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// This file contains then/promise specific extensions that are only useful
-// for node.js interop
-
-var Promise = __webpack_require__(2);
-var asap = __webpack_require__(28);
-
-module.exports = Promise;
-
-/* Static Functions */
-
-Promise.denodeify = function (fn, argumentCount) {
-  if (
-    typeof argumentCount === 'number' && argumentCount !== Infinity
-  ) {
-    return denodeifyWithCount(fn, argumentCount);
-  } else {
-    return denodeifyWithoutCount(fn);
-  }
-};
-
-var callbackFn = (
-  'function (err, res) {' +
-  'if (err) { rj(err); } else { rs(res); }' +
-  '}'
-);
-function denodeifyWithCount(fn, argumentCount) {
-  var args = [];
-  for (var i = 0; i < argumentCount; i++) {
-    args.push('a' + i);
-  }
-  var body = [
-    'return function (' + args.join(',') + ') {',
-    'var self = this;',
-    'return new Promise(function (rs, rj) {',
-    'var res = fn.call(',
-    ['self'].concat(args).concat([callbackFn]).join(','),
-    ');',
-    'if (res &&',
-    '(typeof res === "object" || typeof res === "function") &&',
-    'typeof res.then === "function"',
-    ') {rs(res);}',
-    '});',
-    '};'
-  ].join('');
-  return Function(['Promise', 'fn'], body)(Promise, fn);
-}
-function denodeifyWithoutCount(fn) {
-  var fnLength = Math.max(fn.length - 1, 3);
-  var args = [];
-  for (var i = 0; i < fnLength; i++) {
-    args.push('a' + i);
-  }
-  var body = [
-    'return function (' + args.join(',') + ') {',
-    'var self = this;',
-    'var args;',
-    'var argLength = arguments.length;',
-    'if (arguments.length > ' + fnLength + ') {',
-    'args = new Array(arguments.length + 1);',
-    'for (var i = 0; i < arguments.length; i++) {',
-    'args[i] = arguments[i];',
-    '}',
-    '}',
-    'return new Promise(function (rs, rj) {',
-    'var cb = ' + callbackFn + ';',
-    'var res;',
-    'switch (argLength) {',
-    args.concat(['extra']).map(function (_, index) {
-      return (
-        'case ' + (index) + ':' +
-        'res = fn.call(' + ['self'].concat(args.slice(0, index)).concat('cb').join(',') + ');' +
-        'break;'
-      );
-    }).join(''),
-    'default:',
-    'args[argLength] = cb;',
-    'res = fn.apply(self, args);',
-    '}',
-    
-    'if (res &&',
-    '(typeof res === "object" || typeof res === "function") &&',
-    'typeof res.then === "function"',
-    ') {rs(res);}',
-    '});',
-    '};'
-  ].join('');
-
-  return Function(
-    ['Promise', 'fn'],
-    body
-  )(Promise, fn);
-}
-
-Promise.nodeify = function (fn) {
-  return function () {
-    var args = Array.prototype.slice.call(arguments);
-    var callback =
-      typeof args[args.length - 1] === 'function' ? args.pop() : null;
-    var ctx = this;
-    try {
-      return fn.apply(this, arguments).nodeify(callback, ctx);
-    } catch (ex) {
-      if (callback === null || typeof callback == 'undefined') {
-        return new Promise(function (resolve, reject) {
-          reject(ex);
-        });
-      } else {
-        asap(function () {
-          callback.call(ctx, ex);
-        })
-      }
-    }
-  }
-};
-
-Promise.prototype.nodeify = function (callback, ctx) {
-  if (typeof callback != 'function') return this;
-
-  this.then(function (value) {
-    asap(function () {
-      callback.call(ctx, null, value);
-    });
-  }, function (err) {
-    asap(function () {
-      callback.call(ctx, err);
-    });
-  });
-};
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// rawAsap provides everything we need except exception management.
-var rawAsap = __webpack_require__(12);
-// RawTasks are recycled to reduce GC churn.
-var freeTasks = [];
-// We queue errors to ensure they are thrown in right order (FIFO).
-// Array-as-queue is good enough here, since we are just dealing with exceptions.
-var pendingErrors = [];
-var requestErrorThrow = rawAsap.makeRequestCallFromTimer(throwFirstError);
-
-function throwFirstError() {
-    if (pendingErrors.length) {
-        throw pendingErrors.shift();
-    }
-}
-
-/**
- * Calls a task as soon as possible after returning, in its own event, with priority
- * over other events like animation, reflow, and repaint. An error thrown from an
- * event will not interrupt, nor even substantially slow down the processing of
- * other events, but will be rather postponed to a lower priority event.
- * @param {{call}} task A callable object, typically a function that takes no
- * arguments.
- */
-module.exports = asap;
-function asap(task) {
-    var rawTask;
-    if (freeTasks.length) {
-        rawTask = freeTasks.pop();
-    } else {
-        rawTask = new RawTask();
-    }
-    rawTask.task = task;
-    rawAsap(rawTask);
-}
-
-// We wrap tasks with recyclable task objects.  A task object implements
-// `call`, just like a function.
-function RawTask() {
-    this.task = null;
-}
-
-// The sole purpose of wrapping the task is to catch the exception and recycle
-// the task object after its single use.
-RawTask.prototype.call = function () {
-    try {
-        this.task.call();
-    } catch (error) {
-        if (asap.onerror) {
-            // This hook exists purely for testing purposes.
-            // Its name will be periodically randomized to break any code that
-            // depends on its existence.
-            asap.onerror(error);
-        } else {
-            // In a web browser, exceptions are not fatal. However, to avoid
-            // slowing down the queue of pending tasks, we rethrow the error in a
-            // lower priority turn.
-            pendingErrors.push(error);
-            requestErrorThrow();
-        }
-    } finally {
-        this.task = null;
-        freeTasks[freeTasks.length] = this;
-    }
-};
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Promise = __webpack_require__(2);
-
-module.exports = Promise;
-Promise.enableSynchronous = function () {
-  Promise.prototype.isPending = function() {
-    return this.getState() == 0;
-  };
-
-  Promise.prototype.isFulfilled = function() {
-    return this.getState() == 1;
-  };
-
-  Promise.prototype.isRejected = function() {
-    return this.getState() == 2;
-  };
-
-  Promise.prototype.getValue = function () {
-    if (this._i === 3) {
-      return this._j.getValue();
-    }
-
-    if (!this.isFulfilled()) {
-      throw new Error('Cannot get a value of an unfulfilled promise.');
-    }
-
-    return this._j;
-  };
-
-  Promise.prototype.getReason = function () {
-    if (this._i === 3) {
-      return this._j.getReason();
-    }
-
-    if (!this.isRejected()) {
-      throw new Error('Cannot get a rejection reason of a non-rejected promise.');
-    }
-
-    return this._j;
-  };
-
-  Promise.prototype.getState = function () {
-    if (this._i === 3) {
-      return this._j.getState();
-    }
-    if (this._i === -1 || this._i === -2) {
-      return 0;
-    }
-
-    return this._i;
-  };
-};
-
-Promise.disableSynchronous = function() {
-  Promise.prototype.isPending = undefined;
-  Promise.prototype.isFulfilled = undefined;
-  Promise.prototype.isRejected = undefined;
-  Promise.prototype.getValue = undefined;
-  Promise.prototype.getReason = undefined;
-  Promise.prototype.getState = undefined;
-};
-
-
-/***/ }),
-/* 30 */
+/* 20 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE__30__;
+module.exports = __WEBPACK_EXTERNAL_MODULE__20__;
 
 /***/ }),
-/* 31 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11576,17 +10664,17 @@ if (true) {
 			console.log('Usage: ' + args[0] + ' FILE');
 			process.exit(1);
 		}
-		var source = __webpack_require__(33).readFileSync(__webpack_require__(34).normalize(args[1]), "utf8");
+		var source = __webpack_require__(23).readFileSync(__webpack_require__(24).normalize(args[1]), "utf8");
 		return exports.parser.parse(source);
 	};
 	if ( true && __webpack_require__.c[__webpack_require__.s] === module) {
 		exports.main(process.argv.slice(1));
 	}
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(32)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1), __webpack_require__(22)(module)))
 
 /***/ }),
-/* 32 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -11614,13 +10702,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 33 */
+/* 23 */
 /***/ (function(module, exports) {
 
 
 
 /***/ }),
-/* 34 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
@@ -11926,10 +11014,10 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))
 
 /***/ }),
-/* 35 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -11955,15 +11043,15 @@ var substr = 'ab'.substr(-1) === 'b'
 
 module.exports = Stream;
 
-var EE = __webpack_require__(9).EventEmitter;
-var inherits = __webpack_require__(36);
+var EE = __webpack_require__(8).EventEmitter;
+var inherits = __webpack_require__(26);
 
 inherits(Stream, EE);
-Stream.Readable = __webpack_require__(10);
-Stream.Writable = __webpack_require__(47);
-Stream.Duplex = __webpack_require__(48);
-Stream.Transform = __webpack_require__(49);
-Stream.PassThrough = __webpack_require__(50);
+Stream.Readable = __webpack_require__(9);
+Stream.Writable = __webpack_require__(37);
+Stream.Duplex = __webpack_require__(38);
+Stream.Transform = __webpack_require__(39);
+Stream.PassThrough = __webpack_require__(40);
 
 // Backwards-compat with node 0.4.x
 Stream.Stream = Stream;
@@ -12062,7 +11150,7 @@ Stream.prototype.pipe = function(dest, options) {
 
 
 /***/ }),
-/* 36 */
+/* 26 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -12091,7 +11179,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 37 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12105,9 +11193,9 @@ if (typeof Object.create === 'function') {
 
 
 
-var base64 = __webpack_require__(38)
-var ieee754 = __webpack_require__(39)
-var isArray = __webpack_require__(14)
+var base64 = __webpack_require__(28)
+var ieee754 = __webpack_require__(29)
+var isArray = __webpack_require__(12)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -13885,10 +12973,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
-/* 38 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14047,7 +13135,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 39 */
+/* 29 */
 /***/ (function(module, exports) {
 
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -14137,13 +13225,13 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 40 */
+/* 30 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 41 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14151,8 +13239,8 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Buffer = __webpack_require__(8).Buffer;
-var util = __webpack_require__(42);
+var Buffer = __webpack_require__(7).Buffer;
+var util = __webpack_require__(32);
 
 function copyBuffer(src, target, offset) {
   src.copy(target, offset);
@@ -14228,13 +13316,13 @@ if (util && util.inspect && util.inspect.custom) {
 }
 
 /***/ }),
-/* 42 */
+/* 32 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 43 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -14290,7 +13378,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(44);
+__webpack_require__(34);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -14301,10 +13389,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
-/* 44 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -14494,10 +13582,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(1)))
 
 /***/ }),
-/* 45 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -14568,10 +13656,10 @@ function config (name) {
   return String(val).toLowerCase() === 'true';
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
-/* 46 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14604,11 +13692,11 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(18);
+var Transform = __webpack_require__(16);
 
 /*<replacement>*/
-var util = __webpack_require__(4);
-util.inherits = __webpack_require__(5);
+var util = __webpack_require__(3);
+util.inherits = __webpack_require__(4);
 /*</replacement>*/
 
 util.inherits(PassThrough, Transform);
@@ -14624,31 +13712,31 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 
 /***/ }),
-/* 47 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(11);
+module.exports = __webpack_require__(10);
 
 
 /***/ }),
-/* 48 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
+module.exports = __webpack_require__(0);
 
 
 /***/ }),
-/* 49 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(10).Transform
+module.exports = __webpack_require__(9).Transform
 
 
 /***/ }),
-/* 50 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(10).PassThrough
+module.exports = __webpack_require__(9).PassThrough
 
 
 /***/ })
