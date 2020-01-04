@@ -24,7 +24,7 @@
 	"browser": "./dist/dynamodbjs",
 	"license": "MIT",
 	"dependencies": {
-		"@awspilot/dynamodb-util": "1.0.12",
+		"@awspilot/dynamodb-util": "1.1.0",
 		"promise": "8.0.3"
 	},
 	"peerDependencies": {
