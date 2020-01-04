@@ -1,25 +1,29 @@
 const webpack = require('webpack');
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // no support for ES6+
+const TerserPlugin = require('terser-webpack-plugin'); // support for ES6+ (succesor of uglify-es)
 
 
 
 const browserConfig = {
 	node: false,
-	mode: 'production',
-	target: 'web',
-
 	node: {
 		fs: "empty",
 		Buffer: false, // still embeds Buffer
 	},
-
+	mode: 'production',
+	// devtool:
+	target: 'web',
 	context: path.resolve(__dirname, 'src'),
 	optimization: {
 		minimize: true,
-		minimizer: [new UglifyJsPlugin({
-			include: /\.min\.js$/
-		})]
+		minimizer: [
+			new TerserPlugin({
+				cache: false,
+				//test: /\.js(\?.*)?$/i,
+				test: /\.min\.js$/
+			}),
+		],
 	},
 	plugins: [
 	],
