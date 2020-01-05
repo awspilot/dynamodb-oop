@@ -11,6 +11,9 @@ const browserConfig = {
 		fs: "empty",
 		Buffer: false, // still embeds Buffer
 	},
+	performance: {
+		hints: false,
+	},
 	mode: 'production',
 	// devtool:
 	target: 'web',
@@ -39,14 +42,13 @@ const browserConfig = {
 
 		libraryTarget: 'umd',
 		umdNamedDefine: true,   // Important
-		globalObject: 'this',
+		globalObject: 'this',   // default=window
 	},
 
 	externals: {
 		"aws-sdk": {
-				commonjs: 'AWS',
-				commonjs2: 'AWS',
-				amd: 'AWS',
+				commonjs: 'aws-sdk',
+				commonjs2: 'aws-sdk',
 				root: 'AWS'
 		},
 	},
