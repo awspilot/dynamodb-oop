@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("AWS"));
+		module.exports = factory(require("aws-sdk"));
 	else if(typeof define === 'function' && define.amd)
-		define("@awspilot/dynamodb", ["AWS"], factory);
+		define("@awspilot/dynamodb", [], factory);
 	else if(typeof exports === 'object')
-		exports["@awspilot/dynamodb"] = factory(require("AWS"));
+		exports["@awspilot/dynamodb"] = factory(require("aws-sdk"));
 	else
 		root["@awspilot/dynamodb"] = factory(root["AWS"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE__30__) {
