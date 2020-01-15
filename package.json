@@ -24,7 +24,7 @@
 	"browser": "./dist/dynamodbjs",
 	"license": "MIT",
 	"dependencies": {
-		"@awspilot/dynamodb-util": "1.1.2",
+		"@awspilot/dynamodb-util": "1.1.3",
 		"@awspilot/dynamodb-sql-util": "1.0.0",
 		"promise": "8.0.3"
 	},
