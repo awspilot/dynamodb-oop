@@ -52,16 +52,6 @@
 		"ifdef-loader": "^2.1.4"
 
 	},
-	"browserify": {
-		"transform": [
-			"browserify-shim"
-		]
-	},
-	"browserify-shim": {
-		"aws-sdk": "global:AWS",
-		"async": "global:async",
-		"promise": "global:promise"
-	},
 	"scripts": {
 		"test": "mocha --timeout 100000 -S -R spec --exit",
 
