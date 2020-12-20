@@ -40,5 +40,4 @@ jobs:
     - run: npm install
     # peer dependency
     - run: npm install aws-sdk
-    #- run: npm test
-    - run: npm ci
+    - run: npm test
