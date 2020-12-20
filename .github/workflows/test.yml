@@ -9,17 +9,19 @@ on:
 
 jobs:
 
-   services:
+
+
+   build:
+
+    runs-on: ubuntu-latest
+
+    services:
        dynamodb-server:
            image: awspilotdev/dynamodb-ui
            # env:
            #     k: v
            ports:
                - 8000
-
-   build:
-
-    runs-on: ubuntu-latest
 
     strategy:
       matrix:
