@@ -8,6 +8,15 @@ on:
       - main
 
 jobs:
+
+   services:
+       dynamodb-server:
+           image: awspilotdev/dynamodb-ui
+           # env:
+           #     k: v
+           ports:
+               - 8000
+
   build:
 
     runs-on: ubuntu-latest
