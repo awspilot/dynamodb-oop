@@ -22,7 +22,7 @@ const DynamodbFactory = require('../../lib/dynamodb')
 DynamodbFactory.config( {
 	stringset_parse_as_set: false,
 	numberset_parse_as_set: false,
-	empty_string_replace_as: "\0"
+	//empty_string_replace_as: "\0"
 } );
 
 
