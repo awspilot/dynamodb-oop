@@ -30,6 +30,8 @@ jobs:
     #- run: npm run build --if-present
     #- run: npm install -g mocha@5.2.0
     #- run: npm install -g async@2.6.3
-    - run: npm install -g aws-sdk
+
     - run: npm install
+    # peer dependency
+    - run: npm install aws-sdk
     - run: npm test
