@@ -3,7 +3,7 @@ name: Regression Testing
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ master, main ]
 
 jobs:
   build:
