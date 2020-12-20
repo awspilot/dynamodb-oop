@@ -34,6 +34,17 @@ DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'http://localhost:80
 // DynamoDB = new DynamodbFactory( new AWS.DynamoDB({endpoint: 'https://djaorxfotj9hr.cloudfront.net/v1/dynamodb', "accessKeyId": "myKeyId", "secretAccessKey": "secret", "region": "eu-central-1" }))
 // DynamoDB = new DynamodbFactory({ endpoint: 'https://djaorxfotj9hr.cloudfront.net/v1/dynamodb', accessKeyId: "myKeyId", secretAccessKey: "secret", region: "eu-central-1" })
 
+// test against AWS DynamoDB
+DynamoDB = new DynamodbFactory({
+	accessKeyId: "AKIAWS5577QLD5TL6AZN",
+	secretAccessKey: process.env.KEYSECRET_AKIAWS5577QLD5TL6AZN,
+	region: "eu-central-1"
+})
+
+
+
+
+
 
 DynamoDB.schema({
 	TableName: 'test_hash',
