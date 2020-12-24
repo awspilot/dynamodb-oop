@@ -343,7 +343,7 @@ describe('update()', function () {
 						if (err) throw err
 
 						assert.deepEqual(data.arr, [ 'x', 'y', 'x', 'y', false, null, {} ] )
-						assert.deepEqual(data.ss, [ 'bbb', 'ccc', 'aaa', 'ddd' ] )
+						assert.deepEqual(data.ss.sort(function(a,b) { return a > b ? 1 : -1 }), [ 'aaa', 'bbb', 'ccc', 'ddd' ] )
 						assert.deepEqual(data.ns.sort(function(a,b) { return a > b ? 1 : -1 }), [ 11, 22, 33, 44 ] )
 
 						done()
