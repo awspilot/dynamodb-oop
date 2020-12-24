@@ -196,7 +196,9 @@ describe('insert_or_replace( new_item )', function () {
 						if (err)
 							throw err
 
-						assert.deepEqual(item.empty_string, '', {strict: true } )
+						if (item.empty_string !== '')
+							throw 'empty string failed'
+
 						done()
 					})
 			})
