@@ -1,18 +1,6 @@
 language: node_js
 node_js:
-    # fails on nodejs 0.10 because there is no "new Set()"
-    #- "0.10"
 
-    # fails because mocha's "SyntaxError: Use of const in strict mode."
-    #- "0.12"
-
-    # disabled node 0.x for now until we find a way arround,
-    # npm tests fail on node 0.x but otherwise library is working normal
-
-    - "4"
-    - "5"
-    - "6"
-    - "7"
     - "8"
     - "9"
     - "10"
