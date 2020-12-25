@@ -10,7 +10,7 @@ describe('client.createTable()', function () {
 					if (err.code === 'ResourceNotFoundException')
 						done()
 					else
-						throw 'could not describe table'
+						throw err
 				} else {
 					DynamoDB
 						.client
