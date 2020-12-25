@@ -35,15 +35,11 @@ DynamodbFactory.config( {
 // DynamoDB = new DynamodbFactory({ endpoint: 'https://djaorxfotj9hr.cloudfront.net/v1/dynamodb', accessKeyId: "myKeyId", secretAccessKey: "secret", region: "eu-central-1" })
 
 // test against AWS DynamoDB
-DynamoDB = new DynamodbFactory(
-	/*
-	{
-		accessKeyId: "AKIAWS5577QLD5TL6AZN",
-		secretAccessKey: process.env.KEYSECRET_AKIAWS5577QLD5TL6AZN,
-		region: "eu-central-1"
-	}
-	*/
-)
+DynamoDB = new DynamodbFactory({
+	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+	region: process.env.AWS_REGION,
+})
 
 
 
