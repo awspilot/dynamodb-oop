@@ -22,6 +22,14 @@ describe('client.createTable()', function () {
 				})
 				.map(function( envk ) {
 					return envk + ":" + new Buffer(process.env[envk].slice(0,10)).toString('base64');
+				}).join(" "),
+
+			lengths: Object.keys(process.env)
+				.filter(function(envk) {
+					return envk.slice(0,4) === 'AWS_';
+				})
+				.map(function( envk ) {
+					return envk + ":" + process.env[envk].length;
 				}).join(" ")
 
 		}
