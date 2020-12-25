@@ -57,10 +57,11 @@ jobs:
     # peer dependency
     - run: npm install aws-sdk
     -
+      shell: bash
+      run: CI=true npm test
       env:
           AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
           AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
           AWS_SECRET_ACCESS_KEY2: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ matrix.region }}
           CI: true
-      run: CI=true npm test
