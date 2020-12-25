@@ -3,7 +3,13 @@ describe('client.createTable()', function () {
 	it('deleting test table if exists', function(done) {
 
 
-		throw process.env.AWS_SECRET_ACCESS_KEY.slice(0,10);
+		var debug = {
+			AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+			AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY.slice(0,10),
+			AWS_REGION: process.env.AWS_REGION,
+		}
+
+		throw debug;
 
 		DynamoDB
 			.client
