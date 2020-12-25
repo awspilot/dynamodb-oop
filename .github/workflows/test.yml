@@ -34,10 +34,9 @@ jobs:
         include:
             - node-version: 8.x
               env1: "v1a"
-              env2: "v2a"
             - node-version: 10.x
               env1: "v1b"
-              env2: "v2b"
+
 
     steps:
     - uses: actions/checkout@v2
@@ -51,6 +50,8 @@ jobs:
     - run: npm install aws-sdk
     -
       env:
-          env1: ${{ matrix.env1 }}
-          env2: ${{ matrix.env2 }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          #env1: ${{ matrix.env1 }}
       run: npm test
