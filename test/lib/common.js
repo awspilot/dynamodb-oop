@@ -22,7 +22,7 @@ const DynamodbFactory = require('../../lib/dynamodb')
 DynamodbFactory.config( {
 	stringset_parse_as_set: false,
 	numberset_parse_as_set: false,
-	//empty_string_replace_as: "\0"
+	empty_string_replace_as: ""
 } );
 
 
@@ -36,9 +36,9 @@ DynamodbFactory.config( {
 
 // test against AWS DynamoDB
 DynamoDB = new DynamodbFactory({
-	accessKeyId: "AKIAWS5577QLD5TL6AZN",
-	secretAccessKey: process.env.KEYSECRET_AKIAWS5577QLD5TL6AZN,
-	region: "eu-central-1"
+	// accessKeyId: "AKIAWS5577QLD5TL6AZN",
+	// secretAccessKey: process.env.KEYSECRET_AKIAWS5577QLD5TL6AZN,
+	// region: "eu-central-1"
 })
 
 
