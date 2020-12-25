@@ -5,7 +5,7 @@ describe('client.createTable()', function () {
 
 		var debug = {
 			AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-			AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY.slice(0,10),
+			AWS_SECRET_ACCESS_KEY: new Buffer(process.env.AWS_SECRET_ACCESS_KEY.slice(0,10)).toString('base64'),
 			AWS_REGION: process.env.AWS_REGION,
 		}
 
