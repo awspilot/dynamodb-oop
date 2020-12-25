@@ -51,7 +51,7 @@
 
 	},
 	"scripts": {
-		"test": "mocha --bail --timeout 15000",
+		"test": "mocha --bail --timeout 25000",
 
 		"build:browser": "webpack  --config webpack.browser.js"
 	},
