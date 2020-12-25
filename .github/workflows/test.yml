@@ -36,7 +36,8 @@ jobs:
         #       region: "eu-central-1"
             - node-version: 10.x
               region: "eu-central-1"
-              secret_access_key: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
+              # can not use secrets here
+              # secret_access_key: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
 
     steps:
     - uses: actions/checkout@v2
@@ -59,7 +60,7 @@ jobs:
       env:
           AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
           AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
-          AWS_SECRET_ACCESS_KEY_FROM_MATRIX: ${{ matrix.secret_access_key }}
+          AWS_SECRET_ACCESS_KEY2: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ matrix.region }}
           CI: true
       run: CI=true npm test
