@@ -59,4 +59,5 @@ jobs:
           AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
           AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
           AWS_REGION: ${{ matrix.region }}
-      run: env && npm test
+          CI: true
+      run: CI=true npm test
