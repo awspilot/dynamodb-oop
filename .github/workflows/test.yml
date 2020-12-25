@@ -31,11 +31,11 @@ jobs:
            - 10.x
            # - 12.x
            # - 14.x
-        # include:
+        include:
         #     - node-version: 8.x
         #       region: "eu-central-1"
-        #     - node-version: 10.x
-        #       region: "eu-central-1"
+            - node-version: 10.x
+              region: "eu-central-1"
 
     steps:
     - uses: actions/checkout@v2
@@ -58,6 +58,6 @@ jobs:
       env:
           AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
       #     #AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
-      #     AWS_REGION: ${{ matrix.region }}
-      #     CI: true
+          AWS_REGION: ${{ matrix.region }}
+          CI: true
       run: CI=true npm test
