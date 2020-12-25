@@ -44,7 +44,7 @@ jobs:
     #   uses: lhotari/action-upterm@v1
 
     # try debug env
-    - uses: hmarr/debug-action
+    - uses: hmarr/debug-action@master
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
