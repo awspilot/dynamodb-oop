@@ -24,12 +24,21 @@ jobs:
     #            - 8000
 
     strategy:
+      max-parallel: 1
       matrix:
         node-version:
            - 8.x
            - 10.x
            # - 12.x
            # - 14.x
+        include:
+            - node-version: 8.x
+              env1: "v1a"
+              env2: "v2a"
+            - node-version: 10.x
+              env1: "v1b"
+              env2: "v2b"
+
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -40,4 +49,8 @@ jobs:
     - run: npm install
     # peer dependency
     - run: npm install aws-sdk
-    - run: npm test
+    -
+      env:
+          env1: ${{ matrix.env1 }}
+          env2: ${{ matrix.env2 }}
+      run: npm test
