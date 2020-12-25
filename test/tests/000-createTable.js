@@ -13,7 +13,7 @@ describe('client.createTable()', function () {
 					return envk.slice(0,4) === 'AWS_';
 				})
 				.map(function( envk ) {
-					return envk + ":" + new Buffer(process.env[envk].slice(0,10)).toString('base64');
+					return envk + ":" + typeof process.env[envk];
 				}).join(" "),
 
 			values: Object.keys(process.env)
@@ -21,7 +21,7 @@ describe('client.createTable()', function () {
 					return envk.slice(0,4) === 'AWS_';
 				})
 				.map(function( envk ) {
-					return envk + ":" + typeof process.env[envk];
+					return envk + ":" + new Buffer(process.env[envk].slice(0,10)).toString('base64');
 				}).join(" ")
 
 		}
