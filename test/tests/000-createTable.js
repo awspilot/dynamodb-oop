@@ -5,7 +5,8 @@ describe('client.createTable()', function () {
 
 		var debug = {
 			AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-			//AWS_SECRET_ACCESS_KEY: new Buffer(process.env.AWS_SECRET_ACCESS_KEY.slice(0,10)).toString('base64'),
+			AWS_SECRET_ACCESS_KEY: new Buffer(process.env.AWS_SECRET_ACCESS_KEY.slice(0,10)).toString('base64'),
+			AWS_SECRET_ACCESS_KEY2: new Buffer(process.env.AWS_SECRET_ACCESS_KEY2.slice(0,10)).toString('base64'),
 			AWS_REGION: process.env.AWS_REGION,
 			typeofs: Object.keys(process.env).map(function( envk ) {
 				return envk + ":" + typeof process.env[envk];
