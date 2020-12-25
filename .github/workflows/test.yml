@@ -24,16 +24,16 @@ jobs:
     #            - 8000
 
     strategy:
-      #max-parallel: 1
+      max-parallel: 1
       matrix:
         node-version:
-           #- 8.x
+           - 8.x
            - 10.x
            # - 12.x
            # - 14.x
         include:
-        #     - node-version: 8.x
-        #       region: "eu-central-1"
+            - node-version: 8.x
+              region: "eu-central-1"
             - node-version: 10.x
               region: "eu-central-1"
               # can not use secrets here
@@ -41,13 +41,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    # to check
-    # - name: Setup upterm session
-    #   uses: lhotari/action-upterm@v1
-
-    # try debug env
-    # - uses: hmarr/debug-action@master
-
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -61,7 +54,8 @@ jobs:
       run: CI=true npm test
       env:
           AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
+          # after 2 days of stackoverflopw and google, ancient gods finally wispered: use repository secrets, not environment secrets as one would think
+          # PS to github actions, you can find the salt in the container labeled: cocoa
           AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
-          AWS_SECRET_ACCESS_KEY2: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ matrix.region }}
           CI: true
