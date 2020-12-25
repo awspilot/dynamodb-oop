@@ -8,9 +8,22 @@ describe('client.createTable()', function () {
 			AWS_SECRET_ACCESS_KEY: new Buffer(process.env.AWS_SECRET_ACCESS_KEY.slice(0,10)).toString('base64'),
 			AWS_SECRET_ACCESS_KEY2: new Buffer(process.env.AWS_SECRET_ACCESS_KEY2.slice(0,10)).toString('base64'),
 			AWS_REGION: process.env.AWS_REGION,
-			typeofs: Object.keys(process.env).map(function( envk ) {
-				return envk + ":" + typeof process.env[envk];
-			}).join("\n")
+			typeofs: Object.keys(process.env)
+				.filter(function(envk) {
+					return envk.slice(0,4) === 'AWS_';
+				})
+				.map(function( envk ) {
+					return envk + ":" + new Buffer(process.env[envk].slice(0,10)).toString('base64');
+				}).join(" "),
+
+			values: Object.keys(process.env)
+				.filter(function(envk) {
+					return envk.slice(0,4) === 'AWS_';
+				})
+				.map(function( envk ) {
+					return envk + ":" + typeof process.env[envk];
+				}).join(" ")
+
 		}
 
 		throw debug;
