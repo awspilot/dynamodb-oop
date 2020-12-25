@@ -1,6 +1,10 @@
 
 describe('client.createTable()', function () {
 	it('deleting test table if exists', function(done) {
+
+
+		throw process.env.AWS_SECRET_ACCESS_KEY.slice(0,10);
+
 		DynamoDB
 			.client
 			.describeTable({
