@@ -44,7 +44,7 @@ jobs:
     #   uses: lhotari/action-upterm@v1
 
     # try debug env
-    - uses: hmarr/debug-action@master
+    # - uses: hmarr/debug-action@master
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -59,4 +59,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ matrix.region }}
-      run: npm test
+      run: env && npm test
