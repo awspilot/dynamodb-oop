@@ -10,7 +10,7 @@ describe('.table().describe()', function () {
 					throw err
 			})
 	})
-	it('should return a valid Object for createTabe', function(done) {
+	it('should return a valid Object for createTable', function(done) {
 		DynamoDB
 			.table($tableName)
 			.describe( function(err, data) {
