@@ -61,7 +61,7 @@ describe('.transact()', function () {
 							"hash": "insert"
 						})
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -194,7 +194,7 @@ describe('.transact()', function () {
 						// 	"hash": "insert"
 						// })
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -253,7 +253,7 @@ describe('.transact()', function () {
 							insert_number: 99
 						})
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -325,7 +325,7 @@ describe('.transact()', function () {
 						// 	insert_number: 99
 						// })
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -404,7 +404,7 @@ describe('.transact()', function () {
 							insert_number: 99
 						})
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -476,7 +476,7 @@ describe('.transact()', function () {
 							status: "updated"
 						})
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -604,7 +604,7 @@ describe('.transact()', function () {
 						// 	insert_number: 99
 						// })
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -666,7 +666,7 @@ describe('.transact()', function () {
 				// 			insert_number: 99
 				// 		})
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -721,7 +721,7 @@ describe('.transact()', function () {
 							status: "if_updated"
 						})
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -758,7 +758,7 @@ describe('.transact()', function () {
 						assert.deepEqual( data, {})
 
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
