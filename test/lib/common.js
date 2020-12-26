@@ -111,13 +111,22 @@ query_handler = function( idx, yml ) {
 				},
 			], function() {
 
+
+
+
 				if (yml.Tests.query[idx].shouldFail) {
 					if (err) {
 						if (!(yml.Tests.query[idx].validations || []).length)
 							return done()
 
 						yml.Tests.query[idx].validations.forEach(function(el) {
-							assert.deepEqual(eval( el.key ), eval( el.value ))
+							var left = eval( el.key );
+							if ( el.sortKeyAsArray === true ) {
+								left = left.sort(function(a,b) {
+									return a > b ? 1 : -1;
+								})
+							}
+							assert.deepEqual( left , eval( el.value ))
 						})
 						done()
 					}
@@ -135,7 +144,13 @@ query_handler = function( idx, yml ) {
 
 					if (yml.Tests.query[idx].validations) {
 						yml.Tests.query[idx].validations.forEach(function(el) {
-							assert.deepEqual(eval( el.key ), eval( el.value ))
+							var left = eval( el.key );
+							if ( el.sortKeyAsArray === true ) {
+								left = left.sort(function(a,b) {
+									return a > b ? 1 : -1;
+								})
+							}
+							assert.deepEqual( left , eval( el.value ))
 						})
 					}
 					done()

@@ -93,6 +93,7 @@ Tests:
                - key: dataItem.ss
                  value: ['a','b','c']
                - key: dataItem.ns
+                 sortKeyAsArray: true
                  value: [1,2,3]
 
         # test date
