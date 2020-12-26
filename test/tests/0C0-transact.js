@@ -116,7 +116,7 @@ describe('.transact()', function () {
 							"hash": "insert"
 						})
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -160,7 +160,7 @@ describe('.transact()', function () {
 			// .table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 2, bool: true})
 			// .table($tableName).insert_or_replace({hash: 'insert', range: 3,  bool: true})
 			.write(function( err, data ) {
-				//console.log(err,data)
+				console.log(err,data)
 				if (err)
 					throw err;
 
@@ -549,7 +549,7 @@ describe('.transact()', function () {
 				.if('status').eq("updated")
 				.insert_or_replace({hash: 'insert', range: 3,  bool: true})
 			.write(function( err, data ) {
-				//console.log(err,data)
+				console.log(err,data)
 				if (err)
 					throw err;
 
