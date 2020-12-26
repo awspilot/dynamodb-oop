@@ -2,7 +2,7 @@ Prepare:
     Data: []
 Tests:
     query:
-        - title: DROP INDEX index ON table
-          query: DROP INDEX index ON table
+        - title: DROP INDEX gsi_index ON test_hash_range
+          query: DROP INDEX gsi_index ON test_hash_range
           #explain: true
           log: false
