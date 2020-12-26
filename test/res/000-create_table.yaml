@@ -2,8 +2,9 @@ Prepare:
     Data: []
 Tests:
     query:
-
         -
+          beforeQeuery: DROP TABLE ppr_table
+          beforeSleep: 10000
           title: CREATE PAY_PER_REQUEST TABLE table
           query:
             |
@@ -11,6 +12,7 @@ Tests:
                 pKey STRING,
                 PRIMARY KEY( pKey )
             )
+          sleep: 10000
         -
           query: DESCRIBE TABLE ppr_table
           log: false
@@ -23,18 +25,17 @@ Tests:
           log: false
           shouldFail: false
 
-
-
-
-
         -
-          title: CREATE PROVISIONED TABLE table
+          beforeQuery: DROP TABLE provisioned_table
+          beforeSleep: 10000
+          title: CREATE PROVISIONED TABLE provisioned_table
           query:
             |
             CREATE PROVISIONED TABLE provisioned_table (
                 pKey STRING,
                 PRIMARY KEY( pKey )
             )
+          sleep: 10000
         -
           query: DESCRIBE TABLE provisioned_table
           log: false
