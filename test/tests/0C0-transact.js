@@ -61,7 +61,7 @@ describe('.transact()', function () {
 							"hash": "insert"
 						})
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -116,7 +116,7 @@ describe('.transact()', function () {
 							"hash": "insert"
 						})
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -194,7 +194,7 @@ describe('.transact()', function () {
 						// 	"hash": "insert"
 						// })
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -253,7 +253,7 @@ describe('.transact()', function () {
 							insert_number: 99
 						})
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -325,7 +325,7 @@ describe('.transact()', function () {
 						// 	insert_number: 99
 						// })
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -404,7 +404,7 @@ describe('.transact()', function () {
 							insert_number: 99
 						})
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -476,7 +476,7 @@ describe('.transact()', function () {
 							status: "updated"
 						})
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -531,7 +531,7 @@ describe('.transact()', function () {
 						assert.deepEqual( data, {})
 
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -604,7 +604,7 @@ describe('.transact()', function () {
 						// 	insert_number: 99
 						// })
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -666,7 +666,7 @@ describe('.transact()', function () {
 				// 			insert_number: 99
 				// 		})
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -721,7 +721,7 @@ describe('.transact()', function () {
 							status: "if_updated"
 						})
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
@@ -758,7 +758,7 @@ describe('.transact()', function () {
 						assert.deepEqual( data, {})
 
 
-						setTimeout(done, 3000 ) // try cooldown to prevent Internal Server Error ????
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
