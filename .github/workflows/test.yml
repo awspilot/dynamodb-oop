@@ -33,7 +33,7 @@ jobs:
            # - 14.x
         include:
             - node-version: 8.x
-              region: "eu-central-1"
+              region: "us-east-1"
             - node-version: 10.x
               region: "eu-central-1"
               # can not use secrets here
@@ -49,6 +49,7 @@ jobs:
     - run: npm install
     # peer dependency
     - run: npm install aws-sdk
+    #- run: npm run build --if-present
     -
       shell: bash
       run: CI=true npm test
