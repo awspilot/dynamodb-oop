@@ -1,5 +1,25 @@
 
 describe('client.deleteTable', function () {
+	it('waiting for table to become ACTIVE after index delete', function(done) {
+		var $existInterval = setInterval(function() {
+			DynamoDB
+				.client
+				.describeTable({
+					TableName: $tableName
+				}, function(err, data) {
+					if (err) {
+						throw err
+					} else {
+						//process.stdout.write(".");
+						//console.log(data.Table)
+						if (data.Table.TableStatus === 'ACTIVE') {
+							clearInterval($existInterval)
+							done()
+						}
+					}
+				})
+		}, 3000)
+	})
 	it('delete table ' + $tableName, function(done) {
 		DynamoDB
 			.client
