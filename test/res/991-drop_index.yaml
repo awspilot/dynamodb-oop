@@ -6,3 +6,6 @@ Tests:
           query: DROP INDEX gsi_index ON test_hash_range
           #explain: true
           log: false
+
+
+# @todo: describe table, check if index was deleted
