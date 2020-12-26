@@ -14,6 +14,8 @@ dynaliteServer.listen(8000, function(err) {
 */
 
 var AWS = require('aws-sdk')
+AWS.config.logger = console;
+
 
 const DynamodbFactory = require('../../lib/dynamodb')
 //const DynamodbFactory = require('../../dist/dynamodb-node.js')
