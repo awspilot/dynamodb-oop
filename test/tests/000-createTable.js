@@ -53,10 +53,11 @@ describe('client.createTable()', function () {
 			.client
 			.createTable({
 				TableName: $tableName,
-				ProvisionedThroughput: {
-					ReadCapacityUnits: 1,
-					WriteCapacityUnits: 1
-				},
+				BillingMode: 'PAY_PER_REQUEST',
+				// ProvisionedThroughput: {
+				// 	ReadCapacityUnits: 1,
+				// 	WriteCapacityUnits: 1
+				// },
 				KeySchema: [
 					{
 						AttributeName: "hash",
@@ -109,10 +110,10 @@ describe('client.createTable()', function () {
 						//	],
 							ProjectionType: "ALL"
 						},
-						ProvisionedThroughput: {
-							ReadCapacityUnits: 1,
-							WriteCapacityUnits: 2
-						}
+						// ProvisionedThroughput: {
+						// 	ReadCapacityUnits: 1,
+						// 	WriteCapacityUnits: 2
+						// }
 					},
 					{
 						IndexName: "byAccount-Id",
@@ -126,10 +127,10 @@ describe('client.createTable()', function () {
 						Projection: {
 							ProjectionType: "ALL"
 						},
-						ProvisionedThroughput: {
-							ReadCapacityUnits: 1,
-							WriteCapacityUnits: 1
-						}
+						// ProvisionedThroughput: {
+						// 	ReadCapacityUnits: 1,
+						// 	WriteCapacityUnits: 1
+						// }
 					},
 					{
 						IndexName: "byAccount.Id",
@@ -143,10 +144,10 @@ describe('client.createTable()', function () {
 						Projection: {
 							ProjectionType: "ALL"
 						},
-						ProvisionedThroughput: {
-							ReadCapacityUnits: 1,
-							WriteCapacityUnits: 1
-						}
+						// ProvisionedThroughput: {
+						// 	ReadCapacityUnits: 1,
+						// 	WriteCapacityUnits: 1
+						// }
 					}
 				],
 
@@ -278,90 +279,6 @@ describe('client.createTable()', function () {
 				})
 		}, 1000)
 	})
-	it('creating the table `table` ', function(done) {
-		DynamoDB
-			.client
-			.createTable({
-				TableName: 'table',
-				ProvisionedThroughput: {
-					ReadCapacityUnits: 1,
-					WriteCapacityUnits: 1
-				},
-				KeySchema: [
-					{
-						AttributeName: "hash",
-						KeyType: "HASH"
-					},
-					{
-						AttributeName: "range",
-						KeyType: "RANGE"
-					}
-				],
-				AttributeDefinitions: [
-					{
-						AttributeName: "hash",
-						AttributeType: "S"
-					},
-					{
-						AttributeName: "range",
-						AttributeType: "N"
-					}
-				],
-				GlobalSecondaryIndexes: [
-					{
-						IndexName: "index",
-						KeySchema: [
-							{
-								AttributeName: "hash",
-								KeyType: "HASH"
-							},
-							{
-								AttributeName: "range",
-								KeyType: "RANGE"
-							}
-						],
 
-						Projection: {
-						//	"NonKeyAttributes": [
-						//		"string"
-						//	],
-							ProjectionType: "ALL"
-						},
-						ProvisionedThroughput: {
-							ReadCapacityUnits: 1,
-							WriteCapacityUnits: 1
-						}
-					}
-				],
-			}, function(err, data) {
-				if (err) {
-					throw err
-				} else {
-					if (data.TableDescription.TableStatus === 'CREATING' || data.TableDescription.TableStatus === 'ACTIVE' )
-						done()
-					else
-						throw 'unknown table status after create: ' + data.TableDescription.TableStatus
-				}
-			})
-	})
-	it('waiting for table `table` to become ACTIVE', function(done) {
-		var $existInterval = setInterval(function() {
-			DynamoDB
-				.client
-				.describeTable({
-					TableName: 'table'
-				}, function(err, data) {
-					if (err) {
-						throw err
-					} else {
-						//process.stdout.write(".");
-						//console.log(data.Table)
-						if (data.Table.TableStatus === 'ACTIVE') {
-							clearInterval($existInterval)
-							done()
-						}
-					}
-				})
-		}, 3000)
-	})
+
 })
