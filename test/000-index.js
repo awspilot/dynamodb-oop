@@ -1,9 +1,7 @@
 require('./lib/common')
 
 require("./tests/000-createTable.js")
-//run_test('[SQL] CREATE TABLE',  'test/res/000-create_table.yaml' )
-
-
+run_test('[SQL] CREATE TABLE',  'test/res/000-create_table.yaml' )
 require("./tests/010-describe.js")
 //run_test('[SQL] DECRIBE TABLE',  'test/res/010-describe.yaml' )
 
