@@ -3,7 +3,7 @@ require('./lib/common')
 require("./tests/000-createTable.js")
 run_test('[SQL] CREATE TABLE',  'test/res/000-create_table.yaml' )
 require("./tests/010-describe.js")
-//run_test('[SQL] DECRIBE TABLE',  'test/res/010-describe.yaml' )
+run_test('[SQL] DECRIBE TABLE',  'test/res/010-describe.yaml' )
 
 require("./tests/020-specialSigns.js")
 
@@ -29,4 +29,4 @@ require("./tests/0C0-transact.js")
 run_test('[SQL] DROP INDEX',  'test/res/991-drop_index.yaml' )
 require("./tests/999-deleteTable.js")
 // Cannot delete table while indexes are being created, updated, or deleted.
-//run_test('[SQL] DROP TABLE',  'test/res/999-drop_table.yaml' )
+run_test('[SQL] DROP TABLE',  'test/res/999-drop_table.yaml' )
