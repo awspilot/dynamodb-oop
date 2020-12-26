@@ -89,9 +89,52 @@ query_handler = function( idx, yml ) {
 		if (yml.Tests.query[idx].explain === true)
 			ddb = ddb.explain()
 
-		ddb.query( yml.Tests.query[idx].query, function(err, data ) {
-			var dataItem;
+
+		var err;
+		var data;
+		var dataItem;
+
+
+
 			async.waterfall([
+
+
+				// beforequery
+				function( cb ) {
+					if (!yml.Tests.query[idx].hasOwnProperty('beforeQuery'))
+						return cb()
+
+					ddb.query( yml.Tests.query[idx].beforeQuery, function( ) {
+						cb()
+					})
+				},
+				// before sleep
+				function( cb ) {
+					if (!yml.Tests.query[idx].hasOwnProperty('beforeSleep'))
+						return cb()
+
+					setTimeout(cb, yml.Tests.query[idx].beforeSleep )
+				},
+
+
+				// actual query
+				function( cb ) {
+					ddb.query( yml.Tests.query[idx].query, function(sqlerr, sqldata ) {
+						err = sqlerr;
+						data = sqldata;
+						cb()
+					})
+				},
+
+				// sleep
+				function( cb ) {
+					if (!yml.Tests.query[idx].hasOwnProperty('sleep'))
+						return cb()
+
+					setTimeout(cb, yml.Tests.query[idx].sleep )
+				},
+
+
 				function(cb) {
 					if (! yml.Tests.query[idx].hasOwnProperty('dataItem'))
 						return cb()
@@ -159,7 +202,7 @@ query_handler = function( idx, yml ) {
 
 
 
-		})
+
 	}
 }
 
