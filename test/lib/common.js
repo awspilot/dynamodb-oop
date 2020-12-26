@@ -14,7 +14,7 @@ dynaliteServer.listen(8000, function(err) {
 */
 
 var AWS = require('aws-sdk')
-AWS.config.logger = console;
+//AWS.config.logger = console;
 AWS.config.maxRetries = 20;
 
 
