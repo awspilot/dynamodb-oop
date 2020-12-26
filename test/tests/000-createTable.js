@@ -125,7 +125,7 @@ describe('client.createTable()', function () {
 						],
 
 						Projection: {
-							ProjectionType: "KEYS_ONLY"
+							ProjectionType: "ALL"
 						},
 						// ProvisionedThroughput: {
 						// 	ReadCapacityUnits: 5,
