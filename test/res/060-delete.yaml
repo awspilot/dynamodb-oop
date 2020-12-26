@@ -23,7 +23,7 @@ Tests:
           query:
               |
               DELETE FROM
-                table
+                test_hash_range
               WHERE
                 `hash` = 'sql-test-delete' AND
                 `range` = 3 - 2
