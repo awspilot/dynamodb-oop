@@ -2,7 +2,10 @@ Prepare:
     Data: []
 Tests:
     query:
-        - title: DROP TABLE table
-          query: DROP TABLE table
+        -
+          beforeSleep: 10000
+          beforeQuery: CREATE PAY_PER_REQUEST TABLE ppr_table ( pKey STRING, PRIMARY KEY( pKey ) )
+          query: DROP TABLE ppr_table
           #explain: true
           log: false
+          shouldFail: false
