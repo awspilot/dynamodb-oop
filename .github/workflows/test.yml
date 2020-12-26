@@ -24,7 +24,7 @@ jobs:
     #            - 8000
 
     strategy:
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         node-version:
            - 8.x
