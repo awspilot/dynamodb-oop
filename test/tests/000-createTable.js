@@ -53,11 +53,11 @@ describe('client.createTable()', function () {
 			.client
 			.createTable({
 				TableName: $tableName,
-				BillingMode: 'PAY_PER_REQUEST',
-				// ProvisionedThroughput: {
-				// 	ReadCapacityUnits: 1,
-				// 	WriteCapacityUnits: 1
-				// },
+				BillingMode: 'PROVISIONED',
+				ProvisionedThroughput: {
+					ReadCapacityUnits: 5,
+					WriteCapacityUnits: 5
+				},
 				KeySchema: [
 					{
 						AttributeName: "hash",
@@ -110,10 +110,10 @@ describe('client.createTable()', function () {
 						//	],
 							ProjectionType: "ALL"
 						},
-						// ProvisionedThroughput: {
-						// 	ReadCapacityUnits: 1,
-						// 	WriteCapacityUnits: 2
-						// }
+						ProvisionedThroughput: {
+							ReadCapacityUnits: 5,
+							WriteCapacityUnits: 5
+						}
 					},
 					{
 						IndexName: "byAccount-Id",
@@ -127,10 +127,10 @@ describe('client.createTable()', function () {
 						Projection: {
 							ProjectionType: "ALL"
 						},
-						// ProvisionedThroughput: {
-						// 	ReadCapacityUnits: 1,
-						// 	WriteCapacityUnits: 1
-						// }
+						ProvisionedThroughput: {
+							ReadCapacityUnits: 5,
+							WriteCapacityUnits: 5
+						}
 					},
 					{
 						IndexName: "byAccount.Id",
@@ -144,10 +144,10 @@ describe('client.createTable()', function () {
 						Projection: {
 							ProjectionType: "ALL"
 						},
-						// ProvisionedThroughput: {
-						// 	ReadCapacityUnits: 1,
-						// 	WriteCapacityUnits: 1
-						// }
+						ProvisionedThroughput: {
+							ReadCapacityUnits: 5,
+							WriteCapacityUnits: 5
+						}
 					}
 				],
 
