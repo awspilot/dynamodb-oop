@@ -28,7 +28,7 @@ run_test('[SQL] SCAN',  'test/res/090-scan.yaml' )
 require("./tests/0A0-batch_write.js")
 require("./tests/0B0-batch_read.js")
 require("./tests/0C0-transact.js")
-require("./tests/999-deleteTable.js")
 run_test('[SQL] DROP INDEX',  'test/res/991-drop_index.yaml' )
+require("./tests/999-deleteTable.js")
 // Cannot delete table while indexes are being created, updated, or deleted.
 //run_test('[SQL] DROP TABLE',  'test/res/999-drop_table.yaml' )
