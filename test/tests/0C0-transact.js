@@ -531,7 +531,7 @@ describe('.transact()', function () {
 						assert.deepEqual( data, {})
 
 
-						done()
+						setTimeout(done, 2000 ) // try cooldown to prevent Internal Server Error ????
 
 					})
 
