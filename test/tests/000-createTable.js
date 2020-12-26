@@ -111,7 +111,7 @@ describe('client.createTable()', function () {
 						},
 						ProvisionedThroughput: {
 							ReadCapacityUnits: 1,
-							WriteCapacityUnits: 1
+							WriteCapacityUnits: 2
 						}
 					},
 					{
