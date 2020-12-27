@@ -24,18 +24,20 @@ jobs:
     #            - 8000
 
     strategy:
-      max-parallel: 2
+      max-parallel: 3
       matrix:
         node-version:
            - 8.x
            - 10.x
-           # - 12.x
+           - 12.x
            # - 14.x
         include:
             - node-version: 8.x
               region: "us-east-1"
             - node-version: 10.x
               region: "eu-central-1"
+            - node-version: 12.x
+              region: "us-west-1"
               # can not use secrets here
               # secret_access_key: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
 
