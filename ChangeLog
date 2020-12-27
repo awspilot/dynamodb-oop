@@ -1,4 +1,4 @@
-2.0.1
+2.0.2
 - support for delete attribute in transaction() update() and insert_or_update()
 - console.warn every time schema is not provided and a describeTable is called ( 3.x.x will throw err instead of calling describeTable )
 - moved testing from Travis to Github Actions
@@ -6,7 +6,6 @@
 - fix ProvisionedThroughput in sql 'DESCRIBE TABLE tbl_name' ( updated @awspilot/dynamodb-sql-util)
 - fix 'DESCRIBE TABLE tbl_name' when AWS does not return BillingModeSummary
 - updated (dev)dependencies
-
 2.0.0
 - removed npm-shrinkwrap, was causing npm install to also install dev dependencies ( npm bug ?)
 - aws-sdk as peer dependency ( shrinks deply size for environments with embedded aws-sdk eg. Lambda )
