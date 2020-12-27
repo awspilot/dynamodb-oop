@@ -524,7 +524,7 @@ describe('.transact()', function () {
 	})
 
 
-	it('.transact().if().update()', function(done) {
+	it('.transact().if().update() - test for "ExpressionAttributeValues must not be empty" ', function(done) {
 
 		DynamoDB
 			.transact()
