@@ -4,7 +4,7 @@
 ##### @awspilot/dynamodb is a NodeJS and Browser utility to access Amazon DynamoDB databases
 
 
-![Regression Testing](https://github.com/awspilot/dynamodb-oop/workflows/Regression%20Testing/badge.svg)
+![npm test](https://github.com/awspilot/dynamodb-oop/workflows/npm%20test/badge.svg)
 [![Downloads](https://img.shields.io/npm/dm/@awspilot/dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb)
 [![Downloads](https://img.shields.io/npm/dy/@awspilot/dynamodb.svg?maxAge=2592000)](https://www.npmjs.com/package/@awspilot/dynamodb)
 ![License](https://img.shields.io/github/license/awspilot/dynamodb-oop.svg)
