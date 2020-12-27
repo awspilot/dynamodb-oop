@@ -524,6 +524,50 @@ describe('.transact()', function () {
 	})
 
 
+	it('.transact().if().update()', function(done) {
+
+		DynamoDB
+			.transact()
+			.table($tableName)
+				.where('hash').eq('insert_or_update')
+				.where('range').eq(1)
+				.update({
+					list: undefined,
+				})
+
+			.write(function( err, data ) {
+
+				if (err)
+					throw err;
+
+				DynamoDB
+					.batch()
+					.table($tableName)
+					.get({hash: 'insert_or_update', range: 1,})
+					.consistent_read()
+					.read(function( err, data ) {
+						if (err)
+							throw err;
+
+						//console.log(JSON.stringify(data,null,"\t"))
+
+						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 1 })[0] , {
+							hash: "insert_or_update",
+							range: 1,
+							map: {b: true},
+							status: "updated",
+							//list:  <- should not exist because was removed by setting it to undefined
+						})
+
+
+						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
+
+					})
+
+			})
+	})
+
+
 	it('.transact().delete()', function(done) {
 
 		DynamoDB
