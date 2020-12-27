@@ -1,5 +1,5 @@
 
-name: Regression Testing
+name: npm test
 
 on:
   push:
