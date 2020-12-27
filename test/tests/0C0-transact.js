@@ -160,7 +160,7 @@ describe('.transact()', function () {
 			// .table($tableName).insert_or_replace({hash: 'insert_or_replace', range: 2, bool: true})
 			// .table($tableName).insert_or_replace({hash: 'insert', range: 3,  bool: true})
 			.write(function( err, data ) {
-				console.log(err,data)
+				//console.log(err,data)
 				if (err)
 					throw err;
 
@@ -212,7 +212,14 @@ describe('.transact()', function () {
 			.transact()
 			.table($tableName).replace({hash: 'insert', range: 1, status: 'replaced' })
 			.table($tableName).replace({hash: 'insert', range: 2, status: 'replaced' })
-			.table($tableName).replace({hash: 'insert', range: 3, status: 'replaced', insert_number: 99 })
+			.table($tableName).replace({
+				hash: 'insert',
+				range: 3,
+				status: 'replaced',
+				insert_number: 99,
+				// this item is here to be removed later with transaction() insert_or_update()
+				remove_me_on_insert_or_update: true,
+			})
 			.write(function( err, data ) {
 				// console.log(err,data)
 
@@ -250,7 +257,8 @@ describe('.transact()', function () {
 							hash: "insert",
 							range: 3,
 							status: 'replaced',
-							insert_number: 99
+							insert_number: 99,
+							remove_me_on_insert_or_update: true,
 						})
 
 						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
@@ -338,9 +346,23 @@ describe('.transact()', function () {
 		DynamoDB
 			.transact()
 			.table($tableName)
-					.insert_or_update({hash: 'insert_or_update', range: 1, status: 'inserted', list: [1], map: { b: true } })
+					.insert_or_update({
+						hash: 'insert_or_update',
+						range: 1,
+						status: 'inserted',
+						list: [1],
+						map: { b: true },
+						remove_me_on_update: true,
+					})
 			.table($tableName)
-					.insert_or_update({hash: 'insert_or_update', range: 2, status: 'inserted', list: [2], map: { b: true } })
+					.insert_or_update({
+						hash: 'insert_or_update',
+						range: 2,
+						status: 'inserted',
+						list: [2],
+						map: { b: true },
+						remove_me_on_update: true,
+					})
 			.table($tableName)
 
 					.if('inexisintg_attribute').not().exists()
@@ -361,7 +383,14 @@ describe('.transact()', function () {
 					.if('hash').not().contains('Z')
 					.if('hash').begins_with('ins')
 					.if('hash').not().begins_with('nsert')
-					.insert_or_update({hash: 'insert',           range: 3, status: 'updated' , list: [3], map: { b: true } })
+					.insert_or_update({
+						hash: 'insert',
+						range: 3,
+						status: 'updated',
+						list: [3],
+						map: { b: true },
+						remove_me_on_insert_or_update: undefined,
+					})
 			.write(function( err, data ) {
 
 				if (err)
@@ -385,14 +414,16 @@ describe('.transact()', function () {
 							range: 1,
 							list: [1],
 							map: {b: true},
-							status: "inserted"
+							status: "inserted",
+							remove_me_on_update: true,
 						})
 						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
 							hash: "insert_or_update",
 							range: 2,
 							list: [2],
 							map: {b: true},
-							status: "inserted"
+							status: "inserted",
+							remove_me_on_update: true,
 						})
 
 						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 3 })[0] , {
@@ -401,7 +432,8 @@ describe('.transact()', function () {
 							list: [3],
 							map: {b: true},
 							status: "updated",
-							insert_number: 99
+							insert_number: 99,
+							// remove_me_on_insert_or_update <- should not exist because was removed by setting it to undefined
 						})
 
 						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
@@ -437,11 +469,17 @@ describe('.transact()', function () {
 					.if('hash').begins_with('ins')
 					.if('hash').not().begins_with('update')
 
-				.update({ status: 'updated', })
+				.update({
+					status: 'updated',
+					remove_me_on_update: undefined,
+				})
 			.table($tableName)
 				.where('hash').eq('insert_or_update')
 				.where('range').eq(2)
-				.update({ status: 'updated', })
+				.update({
+					status: 'updated',
+					remove_me_on_update: undefined,
+				})
 
 			.write(function( err, data ) {
 
@@ -466,14 +504,16 @@ describe('.transact()', function () {
 							range: 1,
 							list: [1],
 							map: {b: true},
-							status: "updated"
+							status: "updated",
+							// remove_me_on_update <- should not exist because was removed by setting it to undefined
 						})
 						assert.deepEqual( data[$tableName].filter(function(d) {return d.range === 2 })[0] , {
 							hash: "insert_or_update",
 							range: 2,
 							list: [2],
 							map: {b: true},
-							status: "updated"
+							status: "updated",
+							// remove_me_on_update <- should not exist because was removed by setting it to undefined
 						})
 
 						setTimeout(done, 4000 ) // try cooldown to prevent Internal Server Error ????
@@ -549,7 +589,7 @@ describe('.transact()', function () {
 				.if('status').eq("updated")
 				.insert_or_replace({hash: 'insert', range: 3,  bool: true})
 			.write(function( err, data ) {
-				console.log(err,data)
+				//console.log(err,data)
 				if (err)
 					throw err;
 
