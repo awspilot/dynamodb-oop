@@ -1,4 +1,6 @@
 2.0.1
+- support for delete attribute in transaction() update() and insert_or_update()
+- console.warn every time schema is not provided and a describeTable is called ( 3.x.x will throw err instead of calling describeTable )
 - moved testing from Travis to Github Actions
 - fix describeTable()
 - fix ProvisionedThroughput in sql 'DESCRIBE TABLE tbl_name' ( updated @awspilot/dynamodb-sql-util)
