@@ -6275,7 +6275,7 @@ Request.prototype.describeTable = function (table, callback) {
 	if (this.describeTables.hasOwnProperty(table)) {
 		return callback.apply(this, [null, { Table: this.describeTables[table] }]);
 	}
-	console.warn("[@awspilot/dynamodb] WARN missing schema for table ", table);
+	console.warn("⚠️ [AWSPILOT] missing schema for table ", table);
 	this.routeCall('describeTable', { TableName: table }, false, function (err, data) {
 		return callback.apply(this, [err, data]);
 	});
@@ -8270,6 +8270,7 @@ Transact.prototype.insert_or_update = function (item) {
 			Key: Key,
 			// Item: util.anormalizeItem(item),
 			ExpressionAttributeNames: this.pending.ExpressionAttributeNames,
+			// insert_or_update() can not have the "ExpressionAttributeValues can not be empty" error, theres always values for the key
 			ExpressionAttributeValues: this.pending.ExpressionAttributeValues
 		}
 	};
@@ -8327,10 +8328,11 @@ Transact.prototype.update = function (item) {
 			Key: Key,
 			// Item: util.anormalizeItem(item),
 			ConditionExpression: this.pending.ConditionExpression.join(' AND '),
-			ExpressionAttributeNames: this.pending.ExpressionAttributeNames,
-			ExpressionAttributeValues: this.pending.ExpressionAttributeValues
+			ExpressionAttributeNames: this.pending.ExpressionAttributeNames
 		}
-	};
+
+		// ExpressionAttributeValues can not be empty
+	};if (Object.keys(this.pending.ExpressionAttributeValues).length) $thisQuery.Update.ExpressionAttributeValues = this.pending.ExpressionAttributeValues;
 
 	if (SET_UpdateExpression.length || REMOVE_UpdateExpression.length) {
 		$thisQuery.Update.UpdateExpression = '';
