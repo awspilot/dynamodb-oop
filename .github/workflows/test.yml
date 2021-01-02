@@ -2,11 +2,13 @@
 name: npm test
 
 on:
-  push:
-    branches:
-      - master
-      - main
-
+    push:
+        branches:
+          - master
+          - main
+        # temporary disable until build workflow is configured properly
+        branches-ignore:
+          - '**'
 jobs:
 
 
