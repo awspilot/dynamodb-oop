@@ -9,6 +9,7 @@ on:
 
 jobs:
     build:
+        if: (github.event.pusher.name == github.event.repository.owner.name)
         runs-on: ubuntu-latest
 
         strategy:
