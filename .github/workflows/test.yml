@@ -28,24 +28,24 @@ jobs:
         #            - 8000
 
         strategy:
-          max-parallel: 4
-          matrix:
-            node-version:
-               - 8.x
-               - 10.x
-               - 12.x
-               - 14.x
-            include:
-                - node-version: 8.x
-                  region: "us-east-1"
-                - node-version: 10.x
-                  region: "us-east-2"
-                - node-version: 12.x
-                  region: "us-west-1"
-                - node-version: 14.x
-                  region: "us-west-2"
-                  # can not use secrets here
-                  # secret_access_key: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
+            max-parallel: 4
+            matrix:
+                node-version:
+                   - 8.x
+                   - 10.x
+                   - 12.x
+                   - 14.x
+                include:
+                    - node-version: 8.x
+                      region: "us-east-1"
+                    - node-version: 10.x
+                      region: "us-east-2"
+                    - node-version: 12.x
+                      region: "us-west-1"
+                    - node-version: 14.x
+                      region: "us-west-2"
+                      # can not use secrets here
+                      # secret_access_key: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
 
         steps:
         - uses: actions/checkout@v2
