@@ -5944,7 +5944,7 @@ DynamoDB.prototype.binarySet = DynamoDB.prototype.BS;
 
 DynamoDB.prototype.N = function (data) {
 	if (typeof data === "number" || typeof data === "string") return new DynamodbFactory.util.Raw({ 'N': data.toString() });
-	throw new Error('N: argument should be a number or string that converts to a number');
+	throw new Error('N: argument should be a Number or String that converts to a Number');
 };
 DynamoDB.prototype.number = DynamoDB.prototype.N;
 
