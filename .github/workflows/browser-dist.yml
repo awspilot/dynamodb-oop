@@ -8,11 +8,7 @@ on:
           - main
 
 jobs:
-
-
-
     build:
-
         runs-on: ubuntu-latest
 
         strategy:
