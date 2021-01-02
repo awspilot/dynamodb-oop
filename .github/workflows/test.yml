@@ -9,60 +9,62 @@ on:
         # temporary disable until build workflow is configured properly
         branches-ignore:
           - '**'
+        paths:
+          - 'dist/*'
 jobs:
 
 
 
-   test:
+    test:
+        if: false # always skip job
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        # services:
+        #    dynamodb-server:
+        #        image: awspilotdev/dynamodb-ui
+        #        # env:
+        #        #     k: v
+        #        ports:
+        #            - 8000
 
-    # services:
-    #    dynamodb-server:
-    #        image: awspilotdev/dynamodb-ui
-    #        # env:
-    #        #     k: v
-    #        ports:
-    #            - 8000
+        strategy:
+          max-parallel: 4
+          matrix:
+            node-version:
+               - 8.x
+               - 10.x
+               - 12.x
+               - 14.x
+            include:
+                - node-version: 8.x
+                  region: "us-east-1"
+                - node-version: 10.x
+                  region: "us-east-2"
+                - node-version: 12.x
+                  region: "us-west-1"
+                - node-version: 14.x
+                  region: "us-west-2"
+                  # can not use secrets here
+                  # secret_access_key: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
 
-    strategy:
-      max-parallel: 4
-      matrix:
-        node-version:
-           - 8.x
-           - 10.x
-           - 12.x
-           - 14.x
-        include:
-            - node-version: 8.x
-              region: "us-east-1"
-            - node-version: 10.x
-              region: "us-east-2"
-            - node-version: 12.x
-              region: "us-west-1"
-            - node-version: 14.x
-              region: "us-west-2"
-              # can not use secrets here
-              # secret_access_key: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
+        steps:
+        - uses: actions/checkout@v2
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - run: npm install
-    # peer dependency
-    - run: npm install aws-sdk
-    #- run: npm run build --if-present
-    -
-      shell: bash
-      run: CI=true npm test
-      env:
-          AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
-          # after 2 days of stackoverflopw and google, ancient gods finally wispered: use repository secrets, not environment secrets as one would think
-          # PS to github actions, you can find the salt in the container labeled: cocoa
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
-          AWS_REGION: ${{ matrix.region }}
-          CI: true
+        - run: npm install
+        # peer dependency
+        - run: npm install aws-sdk
+        #- run: npm run build --if-present
+        -
+          shell: bash
+          run: CI=true npm test
+          env:
+              AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
+              # after 2 days of stackoverflopw and google, ancient gods finally wispered: use repository secrets, not environment secrets as one would think
+              # PS to github actions, you can find the salt in the container labeled: cocoa
+              AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
+              AWS_REGION: ${{ matrix.region }}
+              CI: true
