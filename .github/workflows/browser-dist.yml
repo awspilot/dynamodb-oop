@@ -48,7 +48,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
           AWS_REGION: ${{ matrix.region }}
     - 
-      name: Commit report
+      name: Commit dynamodb.js
       run: |
           git config --global user.name 'Adrian Praja'
           git config --global user.email 'adrianpraja@users.noreply.github.com'
