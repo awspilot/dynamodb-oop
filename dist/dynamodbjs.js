@@ -5938,7 +5938,7 @@ DynamoDB.prototype.stringSet = DynamoDB.prototype.SS;
 
 DynamoDB.prototype.BS = function (data) {
 	if (Array.isArray(data)) return new DynamodbFactory.util.Raw({ 'BS': data });
-	throw new Error('BS: argument should be a array');
+	throw new Error('BS: argument should be an Array');
 };
 DynamoDB.prototype.binarySet = DynamoDB.prototype.BS;
 
