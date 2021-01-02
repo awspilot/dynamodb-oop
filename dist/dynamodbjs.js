@@ -5932,7 +5932,7 @@ function DynamoDB($config) {
 }
 DynamoDB.prototype.SS = function (data) {
 	if (Array.isArray(data)) return new DynamodbFactory.util.Raw({ 'SS': data });
-	throw new Error('SS: argument should be a array');
+	throw new Error('SS: argument should be an Array');
 };
 DynamoDB.prototype.stringSet = DynamoDB.prototype.SS;
 
