@@ -269,16 +269,19 @@ describe('update()', function () {
 				done()
 			})
 	})
-	it('.update() - unhandled', function(done) {
-		DynamoDB
-			.table($tableName)
-			.where('hash').eq(1)
-			.where('range_unexistent').eq(1)
-			.update({})
-		setTimeout(function() {
-			done()
-		},5000)
-	})
+
+	// causes UnhandledPromiseRejectionWarning
+	// it('.update() - unhandled', function(done) {
+	// 	DynamoDB
+	// 		.table($tableName)
+	// 		.where('hash').eq(1)
+	// 		.where('range_unexistent').eq(1)
+	// 		.update({})
+	// 	setTimeout(function() {
+	// 		done()
+	// 	},5000)
+	// })
+
 	it('.update().catch()', function(done) {
 		DynamoDB
 			.table($tableName)
