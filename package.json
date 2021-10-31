@@ -29,7 +29,7 @@
 	},
 	"peerDependencies": {
 		"aws-sdk": "^2.432.0",
-		"promise": "8.1.0"
+		"promise": "^8.1.0"
 	},
 	"devDependencies": {
 		"assert": "2.0.0",
