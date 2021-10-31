@@ -286,11 +286,12 @@ describe('insert_or_update()', function () {
 	// 	},5000)
 	// })
 
+
 	it('.insert_or_update().catch()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert_or_update({
-				hash: 'promise',
+				hash: 1,   // will fail because of wrong data type
 				range: 1,
 			})
 			.catch(function(err) {
