@@ -370,6 +370,9 @@ describe('insert()', function () {
 			.then(function(data) {
 				done()
 			})
+			.catch(function(err) {
+				throw err
+			})
 	})
 	it('.insert() - unhandled', function(done) {
 		DynamoDB
