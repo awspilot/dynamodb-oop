@@ -62,8 +62,6 @@ jobs:
           run: CI=true npm test
           env:
               AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
-              # after 2 days of stackoverflopw and google, ancient gods finally wispered: use repository secrets, not environment secrets as one would think
-              # PS to github actions, you can find the salt in the container labeled: cocoa
               AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
               AWS_REGION: ${{ matrix.region }}
               CI: true
@@ -71,8 +69,6 @@ jobs:
 
     build:
         needs: test
-
-        #if: (github.event.pusher.email == github.event.repository.owner.email)
         runs-on: ubuntu-latest
 
         strategy:
@@ -110,7 +106,7 @@ jobs:
           run: |
               git config --global user.name 'Adrian Praja'
               git config --global user.email 'adrianpraja@users.noreply.github.com'
-              git commit -m "Browser Dist" dist/dynamodbjs.js dist/dynamodbjs.min.js 
+              git commit -m "Browser Dist" dist/dynamodbjs.js dist/dynamodbjs.min.js || echo "Commit failed"
               git push
 
           env:
