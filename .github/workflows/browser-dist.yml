@@ -6,19 +6,21 @@ on:
         branches:
           - master
           - main
-
+        paths:
+          - '**'
+          - '!dist/**'
 jobs:
     build:
-        if: (github.event.pusher.email == github.event.repository.owner.email)
+        #if: (github.event.pusher.email == github.event.repository.owner.email)
         runs-on: ubuntu-latest
 
         strategy:
           max-parallel: 1
           matrix:
             node-version:
-               - 8.x
+               - 12.x
             include:
-                - node-version: 8.x
+                - node-version: 12.x
                   region: "us-east-1"
 
         steps:
