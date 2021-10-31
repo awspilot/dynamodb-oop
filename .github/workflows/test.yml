@@ -10,7 +10,8 @@ on:
         # branches-ignore:
         #   - '**'
         paths:
-          - 'dist/**'
+          #- 'dist/**'
+          - '**'
 jobs:
 
 
