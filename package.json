@@ -28,8 +28,7 @@
 		"@awspilot/dynamodb-sql-util": "1.0.1"
 	},
 	"peerDependencies": {
-		"aws-sdk": "^2.432.0",
-		"promise": "^8.1.0"
+		"aws-sdk": "^2.432.0"
 	},
 	"devDependencies": {
 		"assert": "2.0.0",
