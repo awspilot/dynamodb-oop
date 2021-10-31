@@ -272,22 +272,25 @@ describe('insert_or_update()', function () {
 				done()
 			})
 	})
-	it('.insert_or_update() - unhandled', function(done) {
-		DynamoDB
-			.table($tableName)
-			.insert_or_update({
-				hash: 1,
-				range: 1,
-			})
-		setTimeout(function() {
-			done()
-		},5000)
-	})
+
+	// causes UnhandledPromiseRejectionWarning
+	// it('.insert_or_update() - unhandled', function(done) {
+	// 	DynamoDB
+	// 		.table($tableName)
+	// 		.insert_or_update({
+	// 			hash: 'promise',
+	// 			range: 1,
+	// 		})
+	// 	setTimeout(function() {
+	// 		done()
+	// 	},5000)
+	// })
+
 	it('.insert_or_update().catch()', function(done) {
 		DynamoDB
 			.table($tableName)
 			.insert_or_update({
-				hash: 1,
+				hash: 'promise',
 				range: 1,
 			})
 			.catch(function(err) {

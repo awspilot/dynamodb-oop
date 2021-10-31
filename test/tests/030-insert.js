@@ -371,6 +371,8 @@ describe('insert()', function () {
 				done()
 			})
 	})
+
+	// causes UnhandledPromiseRejectionWarning
 	// it('.insert() - unhandled', function(done) {
 	// 	DynamoDB
 	// 		.table($tableName)
@@ -382,7 +384,7 @@ describe('insert()', function () {
 	// 		done()
 	// 	},5000)
 	// })
-	// causes UnhandledPromiseRejectionWarning
+
 	it('.insert().catch()', function(done) {
 		DynamoDB
 			.table($tableName)
