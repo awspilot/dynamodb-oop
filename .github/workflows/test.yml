@@ -14,8 +14,6 @@ on:
           - '**'
 jobs:
 
-
-
     test:
         #if: false # always skip job
         runs-on: ubuntu-latest
@@ -69,3 +67,51 @@ jobs:
               AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
               AWS_REGION: ${{ matrix.region }}
               CI: true
+
+
+    build:
+        needs: test
+
+        #if: (github.event.pusher.email == github.event.repository.owner.email)
+        runs-on: ubuntu-latest
+
+        strategy:
+          max-parallel: 1
+          matrix:
+            node-version:
+               - 12.x
+            include:
+                - node-version: 12.x
+                  region: "us-east-1"
+
+        steps:
+        - uses: actions/checkout@v2
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+
+        - run: npm install
+        # peer dependency
+        - run: npm install aws-sdk
+        #- run: npm run build --if-present
+        -
+          shell: bash
+          run: npm run build:browser
+        - 
+          shell: bash
+          run: git status
+          env:
+              AWS_ACCESS_KEY_ID: AKIAWS5577QLD5TL6AZN
+              AWS_SECRET_ACCESS_KEY: ${{ secrets.KEYSECRET_AKIAWS5577QLD5TL6AZN }}
+              AWS_REGION: ${{ matrix.region }}
+        - 
+          name: Commit dynamodb.js
+          run: |
+              git config --global user.name 'Adrian Praja'
+              git config --global user.email 'adrianpraja@users.noreply.github.com'
+              git commit -m "Browser Dist" dist/dynamodbjs.js dist/dynamodbjs.min.js 
+              git push
+
+          env:
+              GIT_COMMITTED_AT: ${{ github.committed_at }}
