@@ -370,21 +370,19 @@ describe('insert()', function () {
 			.then(function(data) {
 				done()
 			})
-			.catch(function(err) {
-				throw err
-			})
 	})
-	it('.insert() - unhandled', function(done) {
-		DynamoDB
-			.table($tableName)
-			.insert({
-				hash: 'promise',
-				range: 1
-			})
-		setTimeout(function() {
-			done()
-		},5000)
-	})
+	// it('.insert() - unhandled', function(done) {
+	// 	DynamoDB
+	// 		.table($tableName)
+	// 		.insert({
+	// 			hash: 'promise',
+	// 			range: 1
+	// 		})
+	// 	setTimeout(function() {
+	// 		done()
+	// 	},5000)
+	// })
+	// causes UnhandledPromiseRejectionWarning
 	it('.insert().catch()', function(done) {
 		DynamoDB
 			.table($tableName)
