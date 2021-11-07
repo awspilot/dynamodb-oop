@@ -43,6 +43,10 @@ const browserConfig = {
 				commonjs2: 'aws-sdk',
 				root: 'AWS'
 		},
+
+		// 
+		fs:    "commonjs fs",
+		path:  "commonjs path",
 	},
 	module: {
 		rules: [
