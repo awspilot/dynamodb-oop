@@ -81,7 +81,7 @@ jobs:
             #tag_message: "Custom message goes here."
 
     build:
-        needs: test
+        needs: tag
         runs-on: ubuntu-latest
 
         strategy:
