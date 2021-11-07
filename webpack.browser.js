@@ -43,10 +43,19 @@ const browserConfig = {
 				commonjs2: 'aws-sdk',
 				root: 'AWS'
 		},
-
-		// 
-		fs:    "commonjs fs",
-		path:  "commonjs path",
+	},
+	resolve: {
+		fallback: {
+			fs: false, // do not include a polyfill for fs
+			tls: false,
+			net: false,
+			path: false,
+			zlib: false,
+			http: false,
+			https: false,
+			stream: false,
+			crypto: false,
+		}
 	},
 	module: {
 		rules: [
