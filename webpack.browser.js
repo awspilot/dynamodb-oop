@@ -1,16 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
-//const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // no support for ES6+
-const TerserPlugin = require('terser-webpack-plugin'); // support for ES6+ (succesor of uglify-es)
-
-
 
 const browserConfig = {
 	node: false,
-	node: {
-		fs: "empty",
-		Buffer: false, // still embeds Buffer
-	},
 	performance: {
 		hints: false,
 	},
@@ -20,13 +12,13 @@ const browserConfig = {
 	context: path.resolve(__dirname, 'src'),
 	optimization: {
 		minimize: true,
-		minimizer: [
-			new TerserPlugin({
-				cache: false,
-				//test: /\.js(\?.*)?$/i,
-				test: /\.min\.js$/
-			}),
-		],
+		// minimizer: [
+		// 	new TerserPlugin({
+		// 		cache: false,
+		// 		//test: /\.js(\?.*)?$/i,
+		// 		test: /\.min\.js$/
+		// 	}),
+		// ],
 	},
 	plugins: [
 	],
